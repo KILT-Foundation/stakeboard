@@ -1,35 +1,42 @@
 @import-normalize;
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@400;700&display=swap");
 
 :root {
-  --font-primary: 'Ubuntu', sans-serif;
-  --font-countdown: 'M PLUS Rounded 1c', sans-serif;
-  --font-dashboard: 'Asap Condensed', sans-serif;
+  /* Fonts */
+  --font-primary: "Ubuntu", sans-serif;
+  --font-countdown: "M PLUS Rounded 1c", sans-serif;
+  --font-dashboard: "Asap Condensed", sans-serif;
   --font-size-big: 28px;
   --font-size-primary: 18px;
   --font-size-medium: 14px;
   --font-size-small: 12px;
 
-  --color-bg: #1D1D1B;
-  --color-primary: #FFED00;
+  /* Text colours */
+  --color-gray-text: #c6c6c6;
+  --color-yellow-text: #ffed00;
+  --color-orange-text: #ff9100;
+
+  /* Button colours */
+  --color-gray-button: #575756;
+
+  --color-bg: #1d1d1b;
+  --color-primary: #ffed00;
   --color-primary-light: rgba(255, 237, 0, 25%);
   --color-table-header: #3c3c3b;
   --color-app-header: var(--color-table-header);
-  --color-gray-text: #c6c6c6;
-  --color-gray-button: #575756;
   --color-input-bg: var(--color-table-header);
-  --color-top-rank: #95C11F;
-  --color-low-rank: #E94E1B;
+  --color-top-rank: #95c11f;
+  --color-low-rank: #e94e1b;
   --color-input-border: rgba(255, 255, 255, 0.3);
   --color-input-hover-border: #b3b3b3;
 
-  --color-dashboard: #646363;
+  --color-dashboard: #0f102c;
   --color-staked: var(--color-primary);
-  --color-unused: #FF9100;
-  --color-withdraw: #FB8F72;
-  --color-blocked: #C25639;
+  --color-unused: #ff9100;
+  --color-withdraw: #fb8f72;
+  --color-blocked: #c25639;
 
   --size-icon: 24px;
   --size-identicon: 46px;
