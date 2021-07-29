@@ -66,14 +66,14 @@ const Icons = {
 
 export interface Props {
   type: keyof typeof Icons
-  throbbing?: boolean
+  pulsing?: boolean
   width?: number
 }
 
-export const Icon: React.FC<Props> = ({ type, throbbing = false, width }) => {
+export const Icon: React.FC<Props> = ({ type, pulsing = false, width }) => {
   return (
     <img
-      className={cx(styles.img, { [styles.throbbing]: throbbing })}
+      className={cx(styles.img, { [styles.pulsing]: pulsing })}
       style={{width}}
       src={Icons[type]}
       alt="Icon"

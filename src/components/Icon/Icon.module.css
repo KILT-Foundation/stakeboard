@@ -3,11 +3,11 @@
   vertical-align: middle;
 }
 
-.throbbing {
-  animation: throbbing 1s ease infinite alternate;
+.pulsing {
+  animation: pulsing 1s ease infinite alternate;
 }
 
-@keyframes throbbing {
+@keyframes pulsing {
   0% {
     opacity: 1;
   }
