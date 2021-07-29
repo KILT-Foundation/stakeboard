@@ -14,17 +14,19 @@
   --font-size-small: 12px;
 
   /* Text colours */
-  --color-gray-text: #c6c6c6;
-  --color-yellow-text: #ffed00;
+  --color-gray-text: #fdf7ef;
+  --color-yellow-text: #f9ee50;
   --color-orange-text: #ff9100;
+  --color-green-text: #99bf42;
+  --color-red-text: #cc532c;
 
   /* Button colours */
   --color-gray-button: #575756;
 
-  --color-bg: #1d1d1b;
+  --color-bg: #000000;
   --color-primary: #ffed00;
-  --color-primary-light: rgba(255, 237, 0, 25%);
-  --color-table-header: #3c3c3b;
+  --color-primary-light: #262305;
+  --color-table-header: #262626;
   --color-app-header: var(--color-table-header);
   --color-input-bg: var(--color-table-header);
   --color-top-rank: #95c11f;
@@ -32,7 +34,7 @@
   --color-input-border: rgba(255, 255, 255, 0.3);
   --color-input-hover-border: #b3b3b3;
 
-  --color-dashboard: #0f102c;
+  --color-dashboard: #0f0f1b;
   --color-staked: var(--color-primary);
   --color-unused: #ff9100;
   --color-withdraw: #fb8f72;
