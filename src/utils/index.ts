@@ -5,6 +5,6 @@ export const leftFillZero = (num: number | undefined, length: number) => {
 
 const numberFormat = new Intl.NumberFormat()
 
-export const format = (amount: number) => `${numberFormat.format(amount)} KLT`
+export const format = (amount: number) => `${numberFormat.format(amount)} KILT`
 
 export * from './chain'
