@@ -15,22 +15,22 @@ Primary.args = {
   accounts: [
     {
       address: '5F1P7WAgEkh7YWCHCBcnBx8Gvx2VbCMrjezUjiJRoZmmR464',
-      name: "KILT Identity 1",
+      name: 'KILT Identity 1',
       stakeable: 100_000,
-      staked: 0
+      staked: 0,
     },
     {
       address: '5GN6CNx5L44Ga372PvyD639ukHTvoUktkDCNL4rY7sEFy57P',
-      name: "KILT Identity 2",
+      name: 'KILT Identity 2',
       stakeable: 800_000,
-      staked: 0
+      staked: 0,
     },
     {
       address: '5D7WMHRftdGWGhfAP7NaJfKuRyvfES77ZnjcBzqgMFMjTsGu',
-      name: "KILT Identity 3",
+      name: 'KILT Identity 3',
       stakeable: 10_000,
-      staked: 0
-    }
+      staked: 0,
+    },
   ],
   dataSet: [
     {
@@ -42,7 +42,7 @@ Primary.args = {
       delegators: 5,
       lowestStake: 10_000,
       stakes: [],
-      favorite: true
+      favorite: true,
     },
     {
       collator: '5DLYuqjWyEFWF6c4oVDh62L4cPZajvupNj6uUNS4tBSux3ay',
@@ -62,7 +62,7 @@ Primary.args = {
           },
         },
       ],
-      favorite: false
+      favorite: false,
     },
     {
       collator: '5GQtYZsBDvgXq2KSffpN9HWxtK8rxG4gk1jWSp5MaDb1gurR',
@@ -73,7 +73,18 @@ Primary.args = {
       delegators: 25,
       lowestStake: 20_000,
       stakes: [],
-      favorite: false
+      favorite: false,
     },
-  ]
+    {
+      collator: '4siCnobG887X3dG4NA9EQn1HWF11pogAAdNmGBnyH2uN4CQM',
+      active: false,
+      activeNext: false,
+      isLeaving: false,
+      totalStake: 200_000,
+      delegators: 5,
+      lowestStake: 10_000,
+      stakes: [],
+      favorite: true,
+    },
+  ],
 }

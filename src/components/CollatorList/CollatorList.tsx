@@ -62,7 +62,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
   }, [search, dataSet, sortBy])
 
   return (
-    <table role="table" className={styles.table}>
+    <table role='table' className={styles.table}>
       <thead className={styles.tableHead}>
         <tr>
           <th className={rowStyles.spacer}></th>
@@ -80,7 +80,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
                 setShowSearch(!showSearch)
               }}
             >
-              <Icon type="search" />
+              <Icon type='search' />
             </span>
           </th>
           <th></th>
@@ -95,23 +95,12 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
               )
             }
           >
-            Total Stake (Rank)
-          </th>
-          <th
-            className={cx({
-              [styles.activeSort]: sortBy === SORT_BY.TotalReward,
-            })}
-            onClick={() => setSortBy(SORT_BY.TotalReward)}
-          >
-            Total Reward
-          </th>
-          <th
-            className={cx({
-              [styles.activeSort]: sortBy === SORT_BY.Delegators,
-            })}
-            onClick={() => setSortBy(SORT_BY.Delegators)}
-          >
-            Delegators
+            Rank | Total Stake
+            {sortBy === SORT_BY.Rank || sortBy === SORT_BY.Rank_Reverse ? (
+              <Icon type='order_yellow' />
+            ) : (
+              <Icon type='order_white' />
+            )}
           </th>
           <th
             className={cx({
@@ -120,9 +109,40 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
             onClick={() => setSortBy(SORT_BY.LowestStake)}
           >
             Lowest Stake
+            {sortBy === SORT_BY.LowestStake ? (
+              <Icon type='order_yellow' />
+            ) : (
+              <Icon type='order_white' />
+            )}
+          </th>
+          <th
+            className={cx({
+              [styles.activeSort]: sortBy === SORT_BY.Delegators,
+            })}
+            onClick={() => setSortBy(SORT_BY.Delegators)}
+          >
+            Delegators
+            {sortBy === SORT_BY.Delegators ? (
+              <Icon type='order_yellow' />
+            ) : (
+              <Icon type='order_white' />
+            )}
+          </th>
+          <th
+            className={cx({
+              [styles.activeSort]: sortBy === SORT_BY.TotalReward,
+            })}
+            onClick={() => setSortBy(SORT_BY.TotalReward)}
+          >
+            Reward (%) / Year
+            {sortBy === SORT_BY.TotalReward ? (
+              <Icon type='order_yellow' width={10} />
+            ) : (
+              <Icon type='order_white' />
+            )}
           </th>
           <th>
-            <Icon type="tokens_white" />
+            <Icon type='tokens_white' />
           </th>
           <th className={rowStyles.spacer}></th>
         </tr>
@@ -132,8 +152,8 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
               <div>
                 <Input
                   autoFocus
-                  autoComplete="off"
-                  placeholder="Search Collator"
+                  autoComplete='off'
+                  placeholder='Search Collator'
                   value={search}
                   onInput={(event) => setSearch(event.currentTarget.value)}
                 />

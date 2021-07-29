@@ -1,7 +1,18 @@
+.wrapper {
+  display: inline-flex;
+  flex-flow: column wrap;
+}
+
 .identicon {
   margin-right: 10px;
 }
 
 .address {
   vertical-align: middle;
+  font-size: var(--font-size-large);
+}
+
+.date {
+  padding-top: 0.5em;
+  font-size: var(--font-size-small);
 }

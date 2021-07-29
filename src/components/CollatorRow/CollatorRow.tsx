@@ -46,7 +46,7 @@ export const CollatorRow: React.FC<Props> = ({
               dispatch({ type: 'unfavorize', id: entry.collator })
             }}
           >
-            <Icon type="fav_yellow" />
+            <Icon type='fav_yellow' />
           </Button>
         ) : (
           <Button
@@ -55,7 +55,7 @@ export const CollatorRow: React.FC<Props> = ({
               dispatch({ type: 'favorize', id: entry.collator })
             }}
           >
-            <Icon type="fav_gray" />
+            <Icon type='fav_gray' />
           </Button>
         )}
 
@@ -63,29 +63,31 @@ export const CollatorRow: React.FC<Props> = ({
       </td>
       <td>
         {entry.isLeaving ? (
-          <Icon type="pickaxe_orange" throbbing={true} />
+          <Icon type='pickaxe_orange' pulsing={true} />
         ) : entry.active ? (
-          <Icon type="pickaxe_yellow" />
+          <Icon type='pickaxe_yellow' />
         ) : (
-          <Icon type="pickaxe_gray" />
+          <Icon type='pickaxe_gray' />
         )}
         {entry.activeNext ? (
-          <Icon type="next_session_yellow" />
+          <Icon type='next_session_yellow' />
         ) : (
-          <Icon type="next_session_gray" />
+          <Icon type='next_session_gray' />
         )}
       </td>
       <td>
-        {format(entry.totalStake)} ({leftFillZero(rank, 3)})
+        {leftFillZero(rank, 3)} <span /> {format(entry.totalStake)}
       </td>
-      <td></td>
-      <td>{leftFillZero(entry.delegators, 2)} / 25</td>
       <td>{entry.lowestStake ? format(entry.lowestStake) : '--'}</td>
       <td>
+        {leftFillZero(entry.delegators, 2)} / 25 {<Icon type='arrow_down' />}
+      </td>
+      <td>8.88 %</td>
+      <td>
         {hasStakes ? (
-          <Icon type="tokens_yellow" />
+          <Icon type='tokens_yellow' />
         ) : (
-          <Icon type="tokens_gray" />
+          <Icon type='tokens_gray' />
         )}
       </td>
       <td className={rowStyles.spacer}></td>
