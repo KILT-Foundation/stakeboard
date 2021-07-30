@@ -97,9 +97,9 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
           >
             Rank | Total Stake
             {sortBy === SORT_BY.Rank || sortBy === SORT_BY.Rank_Reverse ? (
-              <Icon type='order_yellow' />
+              <Icon type='order_yellow' width={13} />
             ) : (
-              <Icon type='order_white' />
+              <Icon type='order_white' width={13} />
             )}
           </th>
           <th
@@ -110,9 +110,9 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
           >
             Lowest Stake
             {sortBy === SORT_BY.LowestStake ? (
-              <Icon type='order_yellow' />
+              <Icon type='order_yellow' width={13} />
             ) : (
-              <Icon type='order_white' />
+              <Icon type='order_white' width={13} />
             )}
           </th>
           <th
@@ -123,9 +123,9 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
           >
             Delegators
             {sortBy === SORT_BY.Delegators ? (
-              <Icon type='order_yellow' />
+              <Icon type='order_yellow' width={13} />
             ) : (
-              <Icon type='order_white' />
+              <Icon type='order_white' width={13} />
             )}
           </th>
           <th
@@ -136,9 +136,9 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
           >
             Reward (%) / Year
             {sortBy === SORT_BY.TotalReward ? (
-              <Icon type='order_yellow' width={10} />
+              <Icon type='order_yellow' width={13} />
             ) : (
-              <Icon type='order_white' />
+              <Icon type='order_white' width={13} />
             )}
           </th>
           <th>

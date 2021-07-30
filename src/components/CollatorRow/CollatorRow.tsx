@@ -8,6 +8,8 @@ import { format, leftFillZero } from '../../utils'
 import { Data } from '../../types'
 import { StateContext } from '../../utils/StateContext'
 
+// Max candidates will be changed at a later date. Smaller now for testing purposes.
+const MAX_SELECTED_CANDIDATES = 5
 export interface Props {
   entry: Data
   rank: number | undefined
@@ -76,12 +78,19 @@ export const CollatorRow: React.FC<Props> = ({
         )}
       </td>
       <td>
-        {leftFillZero(rank, 3)} <span /> {format(entry.totalStake)}
+        <span
+          className={cx({
+            [rowStyles.top]: rank && rank <= MAX_SELECTED_CANDIDATES,
+            [rowStyles.pool]: rank && rank > MAX_SELECTED_CANDIDATES,
+          })}
+        >
+          {leftFillZero(rank, 3)}
+        </span>
+        <span />
+        {format(entry.totalStake)}
       </td>
       <td>{entry.lowestStake ? format(entry.lowestStake) : '--'}</td>
-      <td>
-        {leftFillZero(entry.delegators, 2)} / 25 {<Icon type='arrow_down' />}
-      </td>
+      <td>{leftFillZero(entry.delegators, 2)} / 25</td>
       <td>8.88 %</td>
       <td>
         {hasStakes ? (
