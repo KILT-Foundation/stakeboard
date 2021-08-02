@@ -80,8 +80,8 @@ export const CollatorRow: React.FC<Props> = ({
       <td>
         <span
           className={cx({
-            [rowStyles.top]: rank && rank <= MAX_SELECTED_CANDIDATES,
-            [rowStyles.pool]: rank && rank > MAX_SELECTED_CANDIDATES,
+            [rowStyles.topRank]: rank && rank <= MAX_SELECTED_CANDIDATES,
+            [rowStyles.candidatePool]: rank && rank > MAX_SELECTED_CANDIDATES,
           })}
         >
           {leftFillZero(rank, 3)}

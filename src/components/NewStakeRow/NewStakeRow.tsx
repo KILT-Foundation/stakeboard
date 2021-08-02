@@ -23,22 +23,35 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
       <td></td>
       <td></td>
       <td></td>
-      <td>
-        STAKE COLLATOR FROM
-        <IdentitySelector
-          accounts={accounts}
-          onChange={(val) => setAccount(val?.value || '')}
-        />
+      <td className={rowStyles.column}>
+        <div className={rowStyles.wrapper}>
+          STAKE COLLATOR FROM
+          <span className={rowStyles.padTop10} />
+          <IdentitySelector
+            accounts={accounts}
+            onChange={(val) => setAccount(val?.value || '')}
+          />
+        </div>
       </td>
       <td className={rowStyles.column}>
-        MY STAKE  
-        <Input
-          number
-          value={newStake}
-          onInput={(e) => setNewStake(e.currentTarget.value)}
-        />
+        <div className={rowStyles.wrapper}>
+          MY STAKE
+          <span className={rowStyles.padTop10} />
+          <Input
+            number
+            value={newStake}
+            onInput={(e) => setNewStake(e.currentTarget.value)}
+          />
+        </div>
       </td>
-      <td>NOTE Staked amounts can be withdrawn after 7 days.</td>
+      <td>
+        <div className={rowStyles.wrapper}>
+          NOTE
+          <span className={rowStyles.note && rowStyles.padTop10}>
+            Staked amounts can be withdrawn after 7 days.
+          </span>
+        </div>
+      </td>
       <td>
         <Button label='Stake' disabled={!(newStake && account)} />
       </td>
