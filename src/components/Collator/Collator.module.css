@@ -14,7 +14,7 @@
 }
 
 .date {
-  padding-top: 0.5em;
+  padding-top: 5px;
   font-size: var(--font-size-small);
   padding-left: 10px;
 }
