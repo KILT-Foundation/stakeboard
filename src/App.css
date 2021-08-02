@@ -28,6 +28,7 @@
   --color-primary: #ffed00;
   --color-primary-light: #262305;
   --color-table-header: #262626;
+  --color-modal-background: #3c3c3b;
   --color-app-header: var(--color-table-header);
   --color-input-bg: var(--color-table-header);
   --color-top-rank: #95c11f;
