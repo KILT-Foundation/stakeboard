@@ -21,6 +21,10 @@ enum SORT_BY {
   Favorite,
 }
 
+function iconSortType(actual: number, expect: number) {
+  return actual === expect ? 'order_yellow' : 'order_white'
+}
+
 export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
   const [showSearch, setShowSearch] = useState(false)
   const [search, setSearch] = useState('')
@@ -73,11 +77,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
             onClick={() => setSortBy(SORT_BY.Favorite)}
           >
             Collator
-            {sortBy === SORT_BY.Favorite ? (
-              <Icon type='order_yellow' width={13} />
-            ) : (
-              <Icon type='order_white' width={13} />
-            )}
+            <Icon type={iconSortType(sortBy, SORT_BY.Favorite)} width={13} />
             <span
               className={styles.searchButton}
               onClick={(e) => {
@@ -101,11 +101,10 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
             }
           >
             Rank | Total Stake
-            {sortBy === SORT_BY.Rank || sortBy === SORT_BY.Rank_Reverse ? (
-              <Icon type='order_yellow' width={13} />
-            ) : (
-              <Icon type='order_white' width={13} />
-            )}
+            <Icon
+              type={iconSortType(sortBy, SORT_BY.Rank || SORT_BY.Rank_Reverse)}
+              width={13}
+            />
           </th>
           <th
             className={cx({
@@ -114,11 +113,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
             onClick={() => setSortBy(SORT_BY.LowestStake)}
           >
             Lowest Stake
-            {sortBy === SORT_BY.LowestStake ? (
-              <Icon type='order_yellow' width={13} />
-            ) : (
-              <Icon type='order_white' width={13} />
-            )}
+            <Icon type={iconSortType(sortBy, SORT_BY.LowestStake)} width={13} />
           </th>
           <th
             className={cx({
@@ -127,11 +122,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
             onClick={() => setSortBy(SORT_BY.Delegators)}
           >
             Delegators
-            {sortBy === SORT_BY.Delegators ? (
-              <Icon type='order_yellow' width={13} />
-            ) : (
-              <Icon type='order_white' width={13} />
-            )}
+            <Icon type={iconSortType(sortBy, SORT_BY.Delegators)} width={13} />
           </th>
           <th
             className={cx({
@@ -140,11 +131,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
             onClick={() => setSortBy(SORT_BY.TotalReward)}
           >
             Reward (%) / Year
-            {sortBy === SORT_BY.TotalReward ? (
-              <Icon type='order_yellow' width={13} />
-            ) : (
-              <Icon type='order_white' width={13} />
-            )}
+            <Icon type={iconSortType(sortBy, SORT_BY.TotalReward)} width={13} />
           </th>
           <th>
             <Icon type='tokens_white' />
