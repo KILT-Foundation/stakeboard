@@ -48,8 +48,9 @@
   padding-right: 15px;
 }
 
-.note {
+.informationBox {
   width: 60%;
+  padding-top: 10px;
 }
 
 .myStake {

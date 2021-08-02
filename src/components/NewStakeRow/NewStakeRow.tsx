@@ -47,7 +47,7 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
       <td>
         <div className={rowStyles.wrapper}>
           NOTE
-          <span className={rowStyles.note && rowStyles.padTop10}>
+          <span className={rowStyles.informationBox}>
             Staked amounts can be withdrawn after 7 days.
           </span>
         </div>

@@ -86,7 +86,6 @@ export const CollatorRow: React.FC<Props> = ({
         >
           {leftFillZero(rank, 3)}
         </span>
-        <span />
         {format(entry.totalStake)}
       </td>
       <td>{entry.lowestStake ? format(entry.lowestStake) : '--'}</td>
