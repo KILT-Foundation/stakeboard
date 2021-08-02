@@ -13,13 +13,13 @@ export const AccountInfo: React.FC<AccountInfoProps> = ({ account }) => {
       <div>
         <span className={styles.stakeLabel}>MY STAKE: </span>
         <span className={styles.myStakeValue}>
-          {format(account.staked)} {`(${account.stakedPct}%)`} 
+          {format(account.staked)} ({account.stakedPct}%)
         </span>
       </div>
       <div>
         <span className={styles.stakeLabel}>STAKEABLE: </span>
         <span className={styles.availableStakeValue}>
-          {format(account.stakeable)} {`${account.stakeablePct}%`}
+          {format(account.stakeable)} {account.stakeablePct}%
         </span>
       </div>
     </div>
