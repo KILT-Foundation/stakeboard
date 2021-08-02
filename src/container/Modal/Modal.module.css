@@ -1,0 +1,54 @@
+.modalOverlay {
+  background-color: var(--color-bg);
+  height: 100vh;
+  left: 0;
+  opacity: 0.65;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 500;
+}
+
+.modalWrapper {
+  display: flex;
+  justify-content: center;
+  left: 0;
+  outline: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+  top: 300px;
+  width: 100%;
+  z-index: 1000;
+}
+
+.modal {
+  align-items: center;
+  background: var(--color-modal-background);
+  display: flex;
+  border-radius: 0.25rem;
+  flex-direction: column;
+  margin: 1.875rem;
+  width: 300px;
+  height: 300px;
+  position: relative;
+  z-index: 100;
+  opacity: 1;
+  color: var(--color-gray-text);
+}
+
+.buttonWrapper {
+  width: 145px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonClose {
+  background-color: var(--color-primary);
+  color: var(--color-primary-light);
+}
+
+.buttonSubmit {
+  background-color: var(--color-blocked);
+  color: var(--color-gray-text);
+}

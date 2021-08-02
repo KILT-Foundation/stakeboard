@@ -5,15 +5,36 @@ import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 import { IdentitySelector } from '../../container/IdentitySelector/IdentitySelector'
 import { Account } from '../../types'
+import { useModal } from '../../container/Modal/UseModal'
+import { Modal } from '../../container/Modal/Modal'
 
 export interface Props {
   staked?: boolean
   accounts: Account[]
 }
 
+const information = {
+  stakeMore: {
+    title: 'Increase Staked Amount',
+    text: 'Do you want to increase the staked amount for',
+  },
+
+  stakeLess: {
+    title: 'Decrease Staked Amount',
+    text: 'Do you want to decrease the staked amount for',
+  },
+
+  unstake: {
+    title: 'Unstake Collator',
+    text: 'Do you want to stop staking for',
+  },
+}
+
 export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
   const [newStake, setNewStake] = useState('')
   const [account, setAccount] = useState('')
+  const { isVisible, toggleModal } = useModal()
+
   return (
     <tr
       className={cx(rowStyles.row, rowStyles.stakeRow, {
@@ -53,7 +74,13 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
         </div>
       </td>
       <td>
-        <Button label='Stake' disabled={!(newStake && account)} />
+        <Modal
+          isVisible={isVisible}
+          toggleModal={toggleModal}
+          text={information.stakeLess}
+          data={newStake}
+        />
+        <Button label='Stake' onClick={toggleModal} />
       </td>
       <td></td>
       <td></td>
