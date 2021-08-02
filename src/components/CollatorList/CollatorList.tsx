@@ -101,10 +101,14 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
             }
           >
             Rank | Total Stake
-            <Icon
-              type={iconSortType(sortBy, SORT_BY.Rank || SORT_BY.Rank_Reverse)}
-              width={13}
-            />
+            {sortBy === SORT_BY.Rank ? (
+              <Icon type={iconSortType(sortBy, SORT_BY.Rank)} width={13} />
+            ) : (
+              <Icon
+                type={iconSortType(sortBy, SORT_BY.Rank_Reverse)}
+                width={13}
+              />
+            )}
           </th>
           <th
             className={cx({
