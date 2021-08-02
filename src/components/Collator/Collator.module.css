@@ -10,9 +10,11 @@
 .address {
   vertical-align: middle;
   font-size: var(--font-size-large);
+  padding-left: 10px;
 }
 
 .date {
   padding-top: 0.5em;
   font-size: var(--font-size-small);
+  padding-left: 10px;
 }

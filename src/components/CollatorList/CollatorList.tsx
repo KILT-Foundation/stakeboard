@@ -72,7 +72,12 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
             })}
             onClick={() => setSortBy(SORT_BY.Favorite)}
           >
-            Collator{' '}
+            Collator
+            {sortBy === SORT_BY.Favorite ? (
+              <Icon type='order_yellow' width={13} />
+            ) : (
+              <Icon type='order_white' width={13} />
+            )}
             <span
               className={styles.searchButton}
               onClick={(e) => {
@@ -143,6 +148,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
           </th>
           <th>
             <Icon type='tokens_white' />
+            <Icon type='order_white' width={13} />
           </th>
           <th className={rowStyles.spacer}></th>
         </tr>
