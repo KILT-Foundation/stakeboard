@@ -1,21 +1,18 @@
 .modalOverlay {
   background-color: var(--color-bg);
-  height: 100vh;
+  height: 100%;
   left: 0;
   opacity: 0.65;
   position: fixed;
   top: 0;
-  width: 100vw;
-  z-index: 500;
+  width: 100%;
+  z-index: 1000;
 }
 
 .modalWrapper {
   display: flex;
   justify-content: center;
   left: 0;
-  outline: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
   position: fixed;
   top: 300px;
   width: 100%;
@@ -26,19 +23,22 @@
   align-items: center;
   background: var(--color-modal-background);
   display: flex;
+  border-style: solid;
   border-radius: 0.25rem;
+  border-width: 1px;
+  border-color: var(--color-modal-border);
   flex-direction: column;
   margin: 1.875rem;
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   position: relative;
-  z-index: 100;
+  z-index: 1002;
   opacity: 1;
   color: var(--color-gray-text);
 }
 
 .buttonWrapper {
-  width: 145px;
+  width: 225px;
   display: flex;
   justify-content: space-between;
 }
@@ -51,4 +51,23 @@
 .buttonSubmit {
   background-color: var(--color-blocked);
   color: var(--color-gray-text);
+}
+
+.modalTitleWrapper {
+  width: 325px;
+  height: 60px;
+  border-bottom: 1px;
+  border-color: var(--color-modal-border);
+  border-bottom-style: solid;
+}
+
+.modalIconWrapper {
+  float: right;
+}
+
+.modalTitle {
+  display: flex;
+  color: var(--color-gray-text);
+  font-size: var(--font-size-big);
+  justify-content: center;
 }
