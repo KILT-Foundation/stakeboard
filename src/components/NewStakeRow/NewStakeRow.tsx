@@ -15,15 +15,13 @@ export interface Props {
 
 const information = {
   stakeMore: {
-    title: 'Increase Staked Amount',
+    title: 'Increase Stake',
     text: 'Do you want to increase the staked amount for',
   },
-
   stakeLess: {
-    title: 'Decrease Staked Amount',
+    title: 'Decrease Stake',
     text: 'Do you want to decrease the staked amount for',
   },
-
   unstake: {
     title: 'Unstake Collator',
     text: 'Do you want to stop staking for',
@@ -34,6 +32,9 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
   const [newStake, setNewStake] = useState('')
   const [account, setAccount] = useState('')
   const { isVisible, toggleModal } = useModal()
+  const handleDelegatorStake = () => {
+    toggleModal()
+  }
 
   return (
     <tr
@@ -78,9 +79,14 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
           isVisible={isVisible}
           toggleModal={toggleModal}
           text={information.stakeLess}
-          data={newStake}
+          label={newStake.toString() === '0' ? 'unstake' : 'stake'}
+          onConfirm={handleDelegatorStake}
         />
-        <Button label='Stake' onClick={toggleModal} />
+        <Button
+          label='Stake'
+          onClick={toggleModal}
+          disabled={!(newStake && account)}
+        />
       </td>
       <td></td>
       <td></td>
