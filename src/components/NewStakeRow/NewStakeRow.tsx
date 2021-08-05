@@ -5,27 +5,12 @@ import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 import { IdentitySelector } from '../../container/IdentitySelector/IdentitySelector'
 import { Account } from '../../types'
-import { useModal } from '../../container/Modal/UseModal'
-import { Modal } from '../../container/Modal/Modal'
+import { useModal } from '../../utils/UseModal'
+import { DelegatorStakeModal } from '../DelegatorStakeModal/DelegatorStakeModal'
 
 export interface Props {
   staked?: boolean
   accounts: Account[]
-}
-
-const information = {
-  stakeMore: {
-    title: 'Increase Stake',
-    text: 'Do you want to increase the staked amount for',
-  },
-  stakeLess: {
-    title: 'Decrease Stake',
-    text: 'Do you want to decrease the staked amount for',
-  },
-  unstake: {
-    title: 'Unstake Collator',
-    text: 'Do you want to stop staking for',
-  },
 }
 
 export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
@@ -75,11 +60,10 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
         </div>
       </td>
       <td>
-        <Modal
+        <DelegatorStakeModal
+          account={account}
           isVisible={isVisible}
           toggleModal={toggleModal}
-          text={information.stakeLess}
-          label={newStake.toString() === '0' ? 'unstake' : 'stake'}
           onConfirm={handleDelegatorStake}
         />
         <Button

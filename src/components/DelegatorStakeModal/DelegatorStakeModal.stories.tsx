@@ -1,21 +1,20 @@
 import { Story, Meta } from '@storybook/react'
 
-import { Modal, Props } from './Modal'
+import {
+  DelegatorStakeModal,
+  Props,
+} from './DelegatorStakeModal'
 
 export default {
-  title: 'Modal',
-  component: Modal,
+  title: 'DelegatorStakeModal',
+  component: DelegatorStakeModal,
 } as Meta
 
 const Template: Story<Props> = ({ ...args }) => {
-  return <Modal {...args} />
+  return <DelegatorStakeModal {...args} />
 }
 
 export const Primary = Template.bind({})
 Primary.args = {
   isVisible: true,
-  text: {
-    title: 'string',
-    text: 'string',
-  },
 }

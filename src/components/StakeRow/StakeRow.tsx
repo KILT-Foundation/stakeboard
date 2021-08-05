@@ -4,20 +4,16 @@ import rowStyles from '../../styles/row.module.css'
 import { format } from '../../utils'
 import { Stake } from '../../types'
 import { Button } from '../Button/Button'
-import { Modal } from '../../container/Modal/Modal'
-import { useModal } from '../../container/Modal/UseModal'
+import { useModal } from '../../utils/UseModal'
+import { CollatorStakeModal } from '../CollatorStakeModal/CollatorStakeModal'
 
 export interface Props {
   stakeInfo: Stake
 }
 
-const information = {
-  title: 'Collator Staking',
-  text: '',
-}
-
 export const StakeRow: React.FC<Props> = ({ stakeInfo }) => {
   const [stakeValue, setStakeValue] = useState(stakeInfo.stake)
+  const [account, setAccount] = useState('')
   const { isVisible, toggleModal } = useModal()
 
   const handleCollatorStake = () => {
@@ -56,16 +52,14 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo }) => {
       </td>
       <td>
         <Button label='Edit' onClick={toggleModal} />
-        <Modal
+        <CollatorStakeModal
           isVisible={isVisible}
           toggleModal={toggleModal}
-          text={information}
           onConfirm={handleCollatorStake}
-          label={stakeValue.toString() === '0' ? 'unstake' : 'stake'}
         />
       </td>
       <td></td>
-      <td></td>
+      <td></td>1
     </tr>
   )
 }
