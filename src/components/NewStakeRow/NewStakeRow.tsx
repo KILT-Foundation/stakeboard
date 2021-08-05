@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
 import { Button } from '../Button/Button'
@@ -15,7 +15,30 @@ export interface Props {
 
 export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
   const [newStake, setNewStake] = useState('')
-  const [account, setAccount] = useState('')
+  const [address, setAddress] = useState('')
+  const [account, setAccount] = useState<Account>()
+  const [status, setStatus] = useState<
+    'increaseStake' | 'decreaseStake' | 'unstake'
+  >()
+
+  useEffect(() => {
+    if (!address) return
+    const accountData = accounts.find((val) => val.address === address)
+    if (!accountData) return
+    setAccount(accountData)
+  }, [address, accounts])
+
+  useEffect(() => {
+    if (!account) return
+    if (newStake === '0') {
+      setStatus('unstake')
+    } else if (parseInt(newStake) < account.staked) {
+      setStatus('decreaseStake')
+    } else if (parseInt(newStake) > account.staked) {
+      setStatus('increaseStake')
+    }
+  }, [newStake, account])
+
   const { isVisible, toggleModal } = useModal()
   const handleDelegatorStake = () => {
     toggleModal()
@@ -36,7 +59,7 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
           <span className={rowStyles.padTop10} />
           <IdentitySelector
             accounts={accounts}
-            onChange={(val) => setAccount(val?.value || '')}
+            onChange={(val) => setAddress(val?.value || '')}
           />
         </div>
       </td>
@@ -60,16 +83,20 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
         </div>
       </td>
       <td>
-        <DelegatorStakeModal
-          account={account}
-          isVisible={isVisible}
-          toggleModal={toggleModal}
-          onConfirm={handleDelegatorStake}
-        />
+        {account && newStake && status && (
+          <DelegatorStakeModal
+            account={account}
+            status={status}
+            newStake={newStake}
+            isVisible={isVisible}
+            toggleModal={toggleModal}
+            onConfirm={handleDelegatorStake}
+          />
+        )}
         <Button
-          label='Stake'
+          label={newStake === '0' ? 'Unstake' : 'Stake'}
           onClick={toggleModal}
-          disabled={!(newStake && account)}
+          disabled={!(newStake && address)}
         />
       </td>
       <td></td>

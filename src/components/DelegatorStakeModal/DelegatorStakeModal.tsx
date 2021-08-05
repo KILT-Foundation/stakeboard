@@ -3,12 +3,15 @@ import { Account } from '../../types'
 import styles from '../../styles/modal.module.css'
 import { Button } from '../Button/Button'
 import { Icon } from '../Icon/Icon'
+import { ShortenAddress } from '../../utils/shortenAddress'
 
 export interface Props {
-  account: Account | string
+  account: Account
   onConfirm: () => void
   toggleModal: any
   isVisible: boolean
+  status: 'increaseStake' | 'decreaseStake' | 'unstake'
+  newStake: string
 }
 
 export const DelegatorStakeModal: React.FC<Props> = ({
@@ -16,27 +19,85 @@ export const DelegatorStakeModal: React.FC<Props> = ({
   onConfirm,
   toggleModal,
   isVisible,
+  newStake,
+  status,
 }) => {
-  return isVisible ? (
-    <div className={styles.modalOverlay} onClick={toggleModal}>
-      <Modal open={isVisible} className={styles.modal}>
+  const shortAddress = ShortenAddress(account.address)
+
+  const NOTES_MESSAGE = (
+    <span className={styles.noteWrapper}>
+      Note: <br />
+      You can withdraw <br />
+      the unstaked amount after 7 days <br />
+      (see progress in your dashboard) <br />
+      or use the unstaked balance immedietaly to back a Collator
+    </span>
+  )
+
+  const modals = {
+    increaseStake: (
+      <>
         <div className={styles.modalTitleWrapper}>
-          <span className={styles.modalTitle}> Fucking STAKING!</span>
+          <span className={styles.modalTitle}> INCREASE STAKE</span>
           <Icon type='skateboarder' width={35} />
         </div>
         <div className={styles.textWrapper}>
-          <span className={styles.noteWrapper}>
-            Note: <br />
-            You can withdraw <br />
-            the unstaked amount after 7 days <br />
-            (see progress in your dashboard) <br />
-            or use the unstaked balance immedietaly to back a Collator
-          </span>
+          Do you want to increase the stake of <br />
+          Collator {shortAddress} <br />
+          (new staked amount {newStake} <br />
+          from {account.name})?
+          {NOTES_MESSAGE}
         </div>
         <div className={styles.buttonWrapper}>
           <Button onClick={toggleModal} label='CANCEL' />
-          <Button onClick={onConfirm} label='Unstake' />
+          <Button onClick={onConfirm} label='STAKE' />
         </div>
+      </>
+    ),
+    decreaseStake: (
+      <>
+        <div className={styles.modalTitleWrapper}>
+          <span className={styles.modalTitle}> DECREASE STAKE</span>
+          <Icon type='skateboarder' width={35} />
+        </div>
+        <div className={styles.textWrapper}>
+          Do you want to decrease the stake of <br />
+          Collator {shortAddress} <br />
+          (new staked amount {newStake} <br />
+          from {account.name})?
+          {NOTES_MESSAGE}
+        </div>
+        <div className={styles.buttonWrapper}>
+          <Button onClick={toggleModal} label='CANCEL' />
+          <Button onClick={onConfirm} label='STAKE' />
+        </div>
+      </>
+    ),
+    unstake: (
+      <>
+        <div className={styles.modalTitleWrapper}>
+          <span className={styles.modalTitle}> UNSTAKE DELEGATOR</span>
+          <Icon type='skateboarder' width={35} />
+        </div>
+        <div className={styles.textWrapper}>
+          Do you want to stop staking <br />
+          Collator {shortAddress} <br />
+          (unstake {account.staked} <br />
+          from {account.name})?
+          {NOTES_MESSAGE}
+        </div>
+        <div className={styles.buttonWrapper}>
+          <Button onClick={toggleModal} label='CANCEL' />
+          <Button onClick={onConfirm} label='UNSTAKE' />
+        </div>
+      </>
+    ),
+  }
+
+  return isVisible ? (
+    <div className={styles.modalOverlay} onClick={toggleModal}>
+      <Modal open={isVisible} className={styles.modal}>
+        {modals[status]}
       </Modal>
     </div>
   ) : null
