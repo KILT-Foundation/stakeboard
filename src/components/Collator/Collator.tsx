@@ -1,7 +1,7 @@
 import React from 'react'
 import { Identicon } from '../Identicon/Identicon'
 import styles from './Collator.module.css'
-import { ShortenAddress } from '../../utils/shortenAddress'
+import { shortenAddress } from '../../utils/shortenAddress'
 
 export interface Props {
   address: string
@@ -9,7 +9,7 @@ export interface Props {
 }
 
 export const Collator: React.FC<Props> = ({ address, activeSince }) => {
-  const shortAddress = ShortenAddress(address)
+  const shortAddress = shortenAddress(address)
   const placeholderDate = 'Aug 2021'
   return (
     <>

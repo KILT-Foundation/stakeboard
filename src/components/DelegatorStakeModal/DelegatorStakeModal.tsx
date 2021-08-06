@@ -3,7 +3,7 @@ import { Account } from '../../types'
 import styles from '../../styles/modal.module.css'
 import { Button } from '../Button/Button'
 import { Icon } from '../Icon/Icon'
-import { ShortenAddress } from '../../utils/shortenAddress'
+import { shortenAddress } from '../../utils/shortenAddress'
 
 export interface Props {
   account: Account
@@ -22,7 +22,7 @@ export const DelegatorStakeModal: React.FC<Props> = ({
   newStake,
   status,
 }) => {
-  const shortAddress = ShortenAddress(account.address)
+  const shortAddress = shortenAddress(account.address)
 
   const NOTES_MESSAGE = (
     <span className={styles.noteWrapper}>
@@ -94,11 +94,13 @@ export const DelegatorStakeModal: React.FC<Props> = ({
     ),
   }
 
-  return isVisible ? (
+  if (!isVisible) return null
+
+  return (
     <div className={styles.modalOverlay}>
       <Modal open={isVisible} className={styles.modal}>
         {modals[status]}
       </Modal>
     </div>
-  ) : null
+  )
 }

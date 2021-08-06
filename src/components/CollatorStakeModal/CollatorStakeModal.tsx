@@ -4,7 +4,7 @@ import { Stake } from '../../types'
 import styles from '../../styles/modal.module.css'
 import { Button } from '../Button/Button'
 import { Icon } from '../Icon/Icon'
-import { ShortenAddress } from '../../utils/shortenAddress'
+import { shortenAddress } from '../../utils/shortenAddress'
 import { Input } from '../Input/Input'
 
 export interface Props {
@@ -18,7 +18,7 @@ export const CollatorStakeModal: React.FC<Props> = ({
   toggleModal,
   isVisible,
 }) => {
-  const shortAddress = ShortenAddress(stakeInfo.account.address)
+  const shortAddress = shortenAddress(stakeInfo.account.address)
   const [newStake, setNewStake] = useState('')
   const [status, setStatus] = useState<
     'increaseStake' | 'decreaseStake' | 'unstake'
@@ -129,11 +129,13 @@ export const CollatorStakeModal: React.FC<Props> = ({
     ),
   }
 
-  return isVisible ? (
+  if (!isVisible) return null
+
+  return (
     <div className={styles.modalOverlay}>
       <Modal open={isVisible} className={styles.modal}>
         {modals[status]}
       </Modal>
     </div>
-  ) : null
+  )
 }
