@@ -18,13 +18,9 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
   const { isVisible, toggleModal } = useModal()
   const [newStake, setNewStake] = useState<number | undefined>()
   const [address, setAddress] = useState('')
-  const [account, setAccount] = useState<Account>()
-
-  useMemo(() => {
-    if (!address) return
-    const accountData = accounts.find((val) => val.address === address)
-    if (!accountData) return
-    setAccount(accountData)
+  const account = useMemo(() => {
+    if (!address) return undefined
+    return accounts.find((val) => val.address === address)
   }, [address, accounts])
 
   const handleDelegatorStake = () => {
