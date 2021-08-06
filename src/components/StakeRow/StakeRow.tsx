@@ -69,10 +69,11 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo }) => {
         ) : (
           <>
             <Button label='CLOSE' onClick={handleEdit} />
-            <Button label='CONFIRM' onClick={handleStake} />
+            <Button label='CONFIRM' onClick={handleStake} orangeButton={true} />
           </>
         )}
-        {!!newStake && (
+
+        {editStake && typeof newStake !== 'undefined' && newStake >= 0 && (
           <CollatorStakeModal
             newStake={newStake}
             status={getStatus(newStake, stakeInfo.stake)}

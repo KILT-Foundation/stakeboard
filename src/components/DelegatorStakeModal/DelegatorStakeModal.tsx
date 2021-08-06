@@ -50,7 +50,7 @@ export const DelegatorStakeModal: React.FC<Props> = ({
         </div>
         <div className={styles.buttonWrapper}>
           <Button onClick={toggleModal} label='CANCEL' />
-          <Button onClick={onConfirm} label='STAKE' />
+          <Button onClick={onConfirm} label='STAKE' orangeButton={true} />
         </div>
       </>
     ),
@@ -69,7 +69,7 @@ export const DelegatorStakeModal: React.FC<Props> = ({
         </div>
         <div className={styles.buttonWrapper}>
           <Button onClick={toggleModal} label='CANCEL' />
-          <Button onClick={onConfirm} label='STAKE' />
+          <Button onClick={onConfirm} label='STAKE' orangeButton={true} />
         </div>
       </>
     ),
@@ -88,7 +88,7 @@ export const DelegatorStakeModal: React.FC<Props> = ({
         </div>
         <div className={styles.buttonWrapper}>
           <Button onClick={toggleModal} label='CANCEL' />
-          <Button onClick={onConfirm} label='UNSTAKE' />
+          <Button onClick={onConfirm} label='UNSTAKE' orangeButton={true} />
         </div>
       </>
     ),

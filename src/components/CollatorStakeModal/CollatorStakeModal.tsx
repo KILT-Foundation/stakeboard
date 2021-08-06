@@ -51,7 +51,7 @@ export const CollatorStakeModal: React.FC<Props> = ({
         </div>
         <div className={styles.buttonWrapper}>
           <Button onClick={toggleModal} label='CANCEL' />
-          <Button onClick={onConfirm} label='STAKE' />
+          <Button onClick={onConfirm} label='STAKE' orangeButton={true} />
         </div>
       </>
     ),
@@ -70,7 +70,7 @@ export const CollatorStakeModal: React.FC<Props> = ({
         </div>
         <div className={styles.buttonWrapper}>
           <Button onClick={toggleModal} label='CANCEL' />
-          <Button onClick={onConfirm} label='STAKE' />
+          <Button onClick={onConfirm} label='STAKE' orangeButton={true} />
         </div>
       </>
     ),
@@ -83,12 +83,12 @@ export const CollatorStakeModal: React.FC<Props> = ({
         <div className={styles.textWrapper}>
           Do you want to stop staking <br />
           Collator {shortAddress} <br />
-          (unstake {stakeInfo.account} from {stakeInfo.account.name})?
+          (unstake {newStake} from {stakeInfo.account.name})?
           {NOTES_MESSAGE}
         </div>
         <div className={styles.buttonWrapper}>
           <Button onClick={toggleModal} label='CANCEL' />
-          <Button onClick={onConfirm} label='UNSTAKE' />
+          <Button onClick={onConfirm} label='UNSTAKE' orangeButton={true} />
         </div>
       </>
     ),
@@ -99,7 +99,7 @@ export const CollatorStakeModal: React.FC<Props> = ({
   return (
     <div className={styles.modalOverlay}>
       <Modal open={isVisible} className={styles.modal}>
-        {status && modals[status]}
+        {modals[status]}
       </Modal>
     </div>
   )

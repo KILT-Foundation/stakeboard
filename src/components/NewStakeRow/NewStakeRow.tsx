@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
 import { Button } from '../Button/Button'
@@ -20,7 +20,7 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
   const [address, setAddress] = useState('')
   const [account, setAccount] = useState<Account>()
 
-  useEffect(() => {
+  useMemo(() => {
     if (!address) return
     const accountData = accounts.find((val) => val.address === address)
     if (!accountData) return
@@ -70,7 +70,7 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
         </div>
       </td>
       <td>
-        {account && newStake && (
+        {account && typeof newStake !== 'undefined' && newStake >= 0 && (
           <DelegatorStakeModal
             account={account}
             status={getStatus(newStake, account.staked)}
@@ -83,7 +83,9 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
         <Button
           label={newStake === 0 ? 'Unstake' : 'Stake'}
           onClick={toggleModal}
-          disabled={!(newStake && address)}
+          disabled={
+            !address && typeof newStake !== 'undefined' && newStake >= 0
+          }
         />
       </td>
       <td></td>
