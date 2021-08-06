@@ -91,7 +91,7 @@ export const CollatorStakeModal: React.FC<Props> = ({
             <Input
               number
               value={newStake}
-              onInput={(e) => setNewStake(e.currentTarget.value)}
+              onInput={(e) => setNewStake(e.target.value)}
             />
           </div>
           {NOTES_MESSAGE}
@@ -116,7 +116,7 @@ export const CollatorStakeModal: React.FC<Props> = ({
             <Input
               number
               value={newStake}
-              onInput={(e) => setNewStake(e.currentTarget.value)}
+              onInput={(e) => setNewStake(e.target.value)}
             />
           </div>
           {NOTES_MESSAGE}
