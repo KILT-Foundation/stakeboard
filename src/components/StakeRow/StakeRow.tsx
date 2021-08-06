@@ -69,7 +69,7 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo }) => {
         ) : (
           <>
             <Button label='CLOSE' onClick={handleEdit} />
-            <Button label='CONFIRM' onClick={handleStake} orangeButton={true} />
+            <Button label='CONFIRM' onClick={handleStake} orangeButton />
           </>
         )}
 
