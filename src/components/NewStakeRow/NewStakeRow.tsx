@@ -66,7 +66,7 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
         </div>
       </td>
       <td>
-        {account && typeof newStake !== 'undefined' && newStake >= 0 && (
+        {account && newStake !== undefined && newStake >= 0 && (
           <DelegatorStakeModal
             account={account}
             status={getStatus(newStake, account.staked)}
@@ -79,9 +79,7 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
         <Button
           label={newStake === 0 ? 'Unstake' : 'Stake'}
           onClick={toggleModal}
-          disabled={
-            !address && typeof newStake !== 'undefined' && newStake >= 0
-          }
+          disabled={!address && newStake !== undefined && newStake >= 0}
         />
       </td>
       <td></td>

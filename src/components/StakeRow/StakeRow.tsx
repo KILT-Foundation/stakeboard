@@ -73,7 +73,7 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo }) => {
           </>
         )}
 
-        {editStake && typeof newStake !== 'undefined' && newStake >= 0 && (
+        {editStake && newStake !== undefined && newStake >= 0 && (
           <CollatorStakeModal
             newStake={newStake}
             status={getStatus(newStake, stakeInfo.stake)}
