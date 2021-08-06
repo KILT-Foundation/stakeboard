@@ -1,13 +1,13 @@
 @import-normalize;
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@400;700&display=swap');
 
 :root {
   /* Fonts */
-  --font-primary: "Ubuntu", sans-serif;
-  --font-countdown: "M PLUS Rounded 1c", sans-serif;
-  --font-dashboard: "Asap Condensed", sans-serif;
+  --font-primary: 'Ubuntu', sans-serif;
+  --font-countdown: 'M PLUS Rounded 1c', sans-serif;
+  --font-dashboard: 'Asap Condensed', sans-serif;
   --font-size-big: 28px;
   --font-size-primary: 18px;
   --font-size-medium: 14px;
@@ -16,6 +16,7 @@
 
   /* Text colours */
   --color-gray-text: #fdf7ef;
+  --color-gray-alt-text: #c6c6c1;
   --color-yellow-text: #f9ee50;
   --color-orange-text: #ff9100;
   --color-green-text: #99bf42;
