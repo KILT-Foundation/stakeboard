@@ -8,7 +8,7 @@ import { shortenAddress } from '../../utils/shortenAddress'
 // import { Input } from '../Input/Input'
 export interface Props {
   stakeInfo: Stake
-  toggleModal: any
+  toggleModal: () => void
   isVisible: boolean
   newStake: number
   onConfirm: () => void

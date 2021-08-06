@@ -8,7 +8,7 @@ import { shortenAddress } from '../../utils/shortenAddress'
 export interface Props {
   account: Account
   onConfirm: () => void
-  toggleModal: any
+  toggleModal: () => void
   isVisible: boolean
   status: 'increaseStake' | 'decreaseStake' | 'unstake'
   newStake: number
