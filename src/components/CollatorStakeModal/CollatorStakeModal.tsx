@@ -45,7 +45,7 @@ export const CollatorStakeModal: React.FC<Props> = ({
       You can withdraw <br />
       the unstaked amount after 7 days <br />
       (see progress in your dashboard) <br />
-      or use the unstaked balance immedietaly to back a Collator
+      or use the unstaked balance immediately to back a Collator
     </span>
   )
 
@@ -65,7 +65,7 @@ export const CollatorStakeModal: React.FC<Props> = ({
             <Input
               number
               value={newStake}
-              onInput={(e) => setNewStake(e.currentTarget.value)}
+              onInput={(e) => setNewStake(e.target.value)}
             />
           </div>
           {NOTES_MESSAGE}
