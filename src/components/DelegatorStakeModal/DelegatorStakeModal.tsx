@@ -11,7 +11,7 @@ export interface Props {
   toggleModal: any
   isVisible: boolean
   status: 'increaseStake' | 'decreaseStake' | 'unstake'
-  newStake: string
+  newStake: number
 }
 
 export const DelegatorStakeModal: React.FC<Props> = ({
