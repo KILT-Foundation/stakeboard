@@ -95,7 +95,7 @@ export const DelegatorStakeModal: React.FC<Props> = ({
   }
 
   return isVisible ? (
-    <div className={styles.modalOverlay} onClick={toggleModal}>
+    <div className={styles.modalOverlay}>
       <Modal open={isVisible} className={styles.modal}>
         {modals[status]}
       </Modal>

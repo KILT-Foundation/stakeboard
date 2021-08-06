@@ -59,7 +59,7 @@ export const CollatorStakeModal: React.FC<Props> = ({
         <div className={styles.textWrapper}>
           Do you want to increase the stake of <br />
           Collator {shortAddress} <br />
-          (new staked amount
+          (new staked amount <br />
           {newStake} from {stakeInfo.account.name})?
           <div>
             <Input
@@ -85,7 +85,7 @@ export const CollatorStakeModal: React.FC<Props> = ({
         <div className={styles.textWrapper}>
           Do you want to decrease the stake of <br />
           Collator {shortAddress} <br />
-          (new staked amount
+          (new staked amount <br />
           {newStake} from {stakeInfo.account.name})?
           <div>
             <Input
@@ -130,7 +130,7 @@ export const CollatorStakeModal: React.FC<Props> = ({
   }
 
   return isVisible ? (
-    <div className={styles.modalOverlay} onClick={toggleModal}>
+    <div className={styles.modalOverlay}>
       <Modal open={isVisible} className={styles.modal}>
         {modals[status]}
       </Modal>
