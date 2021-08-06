@@ -51,7 +51,7 @@ export const CollatorStakeModal: React.FC<Props> = ({
         </div>
         <div className={styles.buttonWrapper}>
           <Button onClick={toggleModal} label='CANCEL' />
-          <Button onClick={onConfirm} label='STAKE' orangeButton={true} />
+          <Button onClick={onConfirm} label='STAKE' orangeButton />
         </div>
       </>
     ),
