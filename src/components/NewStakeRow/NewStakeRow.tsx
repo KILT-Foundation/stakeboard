@@ -4,9 +4,9 @@ import rowStyles from '../../styles/row.module.css'
 import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 import { IdentitySelector } from '../../container/IdentitySelector/IdentitySelector'
-import { Account } from '../../types'
+import { Account, ModalStake } from '../../types'
 import { useModal } from '../../utils/useModal'
-import { DelegatorStakeModal } from '../DelegatorStakeModal/DelegatorStakeModal'
+import { StakeModal } from '../StakeModal/StakeModal'
 import { getStatus } from '../../utils/stakeStatus'
 
 export interface Props {
@@ -67,10 +67,13 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
       </td>
       <td>
         {account && newStake !== undefined && newStake >= 0 && (
-          <DelegatorStakeModal
-            account={account}
+          <StakeModal
+            modalStake={{
+              name: account.name,
+              address: account.address,
+              newStake,
+            }}
             status={getStatus(newStake, account.staked)}
-            newStake={newStake}
             isVisible={isVisible}
             toggleModal={toggleModal}
             onConfirm={handleDelegatorStake}

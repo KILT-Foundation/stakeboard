@@ -5,9 +5,9 @@ import { format } from '../../utils'
 import { Stake } from '../../types'
 import { Button } from '../Button/Button'
 import { useModal } from '../../utils/useModal'
-import { CollatorStakeModal } from '../CollatorStakeModal/CollatorStakeModal'
 import { Input } from '../Input/Input'
 import { getStatus } from '../../utils/stakeStatus'
+import { StakeModal } from '../StakeModal/StakeModal'
 
 export interface Props {
   stakeInfo: Stake
@@ -74,10 +74,14 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo }) => {
         )}
 
         {editStake && newStake !== undefined && newStake >= 0 && (
-          <CollatorStakeModal
-            newStake={newStake}
+          <StakeModal
+            modalStake={{
+              name: stakeInfo.account.name,
+              address: stakeInfo.account.address,
+              newStake,
+              staked: stakeInfo.stake,
+            }}
             status={getStatus(newStake, stakeInfo.stake)}
-            stakeInfo={stakeInfo}
             isVisible={isVisible}
             toggleModal={toggleModal}
             onConfirm={handleStake}

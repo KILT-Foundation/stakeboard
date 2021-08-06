@@ -1,28 +1,26 @@
 import { Modal } from 'react-dialog-polyfill'
-import { Account } from '../../types'
+import { ModalStake } from '../../types'
 import styles from '../../styles/modal.module.css'
 import { Button } from '../Button/Button'
 import { Icon } from '../Icon/Icon'
 import { shortenAddress } from '../../utils/shortenAddress'
 
 export interface Props {
-  account: Account
+  modalStake: ModalStake
   onConfirm: () => void
   toggleModal: () => void
   isVisible: boolean
   status: 'increaseStake' | 'decreaseStake' | 'unstake'
-  newStake: number
 }
 
-export const DelegatorStakeModal: React.FC<Props> = ({
-  account,
+export const StakeModal: React.FC<Props> = ({
+  modalStake,
   onConfirm,
   toggleModal,
   isVisible,
-  newStake,
   status,
 }) => {
-  const shortAddress = shortenAddress(account.address)
+  const shortAddress = shortenAddress(modalStake.address)
 
   const NOTES_MESSAGE = (
     <span className={styles.noteWrapper}>
@@ -44,8 +42,8 @@ export const DelegatorStakeModal: React.FC<Props> = ({
         <div className={styles.textWrapper}>
           Do you want to increase the stake of <br />
           Collator {shortAddress} <br />
-          (new staked amount {newStake} <br />
-          from {account.name})?
+          (new staked amount {modalStake.newStake} <br />
+          from {modalStake.name})?
           {NOTES_MESSAGE}
         </div>
         <div className={styles.buttonWrapper}>
@@ -63,8 +61,8 @@ export const DelegatorStakeModal: React.FC<Props> = ({
         <div className={styles.textWrapper}>
           Do you want to decrease the stake of <br />
           Collator {shortAddress} <br />
-          (new staked amount {newStake} <br />
-          from {account.name})?
+          (new staked amount {modalStake.newStake} <br />
+          from {modalStake.name})?
           {NOTES_MESSAGE}
         </div>
         <div className={styles.buttonWrapper}>
@@ -76,14 +74,14 @@ export const DelegatorStakeModal: React.FC<Props> = ({
     unstake: (
       <>
         <div className={styles.modalTitleWrapper}>
-          <span className={styles.modalTitle}> UNSTAKE DELEGATOR</span>
+          <span className={styles.modalTitle}> UNSTAKE</span>
           <Icon type='skateboarder' width={35} />
         </div>
         <div className={styles.textWrapper}>
           Do you want to stop staking <br />
           Collator {shortAddress} <br />
-          (unstake {account.staked} <br />
-          from {account.name})?
+          (unstake {modalStake?.staked} <br />
+          from {modalStake.name})?
           {NOTES_MESSAGE}
         </div>
         <div className={styles.buttonWrapper}>
