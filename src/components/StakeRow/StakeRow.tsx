@@ -4,7 +4,7 @@ import rowStyles from '../../styles/row.module.css'
 import { format } from '../../utils'
 import { Stake } from '../../types'
 import { Button } from '../Button/Button'
-import { useModal } from '../../utils/UseModal'
+import { useModal } from '../../utils/useModal'
 import { CollatorStakeModal } from '../CollatorStakeModal/CollatorStakeModal'
 
 export interface Props {

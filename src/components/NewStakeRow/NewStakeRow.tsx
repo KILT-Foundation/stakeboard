@@ -5,7 +5,7 @@ import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 import { IdentitySelector } from '../../container/IdentitySelector/IdentitySelector'
 import { Account } from '../../types'
-import { useModal } from '../../utils/UseModal'
+import { useModal } from '../../utils/useModal'
 import { DelegatorStakeModal } from '../DelegatorStakeModal/DelegatorStakeModal'
 
 export interface Props {
@@ -70,7 +70,7 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
           <Input
             number
             value={newStake}
-            onInput={(e) => setNewStake(e.currentTarget.value)}
+            onInput={(e) => setNewStake(e.target.value)}
           />
         </div>
       </td>
