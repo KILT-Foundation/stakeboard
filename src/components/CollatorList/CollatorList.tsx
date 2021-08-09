@@ -152,7 +152,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
                   autoComplete='off'
                   placeholder='Search Collator'
                   value={search}
-                  onInput={(event) => setSearch(event.currentTarget.value)}
+                  onInput={(event) => setSearch(event.target.value)}
                 />
               </div>
             </th>

@@ -33,7 +33,6 @@ export interface AccountWithPct extends Account {
   stakeablePct: string
 }
 
-
 /* Types for chain data */
 export interface Candidate {
   id: string
@@ -45,4 +44,11 @@ export interface Candidate {
   total: bigint
   isLeaving: bigint | false
   unsub?: Promise<() => void>
+}
+
+export interface ModalStake {
+  name: string | undefined
+  address: string
+  newStake: number
+  staked?: number
 }

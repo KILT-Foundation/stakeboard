@@ -19,6 +19,7 @@
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "react-select": "^4.3.1",
+    "react-dialog-polyfill": "^1.0.5",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },

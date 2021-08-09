@@ -1,4 +1,4 @@
-import React, { FormEventHandler } from 'react'
+import React, { ChangeEventHandler } from 'react'
 import styles from './Input.module.css'
 import cx from 'classnames'
 
@@ -7,7 +7,7 @@ export interface Props {
   placeholder?: string
   autoFocus?: HTMLInputElement['autofocus']
   autoComplete?: HTMLInputElement['autocomplete']
-  onInput: FormEventHandler<HTMLInputElement>
+  onInput: ChangeEventHandler<HTMLInputElement>
   value: HTMLInputElement['value']
 }
 
@@ -23,7 +23,7 @@ export const Input: React.FC<Props> = ({
     return (
       <>
         <input
-          type="number"
+          type='number'
           autoFocus={autoFocus}
           autoComplete={autoComplete}
           className={cx(styles.input, styles.number)}
@@ -37,7 +37,7 @@ export const Input: React.FC<Props> = ({
 
   return (
     <input
-      type="text"
+      type='text'
       className={styles.input}
       placeholder={placeholder ? placeholder : ''}
       autoFocus={autoFocus}

@@ -1,0 +1,79 @@
+.modalOverlay {
+  background-color: var(--color-bg);
+  opacity: 0.65;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 500;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1002;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  background: var(--color-modal-background);
+  display: flex;
+  border-style: solid;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  border-color: var(--color-modal-border);
+  flex-direction: column;
+  margin: 1.875rem;
+  width: 370px;
+  height: 370px;
+  opacity: 1;
+  color: var(--color-gray-text);
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  width: 250px;
+  height: 200px;
+  font-size: var(--font-size-medium);
+  text-align: center;
+}
+
+.buttonWrapper {
+  width: 215px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonClose {
+  background-color: var(--color-primary);
+  color: var(--color-primary-light);
+}
+
+.buttonSubmit {
+  background-color: var(--color-blocked);
+  color: var(--color-gray-text);
+}
+
+.modalTitleWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 315px;
+  height: 50px;
+  padding-top: 10px;
+  border-bottom: 1px;
+  border-color: var(--color-modal-border);
+  border-bottom-style: solid;
+}
+
+.modalTitle {
+  color: var(--color-gray-text);
+  font-size: var(--font-size-big);
+  padding-right: 15px;
+  padding-bottom: 5px;
+}

@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
 import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 import { IdentitySelector } from '../../container/IdentitySelector/IdentitySelector'
-import { Account } from '../../types'
+import { Account, ModalStake } from '../../types'
+import { useModal } from '../../utils/useModal'
+import { StakeModal } from '../StakeModal/StakeModal'
+import { getStatus } from '../../utils/stakeStatus'
 
 export interface Props {
   staked?: boolean
@@ -12,8 +15,18 @@ export interface Props {
 }
 
 export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
-  const [newStake, setNewStake] = useState('')
-  const [account, setAccount] = useState('')
+  const { isVisible, toggleModal } = useModal()
+  const [newStake, setNewStake] = useState<number | undefined>()
+  const [address, setAddress] = useState('')
+  const account = useMemo(() => {
+    if (!address) return undefined
+    return accounts.find((val) => val.address === address)
+  }, [address, accounts])
+
+  const handleDelegatorStake = () => {
+    toggleModal()
+  }
+
   return (
     <tr
       className={cx(rowStyles.row, rowStyles.stakeRow, {
@@ -29,7 +42,7 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
           <span className={rowStyles.padTop10} />
           <IdentitySelector
             accounts={accounts}
-            onChange={(val) => setAccount(val?.value || '')}
+            onChange={(val) => setAddress(val?.value || '')}
           />
         </div>
       </td>
@@ -39,8 +52,8 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
           <span className={rowStyles.padTop10} />
           <Input
             number
-            value={newStake}
-            onInput={(e) => setNewStake(e.currentTarget.value)}
+            value={newStake?.toString() || ''}
+            onInput={(e) => setNewStake(parseInt(e.target.value))}
           />
         </div>
       </td>
@@ -53,7 +66,24 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
         </div>
       </td>
       <td>
-        <Button label='Stake' disabled={!(newStake && account)} />
+        {account && newStake !== undefined && newStake >= 0 && (
+          <StakeModal
+            modalStake={{
+              name: account.name,
+              address: account.address,
+              newStake,
+            }}
+            status={getStatus(newStake, account.staked)}
+            isVisible={isVisible}
+            toggleModal={toggleModal}
+            onConfirm={handleDelegatorStake}
+          />
+        )}
+        <Button
+          label={newStake === 0 ? 'Unstake' : 'Stake'}
+          onClick={toggleModal}
+          disabled={!address && newStake !== undefined && newStake >= 0}
+        />
       </td>
       <td></td>
       <td></td>

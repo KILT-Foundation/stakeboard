@@ -24,11 +24,14 @@
 
   /* Button colours */
   --color-gray-button: #575756;
+  --color-orange-button: #d75a30;
 
   --color-bg: #000000;
   --color-primary: #ffed00;
   --color-primary-light: #262305;
   --color-table-header: #262626;
+  --color-modal-background: #3c3c3b;
+  --color-modal-border: #8b8b8a;
   --color-app-header: var(--color-table-header);
   --color-input-bg: var(--color-table-header);
   --color-top-rank: #95c11f;
