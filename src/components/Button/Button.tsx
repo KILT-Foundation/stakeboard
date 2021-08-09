@@ -22,7 +22,6 @@ export const Button: React.FC<ButtonProps> = ({
   orangeButton,
   ...props
 }) => {
-  const defaultStyle = !!orangeButton ? styles.buttonOrange : styles.button
   if (children && !label) {
     return (
       <span className={cx(styles.buttonRaw)} {...props}>
