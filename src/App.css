@@ -27,8 +27,10 @@
   --color-orange-button: #d75a30;
 
   --color-bg: #000000;
+  --color-bg-paused: #e94e1b;
   --color-primary: #ffed00;
   --color-primary-light: #262305;
+  --color-paused-red: #be1522;
   --color-table-header: #262626;
   --color-modal-background: #3c3c3b;
   --color-modal-border: #8b8b8a;
