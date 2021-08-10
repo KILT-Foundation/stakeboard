@@ -1,23 +1,36 @@
 import React, { Dispatch, useEffect, useReducer } from 'react'
-import { FavoriteActions, favoriteReducer } from '../state/reducers'
+import {
+  FavoriteActions,
+  PausedAction,
+  favoriteReducer,
+  pauseReducer,
+} from '../state/reducers'
 
 export interface State {
   favorites: string[]
+  toggle: boolean
 }
 
 export const StateContext = React.createContext<{
   state: State
-  dispatch: Dispatch<FavoriteActions>
-}>({ state: { favorites: [] }, dispatch: () => null })
+  dispatch: Dispatch<FavoriteActions | PausedAction>
+}>({ state: { favorites: [], toggle: false }, dispatch: () => null })
 
-const mainReducer = ({ favorites }: State, action: FavoriteActions) => ({
-  favorites: favoriteReducer(favorites, action),
+const mainReducer = (
+  { favorites, toggle }: State,
+  action: FavoriteActions | PausedAction
+) => ({
+  favorites: favoriteReducer(favorites, action as FavoriteActions),
+  toggle: pauseReducer(toggle, action as PausedAction),
 })
 
 export const StateProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(
     mainReducer,
-    { favorites: [] },
+    {
+      favorites: [],
+      toggle: false,
+    },
     (initialArg) => {
       try {
         const item = window.localStorage.getItem('staking-state')

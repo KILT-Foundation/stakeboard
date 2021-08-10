@@ -10,8 +10,19 @@
   background-size: 180px, 768px;
   overflow: scroll;
   background-color: var(--color-dashboard);
+  z-index: 0;
+  position: relative;
 }
 
 .accounts {
   margin-left: 130px;
+  z-index: 2;
+}
+
+.pauseOverlay {
+  background: linear-gradient(var(--color-bg-paused), var(--color-dashboard));
+  height: 440px;
+  width: 100%;
+  opacity: 0.3;
+  position: absolute;
 }
