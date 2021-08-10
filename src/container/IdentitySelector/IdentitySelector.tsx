@@ -13,5 +13,11 @@ export const IdentitySelector: React.FC<Props> = ({ onChange, accounts }) => {
     value: account.address,
     label: `${account.name} (Stakeable: ${format(account.stakeable)})`,
   }))
-  return <Select options={options} onChange={onChange} />
+  return (
+    <Select
+      options={options}
+      onChange={onChange}
+      placeholder={'Select KILT Identity'}
+    />
+  )
 }

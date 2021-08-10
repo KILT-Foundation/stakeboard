@@ -9,27 +9,28 @@ export interface Option {
 export interface Props {
   options: readonly Option[]
   onChange?: (value: Option | null) => void
+  placeholder: string
 }
 
 const IndicatorSeparator = null
 
-export const Select: React.FC<Props> = ({ options, onChange }) => {
+export const Select: React.FC<Props> = ({ options, onChange, placeholder }) => {
   return (
     <ReactSelect
       options={options}
       // menuIsOpen={true}
       components={{ IndicatorSeparator }}
-      placeholder="Select KILT Identity"
+      placeholder={placeholder}
       className={'Select'}
-      classNamePrefix="s"
+      classNamePrefix='s'
       onChange={onChange}
-      theme={theme => ({
+      theme={(theme) => ({
         ...theme,
         spacing: {
           ...theme.spacing,
           controlHeight: 30,
-          baseUnit: 2
-        }
+          baseUnit: 2,
+        },
       })}
     />
   )
