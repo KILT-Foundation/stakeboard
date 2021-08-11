@@ -12,7 +12,7 @@ export const favoriteReducer: Reducer<string[], FavoriteActions> = (
     case 'favorize':
       return [...state, action.id]
     case 'unfavorize':
-      return [...state.filter((id) => id !== action.id)]
+      return state.filter((id) => id !== action.id)
     default:
       return state
   }
