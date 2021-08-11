@@ -5,6 +5,7 @@ import styles from './ChainInfo.module.css'
 import cx from 'classnames'
 import { Icon } from '../Icon/Icon'
 import { RefreshSelector } from '../RefreshSelector/RefreshSelector'
+import { Button } from '../Button/Button'
 
 // TODO: add features to refresh currently a placeholder
 const options: Option[] = [
@@ -50,16 +51,17 @@ export const ChainInfo: React.FC = () => {
         <div className={cx(styles.label, styles.refreshDropdown)}>
           <RefreshSelector options={options} placeholder={'10 secs'} />
         </div>
-        <span
-          className={styles.onOff}
-          onClick={() => dispatch({ type: 'refreshPaused', refreshPaused })}
-        >
-          {refreshPaused ? (
-            <Icon type='ON_70x36' width={70} />
-          ) : (
-            <Icon type='OFF_70x36' width={70} />
-          )}
-        </span>
+        <div className={styles.onOff}>
+          <Button
+            onClick={() => dispatch({ type: 'refreshPaused', refreshPaused })}
+          >
+            {refreshPaused ? (
+              <Icon type='ON_70x36' width={70} />
+            ) : (
+              <Icon type='OFF_70x36' width={70} />
+            )}
+          </Button>
+        </div>
       </div>
     </div>
   )
