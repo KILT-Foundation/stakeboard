@@ -20,11 +20,11 @@ export const ChainInfo: React.FC = () => {
     state: { refreshPaused },
   } = useContext(StateContext)
   return (
-    <div className={cx(refreshPaused ? styles.chaininfo : styles.chaininfoPaused)}>
+    <div className={refreshPaused ? styles.chaininfo : styles.chaininfoPaused}>
       <div className={styles.container}>
         <span className={styles.label}>Session Countdown</span>
         <span
-          className={cx(refreshPaused ? styles.countdown : styles.countdownPaused)}
+          className={refreshPaused ? styles.countdown : styles.countdownPaused}
         >
           2:00:00
         </span>
@@ -36,14 +36,14 @@ export const ChainInfo: React.FC = () => {
       <div className={styles.container}>
         <Icon type='block_new' />
         <span className={styles.label}>Best Block</span>{' '}
-        <span className={cx(refreshPaused ? styles.value : styles.valuePaused)}>
+        <span className={refreshPaused ? styles.value : styles.valuePaused}>
           # 8,888,888
         </span>
         <span className={styles.leftMargin}>
           <Icon type='block_new' />
         </span>
-        <span className={cx(styles.label)}>Finalized Block</span>{' '}
-        <span className={cx(refreshPaused ? styles.value : styles.valuePaused)}>
+        <span className={styles.label}>Finalized Block</span>{' '}
+        <span className={refreshPaused ? styles.value : styles.valuePaused}>
           # 8,888,888
         </span>
         <div className={cx(styles.label, styles.leftMargin)}>Refresh Every</div>
