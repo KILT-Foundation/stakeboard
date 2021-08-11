@@ -17,33 +17,33 @@ const options: Option[] = [
 export const ChainInfo: React.FC = () => {
   const {
     dispatch,
-    state: { toggle },
+    state: { refreshPaused },
   } = useContext(StateContext)
   return (
-    <div className={cx(toggle ? styles.chaininfo : styles.chaininfoPaused)}>
+    <div className={cx(refreshPaused ? styles.chaininfo : styles.chaininfoPaused)}>
       <div className={styles.container}>
         <span className={styles.label}>Session Countdown</span>
         <span
-          className={cx(toggle ? styles.countdown : styles.countdownPaused)}
+          className={cx(refreshPaused ? styles.countdown : styles.countdownPaused)}
         >
           2:00:00
         </span>
-        <span className={styles.lineSpacer}>{toggle ? null : '|'}</span>
+        <span className={styles.lineSpacer}>{refreshPaused ? null : '|'}</span>
         <span className={styles.refreshPaused}>
-          {toggle ? null : 'REFRESH PAUSED'}
+          {refreshPaused ? null : 'REFRESH PAUSED'}
         </span>
       </div>
       <div className={styles.container}>
         <Icon type='block_new' />
         <span className={styles.label}>Best Block</span>{' '}
-        <span className={cx(toggle ? styles.value : styles.valuePaused)}>
+        <span className={cx(refreshPaused ? styles.value : styles.valuePaused)}>
           # 8,888,888
         </span>
         <span className={styles.leftMargin}>
           <Icon type='block_new' />
         </span>
         <span className={cx(styles.label)}>Finalized Block</span>{' '}
-        <span className={cx(toggle ? styles.value : styles.valuePaused)}>
+        <span className={cx(refreshPaused ? styles.value : styles.valuePaused)}>
           # 8,888,888
         </span>
         <div className={cx(styles.label, styles.leftMargin)}>Refresh Every</div>
@@ -52,9 +52,9 @@ export const ChainInfo: React.FC = () => {
         </div>
         <span
           className={styles.onOff}
-          onClick={() => dispatch({ type: 'toggle', toggle })}
+          onClick={() => dispatch({ type: 'refreshPaused', refreshPaused })}
         >
-          {toggle ? (
+          {refreshPaused ? (
             <Icon type='ON_70x36' width={70} />
           ) : (
             <Icon type='OFF_70x36' width={70} />

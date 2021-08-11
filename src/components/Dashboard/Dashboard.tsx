@@ -11,12 +11,12 @@ export interface Props {
 
 export const Dashboard: React.FC<Props> = ({ accounts }) => {
   const {
-    state: { toggle },
+    state: { refreshPaused },
   } = useContext(StateContext)
 
   return (
     <div className={styles.dashboard}>
-      <div className={cx({ [styles.pauseOverlay]: toggle === true })} />
+      <div className={cx({ [styles.pauseOverlay]: refreshPaused === true })} />
       <div className={styles.accounts}>
         <Accounts accounts={accounts} />
       </div>

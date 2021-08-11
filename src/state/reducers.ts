@@ -18,15 +18,15 @@ export const favoriteReducer: Reducer<string[], FavoriteActions> = (
   }
 }
 
-export type PausedAction = { type: 'toggle'; toggle: boolean }
+export type PausedAction = { type: 'refreshPaused'; refreshPaused: boolean }
 
 export const pauseReducer: Reducer<boolean, PausedAction> = (
   state: boolean,
   action: PausedAction
 ) => {
   switch (action.type) {
-    case 'toggle':
-      return !action.toggle
+    case 'refreshPaused':
+      return !action.refreshPaused
     default:
       return state
   }

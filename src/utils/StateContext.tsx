@@ -8,20 +8,20 @@ import {
 
 export interface State {
   favorites: string[]
-  toggle: boolean
+  refreshPaused: boolean
 }
 
 export const StateContext = React.createContext<{
   state: State
   dispatch: Dispatch<FavoriteActions | PausedAction>
-}>({ state: { favorites: [], toggle: false }, dispatch: () => null })
+}>({ state: { favorites: [], refreshPaused: false }, dispatch: () => null })
 
 const mainReducer = (
-  { favorites, toggle }: State,
+  { favorites, refreshPaused }: State,
   action: FavoriteActions | PausedAction
 ) => ({
   favorites: favoriteReducer(favorites, action as FavoriteActions),
-  toggle: pauseReducer(toggle, action as PausedAction),
+  refreshPaused: pauseReducer(refreshPaused, action as PausedAction),
 })
 
 export const StateProvider: React.FC = ({ children }) => {
@@ -29,7 +29,7 @@ export const StateProvider: React.FC = ({ children }) => {
     mainReducer,
     {
       favorites: [],
-      toggle: false,
+      refreshPaused: false,
     },
     (initialArg) => {
       try {
