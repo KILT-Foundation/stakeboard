@@ -16,7 +16,7 @@ export const Dashboard: React.FC<Props> = ({ accounts }) => {
 
   return (
     <div className={styles.dashboard}>
-      <div className={cx(toggle === true ? null : styles.pauseOverlay)} />
+      <div className={cx({ [styles.pauseOverlay]: toggle === true })} />
       <div className={styles.accounts}>
         <Accounts accounts={accounts} />
       </div>
