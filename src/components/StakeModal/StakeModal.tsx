@@ -44,7 +44,6 @@ export const StakeModal: React.FC<Props> = ({
           Collator {shortAddress} <br />
           (new staked amount {modalStake.newStake} <br />
           from {modalStake.name})?
-          {NOTES_MESSAGE}
         </div>
         <div className={styles.buttonWrapper}>
           <Button onClick={toggleModal} label='CANCEL' />
@@ -63,8 +62,8 @@ export const StakeModal: React.FC<Props> = ({
           Collator {shortAddress} <br />
           (new staked amount {modalStake.newStake} <br />
           from {modalStake.name})?
-          {NOTES_MESSAGE}
         </div>
+        <div className={styles.textWrapper}>{NOTES_MESSAGE}</div>
         <div className={styles.buttonWrapper}>
           <Button onClick={toggleModal} label='CANCEL' />
           <Button onClick={onConfirm} label='STAKE' orangeButton />
@@ -82,8 +81,8 @@ export const StakeModal: React.FC<Props> = ({
           Collator {shortAddress} <br />
           (unstake {modalStake?.staked} <br />
           from {modalStake.name})?
-          {NOTES_MESSAGE}
         </div>
+        <div className={styles.textWrapper}>{NOTES_MESSAGE}</div>
         <div className={styles.buttonWrapper}>
           <Button onClick={toggleModal} label='CANCEL' />
           <Button onClick={onConfirm} label='UNSTAKE' orangeButton />
