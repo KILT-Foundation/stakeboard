@@ -12,6 +12,8 @@ import './App.css'
 import { getGenesis } from './utils'
 import { Data, Candidate, Account } from './types'
 import { StateContext, StateProvider } from './utils/StateContext'
+import { PauseProvider } from './utils/PauseContext'
+
 import { initialize } from './utils/polling'
 import { Page } from './container/Page/Page'
 
@@ -154,9 +156,11 @@ function App() {
   }, [web3Enabled])
 
   return (
-    <div className="App">
+    <div className='App'>
       <StateProvider>
-        <Consumer partialAccounts={allAccounts} />
+        <PauseProvider>
+          <Consumer partialAccounts={allAccounts} />
+        </PauseProvider>
       </StateProvider>
     </div>
   )

@@ -1,27 +1,20 @@
 import React, { Dispatch, useEffect, useReducer } from 'react'
 import {
   FavoriteActions,
-  PausedAction,
   favoriteReducer,
-  pauseReducer,
 } from '../state/reducers'
 
 export interface State {
   favorites: string[]
-  refreshPaused: boolean
 }
 
 export const StateContext = React.createContext<{
   state: State
-  dispatch: Dispatch<FavoriteActions | PausedAction>
-}>({ state: { favorites: [], refreshPaused: false }, dispatch: () => null })
+  dispatch: Dispatch<FavoriteActions>
+}>({ state: { favorites: [] }, dispatch: () => null })
 
-const mainReducer = (
-  { favorites, refreshPaused }: State,
-  action: FavoriteActions | PausedAction
-) => ({
+const mainReducer = ({ favorites }: State, action: FavoriteActions) => ({
   favorites: favoriteReducer(favorites, action as FavoriteActions),
-  refreshPaused: pauseReducer(refreshPaused, action as PausedAction),
 })
 
 export const StateProvider: React.FC = ({ children }) => {
@@ -29,7 +22,6 @@ export const StateProvider: React.FC = ({ children }) => {
     mainReducer,
     {
       favorites: [],
-      refreshPaused: false,
     },
     (initialArg) => {
       try {
