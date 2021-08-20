@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { queryBestBlock, queryBestFinalisedBlock } from '../../utils/chain'
+import { sessionCounter, sessionTimer } from '../../utils/sessionCountdown'
 import { Option } from '../Select/Select'
 import { StateContext } from '../../utils/StateContext'
 import styles from './ChainInfo.module.css'
@@ -19,6 +20,8 @@ const options: Option[] = [
 export const ChainInfo: React.FC = () => {
   const [bestBlockNumber, setBestBlock] = useState('')
   const [bestFinalisedBlockNumber, setBestFinalisedBlockNumber] = useState('')
+  const [sessionCount, setSessionCount] = useState<number>()
+  const [sessionCountdown, setSessionCountdown] = useState('')
 
   const {
     dispatch,
@@ -43,16 +46,32 @@ export const ChainInfo: React.FC = () => {
     getBestFinalisedBlockNumber()
   })
 
+  useEffect((): void => {
+    const getSessionCounter = async () => {
+      const sessionInfo = await sessionCounter()
+      const sessionTime = await sessionTimer()
+      setSessionCount(sessionInfo)
+      setSessionCountdown(sessionTime)
+    }
+
+    getSessionCounter()
+  })
   return (
     <div className={refreshPaused ? styles.chaininfo : styles.chaininfoPaused}>
       <div className={styles.container}>
-        <span className={styles.label}>Session Countdown</span>
+        <span className={styles.label}>Session Block</span>
         <span
           className={refreshPaused ? styles.countdown : styles.countdownPaused}
         >
-          2:00:00
+          {sessionCount}/600
         </span>
-        <span className={styles.lineSpacer}>{refreshPaused ? null : '|'}</span>
+        {refreshPaused ? (
+          <span className={cx(styles.label, styles.lineSpacer)}>
+            {sessionCountdown}
+          </span>
+        ) : (
+          <span className={styles.lineSpacer}>|</span>
+        )}
         <span className={styles.refreshPaused}>
           {refreshPaused ? null : 'REFRESH PAUSED'}
         </span>

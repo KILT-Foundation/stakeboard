@@ -1,3 +1,6 @@
+import type { Struct } from '@polkadot/types'
+import { SessionIndex, BlockNumber } from '@polkadot/types/interfaces'
+
 export interface Stake {
   stake: number
   account: {
@@ -51,4 +54,10 @@ export interface ModalStake {
   address: string
   newStake: number
   staked?: number
+}
+
+export interface RoundInfo extends Struct {
+  current: SessionIndex
+  first: BlockNumber
+  length: BlockNumber
 }
