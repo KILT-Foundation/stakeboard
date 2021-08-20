@@ -1,4 +1,5 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import { queryBestBlock, queryBestFinalisedBlock } from '../../utils/chain'
 import { Option } from '../Select/Select'
 import { StateContext } from '../../utils/StateContext'
 import styles from './ChainInfo.module.css'
@@ -16,10 +17,32 @@ const options: Option[] = [
 ]
 
 export const ChainInfo: React.FC = () => {
+  const [bestBlockNumber, setBestBlock] = useState('')
+  const [bestFinalisedBlockNumber, setBestFinalisedBlockNumber] = useState('')
+
   const {
     dispatch,
     state: { refreshPaused },
   } = useContext(StateContext)
+
+  useEffect((): void => {
+    const getBestBlockNumber = async () => {
+      const bestNumber = await queryBestBlock()
+      setBestBlock(bestNumber.toNumber().toLocaleString())
+    }
+
+    getBestBlockNumber()
+  })
+
+  useEffect((): void => {
+    const getBestFinalisedBlockNumber = async () => {
+      const finalisedNumber = await queryBestFinalisedBlock()
+      setBestFinalisedBlockNumber(finalisedNumber.toNumber().toLocaleString())
+    }
+
+    getBestFinalisedBlockNumber()
+  })
+
   return (
     <div className={refreshPaused ? styles.chaininfo : styles.chaininfoPaused}>
       <div className={styles.container}>
@@ -36,16 +59,16 @@ export const ChainInfo: React.FC = () => {
       </div>
       <div className={styles.container}>
         <Icon type='block_new' />
-        <span className={styles.label}>Best Block</span>{' '}
+        <span className={styles.label}>Best Block</span>
         <span className={refreshPaused ? styles.value : styles.valuePaused}>
-          # 8,888,888
+          # {bestBlockNumber}
         </span>
         <span className={styles.leftMargin}>
           <Icon type='block_new' />
         </span>
-        <span className={styles.label}>Finalized Block</span>{' '}
+        <span className={styles.label}>Finalized Block</span>
         <span className={refreshPaused ? styles.value : styles.valuePaused}>
-          # 8,888,888
+          # {bestFinalisedBlockNumber}
         </span>
         <div className={cx(styles.label, styles.leftMargin)}>Refresh Every</div>
         <div className={cx(styles.label, styles.refreshDropdown)}>

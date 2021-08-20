@@ -113,3 +113,13 @@ export async function getCurrentCandidates() {
   const api = await connect()
   return api.query.session.validators<Vec<AccountId>>()
 }
+
+export async function queryBestBlock() {
+  const api = await connect()
+  return api.derive.chain.bestNumber()
+}
+
+export async function queryBestFinalisedBlock() {
+  const api = await connect()
+  return api.derive.chain.bestNumberFinalized()
+}
