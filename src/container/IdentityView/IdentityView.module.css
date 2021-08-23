@@ -20,3 +20,65 @@
   justify-content: center;
   margin-top: 15px;
 }
+
+.tokenbarContainer {
+  width: 100%;
+  height: fit-content;
+  margin: 15px 30px 0px 0px;
+  border: 1px;
+  border-style: solid;
+}
+
+.identiconContainer {
+  margin: 15px 15px 0px 20px;
+  width: 50px;
+}
+
+.identityStakeContainer {
+  margin: 10px 30px 0px 215px;
+  display: flex;
+  justify-content: space-between;
+}
+.name {
+  min-width: 130px;
+  margin-top: 15px;
+  min-height: 50px;
+}
+
+.identityViewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.identityViewDetailsContainer {
+  margin: 30px 30px 0px 250px;
+}
+
+.label {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-primary);
+  text-transform: uppercase;
+}
+
+.labelSmall {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-small);
+  text-transform: uppercase;
+}
+
+.labelGray {
+  color: var(--color-gray-text);
+}
+
+.labelYellow {
+  color: var(--color-yellow-text);
+}
+
+.labelOrange {
+  color: var(--color-orange-text);
+}
+
+.textRight {
+  text-align: right;
+}
