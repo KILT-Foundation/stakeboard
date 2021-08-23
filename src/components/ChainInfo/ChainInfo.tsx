@@ -65,7 +65,7 @@ export const ChainInfo: React.FC = () => {
         <span
           className={refreshPaused ? styles.countdownPaused : styles.countdown}
         >
-          {sessionCount}/600
+          {sessionCount ? sessionCount : '000'}/600
         </span>
         {refreshPaused ? (
           <span className={styles.lineSpacer}>|</span>
@@ -82,14 +82,14 @@ export const ChainInfo: React.FC = () => {
         <Icon type="block_new" />
         <span className={styles.label}>Best Block</span>
         <span className={refreshPaused ? styles.valuePaused : styles.value}>
-          # {bestBlockNumber}
+          # {bestBlockNumber ? bestBlockNumber : '000,000'}
         </span>
         <span className={styles.leftMargin}>
           <Icon type="block_new" />
         </span>
         <span className={styles.label}>Finalized Block</span>
         <span className={refreshPaused ? styles.valuePaused : styles.value}>
-          # {bestFinalisedBlockNumber}
+          # {bestFinalisedBlockNumber ? bestFinalisedBlockNumber : '000,000'}
         </span>
         <div className={cx(styles.label, styles.leftMargin)}>Refresh Every</div>
         <div className={cx(styles.label, styles.refreshDropdown)}>
