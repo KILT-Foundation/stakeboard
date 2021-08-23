@@ -22,19 +22,22 @@ export const IdentityView: React.FC<Props> = ({
   const shortAddress = shortenAddress(account.address)
 
   return (
-    <div className={styles.container}>
-      <p>
-        Hello World!
-        {shortAddress}
-      </p>
-
-      <Button
-        onClick={() => {
-          dispatch({ type: 'unselectAccount', account: undefined })
-          toggleDetailedIdentityView()
-        }}
-        label={'close'}
-      />
+    <div className={styles.identityView}>
+      <div className={styles.container}>
+        <p>
+          Hello World!
+          {shortAddress}
+        </p>
+      </div>
+      <div className={styles.buttonContainer}>
+        <Button
+          onClick={() => {
+            dispatch({ type: 'unselectAccount', account: undefined })
+            toggleDetailedIdentityView()
+          }}
+          label={'close'}
+        />
+      </div>
     </div>
   )
 }
