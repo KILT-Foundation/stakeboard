@@ -66,7 +66,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
   }, [search, dataSet, sortBy])
 
   return (
-    <table role='table' className={styles.table}>
+    <table role="table" className={styles.table}>
       <thead className={styles.tableHead}>
         <tr>
           <th className={rowStyles.spacer}></th>
@@ -85,7 +85,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
                 setShowSearch(!showSearch)
               }}
             >
-              <Icon type='search' />
+              <Icon type="search" />
             </span>
           </th>
           <th></th>
@@ -138,8 +138,8 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
             <Icon type={iconSortType(sortBy, SORT_BY.TotalReward)} width={13} />
           </th>
           <th>
-            <Icon type='tokens_white' />
-            <Icon type='order_white' width={13} />
+            <Icon type="tokens_white" />
+            <Icon type="order_white" width={13} />
           </th>
           <th className={rowStyles.spacer}></th>
         </tr>
@@ -149,8 +149,8 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
               <div>
                 <Input
                   autoFocus
-                  autoComplete='off'
-                  placeholder='Search Collator'
+                  autoComplete="off"
+                  placeholder="Search Collator"
                   value={search}
                   onInput={(event) => setSearch(event.target.value)}
                 />

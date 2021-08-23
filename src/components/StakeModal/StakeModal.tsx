@@ -37,7 +37,7 @@ export const StakeModal: React.FC<Props> = ({
       <>
         <div className={styles.modalTitleWrapper}>
           <span className={styles.modalTitle}> INCREASE STAKE</span>
-          <Icon type='skateboarder' width={35} />
+          <Icon type="skateboarder" width={35} />
         </div>
         <div className={styles.textWrapper}>
           Do you want to increase the stake of <br />
@@ -46,8 +46,8 @@ export const StakeModal: React.FC<Props> = ({
           from {modalStake.name})?
         </div>
         <div className={styles.buttonWrapper}>
-          <Button onClick={toggleModal} label='CANCEL' />
-          <Button onClick={onConfirm} label='STAKE' orangeButton />
+          <Button onClick={toggleModal} label="CANCEL" />
+          <Button onClick={onConfirm} label="STAKE" orangeButton />
         </div>
       </>
     ),
@@ -55,7 +55,7 @@ export const StakeModal: React.FC<Props> = ({
       <>
         <div className={styles.modalTitleWrapper}>
           <span className={styles.modalTitle}> DECREASE STAKE</span>
-          <Icon type='skateboarder' width={35} />
+          <Icon type="skateboarder" width={35} />
         </div>
         <div className={styles.textWrapper}>
           Do you want to decrease the stake of <br />
@@ -65,8 +65,8 @@ export const StakeModal: React.FC<Props> = ({
         </div>
         <div className={styles.textWrapper}>{NOTES_MESSAGE}</div>
         <div className={styles.buttonWrapper}>
-          <Button onClick={toggleModal} label='CANCEL' />
-          <Button onClick={onConfirm} label='STAKE' orangeButton />
+          <Button onClick={toggleModal} label="CANCEL" />
+          <Button onClick={onConfirm} label="STAKE" orangeButton />
         </div>
       </>
     ),
@@ -74,7 +74,7 @@ export const StakeModal: React.FC<Props> = ({
       <>
         <div className={styles.modalTitleWrapper}>
           <span className={styles.modalTitle}> UNSTAKE</span>
-          <Icon type='skateboarder' width={35} />
+          <Icon type="skateboarder" width={35} />
         </div>
         <div className={styles.textWrapper}>
           Do you want to stop staking <br />
@@ -84,8 +84,8 @@ export const StakeModal: React.FC<Props> = ({
         </div>
         <div className={styles.textWrapper}>{NOTES_MESSAGE}</div>
         <div className={styles.buttonWrapper}>
-          <Button onClick={toggleModal} label='CANCEL' />
-          <Button onClick={onConfirm} label='UNSTAKE' orangeButton />
+          <Button onClick={toggleModal} label="CANCEL" />
+          <Button onClick={onConfirm} label="UNSTAKE" orangeButton />
         </div>
       </>
     ),

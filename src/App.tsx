@@ -156,7 +156,7 @@ function App() {
   }, [web3Enabled])
 
   return (
-    <div className='App'>
+    <div className="App">
       <StateProvider>
         <PauseProvider>
           <Consumer partialAccounts={allAccounts} />

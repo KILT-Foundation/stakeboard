@@ -65,11 +65,11 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo }) => {
       </td>
       <td>
         {!editStake ? (
-          <Button label='Edit' onClick={handleEdit} />
+          <Button label="Edit" onClick={handleEdit} />
         ) : (
           <>
-            <Button label='CLOSE' onClick={handleEdit} />
-            <Button label='CONFIRM' onClick={handleStake} orangeButton />
+            <Button label="CLOSE" onClick={handleEdit} />
+            <Button label="CONFIRM" onClick={handleStake} orangeButton />
           </>
         )}
 

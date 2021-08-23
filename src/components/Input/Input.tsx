@@ -23,7 +23,7 @@ export const Input: React.FC<Props> = ({
     return (
       <>
         <input
-          type='number'
+          type="number"
           autoFocus={autoFocus}
           autoComplete={autoComplete}
           className={cx(styles.input, styles.number)}
@@ -37,7 +37,7 @@ export const Input: React.FC<Props> = ({
 
   return (
     <input
-      type='text'
+      type="text"
       className={styles.input}
       placeholder={placeholder ? placeholder : ''}
       autoFocus={autoFocus}

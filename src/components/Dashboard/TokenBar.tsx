@@ -1,4 +1,3 @@
-
 import React from 'react'
 import styles from './TokenBar.module.css'
 import cx from 'classnames'
