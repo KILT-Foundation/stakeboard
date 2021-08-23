@@ -3,6 +3,8 @@ import { Button } from '../../components/Button/Button'
 import { StateContext } from '../../utils/StateContext'
 import styles from './IdentityView.module.css'
 import { shortenAddress } from '../../utils/shortenAddress'
+import { TokenBar } from '../../components/Dashboard/TokenBar'
+import { Identicon } from '../../components/Identicon/Identicon'
 
 export interface Props {
   toggleDetailedIdentityView: () => void
@@ -24,10 +26,14 @@ export const IdentityView: React.FC<Props> = ({
   return (
     <div className={styles.identityView}>
       <div className={styles.container}>
-        <p>
-          Hello World!
+        <Identicon address={account.address} />
+        <>
+          {account?.name}
+          <span />
           {shortAddress}
-        </p>
+        </>
+        <TokenBar staked={account.staked} stakeable={account.stakeable} />
+        <p>MY STAKE {account.staked}</p>
       </div>
       <div className={styles.buttonContainer}>
         <Button
