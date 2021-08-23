@@ -1,0 +1,7 @@
+.container {
+  width: 90%;
+  height: 70%;
+  position: absolute;
+  display: flex;
+  background-color: green;
+}
