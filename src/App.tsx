@@ -11,10 +11,14 @@ import {
 import './App.css'
 import { getGenesis } from './utils'
 import { Data, Candidate, Account } from './types'
-import { StateContext, StateProvider } from './utils/StateContext'
+import {
+  StoredStateContext,
+  StoredStateProvider,
+} from './utils/StoredStateContext'
+import { StateProvider } from './utils/StateContext'
+
 import { initialize } from './utils/polling'
 import { Page } from './container/Page/Page'
-import { AccountProvider } from './utils/AccountContext'
 
 async function getAllAccounts() {
   const allInjected = await web3Enable('KILT Staking App')
@@ -47,7 +51,7 @@ const Consumer: React.FC<ConsumerProps> = ({ partialAccounts }) => {
   const [dataSet, setDataSet] = useState<Data[]>([])
   const [accounts, setAccounts] = useState<Account[]>([])
 
-  const { state } = useContext(StateContext)
+  const { state } = useContext(StoredStateContext)
 
   useEffect(() => {
     let stop = () => {}
@@ -155,12 +159,12 @@ function App() {
   }, [web3Enabled])
 
   return (
-    <div className='App'>
-      <StateProvider>
-        <AccountProvider>
+    <div className="App">
+      <StoredStateProvider>
+        <StateProvider>
           <Consumer partialAccounts={allAccounts} />
-        </AccountProvider>
-      </StateProvider>
+        </StateProvider>
+      </StoredStateProvider>
     </div>
   )
 }

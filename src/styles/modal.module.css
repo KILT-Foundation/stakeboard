@@ -25,7 +25,8 @@
   flex-direction: column;
   margin: 1.875rem;
   width: 370px;
-  height: 370px;
+  height: fit-content;
+  padding: 10px 20px 50px 20px;
   opacity: 1;
   color: var(--color-gray-text);
 }
@@ -33,13 +34,15 @@
 .textWrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   padding-top: 25px;
   padding-bottom: 25px;
   width: 250px;
-  height: 200px;
+  min-height: 100px;
+  max-height: 300px;
   font-size: var(--font-size-medium);
   text-align: center;
+  overflow-y: scroll;
 }
 
 .buttonWrapper {

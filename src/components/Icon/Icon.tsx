@@ -17,8 +17,6 @@ import fav_yellow from '../../icons/fav_yellow.svg'
 import KILT_logo from '../../icons/KILT_logo.svg'
 import next_session_gray from '../../icons/next_session_gray.svg'
 import next_session_yellow from '../../icons/next_session_yellow.svg'
-import OFF_70x36 from '../../icons/OFF_70x36.svg'
-import ON_70x36 from '../../icons/ON_70x36.svg'
 import order_white from '../../icons/order_white.svg'
 import order_yellow from '../../icons/order_yellow.svg'
 import pickaxe_gray from '../../icons/pickax_gray.svg'
@@ -49,8 +47,6 @@ const Icons = {
   KILT_logo,
   next_session_gray,
   next_session_yellow,
-  OFF_70x36,
-  ON_70x36,
   order_white,
   order_yellow,
   pickaxe_gray,
@@ -74,7 +70,7 @@ export const Icon: React.FC<Props> = ({ type, pulsing = false, width }) => {
   return (
     <img
       className={cx(styles.img, { [styles.pulsing]: pulsing })}
-      style={{width}}
+      style={{ width }}
       src={Icons[type]}
       alt="Icon"
     />

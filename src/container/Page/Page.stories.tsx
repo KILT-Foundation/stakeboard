@@ -7,13 +7,12 @@ import { Primary as CollatorListPrimary } from '../../components/CollatorList/Co
 export default {
   title: 'Page',
   component: Page,
-  argTypes: {
-  },
+  argTypes: {},
   parameters: {
     backgrounds: {
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 } as Meta
 
 const Template: Story<Props> = ({ accounts, ...args }) => {
@@ -23,5 +22,5 @@ const Template: Story<Props> = ({ accounts, ...args }) => {
 export const Primary = Template.bind({})
 Primary.args = {
   accounts: DashboardPrimary.args?.accounts,
-  dataSet: CollatorListPrimary.args?.dataSet
+  dataSet: CollatorListPrimary.args?.dataSet,
 }

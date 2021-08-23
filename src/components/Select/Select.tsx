@@ -22,7 +22,7 @@ export const Select: React.FC<Props> = ({ options, onChange, placeholder }) => {
       components={{ IndicatorSeparator }}
       placeholder={placeholder}
       className={'Select'}
-      classNamePrefix='s'
+      classNamePrefix="s"
       onChange={onChange}
       theme={(theme) => ({
         ...theme,

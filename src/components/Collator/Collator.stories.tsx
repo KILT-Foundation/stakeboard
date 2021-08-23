@@ -12,5 +12,5 @@ const Template: Story<Props> = (args) => <Collator {...args} />
 
 export const Primary = Template.bind({})
 Primary.args = {
-  address: '5GQtYZsBDvgXq2KSffpN9HWxtK8rxG4gk1jWSp5MaDb1gurR'
+  address: '5GQtYZsBDvgXq2KSffpN9HWxtK8rxG4gk1jWSp5MaDb1gurR',
 }

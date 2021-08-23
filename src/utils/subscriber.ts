@@ -4,7 +4,7 @@ import {
   getAllCollatorState,
   subscribeToCandidatePool,
   subscribeToCollatorState,
-  mapCollatorStateToCandidate
+  mapCollatorStateToCandidate,
 } from './chain'
 
 let candidates: Record<string, Candidate> = {}
@@ -20,14 +20,13 @@ const updateCollator = (collatorState: Collator) => {
       ...candidates,
       [id]: {
         ...mapCollatorStateToCandidate(collatorState),
-        unsub: candidates[id].unsub
+        unsub: candidates[id].unsub,
       },
     }
     return newCandidates
   }
   return null
 }
-
 
 export const initialize = async (
   updateCallback: (newCandidates: Record<string, Candidate>) => void
@@ -42,18 +41,15 @@ export const initialize = async (
     initialCandidates[candidateId] = mapCollatorStateToCandidate(unwrapped)
 
     // Subscribed to changes for this collator candidate
-    const unsub = subscribeToCollatorState(
-      candidateId,
-      (collatorState) => {
-        if (collatorState.isNone) return
-        const unwrapped = collatorState.unwrap()
-        const newCandidates = updateCollator(unwrapped)
-        if (newCandidates) {
-          candidates = newCandidates
-          updateCallback(newCandidates)
-        }
+    const unsub = subscribeToCollatorState(candidateId, (collatorState) => {
+      if (collatorState.isNone) return
+      const unwrapped = collatorState.unwrap()
+      const newCandidates = updateCollator(unwrapped)
+      if (newCandidates) {
+        candidates = newCandidates
+        updateCallback(newCandidates)
       }
-    )
+    })
 
     initialCandidates[candidateId].unsub = unsub
   })
@@ -74,8 +70,8 @@ export const initialize = async (
             ...candidates,
             [id]: {
               ...mapCollatorStateToCandidate(unwrapped),
-              unsub
-            }
+              unsub,
+            },
           }
           candidates = newCandidates
           updateCallback(newCandidates)
@@ -83,14 +79,14 @@ export const initialize = async (
       }
     })
     // Check if candidate was removed
-    Object.keys(candidates).forEach(candidateId => {
-      if(!poolCandidateIds.includes(candidateId)) {
+    Object.keys(candidates).forEach((candidateId) => {
+      if (!poolCandidateIds.includes(candidateId)) {
         const candidate = candidates[candidateId]
-        candidate.unsub?.then(func => func())
-        const {[candidateId]: _, ...newCandidates} = candidates
+        candidate.unsub?.then((func) => func())
+        const { [candidateId]: _, ...newCandidates } = candidates
         candidates = newCandidates
         updateCallback(newCandidates)
       }
-    });
+    })
   })
 }
