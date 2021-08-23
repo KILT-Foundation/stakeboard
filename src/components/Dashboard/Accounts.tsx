@@ -1,36 +1,60 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './Accounts.module.css'
 import { Account, AccountWithPct } from '../../types'
-import { TokenBar} from './TokenBar'
+import { TokenBar } from './TokenBar'
 import { MetaDown, MetaUp } from './Meta'
 import { UnusedMeta } from './Meta'
+import { Button } from '../Button/Button'
+import { AccountContext } from '../../utils/AccountContext'
 
 export interface Props {
   accounts: Account[]
+  toggleDetailedIdentityView: () => void
 }
 
 export interface UnusedAccountsProps {
   accounts: Account[]
   down?: boolean
+  toggleDetailedIdentityView: () => void
 }
 export const UnusedAccounts: React.FC<UnusedAccountsProps> = ({
   accounts,
   down,
+  toggleDetailedIdentityView,
 }) => {
-  if (!accounts.length) return null;
+  if (!accounts.length) return null
   const total = accounts.reduce((prev, curr) => prev + curr.stakeable, 0)
   return (
     <span className={styles.account}>
-      {!down && <UnusedMeta accounts={accounts} total={total} down={false} />}
+      {!down && (
+        <UnusedMeta
+          accounts={accounts}
+          total={total}
+          down={false}
+          toggleDetailedIdentityView={toggleDetailedIdentityView}
+        />
+      )}
       <TokenBar stakeable={total} staked={0} down={down} />
-      {down && <UnusedMeta accounts={accounts} total={total} down={true} />}
+      {down && (
+        <UnusedMeta
+          accounts={accounts}
+          total={total}
+          down={true}
+          toggleDetailedIdentityView={toggleDetailedIdentityView}
+        />
+      )}
     </span>
   )
 }
 
-export const Accounts: React.FC<Props> = ({ accounts }) => {
+export const Accounts: React.FC<Props> = ({
+  accounts,
+  toggleDetailedIdentityView,
+}) => {
   const usedAccounts = accounts.filter((account) => account.used)
   const unusedAccounts = accounts.filter((account) => !account.used)
+  const { dispatch } = useContext(AccountContext)
+
   return (
     <div className={styles.accounts}>
       {usedAccounts.map((account, index) => {
@@ -44,21 +68,44 @@ export const Accounts: React.FC<Props> = ({ accounts }) => {
           stakeablePct,
         }
         return (
-          <React.Fragment key={account.address} >
+          <React.Fragment key={account.address}>
             <span className={styles.account}>
-              {index % 2 === 0 && <MetaUp account={accountWithPct} />}
+              {index % 2 === 0 && (
+                <>
+                  <MetaUp account={accountWithPct} />
+                  <Button
+                    onClick={() => {
+                      dispatch({ type: 'selectedAccount', account })
+                      toggleDetailedIdentityView()
+                    }}
+                    label={'open'}
+                  />
+                </>
+              )}
               <TokenBar
                 staked={account.staked}
                 stakeable={account.stakeable}
                 down={index % 2 !== 0}
               />
-              {index % 2 !== 0 && <MetaDown account={accountWithPct} />}
+              {index % 2 !== 0 && (
+                <>
+                  <MetaDown account={accountWithPct} />
+                  <Button
+                    onClick={() => {
+                      dispatch({ type: 'selectedAccount', account })
+                      toggleDetailedIdentityView()
+                    }}
+                    label={'open'}
+                  />
+                </>
+              )}
             </span>
           </React.Fragment>
         )
       })}
       <UnusedAccounts
         accounts={unusedAccounts}
+        toggleDetailedIdentityView={toggleDetailedIdentityView}
         down={usedAccounts.length % 2 !== 0}
       />
     </div>
