@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Button } from '../../components/Button/Button'
-import { AccountContext } from '../../utils/AccountContext'
+import { StateContext } from '../../utils/StateContext'
 import styles from './IdentityView.module.css'
 import { shortenAddress } from '../../utils/shortenAddress'
 
@@ -14,7 +14,7 @@ export const IdentityView: React.FC<Props> = ({
   const {
     state: { account },
     dispatch,
-  } = useContext(AccountContext)
+  } = useContext(StateContext)
 
   // placeholder for the error notifications
   if (!account) return <></>

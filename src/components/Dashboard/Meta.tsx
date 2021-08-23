@@ -6,7 +6,7 @@ import { format } from '../../utils'
 import { Account, AccountWithPct } from '../../types'
 import { AccountInfo } from './AccountInfo'
 import { Button } from '../Button/Button'
-import { AccountContext } from '../../utils/AccountContext'
+import { StateContext } from '../../utils/StateContext'
 
 export interface MetaProps {
   account: AccountWithPct
@@ -48,7 +48,7 @@ export const UnusedMeta: React.FC<UnusedMetaProps> = ({
   down,
   toggleDetailedIdentityView,
 }) => {
-  const { dispatch } = useContext(AccountContext)
+  const { dispatch } = useContext(StateContext)
 
   return (
     <div className={cx({ [styles.metaDown]: down, [styles.meta]: !down })}>

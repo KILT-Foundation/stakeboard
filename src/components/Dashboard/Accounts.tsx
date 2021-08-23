@@ -5,7 +5,7 @@ import { TokenBar } from './TokenBar'
 import { MetaDown, MetaUp } from './Meta'
 import { UnusedMeta } from './Meta'
 import { Button } from '../Button/Button'
-import { AccountContext } from '../../utils/AccountContext'
+import { StateContext } from '../../utils/StateContext'
 
 export interface Props {
   accounts: Account[]
@@ -53,7 +53,7 @@ export const Accounts: React.FC<Props> = ({
 }) => {
   const usedAccounts = accounts.filter((account) => account.used)
   const unusedAccounts = accounts.filter((account) => !account.used)
-  const { dispatch } = useContext(AccountContext)
+  const { dispatch } = useContext(StateContext)
 
   return (
     <div className={styles.accounts}>
