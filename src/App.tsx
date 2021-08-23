@@ -14,6 +14,7 @@ import { Data, Candidate, Account } from './types'
 import { StateContext, StateProvider } from './utils/StateContext'
 import { initialize } from './utils/polling'
 import { Page } from './container/Page/Page'
+import { AccountProvider } from './utils/AccountContext'
 
 async function getAllAccounts() {
   const allInjected = await web3Enable('KILT Staking App')
@@ -154,9 +155,11 @@ function App() {
   }, [web3Enabled])
 
   return (
-    <div className="App">
+    <div className='App'>
       <StateProvider>
-        <Consumer partialAccounts={allAccounts} />
+        <AccountProvider>
+          <Consumer partialAccounts={allAccounts} />
+        </AccountProvider>
       </StateProvider>
     </div>
   )
