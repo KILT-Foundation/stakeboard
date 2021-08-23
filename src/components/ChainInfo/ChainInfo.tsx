@@ -6,6 +6,8 @@ import cx from 'classnames'
 import { Icon } from '../Icon/Icon'
 import { RefreshSelector } from '../RefreshSelector/RefreshSelector'
 import { Button } from '../Button/Button'
+import { ReactComponent as OFF } from '../../icons/OFF_70x36.svg'
+import { ReactComponent as ON } from '../../icons/ON_70x36.svg'
 
 // TODO: add features to refresh currently a placeholder
 const options: Option[] = [
@@ -35,13 +37,13 @@ export const ChainInfo: React.FC = () => {
         </span>
       </div>
       <div className={styles.container}>
-        <Icon type='block_new' />
+        <Icon type="block_new" />
         <span className={styles.label}>Best Block</span>{' '}
         <span className={refreshPaused ? styles.value : styles.valuePaused}>
           # 8,888,888
         </span>
         <span className={styles.leftMargin}>
-          <Icon type='block_new' />
+          <Icon type="block_new" />
         </span>
         <span className={styles.label}>Finalized Block</span>{' '}
         <span className={refreshPaused ? styles.value : styles.valuePaused}>
@@ -55,11 +57,7 @@ export const ChainInfo: React.FC = () => {
           <Button
             onClick={() => dispatch({ type: 'refreshPaused', refreshPaused })}
           >
-            {refreshPaused ? (
-              <Icon type='ON_70x36' width={70} />
-            ) : (
-              <Icon type='OFF_70x36' width={70} />
-            )}
+            {refreshPaused ? <ON /> : <OFF />}
           </Button>
         </div>
       </div>
