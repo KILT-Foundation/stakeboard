@@ -6,7 +6,7 @@ import { Icon } from '../Icon/Icon'
 import rowStyles from '../../styles/row.module.css'
 import { format, leftFillZero } from '../../utils'
 import { Data } from '../../types'
-import { StateContext } from '../../utils/StateContext'
+import { StoredStateContext } from '../../utils/StoredStateContext'
 
 // Max candidates will be changed at a later date. Smaller now for testing purposes.
 const MAX_SELECTED_CANDIDATES = 5
@@ -23,7 +23,7 @@ export const CollatorRow: React.FC<Props> = ({
   setExpanded,
   expanded,
 }) => {
-  const { dispatch } = useContext(StateContext)
+  const { dispatch } = useContext(StoredStateContext)
 
   const hasStakes = entry.stakes.length
 

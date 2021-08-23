@@ -11,7 +11,10 @@ import {
 import './App.css'
 import { getGenesis } from './utils'
 import { Data, Candidate, Account } from './types'
-import { StateContext, StateProvider } from './utils/StateContext'
+import {
+  StoredStateContext,
+  StoredStateProvider,
+} from './utils/StoredStateContext'
 import { PauseProvider } from './utils/PauseContext'
 
 import { initialize } from './utils/polling'
@@ -48,7 +51,7 @@ const Consumer: React.FC<ConsumerProps> = ({ partialAccounts }) => {
   const [dataSet, setDataSet] = useState<Data[]>([])
   const [accounts, setAccounts] = useState<Account[]>([])
 
-  const { state } = useContext(StateContext)
+  const { state } = useContext(StoredStateContext)
 
   useEffect(() => {
     let stop = () => {}
@@ -157,11 +160,11 @@ function App() {
 
   return (
     <div className="App">
-      <StateProvider>
+      <StoredStateProvider>
         <PauseProvider>
           <Consumer partialAccounts={allAccounts} />
         </PauseProvider>
-      </StateProvider>
+      </StoredStateProvider>
     </div>
   )
 }

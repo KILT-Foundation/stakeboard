@@ -5,7 +5,7 @@ export interface State {
   favorites: string[]
 }
 
-export const StateContext = React.createContext<{
+export const StoredStateContext = React.createContext<{
   state: State
   dispatch: Dispatch<FavoriteActions>
 }>({ state: { favorites: [] }, dispatch: () => null })
@@ -14,7 +14,7 @@ const mainReducer = ({ favorites }: State, action: FavoriteActions) => ({
   favorites: favoriteReducer(favorites, action as FavoriteActions),
 })
 
-export const StateProvider: React.FC = ({ children }) => {
+export const StoredStateProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(
     mainReducer,
     {
@@ -40,8 +40,8 @@ export const StateProvider: React.FC = ({ children }) => {
   }, [state])
 
   return (
-    <StateContext.Provider value={{ state, dispatch }}>
+    <StoredStateContext.Provider value={{ state, dispatch }}>
       {children}
-    </StateContext.Provider>
+    </StoredStateContext.Provider>
   )
 }
