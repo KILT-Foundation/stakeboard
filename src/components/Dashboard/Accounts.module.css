@@ -9,3 +9,21 @@
   vertical-align: top;
   min-width: 110px;
 }
+
+.upDetailsButtonContainer {
+  display: inline-block;
+  vertical-align: top;
+  position: absolute;
+  z-index: 2;
+  margin-left: 55px;
+  margin-top: -55px;
+}
+
+.downDetailsButtonContainer {
+  display: inline-block;
+  vertical-align: top;
+  position: absolute;
+  z-index: 2;
+  margin-left: 55px;
+  margin-top: 10px;
+}

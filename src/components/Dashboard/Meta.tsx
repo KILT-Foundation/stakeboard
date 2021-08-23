@@ -62,7 +62,7 @@ export const UnusedMeta: React.FC<UnusedMetaProps> = ({
                 dispatch({ type: 'selectedAccount', account })
                 toggleDetailedIdentityView()
               }}
-              label={'open'}
+              label={'details'}
             />
           </span>
         ))}

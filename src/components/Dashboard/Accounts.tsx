@@ -73,13 +73,15 @@ export const Accounts: React.FC<Props> = ({
               {index % 2 === 0 && (
                 <>
                   <MetaUp account={accountWithPct} />
-                  <Button
-                    onClick={() => {
-                      dispatch({ type: 'selectedAccount', account })
-                      toggleDetailedIdentityView()
-                    }}
-                    label={'open'}
-                  />
+                  <div className={styles.upDetailsButtonContainer}>
+                    <Button
+                      onClick={() => {
+                        dispatch({ type: 'selectedAccount', account })
+                        toggleDetailedIdentityView()
+                      }}
+                      label={'details'}
+                    />
+                  </div>
                 </>
               )}
               <TokenBar
@@ -90,13 +92,15 @@ export const Accounts: React.FC<Props> = ({
               {index % 2 !== 0 && (
                 <>
                   <MetaDown account={accountWithPct} />
-                  <Button
-                    onClick={() => {
-                      dispatch({ type: 'selectedAccount', account })
-                      toggleDetailedIdentityView()
-                    }}
-                    label={'open'}
-                  />
+                  <div className={styles.downDetailsButtonContainer}>
+                    <Button
+                      onClick={() => {
+                        dispatch({ type: 'selectedAccount', account })
+                        toggleDetailedIdentityView()
+                      }}
+                      label={'details'}
+                    />
+                  </div>
                 </>
               )}
             </span>
