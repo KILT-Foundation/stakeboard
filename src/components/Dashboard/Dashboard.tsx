@@ -18,7 +18,7 @@ export const Dashboard: React.FC<Props> = ({ accounts }) => {
     <div className={styles.dashboard}>
       <div
         className={cx(styles.accountsContainer, {
-          [styles.pauseOverlay]: refreshPaused === false,
+          [styles.pauseOverlay]: refreshPaused === true,
         })}
       >
         <div className={styles.accounts}>

@@ -8,7 +8,7 @@ export interface State {
 export const StateContext = React.createContext<{
   state: State
   dispatch: Dispatch<PausedAction>
-}>({ state: { refreshPaused: true }, dispatch: () => null })
+}>({ state: { refreshPaused: false }, dispatch: () => null })
 
 const mainReducer = ({ refreshPaused }: State, action: PausedAction) => ({
   refreshPaused: pauseReducer(refreshPaused, action as PausedAction),
@@ -16,7 +16,7 @@ const mainReducer = ({ refreshPaused }: State, action: PausedAction) => ({
 
 export const StateProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(mainReducer, {
-    refreshPaused: true,
+    refreshPaused: false,
   })
 
   return (
