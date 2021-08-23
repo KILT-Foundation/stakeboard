@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Accounts.module.css'
 import { Account, AccountWithPct } from '../../types'
-import { TokenBar} from './TokenBar'
+import { TokenBar } from './TokenBar'
 import { MetaDown, MetaUp } from './Meta'
 import { UnusedMeta } from './Meta'
 
@@ -17,7 +17,7 @@ export const UnusedAccounts: React.FC<UnusedAccountsProps> = ({
   accounts,
   down,
 }) => {
-  if (!accounts.length) return null;
+  if (!accounts.length) return null
   const total = accounts.reduce((prev, curr) => prev + curr.stakeable, 0)
   return (
     <span className={styles.account}>
@@ -44,7 +44,7 @@ export const Accounts: React.FC<Props> = ({ accounts }) => {
           stakeablePct,
         }
         return (
-          <React.Fragment key={account.address} >
+          <React.Fragment key={account.address}>
             <span className={styles.account}>
               {index % 2 === 0 && <MetaUp account={accountWithPct} />}
               <TokenBar

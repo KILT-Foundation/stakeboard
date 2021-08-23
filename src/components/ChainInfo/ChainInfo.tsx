@@ -8,6 +8,8 @@ import cx from 'classnames'
 import { Icon } from '../Icon/Icon'
 import { RefreshSelector } from '../RefreshSelector/RefreshSelector'
 import { Button } from '../Button/Button'
+import { ReactComponent as OFF } from '../../icons/OFF_70x36.svg'
+import { ReactComponent as ON } from '../../icons/ON_70x36.svg'
 
 // TODO: add features to refresh currently a placeholder
 const options: Option[] = [
@@ -57,36 +59,36 @@ export const ChainInfo: React.FC = () => {
     getSessionCounter()
   })
   return (
-    <div className={refreshPaused ? styles.chaininfo : styles.chaininfoPaused}>
+    <div className={refreshPaused ? styles.chaininfoPaused : styles.chaininfo}>
       <div className={styles.container}>
         <span className={styles.label}>Session Block</span>
         <span
-          className={refreshPaused ? styles.countdown : styles.countdownPaused}
+          className={refreshPaused ? styles.countdownPaused : styles.countdown}
         >
           {sessionCount}/600
         </span>
         {refreshPaused ? (
+          <span className={styles.lineSpacer}>|</span>
+        ) : (
           <span className={cx(styles.label, styles.lineSpacer)}>
             {sessionCountdown}
           </span>
-        ) : (
-          <span className={styles.lineSpacer}>|</span>
         )}
         <span className={styles.refreshPaused}>
-          {refreshPaused ? null : 'REFRESH PAUSED'}
+          {refreshPaused ? 'REFRESH PAUSED' : null}
         </span>
       </div>
       <div className={styles.container}>
-        <Icon type='block_new' />
+        <Icon type="block_new" />
         <span className={styles.label}>Best Block</span>
-        <span className={refreshPaused ? styles.value : styles.valuePaused}>
+        <span className={refreshPaused ? styles.valuePaused : styles.value}>
           # {bestBlockNumber}
         </span>
         <span className={styles.leftMargin}>
-          <Icon type='block_new' />
+          <Icon type="block_new" />
         </span>
         <span className={styles.label}>Finalized Block</span>
-        <span className={refreshPaused ? styles.value : styles.valuePaused}>
+        <span className={refreshPaused ? styles.valuePaused : styles.value}>
           # {bestFinalisedBlockNumber}
         </span>
         <div className={cx(styles.label, styles.leftMargin)}>Refresh Every</div>
@@ -97,11 +99,7 @@ export const ChainInfo: React.FC = () => {
           <Button
             onClick={() => dispatch({ type: 'refreshPaused', refreshPaused })}
           >
-            {refreshPaused ? (
-              <Icon type='ON_70x36' width={70} />
-            ) : (
-              <Icon type='OFF_70x36' width={70} />
-            )}
+            {refreshPaused ? <OFF /> : <ON />}
           </Button>
         </div>
       </div>

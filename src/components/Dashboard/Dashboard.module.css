@@ -1,14 +1,11 @@
 .dashboard {
   height: 440px;
   width: 100%;
-  display: flex;
-  align-items: center;
   background-image: url(../../icons/dna.svg), url(../../icons/decentral.svg);
   background-repeat: no-repeat, no-repeat;
   background-position-x: left, right;
   background-position-y: center, bottom;
   background-size: 180px, 768px;
-  overflow: scroll;
   background-color: var(--color-dashboard);
   z-index: 0;
   position: relative;
@@ -19,10 +16,14 @@
   z-index: 2;
 }
 
-.pauseOverlay {
-  background: linear-gradient(var(--color-bg-paused), var(--color-dashboard));
-  height: 440px;
+.accountsContainer {
+  display: flex;
+  align-items: center;
+  overflow: scroll;
   width: 100%;
-  opacity: 0.3;
-  position: absolute;
+  height: 100%;
+}
+
+.pauseOverlay {
+  background: linear-gradient(rgba(233, 78, 27, 0.3), rgba(15, 15, 27, 0.6));
 }
