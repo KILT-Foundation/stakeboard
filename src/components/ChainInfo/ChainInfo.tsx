@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Option } from '../Select/Select'
-import { PauseContext } from '../../utils/PauseContext'
+import { StateContext } from '../../utils/StateContext'
 import styles from './ChainInfo.module.css'
 import cx from 'classnames'
 import { Icon } from '../Icon/Icon'
@@ -21,7 +21,7 @@ export const ChainInfo: React.FC = () => {
   const {
     dispatch,
     state: { refreshPaused },
-  } = useContext(PauseContext)
+  } = useContext(StateContext)
   return (
     <div className={refreshPaused ? styles.chaininfo : styles.chaininfoPaused}>
       <div className={styles.container}>

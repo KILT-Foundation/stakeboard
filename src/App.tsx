@@ -15,7 +15,7 @@ import {
   StoredStateContext,
   StoredStateProvider,
 } from './utils/StoredStateContext'
-import { PauseProvider } from './utils/PauseContext'
+import { StateProvider } from './utils/StateContext'
 
 import { initialize } from './utils/polling'
 import { Page } from './container/Page/Page'
@@ -161,9 +161,9 @@ function App() {
   return (
     <div className="App">
       <StoredStateProvider>
-        <PauseProvider>
+        <StateProvider>
           <Consumer partialAccounts={allAccounts} />
-        </PauseProvider>
+        </StateProvider>
       </StoredStateProvider>
     </div>
   )

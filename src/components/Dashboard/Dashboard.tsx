@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import styles from './Dashboard.module.css'
 import { Account } from '../../types'
 import { Accounts } from './Accounts'
-import { PauseContext } from '../../utils/PauseContext'
+import { StateContext } from '../../utils/StateContext'
 import cx from 'classnames'
 
 export interface Props {
@@ -12,7 +12,7 @@ export interface Props {
 export const Dashboard: React.FC<Props> = ({ accounts }) => {
   const {
     state: { refreshPaused },
-  } = useContext(PauseContext)
+  } = useContext(StateContext)
 
   return (
     <div className={styles.dashboard}>
