@@ -10,6 +10,20 @@ export interface Props {
   accounts: Account[]
 }
 
+type RefreshPausedOverlayProps = {
+  refreshPaused: boolean
+}
+
+const RefreshPausedOverlay: React.FC<RefreshPausedOverlayProps> = ({
+  children,
+  refreshPaused,
+}) =>
+  refreshPaused ? (
+    <div className={styles.pauseOverlay} children={children} />
+  ) : (
+    <>{children}</>
+  )
+
 export const Dashboard: React.FC<Props> = ({ accounts }) => {
   const {
     state: { refreshPaused },
@@ -22,23 +36,22 @@ export const Dashboard: React.FC<Props> = ({ accounts }) => {
 
   return (
     <div className={styles.dashboard}>
-      <div
-        className={cx(styles.accountsContainer, {
-          [styles.pauseOverlay]: refreshPaused === true,
-        })}
-      />
-      <div className={styles.accounts}>
+      <RefreshPausedOverlay refreshPaused={refreshPaused}>
         {openIdentityView === false ? (
-          <Accounts
-            accounts={accounts}
-            toggleDetailedIdentityView={toggleDetailedIdentityView}
-          />
+          <div className={styles.accountsContainer}>
+            <div className={styles.accounts}>
+              <Accounts
+                accounts={accounts}
+                toggleDetailedIdentityView={toggleDetailedIdentityView}
+              />
+            </div>
+          </div>
         ) : (
           <IdentityView
             toggleDetailedIdentityView={toggleDetailedIdentityView}
           />
         )}
-      </div>
+      </RefreshPausedOverlay>
     </div>
   )
 }
