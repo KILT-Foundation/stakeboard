@@ -40,11 +40,15 @@ const femtoToKilt = (big: bigint) => {
   return Number(inKilt)
 }
 
-interface ConsumerProps {
+interface QueryAndPrepareDataProps {
   partialAccounts: Pick<Account, 'address' | 'name'>[]
+  render(dataSet: Data[], accounts: Account[]): React.ReactElement
 }
 
-const Consumer: React.FC<ConsumerProps> = ({ partialAccounts }) => {
+const QueryAndPrepareData: React.FC<QueryAndPrepareDataProps> = ({
+  partialAccounts,
+  render,
+}) => {
   const [candidates, setCandidates] = useState<Record<string, Candidate>>({})
   const [selectedCandidates, setSelectedCandidates] = useState<string[]>([])
   const [currentCandidates, setCurrentCandidates] = useState<string[]>([])
@@ -53,6 +57,7 @@ const Consumer: React.FC<ConsumerProps> = ({ partialAccounts }) => {
 
   const { state } = useContext(StoredStateContext)
 
+  // Query timer
   useEffect(() => {
     let stop = () => {}
 
@@ -73,6 +78,7 @@ const Consumer: React.FC<ConsumerProps> = ({ partialAccounts }) => {
     }
   }, [])
 
+  // Full dataset from queried collators
   useEffect(() => {
     const newDataSet: Data[] = Object.values(candidates).map((candidate) => {
       const totalStake =
@@ -106,6 +112,7 @@ const Consumer: React.FC<ConsumerProps> = ({ partialAccounts }) => {
     setDataSet(newDataSet)
   }, [candidates, state, selectedCandidates, currentCandidates])
 
+  // Accounts and their queried info
   useEffect(() => {
     // TODO: get data on actual stake / stakeable / other amounts
     const completeAccounts: Account[] = partialAccounts.map((account) => ({
@@ -118,7 +125,7 @@ const Consumer: React.FC<ConsumerProps> = ({ partialAccounts }) => {
     setAccounts(completeAccounts)
   }, [partialAccounts])
 
-  return <Page dataSet={dataSet} accounts={accounts} />
+  return render(dataSet, accounts)
 }
 
 function App() {
@@ -127,6 +134,7 @@ function App() {
     Pick<Account, 'address' | 'name'>[]
   >([])
 
+  // Enable extensions
   useEffect(() => {
     async function doEffect() {
       const allInjected = await web3Enable('KILT Staking App')
@@ -135,6 +143,7 @@ function App() {
     doEffect()
   }, [])
 
+  // Get accounts from extensions
   useEffect(() => {
     async function doEffect() {
       if (web3Enabled) {
@@ -162,7 +171,12 @@ function App() {
     <div className="App">
       <StoredStateProvider>
         <StateProvider>
-          <Consumer partialAccounts={allAccounts} />
+          <QueryAndPrepareData
+            partialAccounts={allAccounts}
+            render={(dataSet, accounts) => (
+              <Page dataSet={dataSet} accounts={accounts} />
+            )}
+          />
         </StateProvider>
       </StoredStateProvider>
     </div>

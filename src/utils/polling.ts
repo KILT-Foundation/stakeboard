@@ -6,6 +6,27 @@ import {
   mapCollatorStateToCandidate,
 } from './chain'
 
+const updateCollators = async () => {
+  const collatorStates = await getAllCollatorState()
+  const candidates: Record<string, Candidate> = {}
+  collatorStates.forEach(async ([accountId, state]) => {
+    if (state.isNone) return
+    const unwrapped = state.unwrap()
+    const candidateId = unwrapped.id.toString()
+    candidates[candidateId] = mapCollatorStateToCandidate(unwrapped)
+  })
+
+  const selectedCandidates = (await getSelectedCandidates()).map((selected) =>
+    selected.toString()
+  )
+
+  const currentCandidates = (await getCurrentCandidates()).map((candidate) =>
+    candidate.toString()
+  )
+
+  return { candidates, selectedCandidates, currentCandidates }
+}
+
 export const initialize = async (
   interval: number,
   updateCallback: (
@@ -17,22 +38,11 @@ export const initialize = async (
   let timer = 0
 
   const update = async () => {
-    const collatorStates = await getAllCollatorState()
-    const candidates: Record<string, Candidate> = {}
-    collatorStates.forEach(async ([accountId, state]) => {
-      if (state.isNone) return
-      const unwrapped = state.unwrap()
-      const candidateId = unwrapped.id.toString()
-      candidates[candidateId] = mapCollatorStateToCandidate(unwrapped)
-    })
-
-    const selectedCandidates = (await getSelectedCandidates()).map((selected) =>
-      selected.toString()
-    )
-
-    const currentCandidates = (await getCurrentCandidates()).map((candidate) =>
-      candidate.toString()
-    )
+    const {
+      candidates,
+      currentCandidates,
+      selectedCandidates,
+    } = await updateCollators()
 
     updateCallback(candidates, selectedCandidates, currentCandidates)
   }
