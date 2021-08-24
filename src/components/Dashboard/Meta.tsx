@@ -1,13 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styles from './Meta.module.css'
 import cx from 'classnames'
 import { Identicon } from '../Identicon/Identicon'
 import { format } from '../../utils'
 import { Account, AccountWithPct } from '../../types'
 import { AccountInfo } from './AccountInfo'
-import { Button } from '../Button/Button'
-import { StateContext } from '../../utils/StateContext'
-
 export interface MetaProps {
   account: AccountWithPct
 }
@@ -39,17 +36,13 @@ export interface UnusedMetaProps {
   accounts: Account[]
   total: number
   down: boolean
-  toggleDetailedIdentityView: () => void
 }
 
 export const UnusedMeta: React.FC<UnusedMetaProps> = ({
   accounts,
   total,
   down,
-  toggleDetailedIdentityView,
 }) => {
-  const { dispatch } = useContext(StateContext)
-
   return (
     <div className={cx({ [styles.metaDown]: down, [styles.meta]: !down })}>
       <div className={cx(styles.identicon, { [styles.identiconDown]: down })}>
@@ -57,13 +50,6 @@ export const UnusedMeta: React.FC<UnusedMetaProps> = ({
         {accounts.map((account) => (
           <span key={account.address} className={styles.unusedIdenticon}>
             <Identicon address={account.address} />
-            <Button
-              onClick={() => {
-                dispatch({ type: 'selectedAccount', account })
-                toggleDetailedIdentityView()
-              }}
-              label={'details'}
-            />
           </span>
         ))}
       </div>

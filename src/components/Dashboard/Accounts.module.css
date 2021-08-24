@@ -12,13 +12,15 @@
 
 .upDetailsButtonContainer {
   vertical-align: top;
-  z-index: 2;
+  z-index: 5;
   margin: -55px 0px 34px 55px;
+  position: relative;
 }
 
 .downDetailsButtonContainer {
   vertical-align: top;
-  z-index: 2;
+  z-index: 5;
   margin-left: 55px;
   margin-top: 15px;
+  position: relative;
 }

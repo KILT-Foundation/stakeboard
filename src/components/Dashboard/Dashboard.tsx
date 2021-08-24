@@ -3,7 +3,6 @@ import styles from './Dashboard.module.css'
 import { Account } from '../../types'
 import { Accounts } from './Accounts'
 import { StateContext } from '../../utils/StateContext'
-import cx from 'classnames'
 import { IdentityView } from '../../container/IdentityView/IdentityView'
 
 export interface Props {

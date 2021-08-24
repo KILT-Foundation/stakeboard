@@ -15,34 +15,18 @@ export interface Props {
 export interface UnusedAccountsProps {
   accounts: Account[]
   down?: boolean
-  toggleDetailedIdentityView: () => void
 }
 export const UnusedAccounts: React.FC<UnusedAccountsProps> = ({
   accounts,
   down,
-  toggleDetailedIdentityView,
 }) => {
   if (!accounts.length) return null
   const total = accounts.reduce((prev, curr) => prev + curr.stakeable, 0)
   return (
     <span className={styles.account}>
-      {!down && (
-        <UnusedMeta
-          accounts={accounts}
-          total={total}
-          down={false}
-          toggleDetailedIdentityView={toggleDetailedIdentityView}
-        />
-      )}
+      {!down && <UnusedMeta accounts={accounts} total={total} down={false} />}
       <TokenBar stakeable={total} staked={0} down={down} />
-      {down && (
-        <UnusedMeta
-          accounts={accounts}
-          total={total}
-          down={true}
-          toggleDetailedIdentityView={toggleDetailedIdentityView}
-        />
-      )}
+      {down && <UnusedMeta accounts={accounts} total={total} down={true} />}
     </span>
   )
 }
@@ -109,7 +93,6 @@ export const Accounts: React.FC<Props> = ({
       })}
       <UnusedAccounts
         accounts={unusedAccounts}
-        toggleDetailedIdentityView={toggleDetailedIdentityView}
         down={usedAccounts.length % 2 !== 0}
       />
     </div>
