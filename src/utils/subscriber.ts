@@ -1,6 +1,5 @@
-import { Candidate } from '../types'
+import { Candidate, ChainTypes } from '../types'
 import {
-  Collator,
   getAllCollatorState,
   subscribeToCandidatePool,
   subscribeToCollatorState,
@@ -9,7 +8,7 @@ import {
 
 let candidates: Record<string, Candidate> = {}
 
-const updateCollator = (collatorState: Collator) => {
+const updateCollator = (collatorState: ChainTypes.Collator) => {
   const id = collatorState.id.toString()
   if (
     candidates[id].total !== collatorState.total.toBigInt() ||

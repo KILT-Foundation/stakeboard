@@ -1,12 +1,12 @@
 import { ApiPromise, WsProvider } from '@polkadot/api'
 import { types12 as types } from '@kiltprotocol/type-definitions'
-import type { Struct, Vec, Enum, Null, Option } from '@polkadot/types'
+import type { Vec, Option, BTreeMap } from '@polkadot/types'
 import type {
   AccountId,
-  Balance,
-  SessionIndex,
+  BalanceOf,
+  BlockNumber,
 } from '@polkadot/types/interfaces'
-import { Candidate, RoundInfo } from '../types'
+import { Candidate, ChainTypes } from '../types'
 
 let cachedApi: Promise<ApiPromise> | null = null
 
@@ -36,63 +36,46 @@ export async function getGenesis() {
   return api.genesisHash.toHex()
 }
 
-export interface Stake extends Struct {
-  owner: AccountId
-  amount: Balance
-}
 export async function getCandidatePool() {
   const api = await connect()
   const candidatePool = await api.query.parachainStaking.candidatePool<
-    Vec<Stake>
+    Vec<ChainTypes.Stake>
   >()
   return candidatePool
 }
 
 export async function subscribeToCandidatePool(
-  listener: (result: Vec<Stake>) => void
+  listener: (result: Vec<ChainTypes.Stake>) => void
 ) {
   const api = await connect()
   // @ts-ignore
   window.trigger = (pool) => {
     listener(pool)
   }
-  api.query.parachainStaking.candidatePool<Vec<Stake>>(listener)
-}
-
-export interface CollatorStatus extends Enum {
-  asActive: Null
-  asLeaving: SessionIndex
-  isActive: boolean
-  isLeaving: boolean
-}
-export interface Collator extends Struct {
-  id: AccountId
-  stake: Balance
-  delegators: Vec<Stake>
-  total: Balance
-  state: CollatorStatus
+  api.query.parachainStaking.candidatePool<Vec<ChainTypes.Stake>>(listener)
 }
 
 export async function subscribeToCollatorState(
   account: string,
-  listener: (result: Option<Collator>) => void
+  listener: (result: Option<ChainTypes.Collator>) => void
 ) {
   const api = await connect()
-  return await api.query.parachainStaking.collatorState<Option<Collator>>(
-    account,
-    listener
-  )
+  return await api.query.parachainStaking.collatorState<
+    Option<ChainTypes.Collator>
+  >(account, listener)
 }
 
 export async function getAllCollatorState() {
   const api = await connect()
   return api.query.parachainStaking.collatorState.entries<
-    Option<Collator>,
+    Option<ChainTypes.Collator>,
     [AccountId]
   >()
 }
 
-export const mapCollatorStateToCandidate = (state: Collator): Candidate => ({
+export const mapCollatorStateToCandidate = (
+  state: ChainTypes.Collator
+): Candidate => ({
   id: state.id.toString(),
   stake: state.stake.toBigInt(),
   delegators: state.delegators.map((delegator) => {
@@ -117,7 +100,7 @@ export async function getCurrentCandidates() {
 
 export async function querySessionInfo() {
   const api = await connect()
-  const roundInfo = api.query.parachainStaking.round<RoundInfo>()
+  const roundInfo = api.query.parachainStaking.round<ChainTypes.RoundInfo>()
   return roundInfo
 }
 

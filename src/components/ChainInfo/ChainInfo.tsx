@@ -9,7 +9,7 @@ import { RefreshSelector } from '../RefreshSelector/RefreshSelector'
 import { Button } from '../Button/Button'
 import { ReactComponent as OFF } from '../../icons/OFF_70x36.svg'
 import { ReactComponent as ON } from '../../icons/ON_70x36.svg'
-import { BlockNumber, RoundInfo } from '../../types'
+import { ChainTypes } from '../../types'
 
 // TODO: add features to refresh currently a placeholder
 const options: Option[] = [
@@ -20,9 +20,9 @@ const options: Option[] = [
 ]
 
 type Props = {
-  sessionInfo?: RoundInfo
-  bestBlock?: BlockNumber
-  bestFinalisedBlock?: BlockNumber
+  sessionInfo?: ChainTypes.RoundInfo
+  bestBlock?: ChainTypes.BlockNumber
+  bestFinalisedBlock?: ChainTypes.BlockNumber
 }
 
 export const ChainInfo: React.FC<Props> = ({

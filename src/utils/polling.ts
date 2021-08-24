@@ -1,4 +1,4 @@
-import { Candidate, RoundInfo, BlockNumber } from '../types'
+import { Candidate, ChainTypes } from '../types'
 import {
   getAllCollatorState,
   getCurrentCandidates,
@@ -39,9 +39,9 @@ const updateCollators = async () => {
 }
 
 type ChainInfo = {
-  sessionInfo: RoundInfo
-  bestBlock: BlockNumber
-  bestFinalisedBlock: BlockNumber
+  sessionInfo: ChainTypes.RoundInfo
+  bestBlock: ChainTypes.BlockNumber
+  bestFinalisedBlock: ChainTypes.BlockNumber
 }
 
 const updateChainInfo = async (): Promise<ChainInfo> => {

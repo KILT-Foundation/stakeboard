@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { Account, BlockNumber, Candidate, Data, RoundInfo } from '../types'
+import { Account, Candidate, ChainTypes, Data } from '../types'
 import { initialize } from './polling'
 import { StoredStateContext } from './StoredStateContext'
 
@@ -20,9 +20,12 @@ export const useBlockchainData = (
   const [currentCandidates, setCurrentCandidates] = useState<string[]>([])
   const [dataSet, setDataSet] = useState<Data[]>([])
   const [accounts, setAccounts] = useState<Account[]>([])
-  const [sessionInfo, setSessionInfo] = useState<RoundInfo>()
-  const [bestBlock, setBestBlock] = useState<BlockNumber>()
-  const [bestFinalisedBlock, setBestFinalisedBlock] = useState<BlockNumber>()
+  const [sessionInfo, setSessionInfo] = useState<ChainTypes.RoundInfo>()
+  const [bestBlock, setBestBlock] = useState<ChainTypes.BlockNumber>()
+  const [
+    bestFinalisedBlock,
+    setBestFinalisedBlock,
+  ] = useState<ChainTypes.BlockNumber>()
 
   const { state } = useContext(StoredStateContext)
 
