@@ -8,7 +8,7 @@ import type {
 } from '@polkadot/types/interfaces'
 import { Candidate, RoundInfo } from '../types'
 
-let cachedApi: ApiPromise | null = null
+let cachedApi: Promise<ApiPromise> | null = null
 
 // const ENDPOINT = 'wss://kilt-peregrine-k8s.kilt.io'
 const ENDPOINT = 'wss://kilt-peregrine-stg.kilt.io'
@@ -16,16 +16,17 @@ const ENDPOINT = 'wss://kilt-peregrine-stg.kilt.io'
 export async function connect() {
   if (!cachedApi) {
     const wsProvider = new WsProvider(ENDPOINT)
-    cachedApi = await ApiPromise.create({ provider: wsProvider, types })
+    cachedApi = ApiPromise.create({ provider: wsProvider, types })
   }
-  if (!cachedApi.isConnected) {
-    await cachedApi.connect()
+  let resolved = await cachedApi
+  if (!resolved.isConnected) {
+    resolved.connect()
   }
-  return cachedApi
+  return resolved
 }
 
-export function disconnect() {
-  return cachedApi?.disconnect()
+export async function disconnect() {
+  return (await cachedApi)?.disconnect()
 }
 
 export async function getGenesis() {
