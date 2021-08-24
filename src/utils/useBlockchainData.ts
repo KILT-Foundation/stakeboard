@@ -31,11 +31,14 @@ export const useBlockchainData = (
 
   // Query timer
   useEffect(() => {
+    if (!partialAccounts.length) return
+
     let stop = () => {}
 
     const doEffect = async () => {
       stop = await initialize(
         5,
+        partialAccounts.map((account) => account.address),
         (
           newCandidates,
           newSelectedCandidates,
@@ -56,7 +59,7 @@ export const useBlockchainData = (
     return () => {
       stop()
     }
-  }, [])
+  }, [partialAccounts])
 
   // Full dataset from queried collators
   useEffect(() => {

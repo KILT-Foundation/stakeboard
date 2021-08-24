@@ -113,3 +113,22 @@ export async function queryBestFinalisedBlock() {
   const api = await connect()
   return api.derive.chain.bestNumberFinalized()
 }
+
+export async function getBalance(account: string) {
+  const api = await connect()
+  return api.query.system.account(account)
+}
+
+export async function getUnstakingAmounts(account: string) {
+  const api = await connect()
+  return api.query.parachainStaking.unstaking<BTreeMap<BlockNumber, BalanceOf>>(
+    account
+  )
+}
+
+export async function getDelegatorStake(account: string) {
+  const api = await connect()
+  return api.query.parachainStaking.delegatorState<
+    Option<ChainTypes.Delegator>
+  >(account)
+}

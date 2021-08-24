@@ -1,9 +1,8 @@
-import type { Struct, Vec, Enum, Null, Option, BTreeMap } from '@polkadot/types'
+import type { Struct, Vec, Enum, Null } from '@polkadot/types'
 import type {
   AccountId,
   Balance,
   SessionIndex,
-  BalanceOf,
   BlockNumber,
 } from '@polkadot/types/interfaces'
 export type { BlockNumber }
@@ -31,4 +30,9 @@ export interface RoundInfo extends Struct {
   current: SessionIndex
   first: BlockNumber
   length: BlockNumber
+}
+
+export interface Delegator extends Struct {
+  delegations: Vec<Stake>
+  total: Balance
 }
