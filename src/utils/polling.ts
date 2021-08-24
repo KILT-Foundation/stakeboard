@@ -10,7 +10,15 @@ import {
 } from './chain'
 
 const updateCollators = async () => {
-  const collatorStates = await getAllCollatorState()
+  const [
+    collatorStates,
+    selectedCandidatesChain,
+    currentCandidatesChain,
+  ] = await Promise.all([
+    getAllCollatorState(),
+    getSelectedCandidates(),
+    getCurrentCandidates(),
+  ])
   const candidates: Record<string, Candidate> = {}
   collatorStates.forEach(async ([accountId, state]) => {
     if (state.isNone) return
@@ -19,11 +27,11 @@ const updateCollators = async () => {
     candidates[candidateId] = mapCollatorStateToCandidate(unwrapped)
   })
 
-  const selectedCandidates = (await getSelectedCandidates()).map((selected) =>
+  const selectedCandidates = selectedCandidatesChain.map((selected) =>
     selected.toString()
   )
 
-  const currentCandidates = (await getCurrentCandidates()).map((candidate) =>
+  const currentCandidates = currentCandidatesChain.map((candidate) =>
     candidate.toString()
   )
 
@@ -37,10 +45,11 @@ type ChainInfo = {
 }
 
 const updateChainInfo = async (): Promise<ChainInfo> => {
-  const sessionInfo = await querySessionInfo()
-  const bestBlock = await queryBestBlock()
-  const bestFinalisedBlock = await queryBestFinalisedBlock()
-
+  const [sessionInfo, bestBlock, bestFinalisedBlock] = await Promise.all([
+    querySessionInfo(),
+    queryBestBlock(),
+    queryBestFinalisedBlock(),
+  ])
   return { sessionInfo, bestBlock, bestFinalisedBlock }
 }
 
@@ -56,13 +65,10 @@ export const initialize = async (
   let timer = 0
 
   const update = async () => {
-    const {
-      candidates,
-      currentCandidates,
-      selectedCandidates,
-    } = await updateCollators()
-
-    const chainInfo = await updateChainInfo()
+    const [
+      { candidates, currentCandidates, selectedCandidates },
+      chainInfo,
+    ] = await Promise.all([updateCollators(), updateChainInfo()])
 
     updateCallback(candidates, selectedCandidates, currentCandidates, chainInfo)
   }
