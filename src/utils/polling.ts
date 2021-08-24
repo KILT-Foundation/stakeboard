@@ -57,23 +57,16 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
 }
 
 const updateAccountInfos = async (accounts: string[]) => {
-  const balanceGetters = Promise.all(
-    accounts.map((account) => getBalance(account))
-  )
-  const unstakingGetters = Promise.all(
-    accounts.map((account) => getUnstakingAmounts(account))
-  )
-  const delegatorGetters = Promise.all(
-    accounts.map((account) => getDelegatorStake(account))
+  const getters = accounts.map((account) =>
+    Promise.all([
+      Promise.resolve(account),
+      getBalance(account),
+      getUnstakingAmounts(account),
+      getDelegatorStake(account),
+    ])
   )
 
-  const [balances, unstakingAmounts, delegatorStakes] = await Promise.all([
-    balanceGetters,
-    unstakingGetters,
-    delegatorGetters,
-  ])
-
-  return { balances, unstakingAmounts, delegatorStakes }
+  return await Promise.all(getters)
 }
 
 export const initialize = async (
