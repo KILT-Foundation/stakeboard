@@ -56,6 +56,16 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
   return { sessionInfo, bestBlock, bestFinalisedBlock }
 }
 
+export type Unstaking = {
+  block: bigint
+  amount: bigint
+}
+export type AccountInfo = {
+  stakeable: bigint
+  totalStake: bigint
+  unstaking: Array<Unstaking>
+}
+
 const updateAccountInfos = async (accounts: string[]) => {
   const getters = accounts.map((account) =>
     Promise.all([
@@ -66,7 +76,35 @@ const updateAccountInfos = async (accounts: string[]) => {
     ])
   )
 
-  return await Promise.all(getters)
+  const resolved = await Promise.all(getters)
+
+  const accountInfos: Record<string, AccountInfo> = {}
+
+  resolved.forEach((account) => {
+    const address = account[0]
+    const balance = account[1]
+    const unstakingChain = account[2]
+    const stake = account[3]
+
+    const {
+      data: { free, reserved },
+    } = balance
+
+    const totalStake = stake.unwrapOrDefault().total.toBigInt()
+    const stakeable = free.toBigInt() - reserved.toBigInt() - totalStake
+
+    const unstaking: Array<Unstaking> = []
+    unstakingChain.forEach((value, key) => {
+      unstaking.push({
+        block: key.toBigInt(),
+        amount: value.toBigInt(),
+      })
+    })
+
+    accountInfos[address] = { totalStake, stakeable, unstaking }
+  })
+
+  return accountInfos
 }
 
 export const initialize = async (
@@ -76,7 +114,8 @@ export const initialize = async (
     newCandidates: Record<string, Candidate>,
     selectedCandidates: string[],
     currentCandidates: string[],
-    chainInfo: ChainInfo
+    chainInfo: ChainInfo,
+    accountInfos: Record<string, AccountInfo>
   ) => void
 ) => {
   let timer = 0
@@ -92,9 +131,13 @@ export const initialize = async (
       updateAccountInfos(accounts),
     ])
 
-    console.log(accountInfos)
-
-    updateCallback(candidates, selectedCandidates, currentCandidates, chainInfo)
+    updateCallback(
+      candidates,
+      selectedCandidates,
+      currentCandidates,
+      chainInfo,
+      accountInfos
+    )
   }
 
   const keepUpdating = () => {

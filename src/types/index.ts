@@ -1,3 +1,5 @@
+import { Unstaking } from '../utils/polling'
+
 export * as ChainTypes from './chainTypes'
 
 export interface Stake {
@@ -26,6 +28,7 @@ export interface Account {
   name?: string
   staked: number
   stakeable: number
+  unstaking: Array<Unstaking>
   used?: boolean
 }
 

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { Account, Candidate, ChainTypes, Data } from '../types'
-import { initialize } from './polling'
+import { AccountInfo, initialize } from './polling'
 import { StoredStateContext } from './StoredStateContext'
 
 const femtoToKilt = (big: bigint) => {
@@ -26,6 +26,9 @@ export const useBlockchainData = (
     bestFinalisedBlock,
     setBestFinalisedBlock,
   ] = useState<ChainTypes.BlockNumber>()
+  const [accountInfos, setAccountInfos] = useState<Record<string, AccountInfo>>(
+    {}
+  )
 
   const { state } = useContext(StoredStateContext)
 
@@ -43,7 +46,8 @@ export const useBlockchainData = (
           newCandidates,
           newSelectedCandidates,
           newCurrentCandidates,
-          chainInfo
+          chainInfo,
+          newAccountInfos
         ) => {
           setCandidates(newCandidates)
           setSelectedCandidates(newSelectedCandidates)
@@ -51,6 +55,7 @@ export const useBlockchainData = (
           setSessionInfo(chainInfo.sessionInfo)
           setBestBlock(chainInfo.bestBlock)
           setBestFinalisedBlock(chainInfo.bestFinalisedBlock)
+          setAccountInfos(newAccountInfos)
         }
       )
     }
@@ -97,16 +102,22 @@ export const useBlockchainData = (
 
   // Accounts and their queried info
   useEffect(() => {
+    // We need data from the chain for all the accounts before mapping the final account object together
+    if (!partialAccounts.every((account) => accountInfos[account.address]))
+      return
     // TODO: get data on actual stake / stakeable / other amounts
     const completeAccounts: Account[] = partialAccounts.map((account) => ({
       name: account.name,
       address: account.address,
-      staked: 5000,
-      stakeable: 2000,
-      used: true,
+      staked: femtoToKilt(accountInfos[account.address].totalStake),
+      stakeable: femtoToKilt(accountInfos[account.address].stakeable),
+      unstaking: accountInfos[account.address].unstaking,
+      used:
+        accountInfos[account.address].totalStake > 0 ||
+        accountInfos[account.address].unstaking.length > 0,
     }))
     setAccounts(completeAccounts)
-  }, [partialAccounts])
+  }, [partialAccounts, accountInfos])
 
   return { dataSet, accounts, sessionInfo, bestBlock, bestFinalisedBlock }
 }

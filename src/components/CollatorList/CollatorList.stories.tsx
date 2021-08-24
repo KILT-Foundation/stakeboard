@@ -18,18 +18,21 @@ Primary.args = {
       name: 'KILT Identity 1',
       stakeable: 100_000,
       staked: 0,
+      unstaking: [],
     },
     {
       address: '5GN6CNx5L44Ga372PvyD639ukHTvoUktkDCNL4rY7sEFy57P',
       name: 'KILT Identity 2',
       stakeable: 800_000,
       staked: 0,
+      unstaking: [],
     },
     {
       address: '5D7WMHRftdGWGhfAP7NaJfKuRyvfES77ZnjcBzqgMFMjTsGu',
       name: 'KILT Identity 3',
       stakeable: 10_000,
       staked: 0,
+      unstaking: [],
     },
   ],
   dataSet: [
