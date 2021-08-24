@@ -8,7 +8,7 @@ import { format, leftFillZero } from '../../utils'
 import { Data } from '../../types'
 import { StoredStateContext } from '../../utils/StoredStateContext'
 
-// Max candidates will be changed at a later date. Smaller now for testing purposes.
+// TODO: Max candidates will be changed at a later date. Smaller now for testing purposes.
 const MAX_SELECTED_CANDIDATES = 5
 export interface Props {
   entry: Data
