@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   web3Accounts,
   web3Enable,
@@ -10,14 +10,10 @@ import {
 
 import './App.css'
 import { getGenesis } from './utils'
-import { Data, Candidate, Account, RoundInfo, BlockNumber } from './types'
-import {
-  StoredStateContext,
-  StoredStateProvider,
-} from './utils/StoredStateContext'
+import { Account } from './types'
+import { StoredStateProvider } from './utils/StoredStateContext'
 import { StateProvider } from './utils/StateContext'
 
-import { initialize } from './utils/polling'
 import { Page } from './container/Page/Page'
 
 async function getAllAccounts() {
@@ -33,117 +29,7 @@ async function getAllAccounts() {
   console.log('rpcProviders', rpcProviders)
 }
 
-getAllAccounts()
-
-const femtoToKilt = (big: bigint) => {
-  const inKilt = big / 10n ** 15n
-  return Number(inKilt)
-}
-
-interface QueryAndPrepareDataProps {
-  partialAccounts: Pick<Account, 'address' | 'name'>[]
-  render(
-    dataSet: Data[],
-    accounts: Account[],
-    sessionInfo?: RoundInfo,
-    bestBlock?: BlockNumber,
-    bestFinalisedBlock?: BlockNumber
-  ): React.ReactElement
-}
-
-const QueryAndPrepareData: React.FC<QueryAndPrepareDataProps> = ({
-  partialAccounts,
-  render,
-}) => {
-  const [candidates, setCandidates] = useState<Record<string, Candidate>>({})
-  const [selectedCandidates, setSelectedCandidates] = useState<string[]>([])
-  const [currentCandidates, setCurrentCandidates] = useState<string[]>([])
-  const [dataSet, setDataSet] = useState<Data[]>([])
-  const [accounts, setAccounts] = useState<Account[]>([])
-  const [sessionInfo, setSessionInfo] = useState<RoundInfo>()
-  const [bestBlock, setBestBlock] = useState<BlockNumber>()
-  const [bestFinalisedBlock, setBestFinalisedBlock] = useState<BlockNumber>()
-
-  const { state } = useContext(StoredStateContext)
-
-  // Query timer
-  useEffect(() => {
-    let stop = () => {}
-
-    const doEffect = async () => {
-      stop = await initialize(
-        5,
-        (
-          newCandidates,
-          newSelectedCandidates,
-          newCurrentCandidates,
-          chainInfo
-        ) => {
-          setCandidates(newCandidates)
-          setSelectedCandidates(newSelectedCandidates)
-          setCurrentCandidates(newCurrentCandidates)
-          setSessionInfo(chainInfo.sessionInfo)
-          setBestBlock(chainInfo.bestBlock)
-          setBestFinalisedBlock(chainInfo.bestFinalisedBlock)
-        }
-      )
-    }
-    doEffect()
-
-    return () => {
-      stop()
-    }
-  }, [])
-
-  // Full dataset from queried collators
-  useEffect(() => {
-    const newDataSet: Data[] = Object.values(candidates).map((candidate) => {
-      const totalStake =
-        candidate.stake +
-        candidate.delegators.reduce(
-          (prev, current) => prev + current.amount,
-          0n
-        )
-
-      const sortedLowestStake = candidate.delegators.sort((a, b) =>
-        a.amount >= b.amount ? 1 : -1
-      )
-      const lowestStake = sortedLowestStake.length
-        ? femtoToKilt(sortedLowestStake[0].amount)
-        : null
-
-      return {
-        active: currentCandidates.includes(candidate.id),
-        activeNext: selectedCandidates.includes(candidate.id),
-        collator: candidate.id,
-        delegators: candidate.delegators.length,
-        lowestStake: lowestStake,
-        totalStake: femtoToKilt(totalStake),
-        // TODO: fill with account data!
-        stakes: [],
-        favorite: state.favorites.includes(candidate.id),
-        isLeaving: !!candidate.isLeaving,
-      }
-    })
-
-    setDataSet(newDataSet)
-  }, [candidates, state, selectedCandidates, currentCandidates])
-
-  // Accounts and their queried info
-  useEffect(() => {
-    // TODO: get data on actual stake / stakeable / other amounts
-    const completeAccounts: Account[] = partialAccounts.map((account) => ({
-      name: account.name,
-      address: account.address,
-      staked: 5000,
-      stakeable: 2000,
-      used: true,
-    }))
-    setAccounts(completeAccounts)
-  }, [partialAccounts])
-
-  return render(dataSet, accounts, sessionInfo, bestBlock, bestFinalisedBlock)
-}
+// getAllAccounts()
 
 function App() {
   const [web3Enabled, setWeb3Enabled] = useState(false)
@@ -188,24 +74,7 @@ function App() {
     <div className="App">
       <StoredStateProvider>
         <StateProvider>
-          <QueryAndPrepareData
-            partialAccounts={allAccounts}
-            render={(
-              dataSet,
-              accounts,
-              sessionInfo,
-              bestBlock,
-              bestFinalisedBlock
-            ) => (
-              <Page
-                dataSet={dataSet}
-                accounts={accounts}
-                sessionInfo={sessionInfo}
-                bestBlock={bestBlock}
-                bestFinalisedBlock={bestFinalisedBlock}
-              />
-            )}
-          />
+          <Page allAccounts={allAccounts} />
         </StateProvider>
       </StoredStateProvider>
     </div>
