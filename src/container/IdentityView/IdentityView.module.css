@@ -39,6 +39,7 @@
   display: flex;
   justify-content: space-between;
 }
+
 .name {
   min-width: 130px;
   margin-top: 15px;
@@ -50,10 +51,46 @@
   align-items: center;
   justify-content: space-between;
 }
-
+/* Identity View Data */
 .identityViewDetailsContainer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
   margin: 30px 30px 0px 250px;
+  word-wrap: break-word;
+  width: 80%;
+  max-height: fit-content;
 }
+
+.information {
+  max-width: 350px;
+}
+
+.informationOther {
+  max-width: 350px;
+}
+
+.lockedContainer {
+  max-height: 200px;
+  overflow: scroll;
+}
+
+.yellowBar {
+  width: 350;
+  background-color: yellow;
+}
+
+.orangeBar {
+  width: 350;
+  background-color: orange;
+}
+
+.redBar {
+  width: 350;
+  background-color: red;
+}
+
+/* Text */
 
 .label {
   font-family: var(--font-primary);
