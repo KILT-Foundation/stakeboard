@@ -6,7 +6,7 @@ import type {
   Balance,
   SessionIndex,
 } from '@polkadot/types/interfaces'
-import { Candidate } from '../types'
+import { Candidate, RoundInfo } from '../types'
 
 let cachedApi: ApiPromise | null = null
 
@@ -112,4 +112,20 @@ export async function getSelectedCandidates() {
 export async function getCurrentCandidates() {
   const api = await connect()
   return api.query.session.validators<Vec<AccountId>>()
+}
+
+export async function querySessionInfo() {
+  const api = await connect()
+  const roundInfo = api.query.parachainStaking.round<RoundInfo>()
+  return roundInfo
+}
+
+export async function queryBestBlock() {
+  const api = await connect()
+  return api.derive.chain.bestNumber()
+}
+
+export async function queryBestFinalisedBlock() {
+  const api = await connect()
+  return api.derive.chain.bestNumberFinalized()
 }
