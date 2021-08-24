@@ -1,5 +1,6 @@
 import type { Struct } from '@polkadot/types'
 import { SessionIndex, BlockNumber } from '@polkadot/types/interfaces'
+export type { BlockNumber }
 
 export interface Stake {
   stake: number

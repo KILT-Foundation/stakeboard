@@ -10,7 +10,7 @@ import {
 
 import './App.css'
 import { getGenesis } from './utils'
-import { Data, Candidate, Account } from './types'
+import { Data, Candidate, Account, RoundInfo, BlockNumber } from './types'
 import {
   StoredStateContext,
   StoredStateProvider,
@@ -42,7 +42,13 @@ const femtoToKilt = (big: bigint) => {
 
 interface QueryAndPrepareDataProps {
   partialAccounts: Pick<Account, 'address' | 'name'>[]
-  render(dataSet: Data[], accounts: Account[]): React.ReactElement
+  render(
+    dataSet: Data[],
+    accounts: Account[],
+    sessionInfo?: RoundInfo,
+    bestBlock?: BlockNumber,
+    bestFinalisedBlock?: BlockNumber
+  ): React.ReactElement
 }
 
 const QueryAndPrepareData: React.FC<QueryAndPrepareDataProps> = ({
@@ -54,6 +60,9 @@ const QueryAndPrepareData: React.FC<QueryAndPrepareDataProps> = ({
   const [currentCandidates, setCurrentCandidates] = useState<string[]>([])
   const [dataSet, setDataSet] = useState<Data[]>([])
   const [accounts, setAccounts] = useState<Account[]>([])
+  const [sessionInfo, setSessionInfo] = useState<RoundInfo>()
+  const [bestBlock, setBestBlock] = useState<BlockNumber>()
+  const [bestFinalisedBlock, setBestFinalisedBlock] = useState<BlockNumber>()
 
   const { state } = useContext(StoredStateContext)
 
@@ -64,10 +73,18 @@ const QueryAndPrepareData: React.FC<QueryAndPrepareDataProps> = ({
     const doEffect = async () => {
       stop = await initialize(
         5,
-        (newCandidates, newSelectedCandidates, newCurrentCandidates) => {
+        (
+          newCandidates,
+          newSelectedCandidates,
+          newCurrentCandidates,
+          chainInfo
+        ) => {
           setCandidates(newCandidates)
           setSelectedCandidates(newSelectedCandidates)
           setCurrentCandidates(newCurrentCandidates)
+          setSessionInfo(chainInfo.sessionInfo)
+          setBestBlock(chainInfo.bestBlock)
+          setBestFinalisedBlock(chainInfo.bestFinalisedBlock)
         }
       )
     }
@@ -125,7 +142,7 @@ const QueryAndPrepareData: React.FC<QueryAndPrepareDataProps> = ({
     setAccounts(completeAccounts)
   }, [partialAccounts])
 
-  return render(dataSet, accounts)
+  return render(dataSet, accounts, sessionInfo, bestBlock, bestFinalisedBlock)
 }
 
 function App() {
@@ -173,8 +190,20 @@ function App() {
         <StateProvider>
           <QueryAndPrepareData
             partialAccounts={allAccounts}
-            render={(dataSet, accounts) => (
-              <Page dataSet={dataSet} accounts={accounts} />
+            render={(
+              dataSet,
+              accounts,
+              sessionInfo,
+              bestBlock,
+              bestFinalisedBlock
+            ) => (
+              <Page
+                dataSet={dataSet}
+                accounts={accounts}
+                sessionInfo={sessionInfo}
+                bestBlock={bestBlock}
+                bestFinalisedBlock={bestFinalisedBlock}
+              />
             )}
           />
         </StateProvider>

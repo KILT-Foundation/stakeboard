@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { queryBestBlock, queryBestFinalisedBlock } from '../../utils/chain'
 import { sessionCounter, sessionTimer } from '../../utils/sessionCountdown'
 import { Option } from '../Select/Select'
 import { StateContext } from '../../utils/StateContext'
@@ -10,6 +9,7 @@ import { RefreshSelector } from '../RefreshSelector/RefreshSelector'
 import { Button } from '../Button/Button'
 import { ReactComponent as OFF } from '../../icons/OFF_70x36.svg'
 import { ReactComponent as ON } from '../../icons/ON_70x36.svg'
+import { BlockNumber, RoundInfo } from '../../types'
 
 // TODO: add features to refresh currently a placeholder
 const options: Option[] = [
@@ -19,9 +19,17 @@ const options: Option[] = [
   { label: '5 mins', value: '300' },
 ]
 
-export const ChainInfo: React.FC = () => {
-  const [bestBlockNumber, setBestBlock] = useState('')
-  const [bestFinalisedBlockNumber, setBestFinalisedBlockNumber] = useState('')
+type Props = {
+  sessionInfo?: RoundInfo
+  bestBlock?: BlockNumber
+  bestFinalisedBlock?: BlockNumber
+}
+
+export const ChainInfo: React.FC<Props> = ({
+  sessionInfo,
+  bestBlock,
+  bestFinalisedBlock,
+}) => {
   const [sessionCount, setSessionCount] = useState<number>()
   const [sessionCountdown, setSessionCountdown] = useState('')
 
@@ -30,34 +38,13 @@ export const ChainInfo: React.FC = () => {
     state: { refreshPaused },
   } = useContext(StateContext)
 
-  useEffect((): void => {
-    const getBestBlockNumber = async () => {
-      const bestNumber = await queryBestBlock()
-      setBestBlock(bestNumber.toNumber().toLocaleString())
-    }
+  useEffect(() => {
+    const sessionCount = sessionCounter(sessionInfo, bestBlock)
+    const sessionTime = sessionTimer(sessionInfo, bestBlock)
+    setSessionCount(sessionCount)
+    setSessionCountdown(sessionTime)
+  }, [sessionInfo, bestBlock])
 
-    getBestBlockNumber()
-  })
-
-  useEffect((): void => {
-    const getBestFinalisedBlockNumber = async () => {
-      const finalisedNumber = await queryBestFinalisedBlock()
-      setBestFinalisedBlockNumber(finalisedNumber.toNumber().toLocaleString())
-    }
-
-    getBestFinalisedBlockNumber()
-  })
-
-  useEffect((): void => {
-    const getSessionCounter = async () => {
-      const sessionInfo = await sessionCounter()
-      const sessionTime = await sessionTimer()
-      setSessionCount(sessionInfo)
-      setSessionCountdown(sessionTime)
-    }
-
-    getSessionCounter()
-  })
   return (
     <div className={refreshPaused ? styles.chaininfoPaused : styles.chaininfo}>
       <div className={styles.container}>
@@ -65,7 +52,7 @@ export const ChainInfo: React.FC = () => {
         <span
           className={refreshPaused ? styles.countdownPaused : styles.countdown}
         >
-          {sessionCount ? sessionCount : '000'}/600
+          {sessionCount}/600
         </span>
         {refreshPaused ? (
           <span className={styles.lineSpacer}>|</span>
@@ -82,14 +69,17 @@ export const ChainInfo: React.FC = () => {
         <Icon type="block_new" />
         <span className={styles.label}>Best Block</span>
         <span className={refreshPaused ? styles.valuePaused : styles.value}>
-          # {bestBlockNumber ? bestBlockNumber : '000,000'}
+          # {bestBlock ? bestBlock.toNumber().toLocaleString() : '000,000'}
         </span>
         <span className={styles.leftMargin}>
           <Icon type="block_new" />
         </span>
         <span className={styles.label}>Finalized Block</span>
         <span className={refreshPaused ? styles.valuePaused : styles.value}>
-          # {bestFinalisedBlockNumber ? bestFinalisedBlockNumber : '000,000'}
+          #{' '}
+          {bestFinalisedBlock
+            ? bestFinalisedBlock.toNumber().toLocaleString()
+            : '000,000'}
         </span>
         <div className={cx(styles.label, styles.leftMargin)}>Refresh Every</div>
         <div className={cx(styles.label, styles.refreshDropdown)}>

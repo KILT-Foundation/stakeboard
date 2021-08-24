@@ -1,43 +1,27 @@
-import { queryBestBlock, querySessionInfo } from './chain'
+import { BlockNumber, RoundInfo } from '../types'
 
-export async function sessionCounter() {
-  const sessionInfo = await querySessionInfo()
-
-  const finalisedBlockNumber = await queryBestBlock()
-
-  const sessionLastBlock = sessionInfo.first.add(sessionInfo.length)
-
-  const a = finalisedBlockNumber.sub(sessionLastBlock)
-
-  const countdown = sessionInfo.length.add(a)
-
-  return countdown.toNumber()
+export function sessionCounter(
+  sessionInfo?: RoundInfo,
+  bestBlock?: BlockNumber
+) {
+  if (!sessionInfo || !bestBlock) return 0
+  return bestBlock.sub(sessionInfo.first).toNumber()
 }
 
-export async function sessionTimer() {
-  const sessionInfo = await querySessionInfo()
+const padTime = (number: Number) => number.toString().padStart(2, '0')
 
-  const finalisedBlockNumber = await queryBestBlock()
+export function sessionTimer(sessionInfo?: RoundInfo, bestBlock?: BlockNumber) {
+  if (!sessionInfo || !bestBlock) return ''
+  const blockInSession = bestBlock.sub(sessionInfo.first)
+  const blockInSessionDescending = sessionInfo.length.sub(blockInSession)
 
-  const sessionLastBlock = sessionInfo.first.add(sessionInfo.length)
+  const inSeconds = blockInSessionDescending.muln(12).toNumber()
 
-  const currentSessionBlock = sessionLastBlock.sub(finalisedBlockNumber)
+  const asTime = new Date(inSeconds * 1000)
 
-  const countdown = currentSessionBlock.muln(12).toNumber()
+  const hours = padTime(asTime.getUTCHours())
+  const minutes = padTime(asTime.getUTCMinutes())
+  const seconds = padTime(asTime.getSeconds())
 
-  const date = new Date(countdown * 1000)
-
-  const hours = date.getUTCHours()
-  const minutes = date.getUTCMinutes()
-  const seconds = date.getSeconds()
-
-  const timeString =
-    '~' +
-    hours.toString().padStart(2, '0') +
-    ':' +
-    minutes.toString().padStart(2, '0') +
-    ':' +
-    seconds.toString().padStart(2, '0')
-
-  return timeString
+  return `~${hours}:${minutes}:${seconds}`
 }
