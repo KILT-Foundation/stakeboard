@@ -1,27 +1,27 @@
 import { queryBestBlock, querySessionInfo } from './chain'
 
 export async function sessionCounter() {
-  const getSessionInfo = await querySessionInfo()
+  const sessionInfo = await querySessionInfo()
 
-  const getFinalisedBlockNumber = await queryBestBlock()
+  const finalisedBlockNumber = await queryBestBlock()
 
-  const sessionLastBlock = getSessionInfo.first.add(getSessionInfo.length)
+  const sessionLastBlock = sessionInfo.first.add(sessionInfo.length)
 
-  const a = getFinalisedBlockNumber.sub(sessionLastBlock)
+  const a = finalisedBlockNumber.sub(sessionLastBlock)
 
-  const countdown = getSessionInfo.length.add(a)
+  const countdown = sessionInfo.length.add(a)
 
   return countdown.toNumber()
 }
 
 export async function sessionTimer() {
-  const getSessionInfo = await querySessionInfo()
+  const sessionInfo = await querySessionInfo()
 
-  const getFinalisedBlockNumber = await queryBestBlock()
+  const finalisedBlockNumber = await queryBestBlock()
 
-  const sessionLastBlock = getSessionInfo.first.add(getSessionInfo.length)
+  const sessionLastBlock = sessionInfo.first.add(sessionInfo.length)
 
-  const currentSessionBlock = sessionLastBlock.sub(getFinalisedBlockNumber)
+  const currentSessionBlock = sessionLastBlock.sub(finalisedBlockNumber)
 
   const countdown = currentSessionBlock.muln(12).toNumber()
 
