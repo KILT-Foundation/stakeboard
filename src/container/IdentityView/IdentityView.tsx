@@ -42,7 +42,7 @@ export const IdentityView: React.FC<Props> = ({
     if (!account || !bestBlock) return
 
     const unstakeable = account.unstaking
-      .filter((val) => val.block > BigInt(bestBlock.toString()))
+      .filter((val) => val.block < BigInt(bestBlock.toString()))
       .map((val) => {
         return femtoToKilt(val.amount)
       })
