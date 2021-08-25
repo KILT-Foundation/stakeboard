@@ -132,3 +132,8 @@ export async function getDelegatorStake(account: string) {
     Option<ChainTypes.Delegator>
   >(account)
 }
+
+export async function withdrawStake(account: string) {
+  const api = await connect()
+  return api.tx.parachainStaking.unlockUnstaked(account)
+}
