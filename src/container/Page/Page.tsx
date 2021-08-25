@@ -4,18 +4,29 @@ import { CollatorList } from '../../components/CollatorList/CollatorList'
 import { Header } from '../../components/Header/Header'
 import { ChainInfo } from '../../components/ChainInfo/ChainInfo'
 import styles from './Page.module.css'
-import { Account, Data } from '../../types'
+import { Account } from '../../types'
+import { useBlockchainData } from '../../utils/useBlockchainData'
 
 export interface Props {
-  accounts: Account[]
-  dataSet: Data[]
+  allAccounts: Pick<Account, 'address' | 'name'>[]
 }
 
-export const Page: React.FC<Props> = ({ accounts, dataSet }) => {
+export const Page: React.FC<Props> = ({ allAccounts }) => {
+  const {
+    dataSet,
+    accounts,
+    sessionInfo,
+    bestBlock,
+    bestFinalisedBlock,
+  } = useBlockchainData(allAccounts)
   return (
     <div className={styles.page}>
       <Header />
-      <ChainInfo />
+      <ChainInfo
+        sessionInfo={sessionInfo}
+        bestBlock={bestBlock}
+        bestFinalisedBlock={bestFinalisedBlock}
+      />
       <Dashboard accounts={accounts} />
       <CollatorList dataSet={dataSet} accounts={accounts} />
     </div>

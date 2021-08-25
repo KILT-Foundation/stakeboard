@@ -1,5 +1,6 @@
-import type { Struct } from '@polkadot/types'
-import { SessionIndex, BlockNumber } from '@polkadot/types/interfaces'
+import { Unstaking } from '../utils/polling'
+
+export * as ChainTypes from './chainTypes'
 
 export interface Stake {
   stake: number
@@ -27,6 +28,7 @@ export interface Account {
   name?: string
   staked: number
   stakeable: number
+  unstaking: Array<Unstaking>
   used?: boolean
 }
 
@@ -35,8 +37,6 @@ export interface AccountWithPct extends Account {
   stakedPct: string
   stakeablePct: string
 }
-
-/* Types for chain data */
 export interface Candidate {
   id: string
   stake: bigint
@@ -54,10 +54,4 @@ export interface ModalStake {
   address: string
   newStake: number
   staked?: number
-}
-
-export interface RoundInfo extends Struct {
-  current: SessionIndex
-  first: BlockNumber
-  length: BlockNumber
 }

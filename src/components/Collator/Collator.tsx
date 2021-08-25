@@ -10,6 +10,7 @@ export interface Props {
 
 export const Collator: React.FC<Props> = ({ address, activeSince }) => {
   const shortAddress = shortenAddress(address)
+  // TODO: needs real date or removed
   const placeholderDate = 'Aug 2021'
   return (
     <>
@@ -17,7 +18,9 @@ export const Collator: React.FC<Props> = ({ address, activeSince }) => {
         <Identicon address={address} />
       </span>
       <div className={styles.wrapper}>
-        <span className={styles.address}>{shortAddress}</span>
+        <span title={address} className={styles.address}>
+          {shortAddress}
+        </span>
         <span className={styles.date}>since {placeholderDate}</span>
       </div>
     </>

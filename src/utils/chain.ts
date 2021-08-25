@@ -1,14 +1,14 @@
 import { ApiPromise, WsProvider } from '@polkadot/api'
 import { types12 as types } from '@kiltprotocol/type-definitions'
-import type { Struct, Vec, Enum, Null, Option } from '@polkadot/types'
+import type { Vec, Option, BTreeMap } from '@polkadot/types'
 import type {
   AccountId,
-  Balance,
-  SessionIndex,
+  BalanceOf,
+  BlockNumber,
 } from '@polkadot/types/interfaces'
-import { Candidate, RoundInfo } from '../types'
+import { Candidate, ChainTypes } from '../types'
 
-let cachedApi: ApiPromise | null = null
+let cachedApi: Promise<ApiPromise> | null = null
 
 // const ENDPOINT = 'wss://kilt-peregrine-k8s.kilt.io'
 const ENDPOINT = 'wss://kilt-peregrine-stg.kilt.io'
@@ -16,16 +16,17 @@ const ENDPOINT = 'wss://kilt-peregrine-stg.kilt.io'
 export async function connect() {
   if (!cachedApi) {
     const wsProvider = new WsProvider(ENDPOINT)
-    cachedApi = await ApiPromise.create({ provider: wsProvider, types })
+    cachedApi = ApiPromise.create({ provider: wsProvider, types })
   }
-  if (!cachedApi.isConnected) {
-    await cachedApi.connect()
+  let resolved = await cachedApi
+  if (!resolved.isConnected) {
+    resolved.connect()
   }
-  return cachedApi
+  return resolved
 }
 
-export function disconnect() {
-  return cachedApi?.disconnect()
+export async function disconnect() {
+  return (await cachedApi)?.disconnect()
 }
 
 export async function getGenesis() {
@@ -35,63 +36,46 @@ export async function getGenesis() {
   return api.genesisHash.toHex()
 }
 
-export interface Stake extends Struct {
-  owner: AccountId
-  amount: Balance
-}
 export async function getCandidatePool() {
   const api = await connect()
   const candidatePool = await api.query.parachainStaking.candidatePool<
-    Vec<Stake>
+    Vec<ChainTypes.Stake>
   >()
   return candidatePool
 }
 
 export async function subscribeToCandidatePool(
-  listener: (result: Vec<Stake>) => void
+  listener: (result: Vec<ChainTypes.Stake>) => void
 ) {
   const api = await connect()
   // @ts-ignore
   window.trigger = (pool) => {
     listener(pool)
   }
-  api.query.parachainStaking.candidatePool<Vec<Stake>>(listener)
-}
-
-export interface CollatorStatus extends Enum {
-  asActive: Null
-  asLeaving: SessionIndex
-  isActive: boolean
-  isLeaving: boolean
-}
-export interface Collator extends Struct {
-  id: AccountId
-  stake: Balance
-  delegators: Vec<Stake>
-  total: Balance
-  state: CollatorStatus
+  api.query.parachainStaking.candidatePool<Vec<ChainTypes.Stake>>(listener)
 }
 
 export async function subscribeToCollatorState(
   account: string,
-  listener: (result: Option<Collator>) => void
+  listener: (result: Option<ChainTypes.Collator>) => void
 ) {
   const api = await connect()
-  return await api.query.parachainStaking.collatorState<Option<Collator>>(
-    account,
-    listener
-  )
+  return await api.query.parachainStaking.collatorState<
+    Option<ChainTypes.Collator>
+  >(account, listener)
 }
 
 export async function getAllCollatorState() {
   const api = await connect()
   return api.query.parachainStaking.collatorState.entries<
-    Option<Collator>,
+    Option<ChainTypes.Collator>,
     [AccountId]
   >()
 }
 
-export const mapCollatorStateToCandidate = (state: Collator): Candidate => ({
+export const mapCollatorStateToCandidate = (
+  state: ChainTypes.Collator
+): Candidate => ({
   id: state.id.toString(),
   stake: state.stake.toBigInt(),
   delegators: state.delegators.map((delegator) => {
@@ -116,7 +100,7 @@ export async function getCurrentCandidates() {
 
 export async function querySessionInfo() {
   const api = await connect()
-  const roundInfo = api.query.parachainStaking.round<RoundInfo>()
+  const roundInfo = api.query.parachainStaking.round<ChainTypes.RoundInfo>()
   return roundInfo
 }
 
@@ -128,4 +112,23 @@ export async function queryBestBlock() {
 export async function queryBestFinalisedBlock() {
   const api = await connect()
   return api.derive.chain.bestNumberFinalized()
+}
+
+export async function getBalance(account: string) {
+  const api = await connect()
+  return api.query.system.account(account)
+}
+
+export async function getUnstakingAmounts(account: string) {
+  const api = await connect()
+  return api.query.parachainStaking.unstaking<BTreeMap<BlockNumber, BalanceOf>>(
+    account
+  )
+}
+
+export async function getDelegatorStake(account: string) {
+  const api = await connect()
+  return api.query.parachainStaking.delegatorState<
+    Option<ChainTypes.Delegator>
+  >(account)
 }
