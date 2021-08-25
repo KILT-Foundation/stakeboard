@@ -5,7 +5,6 @@ import { TokenBar } from '../../components/Dashboard/TokenBar'
 import { Identicon } from '../../components/Identicon/Identicon'
 import styles from './IdentityView.module.css'
 import cx from 'classnames'
-
 export interface Props {
   toggleDetailedIdentityView: () => void
 }
@@ -42,7 +41,6 @@ export const IdentityView: React.FC<Props> = ({
             <TokenBar staked={account.staked} stakeable={account.stakeable} />
           </div>
         </div>
-
         <div className={styles.identityStakeContainer}>
           <span className={cx(styles.labelSmall, styles.labelGray)}>
             my stake <br />
@@ -51,7 +49,6 @@ export const IdentityView: React.FC<Props> = ({
               {getPercent(account.staked, account.stakeable)} %
             </span>
           </span>
-
           <span
             className={cx(
               styles.labelSmall,
@@ -66,10 +63,16 @@ export const IdentityView: React.FC<Props> = ({
             </span>
           </span>
         </div>
-        <div>
-          <span className={cx(styles.label, styles.labelOrange)}>
-            <Button onClick={() => withdraw} label={'withdraw'} /> Locked staked
-            amount
+        <div className={styles.lockedContainer}>
+          <span className={cx(styles.labelSmall, styles.labelGray)}>
+            Ready to withdraw
+          </span>
+          <div className={styles.buttonCont}>
+            <Button onClick={withdraw} label={'withdraw'} />
+            {account.stakeable.toLocaleString()} KILT
+          </div>
+          <span className={cx(styles.labelSmall, styles.labelGray)}>
+            Locked for 7 days (stakeable)
           </span>
         </div>
       </div>

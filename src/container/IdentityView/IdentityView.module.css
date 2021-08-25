@@ -24,9 +24,7 @@
 .tokenbarContainer {
   width: 100%;
   height: fit-content;
-  margin: 15px 30px 0px 0px;
-  border: 1px;
-  border-style: solid;
+  margin: 15px 30px 0px -20px;
 }
 
 .identiconContainer {
@@ -50,6 +48,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.lockedContainer {
+  flex-direction: column;
+  max-width: 100%;
+  display: flex;
+  margin: 50px 0px 0px 215px;
+}
+
+.buttonCont {
+  display: flex;
+
+  margin-top: 10px;
+  width: 100%;
 }
 
 /* Text */

@@ -61,11 +61,11 @@ export const ChainInfo: React.FC = () => {
   return (
     <div className={refreshPaused ? styles.chaininfoPaused : styles.chaininfo}>
       <div className={styles.container}>
-        <span className={styles.label}>Session Block</span>
+        <span className={styles.label}>Session Block countdown</span>
         <span
           className={refreshPaused ? styles.countdownPaused : styles.countdown}
         >
-          {sessionCount ? sessionCount : '000'}/600
+          {sessionCount ? sessionCount : '000'}
         </span>
         {refreshPaused ? (
           <span className={styles.lineSpacer}>|</span>
