@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react'
 import styles from './Dashboard.module.css'
-import { Account } from '../../types'
+import { Account, ChainTypes } from '../../types'
 import { Accounts } from './Accounts'
 import { StateContext } from '../../utils/StateContext'
 import { IdentityView } from '../../container/IdentityView/IdentityView'
 
 export interface Props {
   accounts: Account[]
+  bestBlock?: ChainTypes.BlockNumber
 }
 
 type RefreshPausedOverlayProps = {
@@ -23,7 +24,7 @@ const RefreshPausedOverlay: React.FC<RefreshPausedOverlayProps> = ({
     <>{children}</>
   )
 
-export const Dashboard: React.FC<Props> = ({ accounts }) => {
+export const Dashboard: React.FC<Props> = ({ accounts, bestBlock }) => {
   const {
     state: { refreshPaused },
   } = useContext(StateContext)
@@ -48,6 +49,7 @@ export const Dashboard: React.FC<Props> = ({ accounts }) => {
         ) : (
           <IdentityView
             toggleDetailedIdentityView={toggleDetailedIdentityView}
+            bestBlock={bestBlock}
           />
         )}
       </RefreshPausedOverlay>

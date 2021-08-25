@@ -8,8 +8,10 @@ import cx from 'classnames'
 import { withdrawStake } from '../../utils/chain'
 import { femtoToKilt } from '../../utils/femtoToKilt'
 import { padTime, blockToTime } from '../../utils/timeConvert'
+import { ChainTypes } from '../../types'
 export interface Props {
   toggleDetailedIdentityView: () => void
+  bestBlock?: ChainTypes.BlockNumber
 }
 
 function getPercent(percentageValue: number, secondValue: number) {
@@ -20,10 +22,10 @@ function getPercent(percentageValue: number, secondValue: number) {
 
 export const IdentityView: React.FC<Props> = ({
   toggleDetailedIdentityView,
+  bestBlock,
 }) => {
   const [readyToWithdraw, setReadyToWithdraw] = useState(0)
   // placeholder
-  const bestBlock = 149693n
 
   const withdraw = async () => {
     if (readyToWithdraw > 0 && account) {
@@ -37,10 +39,10 @@ export const IdentityView: React.FC<Props> = ({
   } = useContext(StateContext)
 
   useEffect(() => {
-    if (!account) return
+    if (!account || !bestBlock) return
 
     const unstakeable = account.unstaking
-      .filter((val) => val.block > bestBlock)
+      .filter((val) => val.block > BigInt(bestBlock.toString()))
       .map((val) => {
         return femtoToKilt(val.amount)
       })
@@ -51,7 +53,7 @@ export const IdentityView: React.FC<Props> = ({
   }, [account, bestBlock])
 
   // placeholder for the error notifications
-  if (!account) return <></>
+  if (!account || !bestBlock) return <></>
 
   return (
     <div className={styles.identityView}>
@@ -113,7 +115,7 @@ export const IdentityView: React.FC<Props> = ({
             Locked for 7 days (stakeable)
           </span>
           {account.unstaking.map((val, index) => {
-            const blockCount = val.block - bestBlock
+            const blockCount = val.block - BigInt(bestBlock.toString())
             const { days, hours, minutes, seconds } = blockToTime(
               Number(blockCount)
             )
