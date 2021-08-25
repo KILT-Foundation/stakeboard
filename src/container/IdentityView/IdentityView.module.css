@@ -59,9 +59,22 @@
 
 .buttonCont {
   display: flex;
-
+  margin-bottom: 5px;
   margin-top: 10px;
-  width: 100%;
+  max-width: 300px;
+  justify-content: space-between;
+}
+
+.orangeBar {
+  background-color: var(--color-low-rank);
+  max-width: 300px;
+  margin-bottom: 5px;
+}
+
+.redBar {
+  background-color: var(--color-paused-red);
+  max-width: 300px;
+  margin-bottom: 5px;
 }
 
 /* Text */
