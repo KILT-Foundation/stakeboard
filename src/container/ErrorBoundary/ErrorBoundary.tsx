@@ -3,29 +3,31 @@ import styles from '../../styles/modal.module.css'
 import React from 'react'
 
 interface Props {
-  hasError: boolean
-  errorInfo: string | null
+  error: any
+  errorInfo: any
 }
 
 class ErrorBoundary extends React.Component<{}, Props> {
   constructor(props: {} | Readonly<{}>) {
     super(props)
-    this.state = { hasError: false, errorInfo: null }
+    this.state = { error: null, errorInfo: null }
   }
 
   componentDidCatch(error: any, errorInfo: any) {
     this.setState({
-      hasError: error,
+      error,
       errorInfo,
     })
   }
 
   render() {
-    if (this.state.hasError)
+    if (this.state.error)
       return (
-        <Modal open={this.state.hasError} className={styles.modal}>
+        <Modal open={this.state.error} className={styles.modal}>
           <>You have an Error, please refresh the page</>
-          <>{this.state.errorInfo}</>
+          <>{this.state.error && this.state.error.toString()}</>
+          <br />
+          {this.state.errorInfo.componentStack}
         </Modal>
       )
     return this.props.children
