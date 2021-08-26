@@ -17,7 +17,7 @@ class ErrorBoundary extends React.Component<Props, State> {
   }
 
   static getDerivedStateFromError(error: any) {
-    return { error: true }
+    return { error }
   }
 
   componentDidCatch(error: any, errorInfo: any) {
@@ -32,7 +32,10 @@ class ErrorBoundary extends React.Component<Props, State> {
     const { children } = this.props
     return error ? (
       <Modal open={error} className={styles.modal}>
-        <>You have an Error, please refresh the page</>
+        <>
+          You have an {error.toString()} <br />
+          Please refresh the page
+        </>
         <>{error && errorInfo.componentStack}</>
         <br />
       </Modal>
