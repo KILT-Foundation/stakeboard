@@ -79,9 +79,9 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
           />
         )}
         <Button
-          label={newStake === 0 ? 'Unstake' : 'Stake'}
+          label={'Stake'}
           onClick={toggleModal}
-          disabled={!address && newStake !== undefined && newStake >= 0}
+          disabled={!(address && newStake !== undefined && newStake > 0)}
         />
       </td>
       <td></td>
