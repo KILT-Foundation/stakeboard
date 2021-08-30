@@ -84,7 +84,7 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, accounts }) => {
           </>
         )}
 
-        {editStake && newStake !== undefined && newStake >= 0 && (
+        {editStake && isVisible && newStake !== undefined && (
           <StakeModal
             modalStake={{
               name: account.name,
