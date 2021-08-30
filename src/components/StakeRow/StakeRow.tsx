@@ -75,7 +75,12 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, accounts }) => {
         ) : (
           <>
             <Button label="CLOSE" onClick={handleEdit} />
-            <Button label="CONFIRM" onClick={handleStake} orangeButton />
+            <Button
+              label="CONFIRM"
+              onClick={handleStake}
+              orangeButton
+              disabled={newStake === stakeInfo.stake}
+            />
           </>
         )}
 
