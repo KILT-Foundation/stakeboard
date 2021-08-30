@@ -3,12 +3,13 @@ import { Unstaking } from '../utils/polling'
 export * as ChainTypes from './chainTypes'
 
 export interface Stake {
+  stake: bigint
+  account: string
+}
+
+export interface DataStake {
   stake: number
-  account: {
-    name: string
-    address: string
-    available: number
-  }
+  account: string
 }
 
 export interface Data {
@@ -19,7 +20,7 @@ export interface Data {
   totalStake: number
   delegators: number
   lowestStake: number | null
-  stakes: Array<Stake>
+  stakes: Array<DataStake>
   favorite: boolean
 }
 
@@ -47,6 +48,7 @@ export interface Candidate {
   total: bigint
   isLeaving: bigint | false
   unsub?: Promise<() => void>
+  userStakes: Array<Stake>
 }
 
 export interface ModalStake {

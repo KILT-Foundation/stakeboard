@@ -58,11 +58,7 @@ Primary.args = {
       stakes: [
         {
           stake: 100_000,
-          account: {
-            name: 'KILT Identity 3',
-            address: '5CUaCwjWpEk9nDxrmurkeYuVeYNqFyfBB9chk3cHqd54vTBk',
-            available: 200_000,
-          },
+          account: '5D7WMHRftdGWGhfAP7NaJfKuRyvfES77ZnjcBzqgMFMjTsGu',
         },
       ],
       favorite: false,

@@ -32,7 +32,11 @@ export const CollatorListItem: React.FC<Props> = ({
       {entry.stakes.length > 0 && (
         <>
           {entry.stakes.map((stakeInfo) => (
-            <StakeRow key={stakeInfo.account.name} stakeInfo={stakeInfo} />
+            <StakeRow
+              key={stakeInfo.account}
+              stakeInfo={stakeInfo}
+              accounts={accounts}
+            />
           ))}
           <NewStakeRow accounts={accounts} staked={true} />
         </>

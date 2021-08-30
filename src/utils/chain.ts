@@ -86,6 +86,7 @@ export const mapCollatorStateToCandidate = (
   }),
   total: state.total.toBigInt(),
   isLeaving: state.state.isLeaving ? state.state.asLeaving.toBigInt() : false,
+  userStakes: [],
 })
 
 export async function getSelectedCandidates() {

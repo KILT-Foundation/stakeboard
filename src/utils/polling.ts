@@ -1,4 +1,4 @@
-import { Candidate, ChainTypes } from '../types'
+import { Account, Candidate, ChainTypes } from '../types'
 import {
   getAllCollatorState,
   getCurrentCandidates,
@@ -60,10 +60,16 @@ export type Unstaking = {
   block: bigint
   amount: bigint
 }
+
+export type Delegation = {
+  collator: string
+  amount: bigint
+}
 export type AccountInfo = {
   stakeable: bigint
   totalStake: bigint
   unstaking: Array<Unstaking>
+  stakes: Array<Delegation>
 }
 
 const updateAccountInfos = async (accounts: string[]) => {
@@ -101,7 +107,19 @@ const updateAccountInfos = async (accounts: string[]) => {
       })
     })
 
-    accountInfos[address] = { totalStake, stakeable, unstaking }
+    const stakes: Array<Delegation> = stake
+      .unwrapOrDefault()
+      .delegations.map((chainStake) => ({
+        collator: chainStake.owner.toString(),
+        amount: chainStake.amount.toBigInt(),
+      }))
+
+    accountInfos[address] = {
+      totalStake,
+      stakeable,
+      unstaking,
+      stakes,
+    }
   })
 
   return accountInfos
@@ -130,6 +148,19 @@ export const initialize = async (
       updateChainInfo(),
       updateAccountInfos(accounts),
     ])
+
+    Object.entries(accountInfos).forEach(([address, accountInfo]) => {
+      accountInfo.stakes.forEach((delegation) => {
+        if (candidates[delegation.collator]) {
+          candidates[delegation.collator].userStakes = [
+            {
+              stake: delegation.amount,
+              account: address,
+            },
+          ]
+        }
+      })
+    })
 
     updateCallback(
       candidates,

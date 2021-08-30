@@ -90,8 +90,10 @@ export const useBlockchainData = (
         delegators: candidate.delegators.length,
         lowestStake: lowestStake,
         totalStake: femtoToKilt(totalStake),
-        // TODO: fill with account data!
-        stakes: [],
+        stakes: candidate.userStakes.map(({ account, stake }) => ({
+          account,
+          stake: femtoToKilt(stake),
+        })),
         favorite: state.favorites.includes(candidate.id),
         isLeaving: !!candidate.isLeaving,
       }
