@@ -80,7 +80,7 @@ export const mapCollatorStateToCandidate = (
   stake: state.stake.toBigInt(),
   delegators: state.delegators.map((delegator) => {
     return {
-      id: delegator.owner.toHuman(),
+      id: delegator.owner.toString(),
       amount: delegator.amount.toBigInt(),
     }
   }),
