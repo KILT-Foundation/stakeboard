@@ -52,7 +52,7 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, accounts }) => {
             <div>
               <Input
                 number
-                value={newStake?.toString() || ''}
+                value={newStake?.toString() || stakeInfo.stake.toString() || ''}
                 onInput={(e) => setNewStake(parseInt(e.target.value))}
               />
             </div>
