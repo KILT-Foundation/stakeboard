@@ -21,6 +21,7 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, accounts }) => {
 
   const handleEdit = () => {
     setEditStake(!editStake)
+    setNewStake(undefined)
   }
 
   const handleStake = () => {
