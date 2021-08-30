@@ -7,5 +7,5 @@ export function getStatus(newStake: number | undefined, staked: number) {
   } else if (newStake > staked) {
     return 'increaseStake'
   }
-  return 'unstake'
+  return 'unchanged'
 }

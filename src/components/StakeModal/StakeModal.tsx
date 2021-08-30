@@ -10,7 +10,7 @@ export interface Props {
   onConfirm: () => void
   toggleModal: () => void
   isVisible: boolean
-  status: 'increaseStake' | 'decreaseStake' | 'unstake'
+  status: 'increaseStake' | 'decreaseStake' | 'unstake' | 'unchanged'
 }
 
 export const StakeModal: React.FC<Props> = ({
@@ -91,7 +91,7 @@ export const StakeModal: React.FC<Props> = ({
     ),
   }
 
-  if (!isVisible) return null
+  if (!isVisible || status === 'unchanged') return null
 
   return (
     <div className={styles.modalOverlay}>
