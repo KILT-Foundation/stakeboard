@@ -19,15 +19,7 @@
   background-color: var(--color-gray-button);
   color: white;
 }
-.buttonOrange {
+.orange {
   background-color: var(--color-orange-button);
   color: var(--color-gray-text);
-  border-radius: 5px;
-  border: none;
-  text-transform: uppercase;
-  width: 90px;
-  height: 18px;
-  cursor: pointer;
-  font-family: var(--font-countdown);
-  font-size: var(--font-size-small);
 }

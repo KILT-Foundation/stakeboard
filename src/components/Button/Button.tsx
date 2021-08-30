@@ -32,9 +32,8 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type="button"
-      className={cx({
-        [styles.button]: !orangeButton,
-        [styles.buttonOrange]: orangeButton,
+      className={cx(styles.button, {
+        [styles.orange]: orangeButton,
       })}
       disabled={disabled}
       {...props}
