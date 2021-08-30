@@ -93,7 +93,6 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, accounts }) => {
               staked: stakeInfo.stake,
             }}
             status={getStatus(newStake, stakeInfo.stake)}
-            isVisible={isVisible}
             toggleModal={toggleModal}
             onConfirm={handleStake}
           />

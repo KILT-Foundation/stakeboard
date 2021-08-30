@@ -66,7 +66,7 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
         </div>
       </td>
       <td>
-        {account && newStake !== undefined && newStake >= 0 && (
+        {account && isVisible && newStake !== undefined && newStake >= 0 && (
           <StakeModal
             modalStake={{
               name: account.name,
@@ -74,7 +74,6 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
               newStake,
             }}
             status={getStatus(newStake, account.staked)}
-            isVisible={isVisible}
             toggleModal={toggleModal}
             onConfirm={handleDelegatorStake}
           />

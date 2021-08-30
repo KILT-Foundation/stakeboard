@@ -18,6 +18,5 @@ Primary.args = {
     address: '56713563215473164',
     newStake: 123,
   },
-  isVisible: true,
   status: 'increaseStake',
 }
