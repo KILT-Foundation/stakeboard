@@ -7,6 +7,8 @@ import type {
   BlockNumber,
 } from '@polkadot/types/interfaces'
 import { Candidate, ChainTypes } from '../types'
+import { web3FromAddress } from '@polkadot/extension-dapp'
+import { SubmittableExtrinsic } from '@polkadot/api/promise/types'
 
 let cachedApi: Promise<ApiPromise> | null = null
 
@@ -132,4 +134,44 @@ export async function getDelegatorStake(account: string) {
   return api.query.parachainStaking.delegatorState<
     Option<ChainTypes.Delegator>
   >(account)
+}
+
+async function signAndSend(address: string, tx: SubmittableExtrinsic) {
+  const injector = await web3FromAddress(address)
+  return tx.signAndSend(address, { signer: injector.signer }, (status) => {
+    console.log(status.status.toHuman())
+  })
+}
+
+export async function joinDelegators(
+  delegator: string,
+  collator: string,
+  stake: bigint
+) {
+  const api = await connect()
+  const tx = api.tx.parachainStaking.joinDelegators(collator, stake)
+  return signAndSend(delegator, tx)
+}
+export async function delegatorStakeMore(
+  delegator: string,
+  collator: string,
+  more: bigint
+) {
+  const api = await connect()
+  const tx = api.tx.parachainStaking.delegatorStakeMore(collator, more)
+  return signAndSend(delegator, tx)
+}
+export async function delegatorStakeLess(
+  delegator: string,
+  collator: string,
+  less: bigint
+) {
+  const api = await connect()
+  const tx = api.tx.parachainStaking.delegatorStakeLess(collator, less)
+  return signAndSend(delegator, tx)
+}
+export async function leaveDelegators(delegator: string) {
+  const api = await connect()
+  const tx = api.tx.parachainStaking.leaveDelegators()
+  return signAndSend(delegator, tx)
 }

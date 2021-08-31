@@ -36,6 +36,7 @@ export const CollatorListItem: React.FC<Props> = ({
               key={stakeInfo.account}
               stakeInfo={stakeInfo}
               accounts={accounts}
+              collator={entry.collator}
             />
           ))}
           <NewStakeRow accounts={accounts} staked={true} />

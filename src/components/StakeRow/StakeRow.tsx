@@ -1,20 +1,70 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
-import { format } from '../../utils'
+import {
+  delegatorStakeLess,
+  delegatorStakeMore,
+  format,
+  leaveDelegators,
+} from '../../utils'
 import { Account, DataStake } from '../../types'
 import { Button } from '../Button/Button'
 import { useModal } from '../../utils/useModal'
 import { Input } from '../Input/Input'
 import { getStatus } from '../../utils/stakeStatus'
 import { StakeModal } from '../StakeModal/StakeModal'
+import { kiltToFemto } from '../../utils/conversion'
 
 export interface Props {
   stakeInfo: DataStake
   accounts: Account[]
+  collator: string
 }
 
-export const StakeRow: React.FC<Props> = ({ stakeInfo, accounts }) => {
+export function stake(account: Account, collator: string, amount: number) {}
+
+export function stakeMore(
+  account: Account,
+  collator: string,
+  difference: number
+) {
+  const differenceInFemto = kiltToFemto(difference)
+  return delegatorStakeMore(account.address, collator, differenceInFemto)
+}
+
+export async function stakeLess(
+  account: Account,
+  collator: string,
+  difference: number
+) {
+  const differenceInFemto = kiltToFemto(difference)
+  return delegatorStakeLess(account.address, collator, differenceInFemto)
+}
+
+export function unstake(account: Account) {
+  return leaveDelegators(account.address)
+}
+
+export async function changeStake(
+  account: Account,
+  collator: string,
+  current: number,
+  newStake: number | undefined
+) {
+  if (!newStake || newStake === 0) {
+    await unstake(account)
+  } else if (newStake > current) {
+    await stakeMore(account, collator, newStake - current)
+  } else if (newStake < current) {
+    await stakeLess(account, collator, current - newStake)
+  }
+}
+
+export const StakeRow: React.FC<Props> = ({
+  stakeInfo,
+  accounts,
+  collator,
+}) => {
   const { isVisible, toggleModal } = useModal()
   const [editStake, setEditStake] = useState(false)
   const [newStake, setNewStake] = useState<number | undefined>()
@@ -24,15 +74,17 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, accounts }) => {
     setNewStake(stakeInfo.stake)
   }
 
-  const handleStake = () => {
-    toggleModal()
-  }
-
   const account = accounts.find(
     (account) => account.address === stakeInfo.account
   )
 
   if (!account) return null
+
+  const handleStake = async () => {
+    await changeStake(account, collator, stakeInfo.stake, newStake)
+    toggleModal()
+    setEditStake(false)
+  }
 
   return (
     <tr className={cx(rowStyles.row, rowStyles.stakeRow, rowStyles.staked)}>
@@ -77,7 +129,7 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, accounts }) => {
             <Button label="CLOSE" onClick={handleEdit} />
             <Button
               label="CONFIRM"
-              onClick={handleStake}
+              onClick={toggleModal}
               orangeButton
               disabled={newStake === stakeInfo.stake}
             />
