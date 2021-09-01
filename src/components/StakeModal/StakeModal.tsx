@@ -9,15 +9,13 @@ export interface Props {
   modalStake: ModalStake
   onConfirm: () => void
   toggleModal: () => void
-  isVisible: boolean
-  status: 'increaseStake' | 'decreaseStake' | 'unstake'
+  status: 'increaseStake' | 'decreaseStake' | 'unstake' | 'unchanged'
 }
 
 export const StakeModal: React.FC<Props> = ({
   modalStake,
   onConfirm,
   toggleModal,
-  isVisible,
   status,
 }) => {
   const shortAddress = shortenAddress(modalStake.address)
@@ -91,11 +89,11 @@ export const StakeModal: React.FC<Props> = ({
     ),
   }
 
-  if (!isVisible) return null
+  if (status === 'unchanged') return null
 
   return (
     <div className={styles.modalOverlay}>
-      <Modal open={isVisible} className={styles.modal}>
+      <Modal open className={styles.modal}>
         {modals[status]}
       </Modal>
     </div>

@@ -32,12 +32,23 @@ export const CollatorListItem: React.FC<Props> = ({
       {entry.stakes.length > 0 && (
         <>
           {entry.stakes.map((stakeInfo) => (
-            <StakeRow key={stakeInfo.account.name} stakeInfo={stakeInfo} />
+            <StakeRow
+              key={stakeInfo.account}
+              stakeInfo={stakeInfo}
+              accounts={accounts}
+              collator={entry.collator}
+            />
           ))}
-          <NewStakeRow accounts={accounts} staked={true} />
+          <NewStakeRow
+            accounts={accounts}
+            staked={true}
+            collator={entry.collator}
+          />
         </>
       )}
-      {expanded && <NewStakeRow accounts={accounts} />}
+      {expanded && (
+        <NewStakeRow accounts={accounts} collator={entry.collator} />
+      )}
       <tr className={styles.lastRow}>
         <td className={rowStyles.spacer}></td>
         <td colSpan={COLS}></td>

@@ -1,29 +1,87 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
-import { format } from '../../utils'
-import { Stake } from '../../types'
+import {
+  delegatorStakeLess,
+  delegatorStakeMore,
+  format,
+  leaveDelegators,
+} from '../../utils'
+import { Account, DataStake } from '../../types'
 import { Button } from '../Button/Button'
 import { useModal } from '../../utils/useModal'
 import { Input } from '../Input/Input'
 import { getStatus } from '../../utils/stakeStatus'
 import { StakeModal } from '../StakeModal/StakeModal'
+import { kiltToFemto } from '../../utils/conversion'
 
 export interface Props {
-  stakeInfo: Stake
+  stakeInfo: DataStake
+  accounts: Account[]
+  collator: string
 }
 
-export const StakeRow: React.FC<Props> = ({ stakeInfo }) => {
+export function stakeMore(
+  account: Account,
+  collator: string,
+  difference: number
+) {
+  const differenceInFemto = kiltToFemto(difference)
+  return delegatorStakeMore(account.address, collator, differenceInFemto)
+}
+
+export async function stakeLess(
+  account: Account,
+  collator: string,
+  difference: number
+) {
+  const differenceInFemto = kiltToFemto(difference)
+  return delegatorStakeLess(account.address, collator, differenceInFemto)
+}
+
+export function unstake(account: Account) {
+  return leaveDelegators(account.address)
+}
+
+export async function changeStake(
+  account: Account,
+  collator: string,
+  current: number,
+  newStake: number | undefined
+) {
+  if (!newStake || newStake === 0) {
+    await unstake(account)
+  } else if (newStake > current) {
+    await stakeMore(account, collator, newStake - current)
+  } else if (newStake < current) {
+    await stakeLess(account, collator, current - newStake)
+  }
+}
+
+export const StakeRow: React.FC<Props> = ({
+  stakeInfo,
+  accounts,
+  collator,
+}) => {
   const { isVisible, toggleModal } = useModal()
   const [editStake, setEditStake] = useState(false)
   const [newStake, setNewStake] = useState<number | undefined>()
 
   const handleEdit = () => {
     setEditStake(!editStake)
+    setNewStake(stakeInfo.stake)
   }
 
-  const handleStake = () => {
+  const account = accounts.find(
+    (account) => account.address === stakeInfo.account
+  )
+
+  if (!account) return null
+
+  const handleStake = async () => {
+    await changeStake(account, collator, stakeInfo.stake, newStake)
     toggleModal()
+    setEditStake(false)
   }
 
   return (
@@ -34,9 +92,7 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo }) => {
       <td>
         <div className={rowStyles.wrapper}>
           <span>COLLATOR STAKE FROM</span>
-          <span className={rowStyles.identityStaked}>
-            {stakeInfo.account.name}
-          </span>
+          <span className={rowStyles.identityStaked}>{account.name}</span>
         </div>
       </td>
       <td>
@@ -59,7 +115,7 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo }) => {
         <div className={rowStyles.wrapper}>
           <span>STAKEABLE</span>
           <span className={rowStyles.stakeable}>
-            {format(stakeInfo.account.available)}
+            {format(account.stakeable)}
           </span>
         </div>
       </td>
@@ -69,20 +125,24 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo }) => {
         ) : (
           <>
             <Button label="CLOSE" onClick={handleEdit} />
-            <Button label="CONFIRM" onClick={handleStake} orangeButton />
+            <Button
+              label="CONFIRM"
+              onClick={toggleModal}
+              orangeButton
+              disabled={newStake === stakeInfo.stake}
+            />
           </>
         )}
 
-        {editStake && newStake !== undefined && newStake >= 0 && (
+        {editStake && isVisible && newStake !== undefined && (
           <StakeModal
             modalStake={{
-              name: stakeInfo.account.name,
-              address: stakeInfo.account.address,
+              name: account.name,
+              address: account.address,
               newStake,
               staked: stakeInfo.stake,
             }}
             status={getStatus(newStake, stakeInfo.stake)}
-            isVisible={isVisible}
             toggleModal={toggleModal}
             onConfirm={handleStake}
           />
