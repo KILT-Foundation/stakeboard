@@ -24,7 +24,8 @@
   border-color: var(--color-modal-border);
   flex-direction: column;
   margin: 1.875rem;
-  width: 370px;
+  min-width: 370px;
+  max-width: 600px;
   height: fit-content;
   padding: 10px 20px 50px 20px;
   opacity: 1;
