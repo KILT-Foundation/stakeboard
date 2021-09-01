@@ -93,7 +93,7 @@ export const StakeModal: React.FC<Props> = ({
 
   return (
     <div className={styles.modalOverlay}>
-      <Modal open={true} className={styles.modal}>
+      <Modal open className={styles.modal}>
         {modals[status]}
       </Modal>
     </div>
