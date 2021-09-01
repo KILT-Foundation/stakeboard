@@ -8,13 +8,25 @@ import { Account } from '../../types'
 import { useModal } from '../../utils/useModal'
 import { StakeModal } from '../StakeModal/StakeModal'
 import { getStatus } from '../../utils/stakeStatus'
+import { joinDelegators } from '../../utils'
+import { kiltToFemto } from '../../utils/conversion'
 
 export interface Props {
   staked?: boolean
   accounts: Account[]
+  collator: string
 }
 
-export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
+async function stake(account: Account, collator: string, amount: number) {
+  const amountInFemto = kiltToFemto(amount)
+  return joinDelegators(account.address, collator, amountInFemto)
+}
+
+export const NewStakeRow: React.FC<Props> = ({
+  staked = false,
+  accounts,
+  collator,
+}) => {
   const { isVisible, toggleModal } = useModal()
   const [newStake, setNewStake] = useState<number | undefined>()
   const [address, setAddress] = useState('')
@@ -23,7 +35,10 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
     return accounts.find((val) => val.address === address)
   }, [address, accounts])
 
-  const handleDelegatorStake = () => {
+  const handleDelegatorStake = async () => {
+    if (!account) throw new Error('No account selected')
+    if (!newStake) throw new Error('No amount given')
+    await stake(account, collator, newStake)
     toggleModal()
   }
 

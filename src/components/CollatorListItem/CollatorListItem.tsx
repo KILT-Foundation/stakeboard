@@ -39,10 +39,16 @@ export const CollatorListItem: React.FC<Props> = ({
               collator={entry.collator}
             />
           ))}
-          <NewStakeRow accounts={accounts} staked={true} />
+          <NewStakeRow
+            accounts={accounts}
+            staked={true}
+            collator={entry.collator}
+          />
         </>
       )}
-      {expanded && <NewStakeRow accounts={accounts} />}
+      {expanded && (
+        <NewStakeRow accounts={accounts} collator={entry.collator} />
+      )}
       <tr className={styles.lastRow}>
         <td className={rowStyles.spacer}></td>
         <td colSpan={COLS}></td>

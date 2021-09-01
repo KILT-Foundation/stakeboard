@@ -21,8 +21,6 @@ export interface Props {
   collator: string
 }
 
-export function stake(account: Account, collator: string, amount: number) {}
-
 export function stakeMore(
   account: Account,
   collator: string,
