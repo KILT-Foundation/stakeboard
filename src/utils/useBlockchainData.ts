@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { Account, Candidate, ChainTypes, Data } from '../types'
-import { femtoToKilt } from './femtoToKilt'
+import { femtoToKilt } from './conversion'
 import { AccountInfo, initialize } from './polling'
 import { StoredStateContext } from './StoredStateContext'
 

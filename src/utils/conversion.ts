@@ -3,3 +3,8 @@ export const kiltToFemto = (kilt: number) => {
   const inFemto = BigInt(kilt) * factor
   return inFemto
 }
+
+export function femtoToKilt(big: bigint) {
+  const inKilt = big / 10n ** 15n
+  return Number(inKilt)
+}

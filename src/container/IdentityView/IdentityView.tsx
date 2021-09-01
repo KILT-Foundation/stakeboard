@@ -6,7 +6,7 @@ import { Identicon } from '../../components/Identicon/Identicon'
 import styles from './IdentityView.module.css'
 import cx from 'classnames'
 import { withdrawStake } from '../../utils/chain'
-import { femtoToKilt } from '../../utils/femtoToKilt'
+import { femtoToKilt } from '../../utils/conversion'
 import { padTime, blockToTime } from '../../utils/timeConvert'
 import { ChainTypes } from '../../types'
 export interface Props {
