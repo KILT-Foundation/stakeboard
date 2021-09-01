@@ -10,7 +10,7 @@ export interface Props {
 
 export const IdentitySelector: React.FC<Props> = ({ onChange, accounts }) => {
   const options = accounts
-    .filter((account) => !account.used)
+    .filter((account) => account.staked === 0)
     .map((account) => ({
       value: account.address,
       label: `${account.name} (Stakeable: ${format(account.stakeable)})`,
