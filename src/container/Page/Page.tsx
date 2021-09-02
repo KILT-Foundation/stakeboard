@@ -4,14 +4,13 @@ import { CollatorList } from '../../components/CollatorList/CollatorList'
 import { Header } from '../../components/Header/Header'
 import { ChainInfo } from '../../components/ChainInfo/ChainInfo'
 import styles from './Page.module.css'
-import { Account } from '../../types'
 import { useBlockchainData } from '../../utils/useBlockchainData'
+import { useExtension } from '../../utils/useExtension'
 
-export interface Props {
-  allAccounts: Pick<Account, 'address' | 'name'>[]
-}
+export interface Props {}
 
-export const Page: React.FC<Props> = ({ allAccounts }) => {
+export const Page: React.FC<Props> = () => {
+  const allAccounts = useExtension()
   const {
     dataSet,
     accounts,
