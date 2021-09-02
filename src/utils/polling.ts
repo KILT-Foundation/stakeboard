@@ -152,12 +152,10 @@ export const initialize = async (
     Object.entries(accountInfos).forEach(([address, accountInfo]) => {
       accountInfo.stakes.forEach((delegation) => {
         if (candidates[delegation.collator]) {
-          candidates[delegation.collator].userStakes = [
-            {
-              stake: delegation.amount,
-              account: address,
-            },
-          ]
+          candidates[delegation.collator].userStakes.push({
+            stake: delegation.amount,
+            account: address,
+          })
         }
       })
     })
