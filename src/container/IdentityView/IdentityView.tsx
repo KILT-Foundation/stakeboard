@@ -9,6 +9,7 @@ import { withdrawStake } from '../../utils/chain'
 import { femtoToKilt } from '../../utils/conversion'
 import { padTime, blockToTime } from '../../utils/timeConvert'
 import { ChainTypes } from '../../types'
+import { format } from '../../utils/index'
 export interface Props {
   toggleDetailedIdentityView: () => void
   bestBlock?: ChainTypes.BlockNumber
@@ -26,17 +27,16 @@ export const IdentityView: React.FC<Props> = ({
 }) => {
   const [readyToWithdraw, setReadyToWithdraw] = useState(0)
   // placeholder
+  const {
+    state: { account },
+    dispatch,
+  } = useContext(StateContext)
 
   const withdraw = async () => {
     if (readyToWithdraw > 0 && account) {
       await withdrawStake(account.address)
     }
   }
-
-  const {
-    state: { account },
-    dispatch,
-  } = useContext(StateContext)
 
   useEffect(() => {
     if (!account || !bestBlock) return
@@ -52,7 +52,7 @@ export const IdentityView: React.FC<Props> = ({
     setReadyToWithdraw(sumAllStakeable)
   }, [account, bestBlock])
 
-  // placeholder for the error notifications
+  // TODO: placeholder for the error notifications
   if (!account || !bestBlock) return <></>
 
   return (
@@ -73,7 +73,7 @@ export const IdentityView: React.FC<Props> = ({
           <span className={cx(styles.labelSmall, styles.labelGray)}>
             my stake <br />
             <span className={cx(styles.label, styles.labelYellow)}>
-              {account.staked.toLocaleString()} KILT | <span />
+              {format(account.staked)} | <span />
               {getPercent(account.staked, account.stakeable)} %
             </span>
           </span>
@@ -87,7 +87,7 @@ export const IdentityView: React.FC<Props> = ({
             stakeable <br />
             <span className={cx(styles.label, styles.labelOrange)}>
               {getPercent(account.stakeable, account.staked)} % | <span />
-              {account.stakeable.toLocaleString()} KILT
+              {format(account.stakeable)}
             </span>
           </span>
         </div>
@@ -105,7 +105,7 @@ export const IdentityView: React.FC<Props> = ({
             <div className={styles.buttonCont}>
               <Button onClick={withdraw} label={'withdraw'} />
               <span className={cx(styles.label, styles.labelGray)}>
-                {readyToWithdraw && readyToWithdraw.toLocaleString()} KILT{' '}
+                {readyToWithdraw && format(readyToWithdraw)}
               </span>
             </div>
           )}
@@ -131,7 +131,7 @@ export const IdentityView: React.FC<Props> = ({
                 <span className={cx(styles.labelSmall, styles.labelGray)}>
                   {`${index + 1}/${account.unstaking.length} ${timeable}`}
                 </span>{' '}
-                {femtoToKilt(val.amount).toLocaleString()} KILT
+                {format(femtoToKilt(val.amount))}
               </div>
             )
           })}
