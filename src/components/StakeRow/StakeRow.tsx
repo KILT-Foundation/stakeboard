@@ -129,7 +129,10 @@ export const StakeRow: React.FC<Props> = ({
               label="CONFIRM"
               onClick={toggleModal}
               orangeButton
-              disabled={newStake === stakeInfo.stake}
+              disabled={
+                newStake === stakeInfo.stake ||
+                Boolean(newStake && newStake < 0)
+              }
             />
           </>
         )}

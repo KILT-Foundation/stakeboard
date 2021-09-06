@@ -30,6 +30,7 @@ export const Input: React.FC<Props> = ({
           placeholder={placeholder ? placeholder : '0'}
           value={value}
           onInput={onInput}
+          min={0}
         />
       </>
     )
