@@ -116,6 +116,7 @@ export const IdentityView: React.FC<Props> = ({
           </span>
           {account.unstaking.map((val, index) => {
             const blockCount = val.block - BigInt(bestBlock.toString())
+            if (blockCount < 0) return <></>
             const { days, hours, minutes, seconds } = blockToTime(
               Number(blockCount)
             )
