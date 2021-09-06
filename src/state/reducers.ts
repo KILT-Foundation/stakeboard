@@ -50,3 +50,20 @@ export const accountReducer: Reducer<Account | undefined, AccountActions> = (
       return state
   }
 }
+
+export type ToggleDetailedIdentityViewAction = {
+  type: 'toggleIdentityView'
+  toggleDetailedIdentityView: boolean
+}
+
+export const toggleDetailedIdentityViewReducer: Reducer<
+  boolean,
+  ToggleDetailedIdentityViewAction
+> = (state: boolean, action: ToggleDetailedIdentityViewAction) => {
+  switch (action.type) {
+    case 'toggleIdentityView':
+      return !action.toggleDetailedIdentityView
+    default:
+      return state
+  }
+}

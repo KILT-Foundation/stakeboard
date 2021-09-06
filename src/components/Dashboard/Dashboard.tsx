@@ -26,29 +26,35 @@ const RefreshPausedOverlay: React.FC<RefreshPausedOverlayProps> = ({
 
 export const Dashboard: React.FC<Props> = ({ accounts, bestBlock }) => {
   const {
-    state: { refreshPaused },
+    state: { refreshPaused, toggleDetailedIdentityView },
+    dispatch,
   } = useContext(StateContext)
-  const [openIdentityView, setOpenIdentityView] = useState(false)
-
-  const toggleDetailedIdentityView = () => {
-    setOpenIdentityView(!openIdentityView)
-  }
 
   return (
     <div className={styles.dashboard}>
       <RefreshPausedOverlay refreshPaused={refreshPaused}>
-        {openIdentityView === false ? (
+        {toggleDetailedIdentityView === false ? (
           <div className={styles.accountsContainer}>
             <div className={styles.accounts}>
               <Accounts
                 accounts={accounts}
-                toggleDetailedIdentityView={toggleDetailedIdentityView}
+                toggleDetailedIdentityView={() =>
+                  dispatch({
+                    type: 'toggleIdentityView',
+                    toggleDetailedIdentityView,
+                  })
+                }
               />
             </div>
           </div>
         ) : (
           <IdentityView
-            toggleDetailedIdentityView={toggleDetailedIdentityView}
+            toggleDetailedIdentityView={() =>
+              dispatch({
+                type: 'toggleIdentityView',
+                toggleDetailedIdentityView,
+              })
+            }
             bestBlock={bestBlock}
           />
         )}
