@@ -81,3 +81,7 @@
   padding-right: 15px;
   padding-bottom: 5px;
 }
+
+.errorText {
+  font-family: monospace;
+}

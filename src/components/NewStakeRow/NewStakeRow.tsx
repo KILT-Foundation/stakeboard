@@ -17,9 +17,21 @@ export interface Props {
   collator: string
 }
 
-async function stake(account: Account, collator: string, amount: number) {
+async function stake(
+  account: Account,
+  collator: string,
+  amount: number,
+  onSuccess: () => void,
+  onError: (error: Error) => void
+) {
   const amountInFemto = kiltToFemto(amount)
-  return joinDelegators(account.address, collator, amountInFemto)
+  return joinDelegators(
+    account.address,
+    collator,
+    amountInFemto,
+    onSuccess,
+    onError
+  )
 }
 
 export const NewStakeRow: React.FC<Props> = ({
@@ -38,7 +50,13 @@ export const NewStakeRow: React.FC<Props> = ({
   const handleDelegatorStake = async () => {
     if (!account) throw new Error('No account selected')
     if (!newStake) throw new Error('No amount given')
-    await stake(account, collator, newStake)
+    await stake(
+      account,
+      collator,
+      newStake,
+      () => {},
+      (error) => {}
+    )
     toggleModal()
   }
 
