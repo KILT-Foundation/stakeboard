@@ -1,4 +1,5 @@
 import { Reducer } from 'react'
+import { Account } from '../types'
 
 export type FavoriteActions =
   | { type: 'favorize'; id: string }
@@ -27,6 +28,41 @@ export const pauseReducer: Reducer<boolean, PausedAction> = (
   switch (action.type) {
     case 'refreshPaused':
       return !action.refreshPaused
+    default:
+      return state
+  }
+}
+
+export type AccountActions =
+  | { type: 'selectedAccount'; account: Account }
+  | { type: 'unselectAccount'; account: undefined }
+
+export const accountReducer: Reducer<Account | undefined, AccountActions> = (
+  state: Account | undefined,
+  action: AccountActions
+) => {
+  switch (action.type) {
+    case 'selectedAccount':
+      return { ...action.account }
+    case 'unselectAccount':
+      return action.account
+    default:
+      return state
+  }
+}
+
+export type ToggleDetailedIdentityViewAction = {
+  type: 'toggleIdentityView'
+  toggleDetailedIdentityView: boolean
+}
+
+export const toggleDetailedIdentityViewReducer: Reducer<
+  boolean,
+  ToggleDetailedIdentityViewAction
+> = (state: boolean, action: ToggleDetailedIdentityViewAction) => {
+  switch (action.type) {
+    case 'toggleIdentityView':
+      return !action.toggleDetailedIdentityView
     default:
       return state
   }

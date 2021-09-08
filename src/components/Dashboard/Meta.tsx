@@ -5,7 +5,6 @@ import { Identicon } from '../Identicon/Identicon'
 import { format } from '../../utils'
 import { Account, AccountWithPct } from '../../types'
 import { AccountInfo } from './AccountInfo'
-
 export interface MetaProps {
   account: AccountWithPct
 }

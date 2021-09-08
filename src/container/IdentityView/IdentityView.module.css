@@ -1,0 +1,110 @@
+.container {
+  width: 100%;
+  height: 350px;
+  border: 1px;
+  border-color: var(--color-input-hover-border);
+  border-style: solid;
+  border-radius: 8px;
+}
+
+.identityView {
+  max-width: 90%;
+  height: 440px;
+  padding-top: 40px;
+  margin: 0px 5% 10px 5%;
+}
+
+.buttonContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.tokenbarContainer {
+  width: 100%;
+  height: fit-content;
+  margin: 15px 30px 0px -20px;
+}
+
+.identiconContainer {
+  margin: 15px 15px 0px 20px;
+  width: 50px;
+}
+
+.identityStakeContainer {
+  margin: 10px 30px 0px 215px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.name {
+  min-width: 130px;
+  margin-top: 15px;
+  min-height: 50px;
+}
+
+.identityViewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lockedContainer {
+  flex-direction: column;
+  max-width: 100%;
+  display: flex;
+  margin: 50px 0px 0px 215px;
+}
+
+.buttonCont {
+  display: flex;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  max-width: 300px;
+  justify-content: space-between;
+}
+
+.orangeBar {
+  background-color: var(--color-low-rank);
+  max-width: 300px;
+  margin-bottom: 5px;
+  padding: 1px;
+}
+
+.redBar {
+  background-color: var(--color-paused-red);
+  max-width: 300px;
+  margin-bottom: 5px;
+  padding: 1px;
+}
+
+/* Text */
+
+.label {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-primary);
+  text-transform: uppercase;
+}
+
+.labelSmall {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-small);
+  text-transform: uppercase;
+}
+
+.labelGray {
+  color: var(--color-gray-text);
+}
+
+.labelYellow {
+  color: var(--color-yellow-text);
+}
+
+.labelOrange {
+  color: var(--color-orange-text);
+}
+
+.textRight {
+  text-align: right;
+}

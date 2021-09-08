@@ -1,4 +1,5 @@
 import { ChainTypes } from '../types'
+import { blockToTime, padTime } from './timeConvert'
 
 export function sessionCounter(
   sessionInfo?: ChainTypes.RoundInfo,
@@ -8,8 +9,6 @@ export function sessionCounter(
   return bestBlock.sub(sessionInfo.first).toNumber()
 }
 
-const padTime = (number: Number) => number.toString().padStart(2, '0')
-
 export function sessionTimer(
   sessionInfo?: ChainTypes.RoundInfo,
   bestBlock?: ChainTypes.BlockNumber
@@ -18,13 +17,13 @@ export function sessionTimer(
   const blockInSession = bestBlock.sub(sessionInfo.first)
   const blockInSessionDescending = sessionInfo.length.sub(blockInSession)
 
-  const inSeconds = blockInSessionDescending.muln(12).toNumber()
+  const { hours, minutes, seconds } = blockToTime(
+    blockInSessionDescending.toNumber()
+  )
 
-  const asTime = new Date(inSeconds * 1000)
+  const hoursPad = padTime(hours)
+  const minutesPad = padTime(minutes)
+  const secondsPad = padTime(seconds)
 
-  const hours = padTime(asTime.getUTCHours())
-  const minutes = padTime(asTime.getUTCMinutes())
-  const seconds = padTime(asTime.getSeconds())
-
-  return `~${hours}:${minutes}:${seconds}`
+  return `~ ${hoursPad}h : ${minutesPad}m : ${secondsPad}s`
 }

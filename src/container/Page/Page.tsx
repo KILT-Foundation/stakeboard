@@ -26,7 +26,7 @@ export const Page: React.FC<Props> = () => {
         bestBlock={bestBlock}
         bestFinalisedBlock={bestFinalisedBlock}
       />
-      <Dashboard accounts={accounts} />
+      <Dashboard accounts={accounts} bestBlock={bestBlock} />
       <CollatorList dataSet={dataSet} accounts={accounts} />
     </div>
   )

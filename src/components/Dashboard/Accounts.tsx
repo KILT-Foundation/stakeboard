@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './Accounts.module.css'
 import { Account, AccountWithPct } from '../../types'
 import { TokenBar } from './TokenBar'
 import { MetaDown, MetaUp } from './Meta'
 import { UnusedMeta } from './Meta'
+import { Button } from '../Button/Button'
+import { StateContext } from '../../utils/StateContext'
 
 export interface Props {
   accounts: Account[]
+  toggleDetailedIdentityView: () => void
 }
 
 export interface UnusedAccountsProps {
@@ -28,9 +31,14 @@ export const UnusedAccounts: React.FC<UnusedAccountsProps> = ({
   )
 }
 
-export const Accounts: React.FC<Props> = ({ accounts }) => {
+export const Accounts: React.FC<Props> = ({
+  accounts,
+  toggleDetailedIdentityView,
+}) => {
   const usedAccounts = accounts.filter((account) => account.used)
   const unusedAccounts = accounts.filter((account) => !account.used)
+  const { dispatch } = useContext(StateContext)
+
   return (
     <div className={styles.accounts}>
       {usedAccounts.map((account, index) => {
@@ -46,13 +54,39 @@ export const Accounts: React.FC<Props> = ({ accounts }) => {
         return (
           <React.Fragment key={account.address}>
             <span className={styles.account}>
-              {index % 2 === 0 && <MetaUp account={accountWithPct} />}
+              {index % 2 === 0 && (
+                <>
+                  <MetaUp account={accountWithPct} />
+                  <div className={styles.upDetailsButtonContainer}>
+                    <Button
+                      onClick={() => {
+                        dispatch({ type: 'selectedAccount', account })
+                        toggleDetailedIdentityView()
+                      }}
+                      label={'details'}
+                    />
+                  </div>
+                </>
+              )}
               <TokenBar
                 staked={account.staked}
                 stakeable={account.stakeable}
                 down={index % 2 !== 0}
               />
-              {index % 2 !== 0 && <MetaDown account={accountWithPct} />}
+              {index % 2 !== 0 && (
+                <>
+                  <MetaDown account={accountWithPct} />
+                  <div className={styles.downDetailsButtonContainer}>
+                    <Button
+                      onClick={() => {
+                        dispatch({ type: 'selectedAccount', account })
+                        toggleDetailedIdentityView()
+                      }}
+                      label={'details'}
+                    />
+                  </div>
+                </>
+              )}
             </span>
           </React.Fragment>
         )

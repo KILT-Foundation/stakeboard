@@ -1,12 +1,8 @@
 import { useContext, useEffect, useState } from 'react'
 import { Account, Candidate, ChainTypes, Data } from '../types'
+import { femtoToKilt } from './conversion'
 import { AccountInfo, initialize } from './polling'
 import { StoredStateContext } from './StoredStateContext'
-
-const femtoToKilt = (big: bigint) => {
-  const inKilt = big / 10n ** 15n
-  return Number(inKilt)
-}
 
 export type useBlockchainDataParams = {
   partialAccounts: Pick<Account, 'address' | 'name'>[]
