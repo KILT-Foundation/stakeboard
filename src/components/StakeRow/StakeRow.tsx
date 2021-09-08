@@ -14,7 +14,7 @@ import { Input } from '../Input/Input'
 import { getStatus } from '../../utils/stakeStatus'
 import { StakeModal } from '../StakeModal/StakeModal'
 import { kiltToFemto } from '../../utils/conversion'
-import { ErrorBoundaryContext } from '../../container/ErrorBoundary/ErrorBoundary'
+import { StateContext } from '../../utils/StateContext'
 
 export interface Props {
   stakeInfo: DataStake
@@ -69,7 +69,7 @@ export const StakeRow: React.FC<Props> = ({
   accounts,
   collator,
 }) => {
-  const { dispatch } = useContext(ErrorBoundaryContext)
+  const { dispatch } = useContext(StateContext)
   const { isVisible, toggleModal } = useModal()
   const [editStake, setEditStake] = useState(false)
   const [newStake, setNewStake] = useState<number | undefined>()
