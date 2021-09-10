@@ -12,7 +12,7 @@ export interface Props {
   accounts: Account[]
 }
 
-const COLS = 7
+const COLS = 16
 
 export const CollatorListItem: React.FC<Props> = ({
   entry,

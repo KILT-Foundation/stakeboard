@@ -124,11 +124,12 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
               [styles.activeSort]: sortBy === SORT_BY.Delegators,
             })}
             onClick={() => setSortBy(SORT_BY.Delegators)}
+            colSpan={2}
           >
             Delegators
             <Icon type={iconSortType(sortBy, SORT_BY.Delegators)} width={13} />
           </th>
-          <th
+          {/* <th
             className={cx({
               [styles.activeSort]: sortBy === SORT_BY.TotalReward,
             })}
@@ -136,7 +137,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
           >
             Reward (%) / Year
             <Icon type={iconSortType(sortBy, SORT_BY.TotalReward)} width={13} />
-          </th>
+          </th> */}
           <th>
             <Icon type="tokens_white" />
             <Icon type="order_white" width={13} />

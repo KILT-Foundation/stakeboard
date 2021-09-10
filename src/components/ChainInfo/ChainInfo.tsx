@@ -81,7 +81,7 @@ export const ChainInfo: React.FC<Props> = ({
             ? bestFinalisedBlock.toNumber().toLocaleString()
             : '000,000'}
         </span>
-        <div className={cx(styles.label, styles.leftMargin)}>Refresh Every</div>
+        {/* <div className={cx(styles.label, styles.leftMargin)}>Refresh Every</div>
         <div className={cx(styles.label, styles.refreshDropdown)}>
           <RefreshSelector options={options} placeholder={'10 secs'} />
         </div>
@@ -91,7 +91,7 @@ export const ChainInfo: React.FC<Props> = ({
           >
             {refreshPaused ? <OFF /> : <ON />}
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   )
