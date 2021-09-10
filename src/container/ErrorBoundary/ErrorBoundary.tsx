@@ -34,11 +34,9 @@ class ErrorBoundary extends React.Component<Props, State> {
       <Modal title="Error">
         <>
           There was an Error:
-          <p className={styles.errorText}>{errorInfo.toString()}</p>
+          <p className={styles.errorText}>{error.toString()}</p>
           Please reload the page
         </>
-        <>{error && errorInfo.componentStack}</>
-        <br />
       </Modal>
     ) : (
       children
