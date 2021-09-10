@@ -122,6 +122,9 @@ async function signAndSend(
 ) {
   const api = await getConnection()
   const injector = await web3FromAddress(address)
+
+  let hadError = false
+
   return tx.signAndSend(
     address,
     { signer: injector.signer },
@@ -129,7 +132,8 @@ async function signAndSend(
       if (status.isInBlock) {
         onSuccess()
       }
-      if (dispatchError) {
+      if (dispatchError && !hadError) {
+        hadError = true
         if (dispatchError.isModule) {
           // for module errors, we have the section indexed, lookup
           const decoded = api.registry.findMetaError(dispatchError.asModule)
