@@ -68,7 +68,7 @@ export const toggleDetailedIdentityViewReducer: Reducer<
   }
 }
 
-export type HandleErrorBoundaryAction =
+export type ErrorAction =
   | {
       type: 'handleError'
       error: boolean
@@ -80,10 +80,10 @@ export type HandleErrorBoundaryAction =
       errorInfo: any
     }
 
-export const handleErrorBoundaryReducer: Reducer<
-  any,
-  HandleErrorBoundaryAction
-> = (state: boolean, action: HandleErrorBoundaryAction) => {
+export const errorReducer: Reducer<any, ErrorAction> = (
+  state: boolean,
+  action: ErrorAction
+) => {
   switch (action.type) {
     case 'handleError':
       return { error: action.error, errorInfo: action.errorInfo }

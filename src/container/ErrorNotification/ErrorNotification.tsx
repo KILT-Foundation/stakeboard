@@ -7,7 +7,7 @@ import { StateContext } from '../../utils/StateContext'
 export const ErrorNotification: React.FC = () => {
   const {
     state: {
-      handleError: { error, errorInfo },
+      error: { error, errorInfo },
     },
     dispatch,
   } = useContext(StateContext)

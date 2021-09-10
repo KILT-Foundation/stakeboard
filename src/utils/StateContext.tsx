@@ -6,8 +6,8 @@ import {
   pauseReducer,
   ToggleDetailedIdentityViewAction,
   toggleDetailedIdentityViewReducer,
-  HandleErrorBoundaryAction,
-  handleErrorBoundaryReducer,
+  ErrorAction,
+  errorReducer,
 } from '../state/reducers'
 import { Account } from '../types'
 
@@ -15,7 +15,7 @@ export interface State {
   refreshPaused: boolean
   account?: Account
   toggleDetailedIdentityView: boolean
-  handleError: { error: boolean; errorInfo: any }
+  error: { error: boolean; errorInfo: any }
 }
 
 export const StateContext = React.createContext<{
@@ -24,25 +24,25 @@ export const StateContext = React.createContext<{
     | PausedAction
     | AccountActions
     | ToggleDetailedIdentityViewAction
-    | HandleErrorBoundaryAction
+    | ErrorAction
   >
 }>({
   state: {
     refreshPaused: false,
     account: undefined,
     toggleDetailedIdentityView: false,
-    handleError: { error: false, errorInfo: '' },
+    error: { error: false, errorInfo: '' },
   },
   dispatch: () => null,
 })
 
 const mainReducer = (
-  { refreshPaused, account, toggleDetailedIdentityView, handleError }: State,
+  { refreshPaused, account, toggleDetailedIdentityView, error }: State,
   action:
     | PausedAction
     | AccountActions
     | ToggleDetailedIdentityViewAction
-    | HandleErrorBoundaryAction
+    | ErrorAction
 ) => ({
   refreshPaused: pauseReducer(refreshPaused, action as PausedAction),
   account: accountReducer(account, action as AccountActions),
@@ -50,10 +50,7 @@ const mainReducer = (
     toggleDetailedIdentityView,
     action as ToggleDetailedIdentityViewAction
   ),
-  handleError: handleErrorBoundaryReducer(
-    handleError,
-    action as HandleErrorBoundaryAction
-  ),
+  error: errorReducer(error, action as ErrorAction),
 })
 
 export const StateProvider: React.FC = ({ children }) => {
@@ -61,7 +58,7 @@ export const StateProvider: React.FC = ({ children }) => {
     refreshPaused: false,
     account: undefined,
     toggleDetailedIdentityView: false,
-    handleError: { error: false, errorInfo: '' },
+    error: { error: false, errorInfo: '' },
   })
 
   return (
