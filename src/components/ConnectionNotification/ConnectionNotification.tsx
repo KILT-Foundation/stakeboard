@@ -20,7 +20,7 @@ export const ConnectionNotification: React.FC = () => {
               <span className={styles.modalTitle}>Connection</span>
             </div>
             <div className={styles.textWrapper}>
-              You are not connected to the Blockchain. Trying to reconnect...
+              Not connected to the Blockchain. Trying to reconnect...
             </div>
           </Modal>
         </div>
