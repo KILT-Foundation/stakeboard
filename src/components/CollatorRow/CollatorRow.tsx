@@ -9,7 +9,7 @@ import { Data } from '../../types'
 import { StoredStateContext } from '../../utils/StoredStateContext'
 
 // TODO: Max candidates will be changed at a later date. Smaller now for testing purposes.
-const MAX_SELECTED_CANDIDATES = 5
+const MAX_SELECTED_CANDIDATES = 16
 export interface Props {
   entry: Data
   rank: number | undefined
@@ -90,7 +90,8 @@ export const CollatorRow: React.FC<Props> = ({
       </td>
       <td>{entry.lowestStake ? format(entry.lowestStake) : '--'}</td>
       <td>{leftFillZero(entry.delegators, 2)} / 25</td>
-      <td>8.88 %</td>
+      <td className={rowStyles.spacer}></td>
+
       <td>
         {hasStakes ? (
           <Icon type="tokens_yellow" />

@@ -74,10 +74,8 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
             className={cx({
               [styles.activeSort]: sortBy === SORT_BY.Favorite,
             })}
-            onClick={() => setSortBy(SORT_BY.Favorite)}
           >
             Collator
-            <Icon type={iconSortType(sortBy, SORT_BY.Favorite)} width={13} />
             <span
               className={styles.searchButton}
               onClick={(e) => {
@@ -114,32 +112,19 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
             className={cx({
               [styles.activeSort]: sortBy === SORT_BY.LowestStake,
             })}
-            onClick={() => setSortBy(SORT_BY.LowestStake)}
           >
             Lowest Stake
-            <Icon type={iconSortType(sortBy, SORT_BY.LowestStake)} width={13} />
           </th>
           <th
             className={cx({
               [styles.activeSort]: sortBy === SORT_BY.Delegators,
             })}
-            onClick={() => setSortBy(SORT_BY.Delegators)}
+            colSpan={2}
           >
             Delegators
-            <Icon type={iconSortType(sortBy, SORT_BY.Delegators)} width={13} />
-          </th>
-          <th
-            className={cx({
-              [styles.activeSort]: sortBy === SORT_BY.TotalReward,
-            })}
-            onClick={() => setSortBy(SORT_BY.TotalReward)}
-          >
-            Reward (%) / Year
-            <Icon type={iconSortType(sortBy, SORT_BY.TotalReward)} width={13} />
           </th>
           <th>
             <Icon type="tokens_white" />
-            <Icon type="order_white" width={13} />
           </th>
           <th className={rowStyles.spacer}></th>
         </tr>
