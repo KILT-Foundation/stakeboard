@@ -1,5 +1,5 @@
 import React, { Dispatch, useEffect, useReducer } from 'react'
-import { FavoriteActions, favoriteReducer } from '../state/reducers'
+import { FavoriteActions, favoriteReducer } from '../state/storedReducers'
 
 export interface State {
   favorites: string[]
