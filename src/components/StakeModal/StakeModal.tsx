@@ -73,7 +73,7 @@ export const StakeModal: React.FC<Props> = ({
           buttons={
             <>
               <Button onClick={toggleModal} label="CANCEL" />
-              <Button onClick={onConfirm} label="STAKE" orangeButton />
+              <Button onClick={onConfirm} label="UNSTAKE" orangeButton />
             </>
           }
         >

@@ -13,7 +13,9 @@ export const Modal: React.FC<Props> = ({ children, buttons, title }) => {
       <DialogModal open className={styles.modal}>
         <div className={styles.modalTitleWrapper}>
           <span className={styles.modalTitle}>{title}</span>
-          <Icon type="skateboarder" width={35} />
+          <span className={styles.stakeboarder}>
+            <Icon type="skateboarder" width={35} />
+          </span>
         </div>
         <div className={styles.textWrapper}>{children}</div>
         <div className={styles.buttonWrapper}>{buttons}</div>

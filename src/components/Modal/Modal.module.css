@@ -63,25 +63,25 @@
 }
 
 .modalTitleWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
   width: 315px;
   height: 50px;
   padding-top: 10px;
   border-bottom: 1px;
   border-color: var(--color-modal-border);
   border-bottom-style: solid;
+  text-align: center;
 }
 
 .modalTitle {
   color: var(--color-gray-text);
   font-size: var(--font-size-big);
-  padding-right: 15px;
-  padding-bottom: 5px;
 }
 
 .errorText {
   font-family: monospace;
+}
+
+.stakeboarder {
+  position: absolute;
+  padding-left: 15px;
 }
