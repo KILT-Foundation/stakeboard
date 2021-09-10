@@ -36,17 +36,12 @@ export const IdentityView: React.FC<Props> = ({
     console.log('success', new Date().getTime())
   }
   const onError = (error: any) => {
-    console.log('error', new Date().getTime())
     dispatch({ type: 'handleError', error: true, errorInfo: error })
   }
 
   const withdraw = async () => {
     if (readyToWithdraw > 0 && account) {
-      try {
-        await withdrawStake(account.address, onSuccess, onError)
-      } catch (error) {
-        onError(error)
-      }
+      await withdrawStake(account.address, onSuccess, onError)
     }
   }
 
