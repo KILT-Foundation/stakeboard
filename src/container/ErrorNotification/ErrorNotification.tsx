@@ -7,28 +7,26 @@ import { StateContext } from '../../utils/StateContext'
 export const ErrorNotification: React.FC = () => {
   const {
     state: {
-      error: { error, errorInfo },
+      error: { hasError, error },
     },
     dispatch,
   } = useContext(StateContext)
 
-  if (!error) return null
+  if (!hasError) return null
 
   return (
     <Modal
       title="Error"
       buttons={
         <Button
-          onClick={() =>
-            dispatch({ type: 'resetError', error: false, errorInfo: '' })
-          }
+          onClick={() => dispatch({ type: 'resetError' })}
           label={'close'}
         />
       }
     >
       <>
         There was an Error:
-        <p className={styles.errorText}>{errorInfo.toString()}</p>
+        <p className={styles.errorText}>{error.toString()}</p>
       </>
     </Modal>
   )

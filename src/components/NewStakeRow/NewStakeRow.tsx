@@ -53,7 +53,7 @@ export const NewStakeRow: React.FC<Props> = ({
     console.log('success', new Date().getTime())
   }
   const onError = (error: any) => {
-    dispatch({ type: 'handleError', error: true, errorInfo: error })
+    dispatch({ type: 'handleError', error })
   }
 
   const handleDelegatorStake = async () => {

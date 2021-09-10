@@ -6,13 +6,14 @@ import {
   connectionReducer,
   ConnectionState,
   Actions,
+  ErrorState,
 } from '../state/reducers'
 import { Account } from '../types'
 
 export interface State {
   refreshPaused: boolean
   account?: Account
-  error: { error: boolean; errorInfo: any }
+  error: ErrorState
   connection: ConnectionState
 }
 
@@ -23,7 +24,7 @@ export const StateContext = React.createContext<{
   state: {
     refreshPaused: false,
     account: undefined,
-    error: { error: false, errorInfo: '' },
+    error: { error: undefined, hasError: false },
     connection: { status: 'disconnected' },
   },
   dispatch: () => null,
@@ -43,7 +44,7 @@ export const StateProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(mainReducer, {
     refreshPaused: false,
     account: undefined,
-    error: { error: false, errorInfo: '' },
+    error: { error: undefined, hasError: false },
     connection: { status: 'disconnected' },
   })
 

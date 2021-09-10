@@ -15,13 +15,10 @@ export type AccountActions =
 export type ErrorActions =
   | {
       type: 'handleError'
-      error: boolean
-      errorInfo: any
+      error: any
     }
   | {
       type: 'resetError'
-      error: boolean
-      errorInfo: any
     }
 
 export type Actions =
@@ -53,12 +50,17 @@ export const accountReducer: Reducer<Account | undefined, Actions> = (
   }
 }
 
-export const errorReducer: Reducer<any, Actions> = (state, action) => {
+export type ErrorState = {
+  hasError: boolean
+  error: any
+}
+
+export const errorReducer: Reducer<ErrorState, Actions> = (state, action) => {
   switch (action.type) {
     case 'handleError':
-      return { error: action.error, errorInfo: action.errorInfo }
+      return { hasError: true, error: action.error }
     case 'resetError':
-      return { error: action.error, errorInfo: action.errorInfo }
+      return { hasError: false, error: undefined }
     default:
       return state
   }
