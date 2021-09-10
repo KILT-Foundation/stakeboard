@@ -90,7 +90,6 @@ export const CollatorRow: React.FC<Props> = ({
       </td>
       <td>{entry.lowestStake ? format(entry.lowestStake) : '--'}</td>
       <td>{leftFillZero(entry.delegators, 2)} / 25</td>
-      {/* <td>8.88 %</td> */}
       <td className={rowStyles.spacer}></td>
 
       <td>
