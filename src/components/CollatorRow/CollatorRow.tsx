@@ -89,8 +89,10 @@ export const CollatorRow: React.FC<Props> = ({
         {format(entry.totalStake)}
       </td>
       <td>{entry.lowestStake ? format(entry.lowestStake) : '--'}</td>
-      <td colSpan={2}>{leftFillZero(entry.delegators, 2)} / 25</td>
+      <td>{leftFillZero(entry.delegators, 2)} / 25</td>
       {/* <td>8.88 %</td> */}
+      <td className={rowStyles.spacer}></td>
+
       <td>
         {hasStakes ? (
           <Icon type="tokens_yellow" />
