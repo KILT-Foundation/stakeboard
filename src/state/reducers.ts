@@ -17,7 +17,7 @@ export type ToggleDetailedIdentityViewAction = {
   toggleDetailedIdentityView: boolean
 }
 
-export type ErrorAction =
+export type ErrorActions =
   | {
       type: 'handleError'
       error: boolean
@@ -34,7 +34,7 @@ export type Actions =
   | ConnectionActions
   | AccountActions
   | ToggleDetailedIdentityViewAction
-  | ErrorAction
+  | ErrorActions
 
 export const pauseReducer: Reducer<boolean, Actions> = (state, action) => {
   switch (action.type) {

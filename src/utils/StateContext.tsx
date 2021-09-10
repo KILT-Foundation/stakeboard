@@ -1,14 +1,9 @@
 import React, { Dispatch, useReducer } from 'react'
 import {
-  AccountActions,
   accountReducer,
-  PausedAction,
   pauseReducer,
-  ToggleDetailedIdentityViewAction,
   toggleDetailedIdentityViewReducer,
-  ErrorAction,
   errorReducer,
-  ConnectionActions,
   connectionReducer,
   ConnectionState,
   Actions,
@@ -25,13 +20,7 @@ export interface State {
 
 export const StateContext = React.createContext<{
   state: State
-  dispatch: Dispatch<
-    | PausedAction
-    | AccountActions
-    | ToggleDetailedIdentityViewAction
-    | ErrorAction
-    | ConnectionActions
-  >
+  dispatch: Dispatch<Actions>
 }>({
   state: {
     refreshPaused: false,

@@ -1,6 +1,6 @@
-import { Modal } from 'react-dialog-polyfill'
-import styles from '../../styles/modal.module.css'
 import React, { ReactNode } from 'react'
+import { Modal } from '../../components/Modal/Modal'
+import styles from '../../components/Modal/Modal.module.css'
 
 interface Props {
   children: ReactNode
@@ -31,7 +31,7 @@ class ErrorBoundary extends React.Component<Props, State> {
     const { error, errorInfo } = this.state
     const { children } = this.props
     return error ? (
-      <Modal open={error} className={styles.modal}>
+      <Modal title="Error">
         <>
           There was an Error:
           <p className={styles.errorText}>{errorInfo.toString()}</p>
