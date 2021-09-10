@@ -9,7 +9,7 @@ import { Data } from '../../types'
 import { StoredStateContext } from '../../utils/StoredStateContext'
 
 // TODO: Max candidates will be changed at a later date. Smaller now for testing purposes.
-const MAX_SELECTED_CANDIDATES = 5
+const MAX_SELECTED_CANDIDATES = 16
 export interface Props {
   entry: Data
   rank: number | undefined
