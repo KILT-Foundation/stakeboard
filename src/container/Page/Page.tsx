@@ -7,10 +7,13 @@ import styles from './Page.module.css'
 import { useBlockchainData } from '../../utils/useBlockchainData'
 import { useExtension } from '../../utils/useExtension'
 import { ErrorNotification } from '../ErrorNotification/ErrorNotification'
+import { useConnect } from '../../utils/useConnect'
+import { ConnectionNotification } from '../../components/ConnectionNotification/ConnectionNotification'
 
 export interface Props {}
 
 export const Page: React.FC<Props> = () => {
+  useConnect()
   const allAccounts = useExtension()
   const {
     dataSet,
@@ -30,6 +33,7 @@ export const Page: React.FC<Props> = () => {
       <Dashboard accounts={accounts} bestBlock={bestBlock} />
       <CollatorList dataSet={dataSet} accounts={accounts} />
       <ErrorNotification />
+      <ConnectionNotification />
     </div>
   )
 }

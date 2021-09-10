@@ -1,5 +1,3 @@
-import { ApiPromise, WsProvider } from '@polkadot/api'
-import { types12 as types } from '@kiltprotocol/type-definitions'
 import type { Vec, Option, BTreeMap } from '@polkadot/types'
 import type {
   AccountId,
@@ -9,37 +7,17 @@ import type {
 import { Candidate, ChainTypes } from '../types'
 import { web3FromAddress } from '@polkadot/extension-dapp'
 import { SubmittableExtrinsic } from '@polkadot/api/promise/types'
-
-let cachedApi: Promise<ApiPromise> | null = null
-
-// const ENDPOINT = 'wss://kilt-peregrine-k8s.kilt.io'
-const ENDPOINT = 'wss://kilt-peregrine-stg.kilt.io'
-
-export async function connect() {
-  if (!cachedApi) {
-    const wsProvider = new WsProvider(ENDPOINT)
-    cachedApi = ApiPromise.create({ provider: wsProvider, types })
-  }
-  let resolved = await cachedApi
-  if (!resolved.isConnected) {
-    resolved.connect()
-  }
-  return resolved
-}
-
-export async function disconnect() {
-  return (await cachedApi)?.disconnect()
-}
+import { getConnection } from './useConnect'
 
 export async function getGenesis() {
-  const api = await connect()
+  const api = await getConnection()
   // @ts-ignore
   window.api = api
   return api.genesisHash.toHex()
 }
 
 export async function getCandidatePool() {
-  const api = await connect()
+  const api = await getConnection()
   const candidatePool = await api.query.parachainStaking.candidatePool<
     Vec<ChainTypes.Stake>
   >()
@@ -49,7 +27,7 @@ export async function getCandidatePool() {
 export async function subscribeToCandidatePool(
   listener: (result: Vec<ChainTypes.Stake>) => void
 ) {
-  const api = await connect()
+  const api = await getConnection()
   // @ts-ignore
   window.trigger = (pool) => {
     listener(pool)
@@ -61,14 +39,14 @@ export async function subscribeToCollatorState(
   account: string,
   listener: (result: Option<ChainTypes.Collator>) => void
 ) {
-  const api = await connect()
+  const api = await getConnection()
   return await api.query.parachainStaking.collatorState<
     Option<ChainTypes.Collator>
   >(account, listener)
 }
 
 export async function getAllCollatorState() {
-  const api = await connect()
+  const api = await getConnection()
   return api.query.parachainStaking.collatorState.entries<
     Option<ChainTypes.Collator>,
     [AccountId]
@@ -92,45 +70,45 @@ export const mapCollatorStateToCandidate = (
 })
 
 export async function getSelectedCandidates() {
-  const api = await connect()
+  const api = await getConnection()
   return api.query.parachainStaking.selectedCandidates<Vec<AccountId>>()
 }
 
 export async function getCurrentCandidates() {
-  const api = await connect()
+  const api = await getConnection()
   return api.query.session.validators<Vec<AccountId>>()
 }
 
 export async function querySessionInfo() {
-  const api = await connect()
+  const api = await getConnection()
   const roundInfo = api.query.parachainStaking.round<ChainTypes.RoundInfo>()
   return roundInfo
 }
 
 export async function queryBestBlock() {
-  const api = await connect()
+  const api = await getConnection()
   return api.derive.chain.bestNumber()
 }
 
 export async function queryBestFinalisedBlock() {
-  const api = await connect()
+  const api = await getConnection()
   return api.derive.chain.bestNumberFinalized()
 }
 
 export async function getBalance(account: string) {
-  const api = await connect()
+  const api = await getConnection()
   return api.query.system.account(account)
 }
 
 export async function getUnstakingAmounts(account: string) {
-  const api = await connect()
+  const api = await getConnection()
   return api.query.parachainStaking.unstaking<BTreeMap<BlockNumber, BalanceOf>>(
     account
   )
 }
 
 export async function getDelegatorStake(account: string) {
-  const api = await connect()
+  const api = await getConnection()
   return api.query.parachainStaking.delegatorState<
     Option<ChainTypes.Delegator>
   >(account)
@@ -142,7 +120,7 @@ async function signAndSend(
   onSuccess: () => void,
   onError: (error: Error) => void
 ) {
-  const api = await connect()
+  const api = await getConnection()
   const injector = await web3FromAddress(address)
   return tx.signAndSend(
     address,
@@ -179,7 +157,7 @@ export async function joinDelegators(
   onSuccess: () => void,
   onError: (error: Error) => void
 ) {
-  const api = await connect()
+  const api = await getConnection()
   const tx = api.tx.parachainStaking.joinDelegators(collator, stake)
   return signAndSend(delegator, tx, onSuccess, onError)
 }
@@ -190,7 +168,7 @@ export async function delegatorStakeMore(
   onSuccess: () => void,
   onError: (error: Error) => void
 ) {
-  const api = await connect()
+  const api = await getConnection()
   const tx = api.tx.parachainStaking.delegatorStakeMore(collator, more)
   return signAndSend(delegator, tx, onSuccess, onError)
 }
@@ -201,7 +179,7 @@ export async function delegatorStakeLess(
   onSuccess: () => void,
   onError: (error: Error) => void
 ) {
-  const api = await connect()
+  const api = await getConnection()
   const tx = api.tx.parachainStaking.delegatorStakeLess(collator, less)
   return signAndSend(delegator, tx, onSuccess, onError)
 }
@@ -210,7 +188,7 @@ export async function leaveDelegators(
   onSuccess: () => void,
   onError: (error: Error) => void
 ) {
-  const api = await connect()
+  const api = await getConnection()
   const tx = api.tx.parachainStaking.leaveDelegators()
   return signAndSend(delegator, tx, onSuccess, onError)
 }
@@ -220,7 +198,7 @@ export async function withdrawStake(
   onSuccess: () => void,
   onError: (error: Error) => void
 ) {
-  const api = await connect()
+  const api = await getConnection()
   const tx = api.tx.parachainStaking.unlockUnstaked(account)
   return signAndSend(account, tx, onSuccess, onError)
 }

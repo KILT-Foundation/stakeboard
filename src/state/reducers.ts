@@ -6,8 +6,8 @@ export type FavoriteActions =
   | { type: 'unfavorize'; id: string }
 
 export const favoriteReducer: Reducer<string[], FavoriteActions> = (
-  state: string[],
-  action: FavoriteActions
+  state,
+  action
 ) => {
   switch (action.type) {
     case 'favorize':
@@ -21,51 +21,18 @@ export const favoriteReducer: Reducer<string[], FavoriteActions> = (
 
 export type PausedAction = { type: 'refreshPaused'; refreshPaused: boolean }
 
-export const pauseReducer: Reducer<boolean, PausedAction> = (
-  state: boolean,
-  action: PausedAction
-) => {
-  switch (action.type) {
-    case 'refreshPaused':
-      return !action.refreshPaused
-    default:
-      return state
-  }
-}
+export type ConnectionActions =
+  | { type: 'connected' }
+  | { type: 'disconnected' }
+  | { type: 'error'; err: any }
 
 export type AccountActions =
   | { type: 'selectedAccount'; account: Account }
   | { type: 'unselectAccount'; account: undefined }
 
-export const accountReducer: Reducer<Account | undefined, AccountActions> = (
-  state: Account | undefined,
-  action: AccountActions
-) => {
-  switch (action.type) {
-    case 'selectedAccount':
-      return { ...action.account }
-    case 'unselectAccount':
-      return action.account
-    default:
-      return state
-  }
-}
-
 export type ToggleDetailedIdentityViewAction = {
   type: 'toggleIdentityView'
   toggleDetailedIdentityView: boolean
-}
-
-export const toggleDetailedIdentityViewReducer: Reducer<
-  boolean,
-  ToggleDetailedIdentityViewAction
-> = (state: boolean, action: ToggleDetailedIdentityViewAction) => {
-  switch (action.type) {
-    case 'toggleIdentityView':
-      return !action.toggleDetailedIdentityView
-    default:
-      return state
-  }
 }
 
 export type ErrorAction =
@@ -80,10 +47,49 @@ export type ErrorAction =
       errorInfo: any
     }
 
-export const errorReducer: Reducer<any, ErrorAction> = (
-  state: boolean,
-  action: ErrorAction
+export type Actions =
+  | PausedAction
+  | ConnectionActions
+  | AccountActions
+  | ToggleDetailedIdentityViewAction
+  | ErrorAction
+
+export const pauseReducer: Reducer<boolean, Actions> = (state, action) => {
+  switch (action.type) {
+    case 'refreshPaused':
+      return !action.refreshPaused
+    default:
+      return state
+  }
+}
+
+export const accountReducer: Reducer<Account | undefined, Actions> = (
+  state,
+  action
 ) => {
+  switch (action.type) {
+    case 'selectedAccount':
+      return { ...action.account }
+    case 'unselectAccount':
+      return action.account
+    default:
+      return state
+  }
+}
+
+export const toggleDetailedIdentityViewReducer: Reducer<boolean, Actions> = (
+  state,
+  action
+) => {
+  switch (action.type) {
+    case 'toggleIdentityView':
+      return !action.toggleDetailedIdentityView
+    default:
+      return state
+  }
+}
+
+export const errorReducer: Reducer<any, Actions> = (state, action) => {
   switch (action.type) {
     case 'handleError':
       return { error: action.error, errorInfo: action.errorInfo }
@@ -91,5 +97,26 @@ export const errorReducer: Reducer<any, ErrorAction> = (
       return { error: action.error, errorInfo: action.errorInfo }
     default:
       return state
+  }
+}
+
+export type ConnectionState = {
+  status: 'connected' | 'disconnected' | 'error'
+  err?: any
+}
+
+export const connectionReducer: Reducer<ConnectionState, Actions> = (
+  prevState,
+  action
+) => {
+  switch (action.type) {
+    case 'connected':
+      return { status: 'connected' }
+    case 'disconnected':
+      return { status: 'disconnected' }
+    case 'error':
+      return { status: 'error', err: action.err }
+    default:
+      return prevState
   }
 }

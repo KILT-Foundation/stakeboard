@@ -8,6 +8,10 @@ import {
   toggleDetailedIdentityViewReducer,
   ErrorAction,
   errorReducer,
+  ConnectionActions,
+  connectionReducer,
+  ConnectionState,
+  Actions,
 } from '../state/reducers'
 import { Account } from '../types'
 
@@ -16,6 +20,7 @@ export interface State {
   account?: Account
   toggleDetailedIdentityView: boolean
   error: { error: boolean; errorInfo: any }
+  connection: ConnectionState
 }
 
 export const StateContext = React.createContext<{
@@ -25,6 +30,7 @@ export const StateContext = React.createContext<{
     | AccountActions
     | ToggleDetailedIdentityViewAction
     | ErrorAction
+    | ConnectionActions
   >
 }>({
   state: {
@@ -32,25 +38,29 @@ export const StateContext = React.createContext<{
     account: undefined,
     toggleDetailedIdentityView: false,
     error: { error: false, errorInfo: '' },
+    connection: { status: 'disconnected' },
   },
   dispatch: () => null,
 })
 
 const mainReducer = (
-  { refreshPaused, account, toggleDetailedIdentityView, error }: State,
-  action:
-    | PausedAction
-    | AccountActions
-    | ToggleDetailedIdentityViewAction
-    | ErrorAction
+  {
+    refreshPaused,
+    account,
+    toggleDetailedIdentityView,
+    error,
+    connection,
+  }: State,
+  action: Actions
 ) => ({
-  refreshPaused: pauseReducer(refreshPaused, action as PausedAction),
-  account: accountReducer(account, action as AccountActions),
+  refreshPaused: pauseReducer(refreshPaused, action),
+  account: accountReducer(account, action),
   toggleDetailedIdentityView: toggleDetailedIdentityViewReducer(
     toggleDetailedIdentityView,
-    action as ToggleDetailedIdentityViewAction
+    action
   ),
-  error: errorReducer(error, action as ErrorAction),
+  error: errorReducer(error, action),
+  connection: connectionReducer(connection, action),
 })
 
 export const StateProvider: React.FC = ({ children }) => {
@@ -59,6 +69,7 @@ export const StateProvider: React.FC = ({ children }) => {
     account: undefined,
     toggleDetailedIdentityView: false,
     error: { error: false, errorInfo: '' },
+    connection: { status: 'disconnected' },
   })
 
   return (
