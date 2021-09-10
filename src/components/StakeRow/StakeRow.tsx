@@ -78,7 +78,6 @@ export const StakeRow: React.FC<Props> = ({
     console.log('success', new Date().getTime())
   }
   const onError = (error: any) => {
-    console.log('error', new Date().getTime())
     dispatch({ type: 'handleError', error: true, errorInfo: error })
   }
 
@@ -92,29 +91,12 @@ export const StakeRow: React.FC<Props> = ({
     current: number,
     newStake: number | undefined
   ) => {
-    try {
-      if (!newStake || newStake === 0) {
-        await unstake(account, onSuccess, onError)
-      } else if (newStake > current) {
-        await stakeMore(
-          account,
-          collator,
-          newStake - current,
-          onSuccess,
-          onError
-        )
-      } else if (newStake < current) {
-        await stakeLess(
-          account,
-          collator,
-          current - newStake,
-          onSuccess,
-          onError
-        )
-      }
-    } catch (error) {
-      console.log('error', error)
-      dispatch({ type: 'handleError', error: true, errorInfo: error })
+    if (!newStake || newStake === 0) {
+      await unstake(account, onSuccess, onError)
+    } else if (newStake > current) {
+      await stakeMore(account, collator, newStake - current, onSuccess, onError)
+    } else if (newStake < current) {
+      await stakeLess(account, collator, current - newStake, onSuccess, onError)
     }
   }
 

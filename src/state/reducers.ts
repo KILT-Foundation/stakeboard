@@ -86,9 +86,9 @@ export const handleErrorBoundaryReducer: Reducer<
 > = (state: boolean, action: HandleErrorBoundaryAction) => {
   switch (action.type) {
     case 'handleError':
-      return { error: true, errorInfo: action.errorInfo }
+      return { error: action.error, errorInfo: action.errorInfo }
     case 'resetError':
-      return { error: false, errorInfo: action.errorInfo }
+      return { error: action.error, errorInfo: action.errorInfo }
     default:
       return state
   }

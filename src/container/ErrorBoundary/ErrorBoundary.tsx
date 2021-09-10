@@ -26,9 +26,6 @@ class ErrorBoundary extends React.Component<Props, State> {
       errorInfo,
     })
   }
-  triggerError = ({ error, errorInfo }: any) => {
-    this.setState({ error, errorInfo })
-  }
 
   render(): ReactNode {
     const { error, errorInfo } = this.state
