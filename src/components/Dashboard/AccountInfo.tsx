@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './AccountInfo.module.css'
 import { format } from '../../utils'
 import { AccountWithPct } from '../../types'
+import { Button } from '../Button/Button'
+import { StateContext } from '../../utils/StateContext'
 
 export interface AccountInfoProps {
   account: AccountWithPct
 }
 export const AccountInfo: React.FC<AccountInfoProps> = ({ account }) => {
+  const { dispatch } = useContext(StateContext)
   return (
     <div className={styles.info}>
       <div className={styles.name}>{account.name}</div>
@@ -22,6 +25,12 @@ export const AccountInfo: React.FC<AccountInfoProps> = ({ account }) => {
           {format(account.stakeable)} {account.stakeablePct}%
         </span>
       </div>
+      <Button
+        onClick={() => {
+          dispatch({ type: 'selectAccount', account })
+        }}
+        label={'details'}
+      />
     </div>
   )
 }

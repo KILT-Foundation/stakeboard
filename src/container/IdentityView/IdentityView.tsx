@@ -12,7 +12,6 @@ import { ChainTypes } from '../../types'
 import { format } from '../../utils/index'
 
 export interface Props {
-  toggleDetailedIdentityView: () => void
   bestBlock?: ChainTypes.BlockNumber
 }
 
@@ -22,10 +21,7 @@ function getPercent(percentageValue: number, secondValue: number) {
   return percent.toFixed(1)
 }
 
-export const IdentityView: React.FC<Props> = ({
-  toggleDetailedIdentityView,
-  bestBlock,
-}) => {
+export const IdentityView: React.FC<Props> = ({ bestBlock }) => {
   const [readyToWithdraw, setReadyToWithdraw] = useState(0)
   // placeholder
   const {
@@ -148,8 +144,7 @@ export const IdentityView: React.FC<Props> = ({
       <div className={styles.buttonContainer}>
         <Button
           onClick={() => {
-            dispatch({ type: 'unselectAccount', account: undefined })
-            toggleDetailedIdentityView()
+            dispatch({ type: 'unselectAccount' })
           }}
           label={'close'}
         />

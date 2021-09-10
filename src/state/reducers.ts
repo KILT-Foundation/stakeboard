@@ -9,13 +9,8 @@ export type ConnectionActions =
   | { type: 'error'; err: any }
 
 export type AccountActions =
-  | { type: 'selectedAccount'; account: Account }
-  | { type: 'unselectAccount'; account: undefined }
-
-export type ToggleDetailedIdentityViewAction = {
-  type: 'toggleIdentityView'
-  toggleDetailedIdentityView: boolean
-}
+  | { type: 'selectAccount'; account: Account }
+  | { type: 'unselectAccount' }
 
 export type ErrorActions =
   | {
@@ -33,7 +28,6 @@ export type Actions =
   | PausedAction
   | ConnectionActions
   | AccountActions
-  | ToggleDetailedIdentityViewAction
   | ErrorActions
 
 export const pauseReducer: Reducer<boolean, Actions> = (state, action) => {
@@ -50,22 +44,10 @@ export const accountReducer: Reducer<Account | undefined, Actions> = (
   action
 ) => {
   switch (action.type) {
-    case 'selectedAccount':
+    case 'selectAccount':
       return { ...action.account }
     case 'unselectAccount':
-      return action.account
-    default:
-      return state
-  }
-}
-
-export const toggleDetailedIdentityViewReducer: Reducer<boolean, Actions> = (
-  state,
-  action
-) => {
-  switch (action.type) {
-    case 'toggleIdentityView':
-      return !action.toggleDetailedIdentityView
+      return undefined
     default:
       return state
   }

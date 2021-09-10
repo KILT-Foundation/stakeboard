@@ -2,7 +2,6 @@ import React, { Dispatch, useReducer } from 'react'
 import {
   accountReducer,
   pauseReducer,
-  toggleDetailedIdentityViewReducer,
   errorReducer,
   connectionReducer,
   ConnectionState,
@@ -13,7 +12,6 @@ import { Account } from '../types'
 export interface State {
   refreshPaused: boolean
   account?: Account
-  toggleDetailedIdentityView: boolean
   error: { error: boolean; errorInfo: any }
   connection: ConnectionState
 }
@@ -25,7 +23,6 @@ export const StateContext = React.createContext<{
   state: {
     refreshPaused: false,
     account: undefined,
-    toggleDetailedIdentityView: false,
     error: { error: false, errorInfo: '' },
     connection: { status: 'disconnected' },
   },
@@ -33,21 +30,11 @@ export const StateContext = React.createContext<{
 })
 
 const mainReducer = (
-  {
-    refreshPaused,
-    account,
-    toggleDetailedIdentityView,
-    error,
-    connection,
-  }: State,
+  { refreshPaused, account, error, connection }: State,
   action: Actions
 ) => ({
   refreshPaused: pauseReducer(refreshPaused, action),
   account: accountReducer(account, action),
-  toggleDetailedIdentityView: toggleDetailedIdentityViewReducer(
-    toggleDetailedIdentityView,
-    action
-  ),
   error: errorReducer(error, action),
   connection: connectionReducer(connection, action),
 })
@@ -56,7 +43,6 @@ export const StateProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(mainReducer, {
     refreshPaused: false,
     account: undefined,
-    toggleDetailedIdentityView: false,
     error: { error: false, errorInfo: '' },
     connection: { status: 'disconnected' },
   })
