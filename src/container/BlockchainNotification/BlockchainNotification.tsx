@@ -23,7 +23,9 @@ export const BlockchainNotication: React.FC = () => {
         />
       }
     >
-      <p>Chain Information: {transactionInfo}</p>
+      <p>Transaction successful</p>
+
+      <p>Transaction hash: {transactionInfo}</p>
     </Modal>
   )
 }
