@@ -7,6 +7,8 @@ import {
   ConnectionState,
   Actions,
   ErrorState,
+  ChainInfoState,
+  chainInfoReducer,
 } from '../state/reducers'
 import { Account } from '../types'
 
@@ -15,6 +17,7 @@ export interface State {
   account?: Account
   error: ErrorState
   connection: ConnectionState
+  chainInfo: ChainInfoState
 }
 
 export const StateContext = React.createContext<{
@@ -26,18 +29,20 @@ export const StateContext = React.createContext<{
     account: undefined,
     error: { error: undefined, hasError: false },
     connection: { status: 'disconnected' },
+    chainInfo: { chainInfo: undefined, hasChainInfo: false },
   },
   dispatch: () => null,
 })
 
 const mainReducer = (
-  { refreshPaused, account, error, connection }: State,
+  { refreshPaused, account, error, connection, chainInfo }: State,
   action: Actions
 ) => ({
   refreshPaused: pauseReducer(refreshPaused, action),
   account: accountReducer(account, action),
   error: errorReducer(error, action),
   connection: connectionReducer(connection, action),
+  chainInfo: chainInfoReducer(chainInfo, action),
 })
 
 export const StateProvider: React.FC = ({ children }) => {
@@ -46,6 +51,7 @@ export const StateProvider: React.FC = ({ children }) => {
     account: undefined,
     error: { error: undefined, hasError: false },
     connection: { status: 'disconnected' },
+    chainInfo: { chainInfo: undefined, hasChainInfo: false },
   })
 
   return (
