@@ -117,7 +117,7 @@ export async function getDelegatorStake(account: string) {
 async function signAndSend(
   address: string,
   tx: SubmittableExtrinsic,
-  onSuccess: () => void,
+  onSuccess: (chainInfo: any) => void,
   onError: (error: Error) => void
 ) {
   const api = await getConnection()
@@ -129,8 +129,8 @@ async function signAndSend(
     address,
     { signer: injector.signer },
     ({ status, events, dispatchError }) => {
-      if (status.isInBlock) {
-        onSuccess()
+      if (status.isFinalized) {
+        onSuccess(status.asFinalized.toString())
       }
       if (dispatchError && !hadError) {
         hadError = true
@@ -149,7 +149,6 @@ async function signAndSend(
           onError(error)
         }
       }
-      console.log(status.toHuman())
     }
   )
 }
@@ -158,7 +157,7 @@ export async function joinDelegators(
   delegator: string,
   collator: string,
   stake: bigint,
-  onSuccess: () => void,
+  onSuccess: (chainInfo: any) => void,
   onError: (error: Error) => void
 ) {
   const api = await getConnection()
@@ -169,7 +168,7 @@ export async function delegatorStakeMore(
   delegator: string,
   collator: string,
   more: bigint,
-  onSuccess: () => void,
+  onSuccess: (chainInfo: any) => void,
   onError: (error: Error) => void
 ) {
   const api = await getConnection()
@@ -180,7 +179,7 @@ export async function delegatorStakeLess(
   delegator: string,
   collator: string,
   less: bigint,
-  onSuccess: () => void,
+  onSuccess: (chainInfo: any) => void,
   onError: (error: Error) => void
 ) {
   const api = await getConnection()
@@ -189,7 +188,7 @@ export async function delegatorStakeLess(
 }
 export async function leaveDelegators(
   delegator: string,
-  onSuccess: () => void,
+  onSuccess: (chainInfo: any) => void,
   onError: (error: Error) => void
 ) {
   const api = await getConnection()
@@ -199,7 +198,7 @@ export async function leaveDelegators(
 
 export async function withdrawStake(
   account: string,
-  onSuccess: () => void,
+  onSuccess: (chainInfo: any) => void,
   onError: (error: Error) => void
 ) {
   const api = await getConnection()

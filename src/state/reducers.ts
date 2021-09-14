@@ -23,7 +23,7 @@ export type ErrorActions =
 
 export type ChainInfoActions =
   | {
-      type: 'chainInfo'
+      type: 'handleChainInfo'
       chainInfo: any
     }
   | {
@@ -107,7 +107,7 @@ export const chainInfoReducer: Reducer<ChainInfoState, Actions> = (
   action
 ) => {
   switch (action.type) {
-    case 'chainInfo':
+    case 'handleChainInfo':
       return { hasChainInfo: true, chainInfo: action.chainInfo }
     case 'resetChainInfo':
       return { hasChainInfo: false, chainInfo: undefined }

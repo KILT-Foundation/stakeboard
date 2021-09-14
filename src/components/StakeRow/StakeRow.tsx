@@ -26,7 +26,7 @@ export function stakeMore(
   account: Account,
   collator: string,
   difference: number,
-  onSuccess: () => void,
+  onSuccess: (chainInfo: any) => void,
   onError: (error: Error) => void
 ) {
   const differenceInFemto = kiltToFemto(difference)
@@ -43,7 +43,7 @@ export async function stakeLess(
   account: Account,
   collator: string,
   difference: number,
-  onSuccess: () => void,
+  onSuccess: (chainInfo: any) => void,
   onError: (error: Error) => void
 ) {
   const differenceInFemto = kiltToFemto(difference)
@@ -58,7 +58,7 @@ export async function stakeLess(
 
 export function unstake(
   account: Account,
-  onSuccess: () => void,
+  onSuccess: (chainInfo: any) => void,
   onError: (error: Error) => void
 ) {
   return leaveDelegators(account.address, onSuccess, onError)
@@ -74,8 +74,8 @@ export const StakeRow: React.FC<Props> = ({
   const [editStake, setEditStake] = useState(false)
   const [newStake, setNewStake] = useState<number | undefined>()
 
-  const onSuccess = () => {
-    console.log('success', new Date().getTime())
+  const onSuccess = (chainInfo: any) => {
+    dispatch({ type: 'handleChainInfo', chainInfo })
   }
   const onError = (error: any) => {
     dispatch({ type: 'handleError', error })

@@ -22,7 +22,7 @@ async function stake(
   account: Account,
   collator: string,
   amount: number,
-  onSuccess: () => void,
+  onSuccess: (chainInfo: any) => void,
   onError: (error: Error) => void
 ) {
   const amountInFemto = kiltToFemto(amount)
@@ -49,8 +49,8 @@ export const NewStakeRow: React.FC<Props> = ({
     return accounts.find((val) => val.address === address)
   }, [address, accounts])
 
-  const onSuccess = () => {
-    console.log('success', new Date().getTime())
+  const onSuccess = (chainInfo: any) => {
+    dispatch({ type: 'handleChainInfo', chainInfo })
   }
   const onError = (error: any) => {
     dispatch({ type: 'handleError', error })
