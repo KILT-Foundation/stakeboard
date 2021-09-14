@@ -28,8 +28,8 @@ export const IdentityView: React.FC<Props> = ({ bestBlock }) => {
     state: { account },
     dispatch,
   } = useContext(StateContext)
-  const onSuccess = (chainInfo: any) => {
-    dispatch({ type: 'handleChainInfo', chainInfo })
+  const onSuccess = (transactionInfo: any) => {
+    dispatch({ type: 'handleTransactionInfo', transactionInfo })
   }
   const onError = (error: any) => {
     dispatch({ type: 'handleError', error })

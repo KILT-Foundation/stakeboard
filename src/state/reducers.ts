@@ -21,13 +21,13 @@ export type ErrorActions =
       type: 'resetError'
     }
 
-export type ChainInfoActions =
+export type TransactionInfoActions =
   | {
-      type: 'handleChainInfo'
-      chainInfo: any
+      type: 'handleTransactionInfo'
+      transactionInfo: any
     }
   | {
-      type: 'resetChainInfo'
+      type: 'resetTransactionInfo'
     }
 
 export type Actions =
@@ -35,7 +35,7 @@ export type Actions =
   | ConnectionActions
   | AccountActions
   | ErrorActions
-  | ChainInfoActions
+  | TransactionInfoActions
 
 export const pauseReducer: Reducer<boolean, Actions> = (state, action) => {
   switch (action.type) {
@@ -97,20 +97,23 @@ export const connectionReducer: Reducer<ConnectionState, Actions> = (
   }
 }
 
-export type ChainInfoState = {
-  hasChainInfo: boolean
-  chainInfo: any
+export type TransactionInfoState = {
+  hasTransactionInfo: boolean
+  transactionInfo: any
 }
 
-export const chainInfoReducer: Reducer<ChainInfoState, Actions> = (
+export const transactionInfoReducer: Reducer<TransactionInfoState, Actions> = (
   state,
   action
 ) => {
   switch (action.type) {
-    case 'handleChainInfo':
-      return { hasChainInfo: true, chainInfo: action.chainInfo }
-    case 'resetChainInfo':
-      return { hasChainInfo: false, chainInfo: undefined }
+    case 'handleTransactionInfo':
+      return {
+        hasTransactionInfo: true,
+        transactionInfo: action.transactionInfo,
+      }
+    case 'resetTransactionInfo':
+      return { hasTransactionInfo: false, transactionInfo: undefined }
     default:
       return state
   }

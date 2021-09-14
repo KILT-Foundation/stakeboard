@@ -6,24 +6,24 @@ import { StateContext } from '../../utils/StateContext'
 export const BlockchainNotication: React.FC = () => {
   const {
     state: {
-      chainInfo: { chainInfo, hasChainInfo },
+      transactionInfo: { transactionInfo, hasTransactionInfo },
     },
     dispatch,
   } = useContext(StateContext)
 
-  if (!hasChainInfo) return null
+  if (!hasTransactionInfo) return null
 
   return (
     <Modal
       title="Notification"
       buttons={
         <Button
-          onClick={() => dispatch({ type: 'resetChainInfo' })}
+          onClick={() => dispatch({ type: 'resetTransactionInfo' })}
           label={'close'}
         />
       }
     >
-      <p>Chain Information: {chainInfo}</p>
+      <p>Chain Information: {transactionInfo}</p>
     </Modal>
   )
 }

@@ -49,8 +49,8 @@ export const NewStakeRow: React.FC<Props> = ({
     return accounts.find((val) => val.address === address)
   }, [address, accounts])
 
-  const onSuccess = (chainInfo: any) => {
-    dispatch({ type: 'handleChainInfo', chainInfo })
+  const onSuccess = (transactionInfo: any) => {
+    dispatch({ type: 'handleTransactionInfo', transactionInfo })
   }
   const onError = (error: any) => {
     dispatch({ type: 'handleError', error })

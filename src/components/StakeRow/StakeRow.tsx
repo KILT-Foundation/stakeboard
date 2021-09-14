@@ -74,8 +74,8 @@ export const StakeRow: React.FC<Props> = ({
   const [editStake, setEditStake] = useState(false)
   const [newStake, setNewStake] = useState<number | undefined>()
 
-  const onSuccess = (chainInfo: any) => {
-    dispatch({ type: 'handleChainInfo', chainInfo })
+  const onSuccess = (transactionInfo: any) => {
+    dispatch({ type: 'handleTransactionInfo', transactionInfo })
   }
   const onError = (error: any) => {
     dispatch({ type: 'handleError', error })
