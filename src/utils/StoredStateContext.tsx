@@ -1,17 +1,29 @@
 import React, { Dispatch, useEffect, useReducer } from 'react'
-import { FavoriteActions, favoriteReducer } from '../state/storedReducers'
+import {
+  favoriteReducer,
+  denominationReducer,
+  StoredStateActions,
+} from '../state/storedReducers'
 
 export interface State {
   favorites: string[]
+  denomination: number
 }
 
 export const StoredStateContext = React.createContext<{
   state: State
-  dispatch: Dispatch<FavoriteActions>
-}>({ state: { favorites: [] }, dispatch: () => null })
+  dispatch: Dispatch<StoredStateActions>
+}>({
+  state: { favorites: [], denomination: 100 },
+  dispatch: () => null,
+})
 
-const mainReducer = ({ favorites }: State, action: FavoriteActions) => ({
-  favorites: favoriteReducer(favorites, action as FavoriteActions),
+const mainReducer = (
+  { favorites, denomination }: State,
+  action: StoredStateActions
+) => ({
+  favorites: favoriteReducer(favorites, action as StoredStateActions),
+  denomination: denominationReducer(denomination, action as StoredStateActions),
 })
 
 export const StoredStateProvider: React.FC = ({ children }) => {
@@ -19,6 +31,7 @@ export const StoredStateProvider: React.FC = ({ children }) => {
     mainReducer,
     {
       favorites: [],
+      denomination: 100,
     },
     (initialArg) => {
       try {
