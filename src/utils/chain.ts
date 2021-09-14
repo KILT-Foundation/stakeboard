@@ -129,7 +129,7 @@ async function signAndSend(
     address,
     { signer: injector.signer },
     ({ status, events, dispatchError }) => {
-      if (status.isFinalized) {
+      if (status.isFinalized && !dispatchError) {
         onSuccess(status.asFinalized.toString())
       }
       if (dispatchError && !hadError) {
