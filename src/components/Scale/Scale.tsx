@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { StoredStateContext } from '../../utils/StoredStateContext'
 import { Button } from '../Button/Button'
+import { Icon } from '../Icon/Icon'
 
 export const Scale: React.FC = () => {
   const {
@@ -9,15 +10,22 @@ export const Scale: React.FC = () => {
   } = useContext(StoredStateContext)
   return (
     <div>
-      <Button
-        onClick={() => dispatch({ type: 'increaseDenomination' })}
-        disabled={denomination === 10000}
-      />
-      /{denomination}
-      <Button
-        onClick={() => dispatch({ type: 'decreaseDenomination' })}
-        disabled={denomination === 10}
-      />
+      {denomination === 10000 ? (
+        <Icon type={'bulb_gray'} />
+      ) : (
+        <Button onClick={() => dispatch({ type: 'increaseDenomination' })}>
+          {' '}
+          <Icon type={'arrow_up'} />
+        </Button>
+      )}
+      /
+      {denomination === 10 ? (
+        <Icon type={'bulb_gray'} />
+      ) : (
+        <Button onClick={() => dispatch({ type: 'decreaseDenomination' })}>
+          <Icon type={'arrow_down'} />
+        </Button>
+      )}
     </div>
   )
 }
