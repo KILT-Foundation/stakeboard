@@ -45,8 +45,3 @@ export const OnboardingBg: React.FC<Props> = ({
 export const Onboarding: React.FC<Props> = ({ children }) => {
   return <>{children}</>
 }
-
-let a = 1
-let b = 2
-
-export { a, b }
