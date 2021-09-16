@@ -37,10 +37,14 @@ export const Dashboard: React.FC<Props> = ({ accounts, bestBlock }) => {
           <IdentityView bestBlock={bestBlock} />
         ) : (
           <div className={styles.accountsContainer}>
-            <div className={styles.accounts}>
-              <Accounts accounts={accounts} />
+            <>
+              <div className={styles.accounts}>
+                <Accounts accounts={accounts} />
+              </div>
+            </>
+            <div className={styles.scaleContainer}>
+              <Scale />
             </div>
-            <Scale />
           </div>
         )}
       </RefreshPausedOverlay>
