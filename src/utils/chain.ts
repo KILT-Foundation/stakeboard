@@ -65,13 +65,13 @@ export const mapCollatorStateToCandidate = (
     }
   }),
   total: state.total.toBigInt(),
-  isLeaving: state.state.isLeaving ? state.state.asLeaving.toBigInt() : false,
+  isLeaving: state.status.isLeaving ? state.status.asLeaving.toBigInt() : false,
   userStakes: [],
 })
 
 export async function getSelectedCandidates() {
   const api = await getConnection()
-  return api.query.parachainStaking.selectedCandidates<Vec<AccountId>>()
+  return api.query.session.queuedKeys<Vec<AccountId>>()
 }
 
 export async function getCurrentCandidates() {

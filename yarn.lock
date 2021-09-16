@@ -2538,10 +2538,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@kiltprotocol/type-definitions@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@kiltprotocol/type-definitions/-/type-definitions-0.1.8.tgz#a9dfd5ddd3589a3a8a2fe8da3272682fcfb4b996"
-  integrity sha512-6XAeIlqzqRxdlShO4qOhYHPElNo6WoIA3KqfJJ06nfMbsXdUFTjdOa1k/SxKcTge7fCaxbTHAXwPbuON7Egx6Q==
+"@kiltprotocol/type-definitions@^0.1.15":
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/@kiltprotocol/type-definitions/-/type-definitions-0.1.15.tgz#0924055678d6ac721abcb6d80c214b79423e1743"
+  integrity sha512-xLn/QilQ6IvlQC31dlLxQAHDozyhH2vSM8oyBFVtJKa+6H2YCgQFqjxyJVQn6gUWWwpm1SXWNhK2/vSLXEoPQw==
 
 "@mdx-js/loader@^1.6.22":
   version "1.6.22"

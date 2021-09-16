@@ -13,7 +13,7 @@ const updateCollator = (collatorState: ChainTypes.Collator) => {
   if (
     candidates[id].total !== collatorState.total.toBigInt() ||
     candidates[id].stake !== collatorState.stake.toBigInt() ||
-    candidates[id].isLeaving !== collatorState.state.isLeaving
+    candidates[id].isLeaving !== collatorState.status.isLeaving
   ) {
     const newCandidates = {
       ...candidates,
