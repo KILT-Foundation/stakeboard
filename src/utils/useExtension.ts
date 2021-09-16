@@ -9,7 +9,7 @@ import {
 } from '@polkadot/extension-dapp'
 
 import { getGenesis } from './chain'
-import { Account } from '../types'
+import { Account, Extension } from '../types'
 
 async function getAllAccounts() {
   const allInjected = await web3Enable('KILT Staking App')
@@ -28,6 +28,7 @@ async function getAllAccounts() {
 
 export const useExtension = () => {
   const [web3Enabled, setWeb3Enabled] = useState(false)
+  const [extensions, setExtensions] = useState<Extension[]>([])
   const [allAccounts, setAllAccounts] = useState<
     Pick<Account, 'address' | 'name'>[]
   >([])
@@ -36,6 +37,7 @@ export const useExtension = () => {
   useEffect(() => {
     async function doEffect() {
       const allInjected = await web3Enable('KILT Staking App')
+      setExtensions(allInjected)
       setWeb3Enabled(true)
     }
     doEffect()
@@ -65,5 +67,5 @@ export const useExtension = () => {
     doEffect()
   }, [web3Enabled])
 
-  return allAccounts
+  return { allAccounts, extensions }
 }

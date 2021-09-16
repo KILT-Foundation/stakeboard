@@ -9,18 +9,3 @@
   vertical-align: top;
   min-width: 110px;
 }
-
-.upDetailsButtonContainer {
-  vertical-align: top;
-  z-index: 5;
-  margin: -55px 0px 34px 55px;
-  position: relative;
-}
-
-.downDetailsButtonContainer {
-  vertical-align: top;
-  z-index: 5;
-  margin-left: 55px;
-  margin-top: 15px;
-  position: relative;
-}

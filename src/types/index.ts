@@ -57,3 +57,8 @@ export interface ModalStake {
   newStake: number
   staked?: number
 }
+
+export interface Extension {
+  name: string
+  version: string
+}

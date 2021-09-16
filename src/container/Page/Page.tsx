@@ -14,7 +14,7 @@ export interface Props {}
 
 export const Page: React.FC<Props> = () => {
   useConnect()
-  const allAccounts = useExtension()
+  const { allAccounts, extensions } = useExtension()
   const {
     dataSet,
     accounts,
@@ -30,7 +30,11 @@ export const Page: React.FC<Props> = () => {
         bestBlock={bestBlock}
         bestFinalisedBlock={bestFinalisedBlock}
       />
-      <Dashboard accounts={accounts} bestBlock={bestBlock} />
+      <Dashboard
+        accounts={accounts}
+        bestBlock={bestBlock}
+        extensions={extensions}
+      />
       <CollatorList dataSet={dataSet} accounts={accounts} />
       <ErrorNotification />
       <ConnectionNotification />

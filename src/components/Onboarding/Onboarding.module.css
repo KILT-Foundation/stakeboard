@@ -1,0 +1,8 @@
+.backgroundImage {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: right;
+  background-position-y: center;
+  width: 100%;
+  height: 100%;
+}
