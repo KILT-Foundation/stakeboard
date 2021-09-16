@@ -10,7 +10,7 @@ export const Scale: React.FC = () => {
   } = useContext(StoredStateContext)
   return (
     <div>
-      {denomination === 10000 ? (
+     Scale:  {denomination === 10000 ? (
         <Icon type={'bulb_gray'} />
       ) : (
         <Button onClick={() => dispatch({ type: 'increaseDenomination' })}>
