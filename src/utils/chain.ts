@@ -69,12 +69,12 @@ export const mapCollatorStateToCandidate = (
   userStakes: [],
 })
 
-export async function getSelectedCandidates() {
+export async function getNextCollators() {
   const api = await getConnection()
   return api.query.session.queuedKeys<Vec<AccountId>>()
 }
 
-export async function getCurrentCandidates() {
+export async function getCurrentCollators() {
   const api = await getConnection()
   return api.query.session.validators<Vec<AccountId>>()
 }

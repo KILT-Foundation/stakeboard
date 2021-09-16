@@ -1,8 +1,8 @@
 import { Account, Candidate, ChainTypes } from '../types'
 import {
   getAllCollatorState,
-  getCurrentCandidates,
-  getSelectedCandidates,
+  getCurrentCollators,
+  getNextCollators,
   mapCollatorStateToCandidate,
   getBalance,
   queryBestBlock,
@@ -19,8 +19,8 @@ const updateCollators = async () => {
     currentCandidatesChain,
   ] = await Promise.all([
     getAllCollatorState(),
-    getSelectedCandidates(),
-    getCurrentCandidates(),
+    getNextCollators(),
+    getCurrentCollators(),
   ])
   const candidates: Record<string, Candidate> = {}
   collatorStates.forEach(async ([accountId, state]) => {
