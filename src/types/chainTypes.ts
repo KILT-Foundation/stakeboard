@@ -23,7 +23,7 @@ export interface Collator extends Struct {
   stake: Balance
   delegators: Vec<Stake>
   total: Balance
-  state: CollatorStatus
+  status: CollatorStatus
 }
 
 export interface RoundInfo extends Struct {

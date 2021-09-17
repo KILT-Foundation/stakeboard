@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { ApiPromise, WsProvider } from '@polkadot/api'
-import { types12 as types } from '@kiltprotocol/type-definitions'
+import { types23 as types } from '@kiltprotocol/type-definitions'
 import { StateContext } from './StateContext'
 
 let cachedApi: Promise<ApiPromise> | null = null
