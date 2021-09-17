@@ -124,12 +124,18 @@ async function signAndSend(
   const injector = await web3FromAddress(address)
 
   let hadError = false
+  let hadTransactionProgress = false
 
   return tx.signAndSend(
     address,
     { signer: injector.signer },
     ({ status, events, dispatchError }) => {
-      if (status.isFinalized && !dispatchError) {
+      if (!hadTransactionProgress) {
+        onSuccess(true)
+        hadTransactionProgress = true
+      }
+
+      if (status.isFinalized && !dispatchError && hadTransactionProgress) {
         onSuccess(status.asFinalized.toString())
       }
       if (dispatchError && !hadError) {

@@ -13,9 +13,9 @@ export const BlockchainNotication: React.FC = () => {
 
   if (!hasTransactionInfo) return null
 
-  return (
+  return typeof transactionInfo === 'string' ? (
     <Modal
-      title="Notification"
+      title="Transaction successful"
       buttons={
         <Button
           onClick={() => dispatch({ type: 'resetTransactionInfo' })}
@@ -23,9 +23,19 @@ export const BlockchainNotication: React.FC = () => {
         />
       }
     >
-      <p>Transaction successful</p>
-
       <p>Transaction hash: {transactionInfo}</p>
+    </Modal>
+  ) : (
+    <Modal
+      title="Ongoing Transaction"
+      buttons={
+        <Button
+          onClick={() => dispatch({ type: 'resetTransactionInfo' })}
+          label={'close'}
+        />
+      }
+    >
+      <p>Transaction in progress</p>
     </Modal>
   )
 }
