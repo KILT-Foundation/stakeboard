@@ -28,6 +28,10 @@ import time from '../../icons/time.svg'
 import tokens_gray from '../../icons/tokens_gray.svg'
 import tokens_white from '../../icons/tokens_white.svg'
 import tokens_yellow from '../../icons/tokens_yellow.svg'
+import plus_active from '../../icons/plus_active.svg'
+import minus_active from '../../icons/minus_active.svg'
+import plus_inactive from '../../icons/plus_inactive.svg'
+import minus_inactive from '../../icons/minus_inactive.svg'
 import styles from './Icon.module.css'
 
 const Icons = {
@@ -58,6 +62,10 @@ const Icons = {
   tokens_gray,
   tokens_white,
   tokens_yellow,
+  minus_inactive,
+  plus_inactive,
+  minus_active,
+  plus_active,
 }
 
 export interface Props {

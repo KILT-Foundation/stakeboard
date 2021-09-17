@@ -10,20 +10,21 @@ export const Scale: React.FC = () => {
   } = useContext(StoredStateContext)
   return (
     <div>
-     Scale:  {denomination === 10000 ? (
-        <Icon type={'bulb_gray'} />
+      Scale:{' '}
+      {denomination === 10000 ? (
+        <Icon width={20} type={'plus_inactive'} />
       ) : (
         <Button onClick={() => dispatch({ type: 'increaseDenomination' })}>
           {' '}
-          <Icon type={'arrow_up'} />
+          <Icon width={20} type={'plus_active'} />
         </Button>
       )}
       /
       {denomination === 10 ? (
-        <Icon type={'bulb_gray'} />
+        <Icon width={20} type={'minus_inactive'} />
       ) : (
         <Button onClick={() => dispatch({ type: 'decreaseDenomination' })}>
-          <Icon type={'arrow_down'} />
+          <Icon width={20} type={'minus_active'} />
         </Button>
       )}
     </div>
