@@ -29,7 +29,11 @@ export const StateContext = React.createContext<{
     account: undefined,
     error: { error: undefined, hasError: false },
     connection: { status: 'disconnected' },
-    transactionInfo: { transactionInfo: undefined, hasTransactionInfo: false },
+    transactionInfo: {
+      transactionInfo: undefined,
+      hasTransactionInfo: false,
+      isInProgress: true,
+    },
   },
   dispatch: () => null,
 })
@@ -51,7 +55,11 @@ export const StateProvider: React.FC = ({ children }) => {
     account: undefined,
     error: { error: undefined, hasError: false },
     connection: { status: 'disconnected' },
-    transactionInfo: { transactionInfo: undefined, hasTransactionInfo: false },
+    transactionInfo: {
+      transactionInfo: undefined,
+      hasTransactionInfo: false,
+      isInProgress: true,
+    },
   })
 
   return (

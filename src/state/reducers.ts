@@ -23,6 +23,9 @@ export type ErrorActions =
 
 export type TransactionInfoActions =
   | {
+      type: 'transactionInProgress'
+    }
+  | {
       type: 'handleTransactionInfo'
       transactionInfo: any
     }
@@ -98,6 +101,7 @@ export const connectionReducer: Reducer<ConnectionState, Actions> = (
 }
 
 export type TransactionInfoState = {
+  isInProgress: boolean
   hasTransactionInfo: boolean
   transactionInfo: any
 }
@@ -107,13 +111,24 @@ export const transactionInfoReducer: Reducer<TransactionInfoState, Actions> = (
   action
 ) => {
   switch (action.type) {
+    case 'transactionInProgress':
+      return {
+        isInProgress: true,
+        hasTransactionInfo: false,
+        transactionInfo: undefined,
+      }
     case 'handleTransactionInfo':
       return {
         hasTransactionInfo: true,
         transactionInfo: action.transactionInfo,
+        isInProgress: false,
       }
     case 'resetTransactionInfo':
-      return { hasTransactionInfo: false, transactionInfo: undefined }
+      return {
+        hasTransactionInfo: false,
+        transactionInfo: undefined,
+        isInProgress: false,
+      }
     default:
       return state
   }
