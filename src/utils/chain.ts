@@ -1,4 +1,4 @@
-import type { Vec, Option, BTreeMap } from '@polkadot/types'
+import type { Vec, Option, BTreeMap, Tuple } from '@polkadot/types'
 import type {
   AccountId,
   BalanceOf,
@@ -71,7 +71,7 @@ export const mapCollatorStateToCandidate = (
 
 export async function getNextCollators() {
   const api = await getConnection()
-  return api.query.session.queuedKeys<Vec<AccountId>>()
+  return api.query.session.queuedKeys<Vec<Tuple>>()
 }
 
 export async function getCurrentCollators() {

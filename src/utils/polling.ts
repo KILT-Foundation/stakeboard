@@ -1,4 +1,4 @@
-import { Account, Candidate, ChainTypes } from '../types'
+import { Candidate, ChainTypes } from '../types'
 import {
   getAllCollatorState,
   getCurrentCollators,
@@ -31,7 +31,7 @@ const updateCollators = async () => {
   })
 
   const selectedCandidates = selectedCandidatesChain.map((selected) =>
-    selected.toString()
+    selected[0].toString()
   )
 
   const currentCandidates = currentCandidatesChain.map((candidate) =>
