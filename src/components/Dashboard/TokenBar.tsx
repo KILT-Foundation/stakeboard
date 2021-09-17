@@ -1,20 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './TokenBar.module.css'
 import cx from 'classnames'
-
-// TODO: make this a prop / context
-const divisor = 100
+import { StoredStateContext } from '../../utils/StoredStateContext'
 
 interface BarItemProps {
   style: string
   amount: number
-  divisor?: number
 }
 const BarItem: React.FC<BarItemProps> = ({ style, amount }) => {
+  const {
+    state: { denomination },
+  } = useContext(StoredStateContext)
   return (
     <div
       className={cx(styles.item, style)}
-      style={{ width: amount / divisor }}
+      style={{ width: amount / denomination }}
     ></div>
   )
 }
@@ -29,12 +29,16 @@ export const TokenBar: React.FC<TokenBarProps> = ({
   stakeable,
   down = false,
 }) => {
+  const {
+    state: { denomination },
+  } = useContext(StoredStateContext)
+
   const total = staked + stakeable
 
   const has_staked = staked > 0
   const has_stakeable = stakeable > 0
 
-  let container_width = total / divisor
+  let container_width = total / denomination
   container_width =
     has_staked && has_stakeable ? container_width + 1 : container_width
 

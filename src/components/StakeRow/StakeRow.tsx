@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
 import {
@@ -14,7 +14,7 @@ import { Input } from '../Input/Input'
 import { getStatus } from '../../utils/stakeStatus'
 import { StakeModal } from '../StakeModal/StakeModal'
 import { kiltToFemto } from '../../utils/conversion'
-import { StateContext } from '../../utils/StateContext'
+import { useTxSubmitter } from '../../utils/useTxSubmitter'
 
 export interface Props {
   stakeInfo: DataStake
@@ -22,64 +22,15 @@ export interface Props {
   collator: string
 }
 
-export function stakeMore(
-  account: Account,
-  collator: string,
-  difference: number,
-  onSuccess: () => void,
-  onError: (error: Error) => void
-) {
-  const differenceInFemto = kiltToFemto(difference)
-  return delegatorStakeMore(
-    account.address,
-    collator,
-    differenceInFemto,
-    onSuccess,
-    onError
-  )
-}
-
-export async function stakeLess(
-  account: Account,
-  collator: string,
-  difference: number,
-  onSuccess: () => void,
-  onError: (error: Error) => void
-) {
-  const differenceInFemto = kiltToFemto(difference)
-  return delegatorStakeLess(
-    account.address,
-    collator,
-    differenceInFemto,
-    onSuccess,
-    onError
-  )
-}
-
-export function unstake(
-  account: Account,
-  onSuccess: () => void,
-  onError: (error: Error) => void
-) {
-  return leaveDelegators(account.address, onSuccess, onError)
-}
-
 export const StakeRow: React.FC<Props> = ({
   stakeInfo,
   accounts,
   collator,
 }) => {
-  const { dispatch } = useContext(StateContext)
   const { isVisible, toggleModal } = useModal()
   const [editStake, setEditStake] = useState(false)
   const [newStake, setNewStake] = useState<number | undefined>()
-
-  const onSuccess = () => {
-    console.log('success', new Date().getTime())
-  }
-  const onError = (error: any) => {
-    dispatch({ type: 'handleError', error })
-  }
+  const signAndSubmitTx = useTxSubmitter()
 
   const handleEdit = () => {
     setEditStake(!editStake)
@@ -91,12 +42,21 @@ export const StakeRow: React.FC<Props> = ({
     current: number,
     newStake: number | undefined
   ) => {
+    let tx
     if (!newStake || newStake === 0) {
-      await unstake(account, onSuccess, onError)
+      tx = await leaveDelegators()
     } else if (newStake > current) {
-      await stakeMore(account, collator, newStake - current, onSuccess, onError)
+      const more = newStake - current
+      const differenceInFemto = kiltToFemto(more)
+      tx = await delegatorStakeMore(collator, differenceInFemto)
     } else if (newStake < current) {
-      await stakeLess(account, collator, current - newStake, onSuccess, onError)
+      const less = current - newStake
+      const differenceInFemto = kiltToFemto(less)
+      tx = await delegatorStakeLess(collator, differenceInFemto)
+    }
+
+    if (tx) {
+      await signAndSubmitTx(account.address, tx)
     }
   }
 

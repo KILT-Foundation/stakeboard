@@ -4,6 +4,7 @@ import { Account, ChainTypes, Extension } from '../../types'
 import { Accounts } from './Accounts'
 import { StateContext } from '../../utils/StateContext'
 import { IdentityView } from '../../container/IdentityView/IdentityView'
+import { Scale } from '../Scale/Scale'
 import { Onboarding, OnboardingBg } from '../Onboarding/Onboarding'
 
 export interface Props {
@@ -44,11 +45,18 @@ export const Dashboard: React.FC<Props> = ({
               {account ? (
                 <IdentityView bestBlock={bestBlock} />
               ) : (
-                <div className={styles.accountsContainer}>
-                  <div className={styles.accounts}>
-                    <Accounts accounts={accounts} />
+                <>
+                  <div className={styles.accountsContainer}>
+                    <>
+                      <div className={styles.accounts}>
+                        <Accounts accounts={accounts} />
+                      </div>
+                    </>
                   </div>
-                </div>
+                  <div className={styles.scaleContainer}>
+                    <Scale />
+                  </div>
+                </>
               )}
             </RefreshPausedOverlay>
           </Onboarding>

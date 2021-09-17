@@ -1,0 +1,15 @@
+.label {
+  text-transform: uppercase;
+  font-size: var(--font-size-medium);
+  font-family: var(--font-dashboard);
+  margin-right: 6px;
+}
+
+.spacer {
+  width: 1px;
+  background-color: white;
+  height: 20px;
+  display: inline-block;
+  margin: 0 6px;
+  vertical-align: middle;
+}

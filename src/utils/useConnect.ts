@@ -1,13 +1,13 @@
 import { useContext } from 'react'
 import { ApiPromise, WsProvider } from '@polkadot/api'
-import { types12 as types } from '@kiltprotocol/type-definitions'
+import { types23 as types } from '@kiltprotocol/type-definitions'
 import { StateContext } from './StateContext'
 
 let cachedApi: Promise<ApiPromise> | null = null
 let wsProvider: WsProvider | null = null
 
-// const ENDPOINT = 'wss://kilt-peregrine-k8s.kilt.io'
-const ENDPOINT = 'wss://kilt-peregrine-stg.kilt.io'
+const ENDPOINT = 'wss://peregrine.kilt.io'
+// const ENDPOINT = 'wss://kilt-peregrine-stg.kilt.io'
 
 export const useConnect = () => {
   const { dispatch } = useContext(StateContext)
