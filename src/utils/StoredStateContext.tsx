@@ -36,7 +36,9 @@ export const StoredStateProvider: React.FC = ({ children }) => {
     (initialArg) => {
       try {
         const item = window.localStorage.getItem('staking-state')
-        return item ? JSON.parse(item) : initialArg
+        const data = item ? JSON.parse(item) : initialArg
+        if (!data.denomination) data.denomination = 100
+        return data
       } catch (err) {
         console.log(err)
         return initialArg
