@@ -21,16 +21,16 @@ export type ErrorActions =
       type: 'resetError'
     }
 
-export type TransactionInfoActions =
+export type TransactionActions =
   | {
       type: 'transactionInProgress'
     }
   | {
-      type: 'handleTransactionInfo'
-      transactionInfo: any
+      type: 'transactionFinished'
+      txHash: string
     }
   | {
-      type: 'resetTransactionInfo'
+      type: 'resetTransaction'
     }
 
 export type Actions =
@@ -38,7 +38,7 @@ export type Actions =
   | ConnectionActions
   | AccountActions
   | ErrorActions
-  | TransactionInfoActions
+  | TransactionActions
 
 export const pauseReducer: Reducer<boolean, Actions> = (state, action) => {
   switch (action.type) {
@@ -100,13 +100,12 @@ export const connectionReducer: Reducer<ConnectionState, Actions> = (
   }
 }
 
-export type TransactionInfoState = {
+export type TransactionState = {
   isInProgress: boolean
-  hasTransactionInfo: boolean
-  transactionInfo: any
+  txHash?: string
 }
 
-export const transactionInfoReducer: Reducer<TransactionInfoState, Actions> = (
+export const transactionReducer: Reducer<TransactionState, Actions> = (
   state,
   action
 ) => {
@@ -114,19 +113,14 @@ export const transactionInfoReducer: Reducer<TransactionInfoState, Actions> = (
     case 'transactionInProgress':
       return {
         isInProgress: true,
-        hasTransactionInfo: false,
-        transactionInfo: undefined,
       }
-    case 'handleTransactionInfo':
+    case 'transactionFinished':
       return {
-        hasTransactionInfo: true,
-        transactionInfo: action.transactionInfo,
+        txHash: action.txHash,
         isInProgress: false,
       }
-    case 'resetTransactionInfo':
+    case 'resetTransaction':
       return {
-        hasTransactionInfo: false,
-        transactionInfo: undefined,
         isInProgress: false,
       }
     default:

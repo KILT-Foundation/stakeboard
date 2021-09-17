@@ -6,36 +6,42 @@ import { StateContext } from '../../utils/StateContext'
 export const BlockchainNotication: React.FC = () => {
   const {
     state: {
-      transactionInfo: { transactionInfo, hasTransactionInfo },
+      transaction: { txHash, isInProgress },
     },
     dispatch,
   } = useContext(StateContext)
 
-  if (!hasTransactionInfo) return null
+  if (isInProgress) {
+    return (
+      <Modal
+        title="Ongoing Transaction"
+        buttons={
+          <Button
+            onClick={() => dispatch({ type: 'resetTransaction' })}
+            label={'close'}
+          />
+        }
+      >
+        <p>Transaction in progress</p>
+      </Modal>
+    )
+  }
 
-  return typeof transactionInfo === 'string' ? (
-    <Modal
-      title="Transaction successful"
-      buttons={
-        <Button
-          onClick={() => dispatch({ type: 'resetTransactionInfo' })}
-          label={'close'}
-        />
-      }
-    >
-      <p>Transaction hash: {transactionInfo}</p>
-    </Modal>
-  ) : (
-    <Modal
-      title="Ongoing Transaction"
-      buttons={
-        <Button
-          onClick={() => dispatch({ type: 'resetTransactionInfo' })}
-          label={'close'}
-        />
-      }
-    >
-      <p>Transaction in progress</p>
-    </Modal>
-  )
+  if (typeof txHash === 'string') {
+    return (
+      <Modal
+        title="Transaction successful"
+        buttons={
+          <Button
+            onClick={() => dispatch({ type: 'resetTransaction' })}
+            label={'close'}
+          />
+        }
+      >
+        <p>Transaction hash: {txHash}</p>
+      </Modal>
+    )
+  }
+
+  return null
 }

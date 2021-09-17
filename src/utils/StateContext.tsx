@@ -7,8 +7,8 @@ import {
   ConnectionState,
   Actions,
   ErrorState,
-  TransactionInfoState,
-  transactionInfoReducer,
+  TransactionState,
+  transactionReducer,
 } from '../state/reducers'
 import { Account } from '../types'
 
@@ -17,7 +17,7 @@ export interface State {
   account?: Account
   error: ErrorState
   connection: ConnectionState
-  transactionInfo: TransactionInfoState
+  transaction: TransactionState
 }
 
 export const StateContext = React.createContext<{
@@ -29,24 +29,22 @@ export const StateContext = React.createContext<{
     account: undefined,
     error: { error: undefined, hasError: false },
     connection: { status: 'disconnected' },
-    transactionInfo: {
-      transactionInfo: undefined,
-      hasTransactionInfo: false,
-      isInProgress: true,
+    transaction: {
+      isInProgress: false,
     },
   },
   dispatch: () => null,
 })
 
 const mainReducer = (
-  { refreshPaused, account, error, connection, transactionInfo }: State,
+  { refreshPaused, account, error, connection, transaction }: State,
   action: Actions
 ) => ({
   refreshPaused: pauseReducer(refreshPaused, action),
   account: accountReducer(account, action),
   error: errorReducer(error, action),
   connection: connectionReducer(connection, action),
-  transactionInfo: transactionInfoReducer(transactionInfo, action),
+  transaction: transactionReducer(transaction, action),
 })
 
 export const StateProvider: React.FC = ({ children }) => {
@@ -55,10 +53,8 @@ export const StateProvider: React.FC = ({ children }) => {
     account: undefined,
     error: { error: undefined, hasError: false },
     connection: { status: 'disconnected' },
-    transactionInfo: {
-      transactionInfo: undefined,
-      hasTransactionInfo: false,
-      isInProgress: true,
+    transaction: {
+      isInProgress: false,
     },
   })
 

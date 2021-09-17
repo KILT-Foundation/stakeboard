@@ -6,11 +6,12 @@ import { signAndSend } from './chain'
 export const useTxSubmitter = () => {
   const { dispatch } = useContext(StateContext)
 
-  const onSuccess = (transactionInfo: any) => {
-    dispatch({ type: 'handleTransactionInfo', transactionInfo })
+  const onSuccess = (txHash: string) => {
+    dispatch({ type: 'transactionFinished', txHash })
   }
   const onError = (error: any) => {
     dispatch({ type: 'handleError', error })
+    dispatch({ type: 'resetTransaction' })
   }
 
   const signAndSubmitTx = async (address: string, tx: SubmittableExtrinsic) => {
