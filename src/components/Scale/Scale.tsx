@@ -10,7 +10,7 @@ export const Scale: React.FC = () => {
   } = useContext(StoredStateContext)
   return (
     <div>
-      Scale:{' '}
+      Scale:
       {denomination === 10000 ? (
         <Icon width={20} type={'plus_inactive'} />
       ) : (
