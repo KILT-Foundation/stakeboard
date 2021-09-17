@@ -18,9 +18,8 @@
 
 .accountsContainer {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   overflow: scroll;
-  flex-wrap: wrap;
   width: 100%;
   height: 100%;
 }
@@ -32,10 +31,7 @@
 }
 
 .scaleContainer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 15px;
-  width: 100%;
-  margin-bottom: 20px;
-  margin-right: 30px
+  position: absolute;
+  bottom: 10px;
+  right: 25px;
 }
