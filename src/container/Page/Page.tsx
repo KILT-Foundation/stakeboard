@@ -9,6 +9,7 @@ import { useExtension } from '../../utils/useExtension'
 import { ErrorNotification } from '../ErrorNotification/ErrorNotification'
 import { useConnect } from '../../utils/useConnect'
 import { ConnectionNotification } from '../../components/ConnectionNotification/ConnectionNotification'
+import { BlockchainNotication } from '../BlockchainNotification/BlockchainNotification'
 
 export interface Props {}
 
@@ -34,6 +35,7 @@ export const Page: React.FC<Props> = () => {
       <CollatorList dataSet={dataSet} accounts={accounts} />
       <ErrorNotification />
       <ConnectionNotification />
+      <BlockchainNotication />
     </div>
   )
 }

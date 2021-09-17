@@ -1,4 +1,4 @@
-import type { Vec, Option, BTreeMap } from '@polkadot/types'
+import type { Vec, Option, BTreeMap, Tuple } from '@polkadot/types'
 import type {
   AccountId,
   BalanceOf,
@@ -71,7 +71,7 @@ export const mapCollatorStateToCandidate = (
 
 export async function getNextCollators() {
   const api = await getConnection()
-  return api.query.session.queuedKeys<Vec<AccountId>>()
+  return api.query.session.queuedKeys<Vec<Tuple>>()
 }
 
 export async function getCurrentCollators() {
@@ -114,10 +114,10 @@ export async function getDelegatorStake(account: string) {
   >(account)
 }
 
-async function signAndSend(
+export async function signAndSend(
   address: string,
   tx: SubmittableExtrinsic,
-  onSuccess: () => void,
+  onSuccess: (txHash: string) => void,
   onError: (error: Error) => void
 ) {
   const api = await getConnection()
@@ -129,8 +129,8 @@ async function signAndSend(
     address,
     { signer: injector.signer },
     ({ status, events, dispatchError }) => {
-      if (status.isInBlock) {
-        onSuccess()
+      if (status.isFinalized && !dispatchError) {
+        onSuccess(status.asFinalized.toString())
       }
       if (dispatchError && !hadError) {
         hadError = true
@@ -149,60 +149,28 @@ async function signAndSend(
           onError(error)
         }
       }
-      console.log(status.toHuman())
     }
   )
 }
 
-export async function joinDelegators(
-  delegator: string,
-  collator: string,
-  stake: bigint,
-  onSuccess: () => void,
-  onError: (error: Error) => void
-) {
+export async function joinDelegators(collator: string, stake: bigint) {
   const api = await getConnection()
-  const tx = api.tx.parachainStaking.joinDelegators(collator, stake)
-  return signAndSend(delegator, tx, onSuccess, onError)
+  return api.tx.parachainStaking.joinDelegators(collator, stake)
 }
-export async function delegatorStakeMore(
-  delegator: string,
-  collator: string,
-  more: bigint,
-  onSuccess: () => void,
-  onError: (error: Error) => void
-) {
+export async function delegatorStakeMore(collator: string, more: bigint) {
   const api = await getConnection()
-  const tx = api.tx.parachainStaking.delegatorStakeMore(collator, more)
-  return signAndSend(delegator, tx, onSuccess, onError)
+  return api.tx.parachainStaking.delegatorStakeMore(collator, more)
 }
-export async function delegatorStakeLess(
-  delegator: string,
-  collator: string,
-  less: bigint,
-  onSuccess: () => void,
-  onError: (error: Error) => void
-) {
+export async function delegatorStakeLess(collator: string, less: bigint) {
   const api = await getConnection()
-  const tx = api.tx.parachainStaking.delegatorStakeLess(collator, less)
-  return signAndSend(delegator, tx, onSuccess, onError)
+  return api.tx.parachainStaking.delegatorStakeLess(collator, less)
 }
-export async function leaveDelegators(
-  delegator: string,
-  onSuccess: () => void,
-  onError: (error: Error) => void
-) {
+export async function leaveDelegators() {
   const api = await getConnection()
-  const tx = api.tx.parachainStaking.leaveDelegators()
-  return signAndSend(delegator, tx, onSuccess, onError)
+  return api.tx.parachainStaking.leaveDelegators()
 }
 
-export async function withdrawStake(
-  account: string,
-  onSuccess: () => void,
-  onError: (error: Error) => void
-) {
+export async function withdrawStake(account: string) {
   const api = await getConnection()
-  const tx = api.tx.parachainStaking.unlockUnstaked(account)
-  return signAndSend(account, tx, onSuccess, onError)
+  return api.tx.parachainStaking.unlockUnstaked(account)
 }
