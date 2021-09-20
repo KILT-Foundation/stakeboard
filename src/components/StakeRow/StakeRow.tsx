@@ -28,7 +28,7 @@ export const StakeRow: React.FC<Props> = ({
   accounts,
   collator,
 }) => {
-  const { isVisible, toggleModal } = useModal()
+  const { isVisible, showModal, hideModal } = useModal()
   const [editStake, setEditStake] = useState(false)
   const [newStake, setNewStake] = useState<number | undefined>()
   const signAndSubmitTx = useTxSubmitter()
@@ -69,13 +69,13 @@ export const StakeRow: React.FC<Props> = ({
 
   const handleStake = async () => {
     await changeStake(account, collator, stakeInfo.stake, newStake)
-    toggleModal()
+    hideModal()
     setEditStake(false)
   }
 
   const handleUnstake = async () => {
     setNewStake(0)
-    toggleModal()
+    showModal()
   }
 
   return (
@@ -122,7 +122,7 @@ export const StakeRow: React.FC<Props> = ({
           ) : (
             <Button
               label="APPLY"
-              onClick={toggleModal}
+              onClick={showModal}
               disabled={
                 newStake === stakeInfo.stake ||
                 Boolean(newStake && newStake < 0)
@@ -143,7 +143,7 @@ export const StakeRow: React.FC<Props> = ({
             staked: stakeInfo.stake,
           }}
           status={getStatus(newStake, stakeInfo.stake)}
-          toggleModal={toggleModal}
+          closeModal={hideModal}
           onConfirm={handleStake}
         />
       )}

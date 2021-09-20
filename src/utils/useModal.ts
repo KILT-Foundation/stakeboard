@@ -6,8 +6,16 @@ export const useModal = () => {
   function toggleModal() {
     setIsVisible(!isVisible)
   }
+  function showModal() {
+    setIsVisible(true)
+  }
+  function hideModal() {
+    setIsVisible(false)
+  }
   return {
     isVisible,
     toggleModal,
+    showModal,
+    hideModal,
   }
 }

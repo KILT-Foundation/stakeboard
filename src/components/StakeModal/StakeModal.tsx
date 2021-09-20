@@ -6,14 +6,14 @@ import { Modal } from '../Modal/Modal'
 export interface Props {
   modalStake: ModalStake
   onConfirm: () => void
-  toggleModal: () => void
+  closeModal: () => void
   status: 'increaseStake' | 'decreaseStake' | 'unstake' | 'unchanged'
 }
 
 export const StakeModal: React.FC<Props> = ({
   modalStake,
   onConfirm,
-  toggleModal,
+  closeModal,
   status,
 }) => {
   const shortAddress = shortenAddress(modalStake.address)
@@ -35,7 +35,7 @@ export const StakeModal: React.FC<Props> = ({
           title="INCREASE STAKE"
           buttons={
             <>
-              <Button onClick={toggleModal} label="CANCEL" />
+              <Button onClick={closeModal} label="CANCEL" />
               <Button onClick={onConfirm} label="STAKE" orangeButton />
             </>
           }
@@ -52,7 +52,7 @@ export const StakeModal: React.FC<Props> = ({
           title="DECREASE STAKE"
           buttons={
             <>
-              <Button onClick={toggleModal} label="CANCEL" />
+              <Button onClick={closeModal} label="CANCEL" />
               <Button onClick={onConfirm} label="STAKE" orangeButton />
             </>
           }
@@ -72,7 +72,7 @@ export const StakeModal: React.FC<Props> = ({
           title="UNSTAKE"
           buttons={
             <>
-              <Button onClick={toggleModal} label="CANCEL" />
+              <Button onClick={closeModal} label="CANCEL" />
               <Button onClick={onConfirm} label="UNSTAKE" orangeButton />
             </>
           }
