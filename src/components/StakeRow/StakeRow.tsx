@@ -15,41 +15,12 @@ import { getStatus } from '../../utils/stakeStatus'
 import { StakeModal } from '../StakeModal/StakeModal'
 import { kiltToFemto } from '../../utils/conversion'
 import { useTxSubmitter } from '../../utils/useTxSubmitter'
+import { UnstakeRow } from '../UnstakeRow/UnstakeRow'
 
 export interface Props {
   stakeInfo: DataStake
   accounts: Account[]
   collator: string
-}
-
-export interface UnstakeRowProps {
-  handleUnstake: () => void
-}
-
-const UnstakeRow: React.FC<UnstakeRowProps> = ({ handleUnstake }) => {
-  return (
-    <tr className={cx(rowStyles.row, rowStyles.stakeRow, rowStyles.staked)}>
-      <td className={rowStyles.spacer}></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>
-        <div className={rowStyles.wrapper}>
-          <span>OR UNSTAKE COLLATOR</span>
-          <span className={rowStyles.informationBox}>
-            (note: you can withdraw the unstaked amount in 7 days, but it can be
-            used for staking other collators immediately)
-          </span>
-        </div>
-      </td>
-      <td>
-        <Button label="unstake" onClick={handleUnstake} orangeButton />
-      </td>
-      <td></td>
-      <td></td>
-    </tr>
-  )
 }
 
 export const StakeRow: React.FC<Props> = ({
@@ -104,7 +75,6 @@ export const StakeRow: React.FC<Props> = ({
 
   const handleUnstake = async () => {
     setNewStake(0)
-    setEditStake(true)
     toggleModal()
   }
 
