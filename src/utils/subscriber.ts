@@ -1,6 +1,6 @@
 import { Candidate, ChainTypes } from '../types'
 import {
-  getAllCollatorState,
+  getCandidatePool,
   subscribeToCandidatePool,
   subscribeToCollatorState,
   mapCollatorStateToCandidate,
@@ -31,7 +31,7 @@ export const initialize = async (
   updateCallback: (newCandidates: Record<string, Candidate>) => void
 ) => {
   // Set initial Candidates
-  const collatorStates = await getAllCollatorState()
+  const collatorStates = await getCandidatePool()
   const initialCandidates: Record<string, Candidate> = {}
   collatorStates.forEach(async ([accountId, state]) => {
     if (state.isNone) return
