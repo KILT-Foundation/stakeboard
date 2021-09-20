@@ -5,7 +5,8 @@ import { Accounts } from './Accounts'
 import { StateContext } from '../../utils/StateContext'
 import { IdentityView } from '../../container/IdentityView/IdentityView'
 import { Scale } from '../Scale/Scale'
-import { Onboarding, OnboardingBg } from '../Onboarding/Onboarding'
+import { Onboarding } from '../Onboarding/Onboarding'
+import { Overlays } from '../Overlays/Overlays'
 
 export interface Props {
   accounts: Account[]
@@ -38,30 +39,28 @@ export const Dashboard: React.FC<Props> = ({
 
   return (
     <div className={styles.dashboard}>
-      <OnboardingBg accounts={accounts} extensions={extensions}>
-        <div className={styles.overlays}>
-          <Onboarding accounts={accounts} extensions={extensions}>
-            <RefreshPausedOverlay refreshPaused={refreshPaused}>
-              {account ? (
-                <IdentityView bestBlock={bestBlock} />
-              ) : (
-                <>
-                  <div className={styles.accountsContainer}>
-                    <>
-                      <div className={styles.accounts}>
-                        <Accounts accounts={accounts} />
-                      </div>
-                    </>
-                  </div>
-                  <div className={styles.scaleContainer}>
-                    <Scale />
-                  </div>
-                </>
-              )}
-            </RefreshPausedOverlay>
-          </Onboarding>
-        </div>
-      </OnboardingBg>
+      <Onboarding accounts={accounts} extensions={extensions}>
+        <Overlays>
+          <RefreshPausedOverlay refreshPaused={refreshPaused}>
+            {account ? (
+              <IdentityView bestBlock={bestBlock} />
+            ) : (
+              <>
+                <div className={styles.accountsContainer}>
+                  <>
+                    <div className={styles.accounts}>
+                      <Accounts accounts={accounts} />
+                    </div>
+                  </>
+                </div>
+                <div className={styles.scaleContainer}>
+                  <Scale />
+                </div>
+              </>
+            )}
+          </RefreshPausedOverlay>
+        </Overlays>
+      </Onboarding>
     </div>
   )
 }

@@ -6,3 +6,28 @@
   width: 100%;
   height: 100%;
 }
+
+.container {
+  padding-left: 210px;
+  padding-top: 70px;
+  width: 750px;
+}
+
+.highlighted {
+  color: var(--color-yellow-text);
+  font-size: var(--font-size-primary);
+  display: inline-block;
+}
+
+.highlighted:first-child {
+  margin-bottom: 15px;
+}
+
+.highlighted:last-child {
+  margin-top: 15px;
+}
+
+.text {
+  font-size: var(--font-size-medium);
+  color: var(--color-gray-text);
+}
