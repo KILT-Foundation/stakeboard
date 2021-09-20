@@ -1,6 +1,6 @@
 import { Candidate, ChainTypes } from '../types'
 import {
-  getAllCollatorState,
+  getCandidatePool,
   getCurrentCollators,
   getNextCollators,
   mapCollatorStateToCandidate,
@@ -18,7 +18,7 @@ const updateCollators = async () => {
     selectedCandidatesChain,
     currentCandidatesChain,
   ] = await Promise.all([
-    getAllCollatorState(),
+    getCandidatePool(),
     getNextCollators(),
     getCurrentCollators(),
   ])

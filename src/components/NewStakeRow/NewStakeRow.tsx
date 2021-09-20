@@ -23,7 +23,7 @@ export const NewStakeRow: React.FC<Props> = ({
   accounts,
   collator,
 }) => {
-  const { isVisible, toggleModal } = useModal()
+  const { isVisible, showModal, hideModal } = useModal()
   const [newStake, setNewStake] = useState<number | undefined>()
   const [address, setAddress] = useState('')
   const account = useMemo(() => {
@@ -40,7 +40,9 @@ export const NewStakeRow: React.FC<Props> = ({
     const tx = await joinDelegators(collator, amountInFemto)
     await signAndSubmitTx(account.address, tx)
 
-    toggleModal()
+    setAddress('')
+    setNewStake(undefined)
+    hideModal()
   }
 
   return (
@@ -59,6 +61,7 @@ export const NewStakeRow: React.FC<Props> = ({
           <IdentitySelector
             accounts={accounts}
             onChange={(val) => setAddress(val?.value || '')}
+            clearValue={address === ''}
           />
         </div>
       </td>
@@ -90,13 +93,13 @@ export const NewStakeRow: React.FC<Props> = ({
               newStake,
             }}
             status={getStatus(newStake, account.staked)}
-            toggleModal={toggleModal}
+            closeModal={hideModal}
             onConfirm={handleDelegatorStake}
           />
         )}
         <Button
           label={'Stake'}
-          onClick={toggleModal}
+          onClick={showModal}
           disabled={!(address && newStake !== undefined && newStake > 0)}
         />
       </td>

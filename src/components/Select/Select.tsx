@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import ReactSelect from 'react-select'
 import './ReactSelect.css'
 
@@ -9,14 +9,29 @@ export interface Option {
 export interface Props {
   options: readonly Option[]
   onChange?: (value: Option | null) => void
+  clearValue?: boolean
   placeholder: string
 }
 
 const IndicatorSeparator = null
 
-export const Select: React.FC<Props> = ({ options, onChange, placeholder }) => {
+export const Select: React.FC<Props> = ({
+  options,
+  onChange,
+  clearValue,
+  placeholder,
+}) => {
+  const refContainer = useRef<ReactSelect>(null)
+
+  useEffect(() => {
+    if (clearValue) {
+      refContainer.current?.select.clearValue()
+    }
+  }, [clearValue])
+
   return (
     <ReactSelect
+      ref={refContainer}
       options={options}
       // menuIsOpen={true}
       components={{ IndicatorSeparator }}

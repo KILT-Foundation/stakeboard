@@ -15,6 +15,7 @@ import { getStatus } from '../../utils/stakeStatus'
 import { StakeModal } from '../StakeModal/StakeModal'
 import { kiltToFemto } from '../../utils/conversion'
 import { useTxSubmitter } from '../../utils/useTxSubmitter'
+import { UnstakeRow } from '../UnstakeRow/UnstakeRow'
 
 export interface Props {
   stakeInfo: DataStake
@@ -27,7 +28,7 @@ export const StakeRow: React.FC<Props> = ({
   accounts,
   collator,
 }) => {
-  const { isVisible, toggleModal } = useModal()
+  const { isVisible, showModal, hideModal } = useModal()
   const [editStake, setEditStake] = useState(false)
   const [newStake, setNewStake] = useState<number | undefined>()
   const signAndSubmitTx = useTxSubmitter()
@@ -68,79 +69,84 @@ export const StakeRow: React.FC<Props> = ({
 
   const handleStake = async () => {
     await changeStake(account, collator, stakeInfo.stake, newStake)
-    toggleModal()
+    hideModal()
     setEditStake(false)
   }
 
+  const handleUnstake = async () => {
+    setNewStake(0)
+    showModal()
+  }
+
   return (
-    <tr className={cx(rowStyles.row, rowStyles.stakeRow, rowStyles.staked)}>
-      <td className={rowStyles.spacer}></td>
-      <td></td>
-      <td></td>
-      <td>
-        <div className={rowStyles.wrapper}>
-          <span>COLLATOR STAKE FROM</span>
-          <span className={rowStyles.identityStaked}>{account.name}</span>
-        </div>
-      </td>
-      <td>
-        <div className={rowStyles.wrapper}>
-          <span>MY STAKE</span>
-          {editStake ? (
-            <div>
-              <Input
-                number
-                value={newStake?.toString() || ''}
-                onInput={(e) => setNewStake(parseInt(e.target.value))}
-              />
-            </div>
+    <>
+      <tr className={cx(rowStyles.row, rowStyles.stakeRow, rowStyles.staked)}>
+        <td className={rowStyles.spacer}></td>
+        <td></td>
+        <td></td>
+        <td>
+          <div className={rowStyles.wrapper}>
+            <span>COLLATOR STAKE FROM</span>
+            <span className={rowStyles.identityStaked}>{account.name}</span>
+          </div>
+        </td>
+        <td>
+          <div className={rowStyles.wrapper}>
+            <span>MY STAKE</span>
+            {editStake ? (
+              <>
+                <Input
+                  number
+                  value={newStake?.toString() || ''}
+                  onInput={(e) => setNewStake(parseInt(e.target.value))}
+                />
+              </>
+            ) : (
+              <span className={rowStyles.myStake}>
+                {format(stakeInfo.stake)}
+              </span>
+            )}
+          </div>
+        </td>
+        <td>
+          <div className={rowStyles.wrapper}>
+            <span>STAKEABLE</span>
+            <span className={rowStyles.stakeable}>
+              {format(account.stakeable)}
+            </span>
+          </div>
+        </td>
+        <td>
+          {!editStake ? (
+            <Button label="Edit" onClick={handleEdit} />
           ) : (
-            <span className={rowStyles.myStake}>{format(stakeInfo.stake)}</span>
-          )}
-        </div>
-      </td>
-      <td>
-        <div className={rowStyles.wrapper}>
-          <span>STAKEABLE</span>
-          <span className={rowStyles.stakeable}>
-            {format(account.stakeable)}
-          </span>
-        </div>
-      </td>
-      <td>
-        {!editStake ? (
-          <Button label="Edit" onClick={handleEdit} />
-        ) : (
-          <>
-            <Button label="CLOSE" onClick={handleEdit} />
             <Button
-              label="CONFIRM"
-              onClick={toggleModal}
-              orangeButton
+              label="APPLY"
+              onClick={showModal}
               disabled={
                 newStake === stakeInfo.stake ||
                 Boolean(newStake && newStake < 0)
               }
             />
-          </>
-        )}
-
-        {editStake && isVisible && newStake !== undefined && (
-          <StakeModal
-            modalStake={{
-              name: account.name,
-              address: account.address,
-              newStake,
-              staked: stakeInfo.stake,
-            }}
-            status={getStatus(newStake, stakeInfo.stake)}
-            toggleModal={toggleModal}
-            onConfirm={handleStake}
-          />
-        )}
-      </td>
-      <td></td>
-      <td></td>
-    </tr>
+          )}
+        </td>
+        <td></td>
+        <td></td>
+      </tr>
+      {editStake && <UnstakeRow handleUnstake={handleUnstake} />}
+      {editStake && isVisible && newStake !== undefined && (
+        <StakeModal
+          modalStake={{
+            name: account.name,
+            address: account.address,
+            newStake,
+            staked: stakeInfo.stake,
+          }}
+          status={getStatus(newStake, stakeInfo.stake)}
+          closeModal={hideModal}
+          onConfirm={handleStake}
+        />
+      )}
+    </>
   )
 }
