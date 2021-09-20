@@ -1,0 +1,9 @@
+.overlays {
+  background-image: url(../../icons/dna.svg), url(../../icons/decentral.svg);
+  background-repeat: no-repeat, no-repeat;
+  background-position-x: left, right;
+  background-position-y: center, bottom;
+  background-size: 180px, 768px;
+  width: 100%;
+  height: 100%;
+}
