@@ -3,27 +3,30 @@ import {
   favoriteReducer,
   denominationReducer,
   StoredStateActions,
+  termsReducer,
 } from '../state/storedReducers'
 
 export interface State {
   favorites: string[]
   denomination: number
+  termsAccepted: boolean
 }
 
 export const StoredStateContext = React.createContext<{
   state: State
   dispatch: Dispatch<StoredStateActions>
 }>({
-  state: { favorites: [], denomination: 100 },
+  state: { favorites: [], denomination: 100, termsAccepted: false },
   dispatch: () => null,
 })
 
 const mainReducer = (
-  { favorites, denomination }: State,
+  { favorites, denomination, termsAccepted }: State,
   action: StoredStateActions
 ) => ({
-  favorites: favoriteReducer(favorites, action as StoredStateActions),
-  denomination: denominationReducer(denomination, action as StoredStateActions),
+  favorites: favoriteReducer(favorites, action),
+  denomination: denominationReducer(denomination, action),
+  termsAccepted: termsReducer(termsAccepted, action),
 })
 
 export const StoredStateProvider: React.FC = ({ children }) => {
@@ -32,6 +35,7 @@ export const StoredStateProvider: React.FC = ({ children }) => {
     {
       favorites: [],
       denomination: 100,
+      termsAccepted: false,
     },
     (initialArg) => {
       try {

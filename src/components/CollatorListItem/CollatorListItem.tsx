@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Account, Data } from '../../types'
 import styles from './CollatorListItem.module.css'
 import rowStyles from '../../styles/row.module.css'
 import { StakeRow } from '../StakeRow/StakeRow'
 import { NewStakeRow } from '../NewStakeRow/NewStakeRow'
 import { CollatorRow } from '../CollatorRow/CollatorRow'
+import { StoredStateContext } from '../../utils/StoredStateContext'
 
 export interface Props {
   entry: Data
@@ -20,6 +21,9 @@ export const CollatorListItem: React.FC<Props> = ({
   accounts,
 }) => {
   const [expanded, setExpanded] = useState(false)
+  const {
+    state: { termsAccepted },
+  } = useContext(StoredStateContext)
   return (
     <>
       <tr className={styles.firstRow}></tr>
@@ -29,7 +33,7 @@ export const CollatorListItem: React.FC<Props> = ({
         expanded={expanded}
         setExpanded={setExpanded}
       />
-      {entry.stakes.length > 0 && (
+      {termsAccepted && entry.stakes.length > 0 && (
         <>
           {entry.stakes.map((stakeInfo) => (
             <StakeRow
@@ -39,14 +43,16 @@ export const CollatorListItem: React.FC<Props> = ({
               collator={entry.collator}
             />
           ))}
-          <NewStakeRow
-            accounts={accounts}
-            staked={true}
-            collator={entry.collator}
-          />
+          {
+            <NewStakeRow
+              accounts={accounts}
+              staked={true}
+              collator={entry.collator}
+            />
+          }
         </>
       )}
-      {expanded && (
+      {termsAccepted && expanded && (
         <NewStakeRow accounts={accounts} collator={entry.collator} />
       )}
       <tr className={styles.lastRow}>

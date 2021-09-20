@@ -8,7 +8,12 @@ export type DenominationActions =
   | { type: 'increaseDenomination' }
   | { type: 'decreaseDenomination' }
 
-export type StoredStateActions = FavoriteActions | DenominationActions
+export type TermsActions = { type: 'acceptTerms' }
+
+export type StoredStateActions =
+  | FavoriteActions
+  | DenominationActions
+  | TermsActions
 
 export const favoriteReducer: Reducer<string[], StoredStateActions> = (
   state,
@@ -33,6 +38,18 @@ export const denominationReducer: Reducer<number, StoredStateActions> = (
       return state * 10
     case 'decreaseDenomination':
       return state / 10
+    default:
+      return state
+  }
+}
+
+export const termsReducer: Reducer<boolean, StoredStateActions> = (
+  state,
+  action
+) => {
+  switch (action.type) {
+    case 'acceptTerms':
+      return true
     default:
       return state
   }

@@ -34,7 +34,9 @@ export const OnboardingBg: React.FC<Props> = ({
         }}
         className={styles.backgroundImage}
       >
-        {children}
+        {
+          // TODO: Show different screens depending on status
+        }
       </div>
     )
   } else {
