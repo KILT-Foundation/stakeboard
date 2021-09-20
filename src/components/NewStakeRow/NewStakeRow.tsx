@@ -40,6 +40,7 @@ export const NewStakeRow: React.FC<Props> = ({
     const tx = await joinDelegators(collator, amountInFemto)
     await signAndSubmitTx(account.address, tx)
 
+    setAddress('')
     hideModal()
   }
 
