@@ -11,6 +11,8 @@ import { NoExtension } from './NoExtension'
 import { NoAccount } from './NoAccount'
 import { NoTokens } from './NoTokens'
 import { NotAcceptedTerms } from './NotAcceptedTerms'
+import { Icon } from '../Icon/Icon'
+import { Button } from '../Button/Button'
 
 const backgrounds = [bg1, bg2, bg3, bg4]
 
@@ -64,6 +66,40 @@ const OnboardingContent: React.FC<OnboardingContentProps> = ({ status }) => {
   return null
 }
 
+const DownloadLinks: React.FC = () => {
+  return (
+    <div className={styles.downloadContainer}>
+      <span className={styles.icon}>
+        <Button
+          onClick={() => {
+            window.open(
+              'https://chrome.google.com/webstore/detail/sporran/djdnajgjcbjhhbdblkegbcgodlkkfhcl',
+              '_blank'
+            )
+          }}
+        >
+          <Icon type="chrome_store" width={200} />
+        </Button>
+      </span>
+      <span className={styles.icon}>
+        <Button
+          onClick={() => {
+            window.open(
+              'https://addons.mozilla.org/de/firefox/addon/sporran/',
+              '_blank'
+            )
+          }}
+        >
+          <Icon type="firefox_store" width={200} />
+        </Button>
+      </span>
+      <span className={styles.icon}>
+        <Icon type="sporran_logo" width={70} />
+      </span>
+    </div>
+  )
+}
+
 export interface Props {
   accounts: Account[]
   extensions: Extension[]
@@ -102,6 +138,7 @@ export const Onboarding: React.FC<Props> = ({
           <div className={styles.container}>
             <OnboardingContent status={status} />
           </div>
+          <DownloadLinks />
         </Overlays>
       </div>
     )

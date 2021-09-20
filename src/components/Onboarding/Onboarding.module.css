@@ -10,7 +10,8 @@
 .container {
   padding-left: 210px;
   padding-top: 70px;
-  width: 750px;
+  max-width: 750px;
+  padding-right: 20px;
 }
 
 .highlighted {
@@ -30,4 +31,15 @@
 .text {
   font-size: var(--font-size-medium);
   color: var(--color-gray-text);
+}
+
+.downloadContainer {
+  position: absolute;
+  right: 100px;
+  bottom: 40px;
+}
+
+.icon {
+  margin-left: 20px;
+  vertical-align: bottom;
 }

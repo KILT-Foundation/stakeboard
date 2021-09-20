@@ -32,6 +32,9 @@ import plus_active from '../../icons/plus_active.svg'
 import minus_active from '../../icons/minus_active.svg'
 import plus_inactive from '../../icons/plus_inactive.svg'
 import minus_inactive from '../../icons/minus_inactive.svg'
+import firefox_store from '../../icons/Firefox_AddOn.svg'
+import chrome_store from '../../icons/Google_WebStore.svg'
+import sporran_logo from '../../icons/sporran.svg'
 import styles from './Icon.module.css'
 
 const Icons = {
@@ -66,6 +69,9 @@ const Icons = {
   plus_inactive,
   minus_active,
   plus_active,
+  firefox_store,
+  chrome_store,
+  sporran_logo,
 }
 
 export interface Props {
