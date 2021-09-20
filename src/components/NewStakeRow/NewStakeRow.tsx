@@ -41,6 +41,7 @@ export const NewStakeRow: React.FC<Props> = ({
     await signAndSubmitTx(account.address, tx)
 
     setAddress('')
+    setNewStake(undefined)
     hideModal()
   }
 
@@ -60,6 +61,7 @@ export const NewStakeRow: React.FC<Props> = ({
           <IdentitySelector
             accounts={accounts}
             onChange={(val) => setAddress(val?.value || '')}
+            clearValue={address === ''}
           />
         </div>
       </td>

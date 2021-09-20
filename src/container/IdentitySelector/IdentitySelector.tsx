@@ -5,10 +5,15 @@ import { format } from '../../utils'
 
 export interface Props {
   onChange?: SelectProps['onChange']
+  clearValue?: SelectProps['clearValue']
   accounts: Account[]
 }
 
-export const IdentitySelector: React.FC<Props> = ({ onChange, accounts }) => {
+export const IdentitySelector: React.FC<Props> = ({
+  onChange,
+  clearValue,
+  accounts,
+}) => {
   const options = accounts
     .filter((account) => account.staked === 0)
     .map((account) => ({
@@ -19,6 +24,7 @@ export const IdentitySelector: React.FC<Props> = ({ onChange, accounts }) => {
     <Select
       options={options}
       onChange={onChange}
+      clearValue={clearValue}
       placeholder={'Select KILT Identity'}
     />
   )
