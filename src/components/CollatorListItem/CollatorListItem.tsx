@@ -52,7 +52,7 @@ export const CollatorListItem: React.FC<Props> = ({
           }
         </>
       )}
-      {termsAccepted && expanded && (
+      {termsAccepted && expanded && entry.stakes.length === 0 && (
         <NewStakeRow accounts={accounts} collator={entry.collator} />
       )}
       <tr className={styles.lastRow}>
