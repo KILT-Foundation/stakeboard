@@ -12,18 +12,18 @@ export const Scale: React.FC = () => {
   return (
     <div>
       <span className={styles.label}>Scale</span>
-      {denomination === 10000 ? (
+      {denomination === 10 ? (
         <Icon width={15} type={'plus_inactive'} />
       ) : (
-        <Button onClick={() => dispatch({ type: 'increaseDenomination' })}>
+        <Button onClick={() => dispatch({ type: 'decreaseDenomination' })}>
           <Icon width={15} type={'plus_active'} />
         </Button>
       )}
       <span className={styles.spacer} />
-      {denomination === 10 ? (
+      {denomination === 10000 ? (
         <Icon width={15} type={'minus_inactive'} />
       ) : (
-        <Button onClick={() => dispatch({ type: 'decreaseDenomination' })}>
+        <Button onClick={() => dispatch({ type: 'increaseDenomination' })}>
           <Icon width={15} type={'minus_active'} />
         </Button>
       )}
