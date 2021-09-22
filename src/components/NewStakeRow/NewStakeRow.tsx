@@ -56,7 +56,7 @@ export const NewStakeRow: React.FC<Props> = ({
       <td></td>
       <td className={rowStyles.column}>
         <div className={rowStyles.wrapper}>
-          STAKE COLLATOR FROM
+          SELECT IDENTITY
           <span className={rowStyles.padTop10} />
           <IdentitySelector
             accounts={accounts}
@@ -80,7 +80,7 @@ export const NewStakeRow: React.FC<Props> = ({
         <div className={rowStyles.wrapper}>
           NOTE
           <span className={rowStyles.informationBox}>
-            Staked amounts can be withdrawn after 7 days.
+            Staked amounts can be withdrawn after 7 days
           </span>
         </div>
       </td>

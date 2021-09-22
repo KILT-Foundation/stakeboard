@@ -56,7 +56,7 @@ export const UnusedMeta: React.FC<UnusedMetaProps> = ({
       <div className={styles.unusedInfo}>
         <div>
           {format(total)} available for staking in your {accounts.length} other
-          KILT identities
+          KILT Identities
         </div>
       </div>
     </div>

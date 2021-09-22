@@ -14,7 +14,7 @@ export const BlockchainNotication: React.FC = () => {
   if (isInProgress) {
     return (
       <Modal
-        title="Ongoing Transaction"
+        title="TRANSACTION IN PROGRESS"
         buttons={
           <Button
             onClick={() => dispatch({ type: 'resetTransaction' })}
@@ -22,7 +22,7 @@ export const BlockchainNotication: React.FC = () => {
           />
         }
       >
-        <p>Transaction in progress</p>
+        <p>Magic is happening...</p>
       </Modal>
     )
   }
@@ -30,7 +30,7 @@ export const BlockchainNotication: React.FC = () => {
   if (typeof txHash === 'string') {
     return (
       <Modal
-        title="Transaction successful"
+        title="TRANSACTION COMPLETE"
         buttons={
           <Button
             onClick={() => dispatch({ type: 'resetTransaction' })}
