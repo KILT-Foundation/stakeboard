@@ -12,7 +12,7 @@ export const Scale: React.FC = () => {
   return (
     <div>
       <span className={styles.label}>Scale</span>
-      {denomination === 10 ? (
+      {denomination === 1 ? (
         <Icon width={15} type={'plus_inactive'} />
       ) : (
         <Button onClick={() => dispatch({ type: 'decreaseDenomination' })}>
@@ -20,7 +20,7 @@ export const Scale: React.FC = () => {
         </Button>
       )}
       <span className={styles.spacer} />
-      {denomination === 10000 ? (
+      {denomination === 8192 ? (
         <Icon width={15} type={'minus_inactive'} />
       ) : (
         <Button onClick={() => dispatch({ type: 'increaseDenomination' })}>

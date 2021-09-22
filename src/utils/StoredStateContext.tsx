@@ -16,7 +16,7 @@ export const StoredStateContext = React.createContext<{
   state: State
   dispatch: Dispatch<StoredStateActions>
 }>({
-  state: { favorites: [], denomination: 100, termsAccepted: false },
+  state: { favorites: [], denomination: 64, termsAccepted: false },
   dispatch: () => null,
 })
 
@@ -34,14 +34,14 @@ export const StoredStateProvider: React.FC = ({ children }) => {
     mainReducer,
     {
       favorites: [],
-      denomination: 100,
+      denomination: 64,
       termsAccepted: false,
     },
     (initialArg) => {
       try {
         const item = window.localStorage.getItem('staking-state')
         const data = item ? JSON.parse(item) : initialArg
-        if (!data.denomination) data.denomination = 100
+        if (!data.denomination) data.denomination = 64
         return data
       } catch (err) {
         console.log(err)

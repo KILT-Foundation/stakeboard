@@ -35,9 +35,9 @@ export const denominationReducer: Reducer<number, StoredStateActions> = (
 ) => {
   switch (action.type) {
     case 'increaseDenomination':
-      return state * 10
+      return state * 2
     case 'decreaseDenomination':
-      return state / 10
+      return state / 2
     default:
       return state
   }
