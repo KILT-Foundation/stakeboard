@@ -24,8 +24,8 @@
   border-color: var(--color-modal-border);
   flex-direction: column;
   margin: 1.875rem;
-  min-width: 370px;
-  max-width: 600px;
+  min-width: 450px;
+  max-width: 650px;
   height: fit-content;
   padding: 10px 20px 50px 20px;
   color: var(--color-gray-text);
@@ -57,7 +57,7 @@
 }
 
 .modalTitleWrapper {
-  width: 315px;
+  width: 385px;
   height: 50px;
   padding-top: 10px;
   border-bottom: 1px;
