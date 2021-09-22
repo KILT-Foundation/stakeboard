@@ -12,7 +12,7 @@ export const Scale: React.FC = () => {
   return (
     <div>
       <span className={styles.label}>Scale</span>
-      {denomination === 1 ? (
+      {denomination === 8 ? (
         <Icon width={15} type={'plus_inactive'} />
       ) : (
         <Button onClick={() => dispatch({ type: 'decreaseDenomination' })}>
