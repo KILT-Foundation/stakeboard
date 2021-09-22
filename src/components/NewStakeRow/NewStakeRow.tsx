@@ -56,7 +56,7 @@ export const NewStakeRow: React.FC<Props> = ({
       <td></td>
       <td className={rowStyles.column}>
         <div className={rowStyles.wrapper}>
-          SELECT IDENTITY
+          STAKE FROM
           <span className={rowStyles.padTop10} />
           <IdentitySelector
             accounts={accounts}
@@ -67,7 +67,7 @@ export const NewStakeRow: React.FC<Props> = ({
       </td>
       <td className={rowStyles.column}>
         <div className={rowStyles.wrapper}>
-          MY STAKE
+          STAKE AMOUNT
           <span className={rowStyles.padTop10} />
           <Input
             number

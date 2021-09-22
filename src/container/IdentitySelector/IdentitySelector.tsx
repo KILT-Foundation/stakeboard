@@ -25,7 +25,7 @@ export const IdentitySelector: React.FC<Props> = ({
       options={options}
       onChange={onChange}
       clearValue={clearValue}
-      placeholder={'Example: KILT IDENTITY 1 (Stakeable: 2,234)'}
+      placeholder={'Select Identity'}
     />
   )
 }
