@@ -22,7 +22,7 @@ export const UnusedAccounts: React.FC<UnusedAccountsProps> = ({
   return (
     <span className={styles.account}>
       {!down && <UnusedMeta accounts={accounts} total={total} down={false} />}
-      <TokenBar stakeable={total} staked={0} down={down} percentage={false} />
+      <TokenBar stakeable={total} staked={0} down={down} />
       {down && <UnusedMeta accounts={accounts} total={total} down={true} />}
     </span>
   )
