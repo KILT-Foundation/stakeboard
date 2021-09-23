@@ -26,7 +26,7 @@ export interface TokenBarProps {
   staked: number
   stakeable: number
   down?: boolean
-  percentage: boolean
+  percentage?: boolean
 }
 export const TokenBar: React.FC<TokenBarProps> = ({
   staked,
