@@ -56,7 +56,6 @@ export const Accounts: React.FC<Props> = ({ accounts }) => {
                 staked={account.staked}
                 stakeable={account.stakeable}
                 down={index % 2 !== 0}
-                percentage={false}
               />
               {index % 2 !== 0 && (
                 <>
