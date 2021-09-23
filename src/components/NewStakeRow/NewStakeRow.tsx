@@ -1,28 +1,24 @@
-import React, { useMemo, useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
 import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 import { IdentitySelector } from '../../container/IdentitySelector/IdentitySelector'
-import { Account } from '../../types'
 import { useModal } from '../../utils/useModal'
 import { StakeModal } from '../StakeModal/StakeModal'
 import { getStatus } from '../../utils/stakeStatus'
 import { joinDelegators } from '../../utils'
 import { kiltToFemto } from '../../utils/conversion'
 import { useTxSubmitter } from '../../utils/useTxSubmitter'
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 
 export interface Props {
   staked?: boolean
-  accounts: Account[]
   collator: string
 }
 
-export const NewStakeRow: React.FC<Props> = ({
-  staked = false,
-  accounts,
-  collator,
-}) => {
+export const NewStakeRow: React.FC<Props> = ({ staked = false, collator }) => {
+  const { accounts } = useContext(BlockchainDataContext)
   const { isVisible, showModal, hideModal } = useModal()
   const [newStake, setNewStake] = useState<number | undefined>()
   const [address, setAddress] = useState('')

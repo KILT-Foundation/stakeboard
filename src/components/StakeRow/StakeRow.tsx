@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
 import {
@@ -16,22 +16,19 @@ import { StakeModal } from '../StakeModal/StakeModal'
 import { kiltToFemto } from '../../utils/conversion'
 import { useTxSubmitter } from '../../utils/useTxSubmitter'
 import { UnstakeRow } from '../UnstakeRow/UnstakeRow'
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 
 export interface Props {
   stakeInfo: DataStake
-  accounts: Account[]
   collator: string
 }
 
-export const StakeRow: React.FC<Props> = ({
-  stakeInfo,
-  accounts,
-  collator,
-}) => {
+export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
   const { isVisible, showModal, hideModal } = useModal()
   const [editStake, setEditStake] = useState(false)
   const [newStake, setNewStake] = useState<number | undefined>()
   const signAndSubmitTx = useTxSubmitter()
+  const { accounts } = useContext(BlockchainDataContext)
 
   const handleEdit = () => {
     setEditStake(!editStake)

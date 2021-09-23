@@ -1,16 +1,18 @@
-import { useContext, useEffect, useState } from 'react'
-import { Account, Candidate, ChainTypes, Data } from '../types'
-import { femtoToKilt } from './conversion'
-import { AccountInfo, initialize } from './polling'
-import { StoredStateContext } from './StoredStateContext'
+import React, { useContext, useEffect, useState } from 'react'
+import { Account, Candidate, ChainTypes, Data } from '../../types'
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
+import { femtoToKilt } from '../../utils/conversion'
+import { AccountInfo, initialize } from '../../utils/polling'
+import { StoredStateContext } from '../../utils/StoredStateContext'
 
-export type useBlockchainDataParams = {
+export interface Props {
   partialAccounts: Pick<Account, 'address' | 'name'>[]
 }
 
-export const useBlockchainData = (
-  partialAccounts: Pick<Account, 'address' | 'name'>[]
-) => {
+export const BlockchainData: React.FC<Props> = ({
+  partialAccounts,
+  children,
+}) => {
   const [candidates, setCandidates] = useState<Record<string, Candidate>>({})
   const [selectedCandidates, setSelectedCandidates] = useState<string[]>([])
   const [currentCandidates, setCurrentCandidates] = useState<string[]>([])
@@ -117,5 +119,11 @@ export const useBlockchainData = (
     setAccounts(completeAccounts)
   }, [partialAccounts, accountInfos])
 
-  return { dataSet, accounts, sessionInfo, bestBlock, bestFinalisedBlock }
+  return (
+    <BlockchainDataContext.Provider
+      value={{ dataSet, accounts, sessionInfo, bestBlock, bestFinalisedBlock }}
+    >
+      {children}
+    </BlockchainDataContext.Provider>
+  )
 }

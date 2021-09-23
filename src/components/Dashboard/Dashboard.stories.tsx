@@ -1,6 +1,7 @@
 import { Story, Meta } from '@storybook/react'
 import { Dashboard, Props } from './Dashboard'
 import { Account } from '../../types'
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 
 export default {
   title: 'Dashboard',
@@ -38,21 +39,6 @@ interface PropsWithCustom extends Props {
   stakeable1: number
   staked2: number
   stakeable2: number
-}
-
-const Template: Story<PropsWithCustom> = ({
-  staked1,
-  stakeable1,
-  staked2,
-  stakeable2,
-  accounts,
-  ...args
-}) => {
-  accounts[0].staked = staked1
-  accounts[0].stakeable = stakeable1
-  accounts[1].staked = staked2
-  accounts[1].stakeable = stakeable2
-  return <Dashboard accounts={accounts} {...args} />
 }
 
 const accounts: Account[] = [
@@ -98,9 +84,27 @@ const accounts: Account[] = [
   },
 ]
 
+const Template: Story<PropsWithCustom> = ({
+  staked1,
+  stakeable1,
+  staked2,
+  stakeable2,
+  ...args
+}) => {
+  accounts[0].staked = staked1
+  accounts[0].stakeable = stakeable1
+  accounts[1].staked = staked2
+  accounts[1].stakeable = stakeable2
+
+  return (
+    <BlockchainDataContext.Provider value={{ accounts, dataSet: [] }}>
+      <Dashboard {...args} />
+    </BlockchainDataContext.Provider>
+  )
+}
+
 export const Primary = Template.bind({})
 Primary.args = {
-  accounts,
   staked1: 14_000,
   stakeable1: 8_000,
   staked2: 5_000,

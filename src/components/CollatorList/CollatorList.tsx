@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import cx from 'classnames'
 import styles from './CollatorList.module.css'
 import rowStyles from '../../styles/row.module.css'
 import { CollatorListItem } from '../CollatorListItem/CollatorListItem'
 import { Icon } from '../Icon/Icon'
-import { Account, Data } from '../../types'
 import { Input } from '../Input/Input'
-
-export interface Props {
-  dataSet: Data[]
-  accounts: Account[]
-}
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 
 enum SORT_BY {
   Rank,
@@ -25,7 +20,8 @@ function iconSortType(actual: number, expect: number) {
   return actual === expect ? 'order_yellow' : 'order_white'
 }
 
-export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
+export const CollatorList: React.FC = () => {
+  const { dataSet } = useContext(BlockchainDataContext)
   const [showSearch, setShowSearch] = useState(false)
   const [search, setSearch] = useState('')
   const [sortBy, setSortBy] = useState(SORT_BY.Rank)
@@ -147,7 +143,6 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
       <tbody className={styles.tableBody}>
         {data.map((entry) => (
           <CollatorListItem
-            accounts={accounts}
             entry={entry}
             rank={ranks.get(entry.collator)}
             key={entry.collator}

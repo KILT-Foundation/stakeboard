@@ -4,25 +4,19 @@ import { StateContext } from '../../utils/StateContext'
 import styles from './ChainInfo.module.css'
 import cx from 'classnames'
 import { Icon } from '../Icon/Icon'
-import { ChainTypes } from '../../types'
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 
-type Props = {
-  sessionInfo?: ChainTypes.RoundInfo
-  bestBlock?: ChainTypes.BlockNumber
-  bestFinalisedBlock?: ChainTypes.BlockNumber
-}
-
-export const ChainInfo: React.FC<Props> = ({
-  sessionInfo,
-  bestBlock,
-  bestFinalisedBlock,
-}) => {
+export const ChainInfo: React.FC = ({}) => {
   const [sessionCount, setSessionCount] = useState<number>()
   const [sessionCountdown, setSessionCountdown] = useState('')
 
   const {
     state: { refreshPaused },
   } = useContext(StateContext)
+
+  const { sessionInfo, bestBlock, bestFinalisedBlock } = useContext(
+    BlockchainDataContext
+  )
 
   useEffect(() => {
     const sessionCount = sessionCounter(sessionInfo, bestBlock)

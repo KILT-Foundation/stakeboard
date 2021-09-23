@@ -1,13 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './Accounts.module.css'
 import { Account, AccountWithPct } from '../../types'
 import { TokenBar } from './TokenBar'
 import { MetaDown, MetaUp } from './Meta'
 import { UnusedMeta } from './Meta'
-
-export interface Props {
-  accounts: Account[]
-}
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 
 export interface UnusedAccountsProps {
   accounts: Account[]
@@ -28,7 +25,8 @@ export const UnusedAccounts: React.FC<UnusedAccountsProps> = ({
   )
 }
 
-export const Accounts: React.FC<Props> = ({ accounts }) => {
+export const Accounts: React.FC = () => {
+  const { accounts } = useContext(BlockchainDataContext)
   const usedAccounts = accounts.filter((account) => account.used)
   const unusedAccounts = accounts.filter((account) => !account.used)
 
