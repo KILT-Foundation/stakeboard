@@ -13,10 +13,9 @@ export const NoAccount: React.FC = () => {
       </p>
       <p className={styles.text}>
         In order to enter the halfpipe, please make sure that you have created a
-        KILT Identity and loaded it with at least 1000 KILT Coins and the
-        necessary KILT coins to complete the transaction. You can set this up using
-        Polkadot.js or the Sporran extension for Google Chrome or Mozilla
-        Firefox, which you can download below.
+        KILT Identity and loaded it with at least 1001 KILT Coins. You can set
+        this up using Polkadot.js or the Sporran extension for Google Chrome or
+        Mozilla Firefox, which you can download below.
       </p>
       <p className={styles.text}>
         Please reload the page after setting up the extension.
