@@ -56,7 +56,7 @@ export const TokenBar: React.FC<TokenBarProps> = ({
         [styles.containerDown]: down,
         [styles.percentage]: percentage,
       })}
-      style={{ width: !percentage ? container_width : '100%' }}
+      style={{ width: percentage ? '100%' : container_width }}
     >
       {has_staked && (
         <BarItem
