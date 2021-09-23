@@ -66,7 +66,11 @@ export const IdentityView: React.FC<Props> = ({ bestBlock }) => {
             {account?.name}
           </div>
           <div className={styles.tokenbarContainer}>
-            <TokenBar staked={account.staked} stakeable={account.stakeable} />
+            <TokenBar
+              staked={account.staked}
+              stakeable={account.stakeable}
+              percentage={true}
+            />
           </div>
         </div>
         <div className={styles.identityStakeContainer}>

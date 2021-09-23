@@ -6,15 +6,21 @@ import { StoredStateContext } from '../../utils/StoredStateContext'
 interface BarItemProps {
   style: string
   amount: number
+  percentage: boolean
 }
-const BarItem: React.FC<BarItemProps> = ({ style, amount }) => {
+const BarItem: React.FC<BarItemProps> = ({
+  style,
+  amount,
+  percentage = false,
+}) => {
   const {
     state: { denomination },
   } = useContext(StoredStateContext)
+  const barWidth = amount / denomination
   return (
     <div
       className={cx(styles.item, style)}
-      style={{ width: amount / denomination }}
+      style={{ width: !percentage ? barWidth : '100%' }}
     ></div>
   )
 }
@@ -23,11 +29,13 @@ export interface TokenBarProps {
   staked: number
   stakeable: number
   down?: boolean
+  percentage: boolean
 }
 export const TokenBar: React.FC<TokenBarProps> = ({
   staked,
   stakeable,
   down = false,
+  percentage = false,
 }) => {
   const {
     state: { denomination },
@@ -45,13 +53,25 @@ export const TokenBar: React.FC<TokenBarProps> = ({
   return (
     <div
       className={cx(styles.container, { [styles.containerDown]: down })}
-      style={{ width: container_width }}
+      style={{ width: !percentage ? container_width : '98%' }}
     >
-      {has_staked && <BarItem style={styles.staked} amount={staked} />}
+      {has_staked && (
+        <BarItem
+          style={styles.staked}
+          amount={staked}
+          percentage={percentage}
+        />
+      )}
       {has_staked && has_stakeable && (
         <div className={cx(styles.item, styles.separator)} />
       )}
-      {has_stakeable && <BarItem style={styles.stakeable} amount={stakeable} />}
+      {has_stakeable && (
+        <BarItem
+          style={styles.stakeable}
+          amount={stakeable}
+          percentage={percentage}
+        />
+      )}
     </div>
   )
 }
