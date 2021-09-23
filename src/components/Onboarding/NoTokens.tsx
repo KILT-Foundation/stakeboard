@@ -13,7 +13,8 @@ export const NoTokens: React.FC = () => {
       </p>
       <p className={styles.text}>
         In order to enter the halfpipe, please make sure that you have created a
-        KILT Identity and loaded it with at least 1001 KILT Coins.
+        KILT Identity and loaded it with at least 1000 KILT Coins and the
+        necessary KILT coins to complete the transaction.
       </p>
       <p className={styles.text}>
         Please reload the page after setting up the extension.

@@ -13,7 +13,8 @@ export const NoExtension: React.FC = () => {
       </p>
       <p className={styles.text}>
         In order to enter the halfpipe, download the Sporran extension, create a
-        KILT Identity and load it with at least 1001 KILT Coins. If you have the
+        KILT Identity and load it with at least 1000 KILT Coins and the
+        necessary KILT coins to complete the transaction. If you have the
         extension already, make sure to give Stakeboard access to it.
       </p>
       <p className={styles.text}>
