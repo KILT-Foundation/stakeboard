@@ -26,7 +26,7 @@ enum OnboardingStatus {
 
 function isUsableAccount(account: Account) {
   if (account.staked > 0) return true
-  if (account.stakeable >= 1000) return true
+  if (account.stakeable >= 1001) return true
   if (account.unstaking.length > 0) return true
 }
 
