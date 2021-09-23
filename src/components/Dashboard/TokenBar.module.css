@@ -48,3 +48,7 @@
   box-sizing: border-box;
   height: 42px;
 }
+
+.percentage .separator + .stakeable {
+  margin-left: 0;
+}
