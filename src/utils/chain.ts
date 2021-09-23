@@ -1,4 +1,4 @@
-import type { Vec, Option, BTreeMap, Tuple } from '@polkadot/types'
+import type { Vec, Option, BTreeMap, Tuple, u32 } from '@polkadot/types'
 import type {
   AccountId,
   BalanceOf,
@@ -69,6 +69,11 @@ export async function getNextCollators() {
 export async function getCurrentCollators() {
   const api = await getConnection()
   return api.query.session.validators<Vec<AccountId>>()
+}
+
+export async function queryMaximumSelectedCandidates() {
+  const api = await getConnection()
+  return api.query.parachainStaking.maxSelectedCandidates<u32>()
 }
 
 export async function querySessionInfo() {

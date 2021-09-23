@@ -1,15 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import cx from 'classnames'
 import { Collator } from '../Collator/Collator'
 import { Button } from '../Button/Button'
 import { Icon } from '../Icon/Icon'
 import rowStyles from '../../styles/row.module.css'
-import { format, leftFillZero } from '../../utils'
+import {
+  format,
+  leftFillZero,
+  queryMaximumSelectedCandidates,
+} from '../../utils'
 import { Data } from '../../types'
 import { StoredStateContext } from '../../utils/StoredStateContext'
 
 // TODO: Max candidates will be changed at a later date. Smaller now for testing purposes.
-const MAX_SELECTED_CANDIDATES = 16
+
 export interface Props {
   entry: Data
   rank: number | undefined
@@ -23,7 +27,16 @@ export const CollatorRow: React.FC<Props> = ({
   setExpanded,
   expanded,
 }) => {
+  const [maxSelectedCandidates, setMaxSelectedCandidates] = useState<number>(0)
   const { dispatch } = useContext(StoredStateContext)
+
+  useEffect(() => {
+    const getMaxSelectedCandidates = async () => {
+      const MAX_SELECTED_CANDIDATES = await queryMaximumSelectedCandidates()
+      setMaxSelectedCandidates(MAX_SELECTED_CANDIDATES.toNumber())
+    }
+    getMaxSelectedCandidates()
+  }, [])
 
   const hasStakes = entry.stakes.length
 
@@ -80,8 +93,8 @@ export const CollatorRow: React.FC<Props> = ({
       <td>
         <span
           className={cx({
-            [rowStyles.topRank]: rank && rank <= MAX_SELECTED_CANDIDATES,
-            [rowStyles.candidatePool]: rank && rank > MAX_SELECTED_CANDIDATES,
+            [rowStyles.topRank]: rank && rank <= maxSelectedCandidates,
+            [rowStyles.candidatePool]: rank && rank > maxSelectedCandidates,
           })}
         >
           {leftFillZero(rank, 3)}
