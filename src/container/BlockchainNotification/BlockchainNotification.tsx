@@ -6,10 +6,29 @@ import { StateContext } from '../../utils/StateContext'
 export const BlockchainNotication: React.FC = () => {
   const {
     state: {
-      transaction: { txHash, isInProgress },
+      transaction: { txHash, isInProgress, needsSignature },
     },
     dispatch,
   } = useContext(StateContext)
+
+  if (needsSignature) {
+    return (
+      <Modal
+        title="SIGNATURE NEEDED"
+        buttons={
+          <Button
+            onClick={() => dispatch({ type: 'resetTransaction' })}
+            label={'close'}
+          />
+        }
+      >
+        <p>
+          Please wait for your Wallet Extension to open and sign the transaction
+          there.
+        </p>
+      </Modal>
+    )
+  }
 
   if (isInProgress) {
     return (

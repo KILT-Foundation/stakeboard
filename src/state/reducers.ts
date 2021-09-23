@@ -23,6 +23,9 @@ export type ErrorActions =
 
 export type TransactionActions =
   | {
+      type: 'needsSignature'
+    }
+  | {
       type: 'transactionInProgress'
     }
   | {
@@ -102,6 +105,7 @@ export const connectionReducer: Reducer<ConnectionState, Actions> = (
 
 export type TransactionState = {
   isInProgress: boolean
+  needsSignature: boolean
   txHash?: string
 }
 
@@ -110,18 +114,24 @@ export const transactionReducer: Reducer<TransactionState, Actions> = (
   action
 ) => {
   switch (action.type) {
+    case 'needsSignature': {
+      return { isInProgress: false, needsSignature: true }
+    }
     case 'transactionInProgress':
       return {
         isInProgress: true,
+        needsSignature: false,
       }
     case 'transactionFinished':
       return {
         txHash: action.txHash,
         isInProgress: false,
+        needsSignature: false,
       }
     case 'resetTransaction':
       return {
         isInProgress: false,
+        needsSignature: false,
       }
     default:
       return state

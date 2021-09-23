@@ -31,6 +31,7 @@ export const StateContext = React.createContext<{
     connection: { status: 'disconnected' },
     transaction: {
       isInProgress: false,
+      needsSignature: false,
     },
   },
   dispatch: () => null,
@@ -55,6 +56,7 @@ export const StateProvider: React.FC = ({ children }) => {
     connection: { status: 'disconnected' },
     transaction: {
       isInProgress: false,
+      needsSignature: false,
     },
   })
 
