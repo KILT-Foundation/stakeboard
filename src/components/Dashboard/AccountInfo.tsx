@@ -25,12 +25,14 @@ export const AccountInfo: React.FC<AccountInfoProps> = ({ account }) => {
           {format(account.stakeable)} {account.stakeablePct}%
         </span>
       </div>
-      <Button
-        onClick={() => {
-          dispatch({ type: 'selectAccount', account })
-        }}
-        label={'details'}
-      />
+      <div className={styles.detailsButton}>
+        <Button
+          onClick={() => {
+            dispatch({ type: 'selectAccount', account })
+          }}
+          label={'details'}
+        />
+      </div>
     </div>
   )
 }

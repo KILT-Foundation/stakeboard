@@ -28,3 +28,7 @@
   font-size: var(--font-size-medium);
   color: var(--color-orange-text);
 }
+
+.detailsButton {
+  margin-top: 5px;
+}
