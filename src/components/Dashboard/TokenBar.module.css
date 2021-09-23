@@ -8,6 +8,7 @@
   position: relative;
   display: inline-block;
   margin-left: var(--left-margin);
+  white-space: nowrap;
 }
 
 .containerDown {

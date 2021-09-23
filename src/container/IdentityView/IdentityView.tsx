@@ -11,15 +11,10 @@ import { padTime, blockToTime } from '../../utils/timeConvert'
 import { ChainTypes } from '../../types'
 import { format } from '../../utils/index'
 import { useTxSubmitter } from '../../utils/useTxSubmitter'
+import { getPercent } from '../../utils/stakePercentage'
 
 export interface Props {
   bestBlock?: ChainTypes.BlockNumber
-}
-
-function getPercent(percentageValue: number, secondValue: number) {
-  const total = percentageValue + secondValue
-  const percent = (percentageValue / total) * 100
-  return percent.toFixed(1)
 }
 
 export const IdentityView: React.FC<Props> = ({ bestBlock }) => {
