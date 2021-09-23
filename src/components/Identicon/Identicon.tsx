@@ -23,7 +23,7 @@ export const Identicon: React.FC<Props> = ({ address, size = 46 }) => {
   const circles = polkadotIcon(address, { isAlternative: false })
   // circles[0].fill = '#575756'
   return (
-    <div className={styles.Identicon}>
+    <div className={styles.Identicon} style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox="0 0 64 64">
         {circles.map((circle, index) => (
           <Circle

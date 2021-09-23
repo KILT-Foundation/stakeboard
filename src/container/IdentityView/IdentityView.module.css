@@ -27,8 +27,7 @@
 }
 
 .identiconContainer {
-  margin: 0 20px;
-  width: 50px;
+  margin: 0 22px;
   flex-grow: 0;
   flex-shrink: 0;
 }
