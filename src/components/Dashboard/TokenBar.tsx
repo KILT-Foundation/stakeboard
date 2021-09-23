@@ -52,8 +52,11 @@ export const TokenBar: React.FC<TokenBarProps> = ({
 
   return (
     <div
-      className={cx(styles.container, { [styles.containerDown]: down })}
-      style={{ width: percentage ? 'calc(100% - 25px)' : container_width }}
+      className={cx(styles.container, {
+        [styles.containerDown]: down,
+        [styles.percentage]: percentage,
+      })}
+      style={{ width: !percentage ? container_width : '100%' }}
     >
       {has_staked && (
         <BarItem

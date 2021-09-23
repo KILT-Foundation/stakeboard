@@ -42,3 +42,9 @@
   height: 100%;
   width: 20px;
 }
+
+.percentage {
+  margin-left: 0;
+  box-sizing: border-box;
+  height: 42px;
+}
