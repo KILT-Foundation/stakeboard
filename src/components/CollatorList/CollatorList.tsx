@@ -75,6 +75,7 @@ export const CollatorList: React.FC = () => {
               className={styles.searchButton}
               onClick={(e) => {
                 e.stopPropagation()
+                setSearch('')
                 setShowSearch(!showSearch)
               }}
             >
