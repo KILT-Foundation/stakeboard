@@ -24,6 +24,10 @@ export interface Data {
   favorite: boolean
 }
 
+export interface DataWithRank extends Data {
+  rank: number
+}
+
 export interface Account {
   address: string
   name?: string

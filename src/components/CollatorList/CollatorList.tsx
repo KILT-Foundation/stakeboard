@@ -6,6 +6,7 @@ import { CollatorListItem } from '../CollatorListItem/CollatorListItem'
 import { Icon } from '../Icon/Icon'
 import { Input } from '../Input/Input'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
+import { DataWithRank } from '../../types'
 
 enum SORT_BY {
   Rank,
@@ -26,40 +27,38 @@ export const CollatorList: React.FC = () => {
   const [search, setSearch] = useState('')
   const [sortBy, setSortBy] = useState(SORT_BY.Rank)
 
-  const [ranks, setRanks] = useState(new Map<string, number>())
-  const [data, setData] = useState(dataSet)
+  const [dataWithRanks, setDataWithRanks] = useState<DataWithRank[]>([])
+  const [data, setData] = useState<DataWithRank[]>([])
 
   useEffect(() => {
-    let ranks = new Map<string, number>()
-
     const sortedData = [...dataSet]
     sortedData.sort((a, b) => b.totalStake - a.totalStake)
 
-    sortedData.forEach((value, index) => {
-      ranks.set(value.collator, index + 1)
+    const dataWithRanks: DataWithRank[] = sortedData.map((value, index) => {
+      return { ...value, rank: index + 1 }
     })
 
-    setRanks(ranks)
+    setDataWithRanks(dataWithRanks)
   }, [dataSet])
 
   useEffect(() => {
     let newData = !search.length
-      ? [...dataSet]
-      : dataSet.filter((value) => value.collator.startsWith(search))
+      ? [...dataWithRanks]
+      : dataWithRanks.filter((value) => value.collator.startsWith(search))
 
     switch (sortBy) {
       case SORT_BY.Rank_Reverse: {
-        newData.sort((a, b) => a.totalStake - b.totalStake)
+        newData.sort((a, b) => a.rank - b.rank)
         break
       }
       default:
       case SORT_BY.Rank: {
-        newData.sort((a, b) => b.totalStake - a.totalStake)
+        newData.sort((a, b) => b.rank - a.rank)
         break
       }
     }
     setData(newData)
-  }, [search, dataSet, sortBy])
+  }, [search, dataSet, sortBy, dataWithRanks])
 
   return (
     <table role="table" className={styles.table}>
@@ -142,11 +141,7 @@ export const CollatorList: React.FC = () => {
       </thead>
       <tbody className={styles.tableBody}>
         {data.map((entry) => (
-          <CollatorListItem
-            entry={entry}
-            rank={ranks.get(entry.collator)}
-            key={entry.collator}
-          />
+          <CollatorListItem entry={entry} key={entry.collator} />
         ))}
       </tbody>
     </table>

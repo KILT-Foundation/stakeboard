@@ -101,7 +101,7 @@ const Template: Story = (args) => (
           active: true,
           activeNext: true,
           isLeaving: false,
-          totalStake: 150_000,
+          totalStake: 100_000,
           delegators: 1,
           lowestStake: 50_000,
           stakes: [],

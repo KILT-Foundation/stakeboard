@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Data } from '../../types'
+import { DataWithRank } from '../../types'
 import styles from './CollatorListItem.module.css'
 import rowStyles from '../../styles/row.module.css'
 import { StakeRow } from '../StakeRow/StakeRow'
@@ -8,13 +8,12 @@ import { CollatorRow } from '../CollatorRow/CollatorRow'
 import { StoredStateContext } from '../../utils/StoredStateContext'
 
 export interface Props {
-  entry: Data
-  rank: number | undefined
+  entry: DataWithRank
 }
 
 const COLS = 7
 
-export const CollatorListItem: React.FC<Props> = ({ entry, rank }) => {
+export const CollatorListItem: React.FC<Props> = ({ entry }) => {
   const [expanded, setExpanded] = useState(false)
   const {
     state: { termsAccepted },
@@ -24,7 +23,6 @@ export const CollatorListItem: React.FC<Props> = ({ entry, rank }) => {
       <tr className={styles.firstRow}></tr>
       <CollatorRow
         entry={entry}
-        rank={rank}
         expanded={expanded}
         setExpanded={setExpanded}
       />

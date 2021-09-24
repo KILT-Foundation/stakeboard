@@ -5,21 +5,19 @@ import { Button } from '../Button/Button'
 import { Icon } from '../Icon/Icon'
 import rowStyles from '../../styles/row.module.css'
 import { format, leftFillZero } from '../../utils'
-import { Data } from '../../types'
+import { DataWithRank } from '../../types'
 import { StoredStateContext } from '../../utils/StoredStateContext'
 
 // TODO: Max candidates will be changed at a later date. Smaller now for testing purposes.
 const MAX_SELECTED_CANDIDATES = 16
 export interface Props {
-  entry: Data
-  rank: number | undefined
+  entry: DataWithRank
   setExpanded: (expanded: boolean) => void
   expanded: boolean
 }
 
 export const CollatorRow: React.FC<Props> = ({
   entry,
-  rank,
   setExpanded,
   expanded,
 }) => {
@@ -80,11 +78,13 @@ export const CollatorRow: React.FC<Props> = ({
       <td>
         <span
           className={cx({
-            [rowStyles.topRank]: rank && rank <= MAX_SELECTED_CANDIDATES,
-            [rowStyles.candidatePool]: rank && rank > MAX_SELECTED_CANDIDATES,
+            [rowStyles.topRank]:
+              entry.rank && entry.rank <= MAX_SELECTED_CANDIDATES,
+            [rowStyles.candidatePool]:
+              entry.rank && entry.rank > MAX_SELECTED_CANDIDATES,
           })}
         >
-          {leftFillZero(rank, 3)}
+          {leftFillZero(entry.rank, 3)}
         </span>
         {format(entry.totalStake)}
       </td>
