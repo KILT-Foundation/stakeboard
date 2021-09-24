@@ -133,12 +133,8 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
       {editStake && <UnstakeRow handleUnstake={handleUnstake} />}
       {editStake && isVisible && newStake !== undefined && (
         <StakeModal
-          modalStake={{
-            name: account.name,
-            address: account.address,
-            newStake,
-            staked: stakeInfo.stake,
-          }}
+          collatorAddress={collator}
+          newStake={newStake}
           status={getStatus(newStake, stakeInfo.stake)}
           closeModal={hideModal}
           onConfirm={handleStake}

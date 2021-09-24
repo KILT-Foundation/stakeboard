@@ -1,22 +1,23 @@
-import { ModalStake } from '../../types'
 import { Button } from '../Button/Button'
 import { shortenAddress } from '../../utils/shortenAddress'
 import { Modal } from '../Modal/Modal'
 
 export interface Props {
-  modalStake: ModalStake
+  collatorAddress: string
+  newStake: number
   onConfirm: () => void
   closeModal: () => void
   status: 'increaseStake' | 'decreaseStake' | 'unstake' | 'unchanged' | 'stake'
 }
 
 export const StakeModal: React.FC<Props> = ({
-  modalStake,
+  collatorAddress,
+  newStake,
   onConfirm,
   closeModal,
   status,
 }) => {
-  const shortAddress = shortenAddress(modalStake.address)
+  const shortAddress = shortenAddress(collatorAddress)
 
   const NOTES_MESSAGE = (
     <p>
@@ -44,7 +45,7 @@ export const StakeModal: React.FC<Props> = ({
           Do you want to stake on <br />
           Collator {shortAddress}? <br />
           <br />
-          STAKE: {modalStake.newStake.toLocaleString()} <br />
+          STAKE: {newStake.toLocaleString()} <br />
         </Modal>
       )
     case 'increaseStake':
@@ -61,7 +62,7 @@ export const StakeModal: React.FC<Props> = ({
           Do you want to increase stake on <br />
           Collator {shortAddress}? <br />
           <br />
-          STAKE: {modalStake.newStake.toLocaleString()} <br />
+          STAKE: {newStake.toLocaleString()} <br />
         </Modal>
       )
     case 'decreaseStake':
@@ -79,7 +80,7 @@ export const StakeModal: React.FC<Props> = ({
             Do you want to decrease the stake of <br />
             Collator {shortAddress} <br />
             <br />
-            STAKE: {modalStake.newStake.toLocaleString()} <br />
+            STAKE: {newStake.toLocaleString()} <br />
           </div>
           {NOTES_MESSAGE}
         </Modal>

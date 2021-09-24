@@ -51,13 +51,6 @@ export interface Candidate {
   userStakes: Array<Stake>
 }
 
-export interface ModalStake {
-  name: string | undefined
-  address: string
-  newStake: number
-  staked?: number
-}
-
 export interface Extension {
   name: string
   version: string
