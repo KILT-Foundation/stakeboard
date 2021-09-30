@@ -1,0 +1,31 @@
+.footer {
+  height: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-table-header);
+}
+
+.name {
+  font-family: var(--font-countdown);
+  font-size: var(--font-size-small);
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.spacer {
+  min-width: 1px;
+  height: 15px;
+  background-color: var(--color-primary);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.versionInfo {
+  font-family: var(--font-countdown);
+  font-size: var(--font-size-small);
+  color: var(--color-gray-alt-text);
+  right: 33px;
+  position: absolute;
+}

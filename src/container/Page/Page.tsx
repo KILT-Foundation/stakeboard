@@ -2,6 +2,7 @@ import React from 'react'
 import { Dashboard } from '../../components/Dashboard/Dashboard'
 import { CollatorList } from '../../components/CollatorList/CollatorList'
 import { Header } from '../../components/Header/Header'
+import { Footer } from '../../components/Footer/Footer'
 import { ChainInfo } from '../../components/ChainInfo/ChainInfo'
 import styles from './Page.module.css'
 import { BlockchainData } from '../BlockchainData/BlockchainData'
@@ -27,6 +28,8 @@ export const Page: React.FC<Props> = () => {
       <ErrorNotification />
       <ConnectionNotification />
       <BlockchainNotication />
+      <div className={styles.spacer}/>
+      <Footer />
     </div>
   )
 }

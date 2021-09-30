@@ -2,5 +2,8 @@
   margin: 20px;
   background-color: var(--color-bg);
   border-radius: 5px;
+}
+
+.spacer {
   padding-bottom: 200px;
 }
