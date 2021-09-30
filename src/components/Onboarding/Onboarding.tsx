@@ -36,14 +36,14 @@ function needsOnboarding(
   accounts: Account[],
   termsAccepted: boolean
 ) {
-  if (extensions.length === 0) {
+  if (!termsAccepted) {
+    return OnboardingStatus.NotAcceptedTerms
+  } else if (extensions.length === 0) {
     return OnboardingStatus.NoExtension
   } else if (accounts.length === 0) {
     return OnboardingStatus.NoAccount
   } else if (!accounts.some(isUsableAccount)) {
     return OnboardingStatus.NoTokens
-  } else if (!termsAccepted) {
-    return OnboardingStatus.NotAcceptedTerms
   } else {
     return OnboardingStatus.Ok
   }
@@ -55,14 +55,14 @@ export interface OnboardingContentProps {
 
 const OnboardingContent: React.FC<OnboardingContentProps> = ({ status }) => {
   switch (status) {
+    case OnboardingStatus.NotAcceptedTerms:
+      return <NotAcceptedTerms />
     case OnboardingStatus.NoExtension:
       return <NoExtension />
     case OnboardingStatus.NoAccount:
       return <NoAccount />
     case OnboardingStatus.NoTokens:
       return <NoTokens />
-    case OnboardingStatus.NotAcceptedTerms:
-      return <NotAcceptedTerms />
   }
   return null
 }
