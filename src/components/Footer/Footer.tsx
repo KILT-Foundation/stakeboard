@@ -1,20 +1,21 @@
 import React from 'react'
 import styles from './Footer.module.css'
 import packageInfo from '../../../package.json'
-import PDF from '../../uploads/210930_Stakeboard_Terms&License.pdf'
+// import PDF from '../../uploads/210930_Stakeboard_Terms&License.pdf'
+import { ImprintModal } from '../ImprintModal/ImprintModal'
+import { useModal } from '../../utils/useModal'
+const PDF = 'awesome!'
 
 export const Footer: React.FC = () => {
+  const { isVisible, showModal, hideModal } = useModal()
+
   return (
     <div className={styles.footerContainer}>
       <div className={styles.footer}>
-        <a
-          href={PDF}
-          rel="noopener noreferrer"
-          target="_blank"
-          className={styles.name}
-        >
+        <span onClick={() => showModal()} className={styles.name}>
           IMPRINT
-        </a>
+        </span>
+        {isVisible && <ImprintModal closeModal={hideModal} />}
         <span className={styles.spacer} />
         <a
           href={PDF}
