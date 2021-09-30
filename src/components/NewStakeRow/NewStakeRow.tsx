@@ -93,7 +93,7 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, collator }) => {
         <Button
           label={'Stake'}
           onClick={showModal}
-          disabled={!(address && newStake !== undefined && newStake > 0)}
+          disabled={!(address && newStake !== undefined && newStake >= 1000)}
         />
       </td>
       <td></td>
