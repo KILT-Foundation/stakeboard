@@ -5,7 +5,7 @@ import bg1 from '../../pics/FTU_BG_01.png'
 import bg2 from '../../pics/FTU_BG_02.png'
 import bg3 from '../../pics/FTU_BG_03.png'
 import bg4 from '../../pics/FTU_BG_04.png'
-import { StoredStateContext } from '../../utils/StoredStateContext'
+import { StateContext } from '../../utils/StateContext'
 import { Overlays } from '../Overlays/Overlays'
 import { NoExtension } from './NoExtension'
 import { NoAccount } from './NoAccount'
@@ -36,14 +36,14 @@ function needsOnboarding(
   accounts: Account[],
   termsAccepted: boolean
 ) {
-  if (extensions.length === 0) {
+  if (!termsAccepted) {
+    return OnboardingStatus.NotAcceptedTerms
+  } else if (extensions.length === 0) {
     return OnboardingStatus.NoExtension
   } else if (accounts.length === 0) {
     return OnboardingStatus.NoAccount
   } else if (!accounts.some(isUsableAccount)) {
     return OnboardingStatus.NoTokens
-  } else if (!termsAccepted) {
-    return OnboardingStatus.NotAcceptedTerms
   } else {
     return OnboardingStatus.Ok
   }
@@ -55,14 +55,14 @@ export interface OnboardingContentProps {
 
 const OnboardingContent: React.FC<OnboardingContentProps> = ({ status }) => {
   switch (status) {
+    case OnboardingStatus.NotAcceptedTerms:
+      return <NotAcceptedTerms />
     case OnboardingStatus.NoExtension:
       return <NoExtension />
     case OnboardingStatus.NoAccount:
       return <NoAccount />
     case OnboardingStatus.NoTokens:
       return <NoTokens />
-    case OnboardingStatus.NotAcceptedTerms:
-      return <NotAcceptedTerms />
   }
   return null
 }
@@ -116,7 +116,7 @@ export const Onboarding: React.FC<Props> = ({ extensions, children }) => {
 
   const {
     state: { termsAccepted },
-  } = useContext(StoredStateContext)
+  } = useContext(StateContext)
 
   const status = needsOnboarding(extensions, accounts, termsAccepted)
 
