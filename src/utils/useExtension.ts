@@ -12,7 +12,7 @@ import { getGenesis } from './chain'
 import { Account, Extension } from '../types'
 
 async function getAllAccounts() {
-  const allInjected = await web3Enable('KILT Staking App')
+  const allInjected = await web3Enable('Stakeboard')
   console.log('allInjected', allInjected)
   const allAccounts = await web3Accounts()
   console.log('allAccounts', allAccounts)
@@ -36,7 +36,7 @@ export const useExtension = () => {
   // Enable extensions
   useEffect(() => {
     async function doEffect() {
-      const allInjected = await web3Enable('KILT Staking App')
+      const allInjected = await web3Enable('Stakeboard')
       setExtensions(allInjected)
       setWeb3Enabled(true)
     }

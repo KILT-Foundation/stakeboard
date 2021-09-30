@@ -122,7 +122,7 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
               onClick={showModal}
               disabled={
                 newStake === stakeInfo.stake ||
-                Boolean(newStake && newStake < 0)
+                Boolean(newStake && newStake < 1000)
               }
             />
           )}

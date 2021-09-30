@@ -12,14 +12,17 @@ import { format } from '../../utils/index'
 import { useTxSubmitter } from '../../utils/useTxSubmitter'
 import { getPercent } from '../../utils/stakePercentage'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
+import { Account } from '../../types'
 
 export const IdentityView: React.FC = () => {
-  const { bestBlock } = useContext(BlockchainDataContext)
+  const { bestBlock, accounts } = useContext(BlockchainDataContext)
   const [readyToWithdraw, setReadyToWithdraw] = useState(0)
+  const [accountData, setAccountData] = useState<Account | undefined>()
   const {
     state: { account },
     dispatch,
   } = useContext(StateContext)
+
   const signAndSubmitTx = useTxSubmitter()
 
   const withdraw = async () => {
@@ -30,9 +33,16 @@ export const IdentityView: React.FC = () => {
   }
 
   useEffect(() => {
-    if (!account || !bestBlock) return
+    const acconutData = accounts.filter(
+      (val) => val.address === account?.address
+    )
+    setAccountData(acconutData[0])
+  }, [account, accounts])
 
-    const unstakeable = account.unstaking
+  useEffect(() => {
+    if (!accountData || !bestBlock) return
+
+    const unstakeable = accountData.unstaking
       .filter((val) => val.block < BigInt(bestBlock.toString()))
       .map((val) => {
         return femtoToKilt(val.amount)
@@ -41,25 +51,25 @@ export const IdentityView: React.FC = () => {
     const sumAllStakeable = unstakeable.reduce((a, b) => a + b, 0)
 
     setReadyToWithdraw(sumAllStakeable)
-  }, [account, bestBlock])
+  }, [accountData, bestBlock])
 
   // TODO: placeholder for the error notifications
-  if (!account || !bestBlock) return <></>
+  if (!accountData || !bestBlock) return <></>
 
   return (
     <div className={styles.identityView}>
       <div className={styles.container}>
         <div className={styles.identityViewHeader}>
           <div className={styles.identiconContainer}>
-            <Identicon address={account.address} />
+            <Identicon address={accountData.address} />
           </div>
           <div className={cx(styles.label, styles.labelGray, styles.name)}>
-            {account?.name}
+            {accountData?.name}
           </div>
           <div className={styles.tokenbarContainer}>
             <TokenBar
-              staked={account.staked}
-              stakeable={account.stakeable}
+              staked={accountData.staked}
+              stakeable={accountData.stakeable}
               percentage
             />
           </div>
@@ -68,8 +78,8 @@ export const IdentityView: React.FC = () => {
           <span className={cx(styles.labelSmall, styles.labelGray)}>
             my stake <br />
             <span className={cx(styles.label, styles.labelYellow)}>
-              {format(account.staked)} | <span />
-              {getPercent(account.staked, account.stakeable)} %
+              {format(accountData.staked)} | <span />
+              {getPercent(accountData.staked, accountData.stakeable)} %
             </span>
           </span>
           <span
@@ -81,8 +91,9 @@ export const IdentityView: React.FC = () => {
           >
             stakeable <br />
             <span className={cx(styles.label, styles.labelOrange)}>
-              {getPercent(account.stakeable, account.staked)} % | <span />
-              {format(account.stakeable)}
+              {getPercent(accountData.stakeable, accountData.staked)} % |{' '}
+              <span />
+              {format(accountData.stakeable)}
             </span>
           </span>
         </div>
@@ -109,7 +120,7 @@ export const IdentityView: React.FC = () => {
           >
             Locked for 7 days (stakeable)
           </span>
-          {account.unstaking.map((val, index) => {
+          {accountData.unstaking.map((val, index) => {
             const blockCount = val.block - BigInt(bestBlock.toString())
             if (blockCount < 0) return null
             const { days, hours, minutes, seconds } = blockToTime(
@@ -125,7 +136,7 @@ export const IdentityView: React.FC = () => {
             return (
               <div key={index}>
                 <span className={cx(styles.labelSmall, styles.labelGray)}>
-                  {`${index + 1}/${account.unstaking.length} ${timeable}`}
+                  {`${index + 1}/${accountData.unstaking.length} ${timeable}`}
                 </span>{' '}
                 {format(femtoToKilt(val.amount))}
               </div>
