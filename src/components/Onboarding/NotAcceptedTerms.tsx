@@ -33,6 +33,10 @@ export const NotAcceptedTerms: React.FC = () => {
           Terms of Use for the KILT Stakeboard Web Application
         </a>
       </p>
+      <p className={styles.text}>
+        (for security reasons you will have to agree every time you open this
+        website)
+      </p>
       <span className={styles.highlighted}>
         <Button
           label="continue"
