@@ -15,14 +15,13 @@ import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 import { Account } from '../../types'
 
 export const IdentityView: React.FC = () => {
-  const { bestBlock } = useContext(BlockchainDataContext)
+  const { bestBlock, accounts } = useContext(BlockchainDataContext)
   const [readyToWithdraw, setReadyToWithdraw] = useState(0)
   const [accountData, setAccountData] = useState<Account | undefined>()
   const {
     state: { account },
     dispatch,
   } = useContext(StateContext)
-  const { accounts } = useContext(BlockchainDataContext)
 
   const signAndSubmitTx = useTxSubmitter()
 
