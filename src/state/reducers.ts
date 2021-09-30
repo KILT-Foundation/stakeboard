@@ -36,12 +36,15 @@ export type TransactionActions =
       type: 'resetTransaction'
     }
 
+export type TermsActions = { type: 'acceptTerms' }
+
 export type Actions =
   | PausedAction
   | ConnectionActions
   | AccountActions
   | ErrorActions
   | TransactionActions
+  | TermsActions
 
 export const pauseReducer: Reducer<boolean, Actions> = (state, action) => {
   switch (action.type) {
@@ -133,6 +136,15 @@ export const transactionReducer: Reducer<TransactionState, Actions> = (
         isInProgress: false,
         needsSignature: false,
       }
+    default:
+      return state
+  }
+}
+
+export const termsReducer: Reducer<boolean, Actions> = (state, action) => {
+  switch (action.type) {
+    case 'acceptTerms':
+      return true
     default:
       return state
   }

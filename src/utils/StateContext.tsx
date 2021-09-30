@@ -9,6 +9,7 @@ import {
   ErrorState,
   TransactionState,
   transactionReducer,
+  termsReducer,
 } from '../state/reducers'
 import { Account } from '../types'
 
@@ -18,6 +19,7 @@ export interface State {
   error: ErrorState
   connection: ConnectionState
   transaction: TransactionState
+  termsAccepted: boolean
 }
 
 export const StateContext = React.createContext<{
@@ -33,12 +35,20 @@ export const StateContext = React.createContext<{
       isInProgress: false,
       needsSignature: false,
     },
+    termsAccepted: false,
   },
   dispatch: () => null,
 })
 
 const mainReducer = (
-  { refreshPaused, account, error, connection, transaction }: State,
+  {
+    refreshPaused,
+    account,
+    error,
+    connection,
+    transaction,
+    termsAccepted,
+  }: State,
   action: Actions
 ) => ({
   refreshPaused: pauseReducer(refreshPaused, action),
@@ -46,6 +56,7 @@ const mainReducer = (
   error: errorReducer(error, action),
   connection: connectionReducer(connection, action),
   transaction: transactionReducer(transaction, action),
+  termsAccepted: termsReducer(termsAccepted, action),
 })
 
 export const StateProvider: React.FC = ({ children }) => {
@@ -58,6 +69,7 @@ export const StateProvider: React.FC = ({ children }) => {
       isInProgress: false,
       needsSignature: false,
     },
+    termsAccepted: false,
   })
 
   return (

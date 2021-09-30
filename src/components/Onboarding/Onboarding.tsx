@@ -5,7 +5,7 @@ import bg1 from '../../pics/FTU_BG_01.png'
 import bg2 from '../../pics/FTU_BG_02.png'
 import bg3 from '../../pics/FTU_BG_03.png'
 import bg4 from '../../pics/FTU_BG_04.png'
-import { StoredStateContext } from '../../utils/StoredStateContext'
+import { StateContext } from '../../utils/StateContext'
 import { Overlays } from '../Overlays/Overlays'
 import { NoExtension } from './NoExtension'
 import { NoAccount } from './NoAccount'
@@ -116,7 +116,7 @@ export const Onboarding: React.FC<Props> = ({ extensions, children }) => {
 
   const {
     state: { termsAccepted },
-  } = useContext(StoredStateContext)
+  } = useContext(StateContext)
 
   const status = needsOnboarding(extensions, accounts, termsAccepted)
 

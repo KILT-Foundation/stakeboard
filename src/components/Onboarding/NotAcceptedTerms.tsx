@@ -1,11 +1,11 @@
 import styles from './Onboarding.module.css'
 import { Button } from '../Button/Button'
 import { useContext, useState } from 'react'
-import { StoredStateContext } from '../../utils/StoredStateContext'
+import { StateContext } from '../../utils/StateContext'
 import PDF from '../../uploads/210930_Stakeboard_Terms&License.pdf'
 
 export const NotAcceptedTerms: React.FC = () => {
-  const { dispatch } = useContext(StoredStateContext)
+  const { dispatch } = useContext(StateContext)
   const [acceptedTerms, setAcceptedTerms] = useState<boolean>(true)
   return (
     <>

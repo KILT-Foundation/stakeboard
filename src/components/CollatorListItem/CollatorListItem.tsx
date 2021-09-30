@@ -5,7 +5,7 @@ import rowStyles from '../../styles/row.module.css'
 import { StakeRow } from '../StakeRow/StakeRow'
 import { NewStakeRow } from '../NewStakeRow/NewStakeRow'
 import { CollatorRow } from '../CollatorRow/CollatorRow'
-import { StoredStateContext } from '../../utils/StoredStateContext'
+import { StateContext } from '../../utils/StateContext'
 
 export interface Props {
   entry: DataWithRank
@@ -17,7 +17,7 @@ export const CollatorListItem: React.FC<Props> = ({ entry }) => {
   const [expanded, setExpanded] = useState(false)
   const {
     state: { termsAccepted },
-  } = useContext(StoredStateContext)
+  } = useContext(StateContext)
   return (
     <>
       <tr className={styles.firstRow}></tr>
