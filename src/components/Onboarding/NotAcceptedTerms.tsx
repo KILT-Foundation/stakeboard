@@ -21,6 +21,7 @@ export const NotAcceptedTerms: React.FC = () => {
         <input
           type={'checkbox'}
           onClick={() => setAcceptedTerms(!acceptedTerms)}
+          className={styles.checkbox}
         />
         I have read and agree to the
         <a

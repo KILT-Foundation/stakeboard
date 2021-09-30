@@ -49,3 +49,9 @@
   font-size: var(--font-size-medium);
   margin-left: 5px;
 }
+
+.checkbox {
+  margin-right: 5px;
+  position: relative;
+  top: 1px;
+}
