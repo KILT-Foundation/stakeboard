@@ -1,10 +1,9 @@
 import React from 'react'
 import styles from './Footer.module.css'
 import packageInfo from '../../../package.json'
-// import PDF from '../../uploads/210930_Stakeboard_Terms&License.pdf'
+import PDF from '../../uploads/210930_Stakeboard_Terms&License.pdf'
 import { ImprintModal } from '../ImprintModal/ImprintModal'
 import { useModal } from '../../utils/useModal'
-const PDF = 'awesome!'
 
 export const Footer: React.FC = () => {
   const { isVisible, showModal, hideModal } = useModal()
