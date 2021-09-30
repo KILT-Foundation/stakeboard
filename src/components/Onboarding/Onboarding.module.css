@@ -43,3 +43,9 @@
   margin-left: 20px;
   vertical-align: bottom;
 }
+
+.termsLink {
+  color: var(--color-yellow-text);
+  font-size: var(--font-size-medium);
+  margin-left: 5px;
+}

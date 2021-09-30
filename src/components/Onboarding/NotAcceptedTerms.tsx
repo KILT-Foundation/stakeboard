@@ -2,6 +2,7 @@ import styles from './Onboarding.module.css'
 import { Button } from '../Button/Button'
 import { useContext } from 'react'
 import { StoredStateContext } from '../../utils/StoredStateContext'
+import Pdf from '../../uploads/210930_Stakeboard_Terms&License.pdf'
 
 export const NotAcceptedTerms: React.FC = () => {
   const { dispatch } = useContext(StoredStateContext)
@@ -19,7 +20,17 @@ export const NotAcceptedTerms: React.FC = () => {
         In order to enter the halfpipe, please make sure to agree to the Terms
         &amp; Conditions.
       </p>
-      <p className={styles.text}>Read Terms: LINK COMING SOON</p>
+      <p className={styles.text}>
+        Read Terms:
+        <a
+          href={Pdf}
+          rel="noopener noreferrer"
+          target="_blank"
+          className={styles.termsLink}
+        >
+          Terms and Conditions
+        </a>
+      </p>
       <span className={styles.highlighted}>
         <Button
           label="Accept"
