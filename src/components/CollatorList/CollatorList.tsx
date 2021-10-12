@@ -48,12 +48,12 @@ export const CollatorList: React.FC = () => {
 
     switch (sortBy) {
       case SORT_BY.Rank_Reverse: {
-        newData.sort((a, b) => a.rank - b.rank)
+        newData.sort((a, b) => b.rank - a.rank)
         break
       }
       default:
       case SORT_BY.Rank: {
-        newData.sort((a, b) => b.rank - a.rank)
+        newData.sort((a, b) => a.rank - b.rank)
         break
       }
     }
