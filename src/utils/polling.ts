@@ -1,3 +1,5 @@
+import { Balance } from '@polkadot/types/interfaces'
+import { queryTotalIssurance, queryOverallTotalStake } from '.'
 import { Candidate, ChainTypes } from '../types'
 import {
   getCandidatePool,
@@ -45,15 +47,31 @@ type ChainInfo = {
   sessionInfo: ChainTypes.RoundInfo
   bestBlock: ChainTypes.BlockNumber
   bestFinalisedBlock: ChainTypes.BlockNumber
+  overrallTotalStake: ChainTypes.TotalStake
+  totalIssuance: Balance
 }
 
 const updateChainInfo = async (): Promise<ChainInfo> => {
-  const [sessionInfo, bestBlock, bestFinalisedBlock] = await Promise.all([
+  const [
+    sessionInfo,
+    bestBlock,
+    bestFinalisedBlock,
+    overrallTotalStake,
+    totalIssuance,
+  ] = await Promise.all([
     querySessionInfo(),
     queryBestBlock(),
     queryBestFinalisedBlock(),
+    queryOverallTotalStake(),
+    queryTotalIssurance(),
   ])
-  return { sessionInfo, bestBlock, bestFinalisedBlock }
+  return {
+    sessionInfo,
+    bestBlock,
+    bestFinalisedBlock,
+    overrallTotalStake,
+    totalIssuance,
+  }
 }
 
 export type Unstaking = {

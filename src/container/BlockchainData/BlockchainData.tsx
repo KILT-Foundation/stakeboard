@@ -1,3 +1,4 @@
+import { Balance } from '@polkadot/types/interfaces'
 import React, { useContext, useEffect, useState } from 'react'
 import { Account, Candidate, ChainTypes, Data } from '../../types'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
@@ -24,6 +25,11 @@ export const BlockchainData: React.FC<Props> = ({
     bestFinalisedBlock,
     setBestFinalisedBlock,
   ] = useState<ChainTypes.BlockNumber>()
+  const [
+    overallTotalStake,
+    setOverallTotalStake,
+  ] = useState<ChainTypes.TotalStake>()
+  const [totalIssuance, setTotalIssuance] = useState<Balance>()
   const [accountInfos, setAccountInfos] = useState<Record<string, AccountInfo>>(
     {}
   )
@@ -53,6 +59,8 @@ export const BlockchainData: React.FC<Props> = ({
           setSessionInfo(chainInfo.sessionInfo)
           setBestBlock(chainInfo.bestBlock)
           setBestFinalisedBlock(chainInfo.bestFinalisedBlock)
+          setOverallTotalStake(chainInfo.overrallTotalStake)
+          setTotalIssuance(chainInfo.totalIssuance)
           setAccountInfos(newAccountInfos)
         }
       )
@@ -121,7 +129,15 @@ export const BlockchainData: React.FC<Props> = ({
 
   return (
     <BlockchainDataContext.Provider
-      value={{ dataSet, accounts, sessionInfo, bestBlock, bestFinalisedBlock }}
+      value={{
+        dataSet,
+        accounts,
+        sessionInfo,
+        bestBlock,
+        bestFinalisedBlock,
+        overallTotalStake,
+        totalIssuance,
+      }}
     >
       {children}
     </BlockchainDataContext.Provider>

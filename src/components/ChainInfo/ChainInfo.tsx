@@ -5,18 +5,26 @@ import styles from './ChainInfo.module.css'
 import cx from 'classnames'
 import { Icon } from '../Icon/Icon'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
+import { getPercentage } from '../../utils/stakePercentage'
+import { femtoToKilt } from '../../utils/conversion'
 
-export const ChainInfo: React.FC = ({}) => {
+export const ChainInfo: React.FC = () => {
   const [sessionCount, setSessionCount] = useState<number>()
   const [sessionCountdown, setSessionCountdown] = useState('')
+  const [collatorsPercentage, setCollatorsPercentage] = useState<string>('')
+  const [delegatorsPercentage, setDelegatorsPercentage] = useState<string>('')
 
   const {
     state: { refreshPaused },
   } = useContext(StateContext)
 
-  const { sessionInfo, bestBlock, bestFinalisedBlock } = useContext(
-    BlockchainDataContext
-  )
+  const {
+    sessionInfo,
+    bestBlock,
+    bestFinalisedBlock,
+    overallTotalStake,
+    totalIssuance,
+  } = useContext(BlockchainDataContext)
 
   useEffect(() => {
     const sessionCount = sessionCounter(sessionInfo, bestBlock)
@@ -25,6 +33,33 @@ export const ChainInfo: React.FC = ({}) => {
     setSessionCountdown(sessionTime)
   }, [sessionInfo, bestBlock])
 
+  useEffect(() => {
+    if (totalIssuance && overallTotalStake) {
+      // Takes it to a whole KILT
+      const convertedCollatorsStake = femtoToKilt(
+        overallTotalStake.collators.toBigInt()
+      )
+      // Takes it to a whole KILT
+      const convertedDelegatorsStake = femtoToKilt(
+        overallTotalStake.delegators.toBigInt()
+      )
+      // Takes it to a whole KILT
+      const convertedTotalIssuance = femtoToKilt(totalIssuance.toBigInt())
+      setCollatorsPercentage(
+        getPercentage(convertedCollatorsStake, convertedTotalIssuance)
+      )
+      setDelegatorsPercentage(
+        getPercentage(convertedDelegatorsStake, convertedTotalIssuance)
+      )
+    }
+  }, [overallTotalStake, totalIssuance])
+
+  console.log(
+    'collators',
+    `${collatorsPercentage + '%'} / 10%`,
+    'delegators',
+    `${delegatorsPercentage + '%'} / 40%`
+  )
   return (
     <div className={refreshPaused ? styles.chaininfoPaused : styles.chaininfo}>
       <div className={styles.container}>

@@ -1,6 +1,7 @@
 import type { Vec, Option, BTreeMap, Tuple } from '@polkadot/types'
 import type {
   AccountId,
+  Balance,
   BalanceOf,
   BlockNumber,
 } from '@polkadot/types/interfaces'
@@ -87,6 +88,16 @@ export async function queryBestFinalisedBlock() {
   return api.derive.chain.bestNumberFinalized()
 }
 
+export async function queryOverallTotalStake() {
+  const api = await getConnection()
+  return api.query.parachainStaking.totalCollatorStake<ChainTypes.TotalStake>()
+}
+
+export async function queryTotalIssurance() {
+  const api = await getConnection()
+  return api.query.balances.totalIssuance<Balance>()
+}
+
 export async function getBalance(account: string) {
   const api = await getConnection()
   return api.query.system.account(account)
@@ -144,6 +155,8 @@ export async function signAndSend(
     }
   )
 }
+
+// Staking features
 
 export async function joinDelegators(collator: string, stake: bigint) {
   const api = await getConnection()

@@ -36,3 +36,8 @@ export interface Delegator extends Struct {
   delegations: Vec<Stake>
   total: Balance
 }
+
+export interface TotalStake extends Struct {
+  collators: Balance
+  delegators: Balance
+}
