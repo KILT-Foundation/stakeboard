@@ -24,12 +24,12 @@ export const Page: React.FC<Props> = () => {
         <ChainInfo />
         <Dashboard extensions={extensions} />
         <CollatorList />
+        <div className={styles.spacer} />
+        <Footer />
       </BlockchainData>
       <ErrorNotification />
       <ConnectionNotification />
       <BlockchainNotication />
-      <div className={styles.spacer}/>
-      <Footer />
     </div>
   )
 }
