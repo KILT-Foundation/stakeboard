@@ -30,7 +30,6 @@
   font-family: var(--font-countdown);
   font-size: var(--font-size-small);
   color: var(--color-gray-alt-text);
-  display: flex;
   padding-right: 10px;
 }
 .name {
