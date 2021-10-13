@@ -24,11 +24,9 @@ export const Footer: React.FC = () => {
   useEffect(() => {
     if (!overallTotalStake || !totalIssuance) return
     // Takes it to a whole KILT
-    const convertedDelegatorsStake = femtoToKilt(
-      overallTotalStake.delegators.toBigInt()
-    )
+    const convertedDelegatorsStake = femtoToKilt(overallTotalStake.delegators)
     // Takes it to a whole KILT
-    const convertedTotalIssuance = femtoToKilt(totalIssuance.toBigInt())
+    const convertedTotalIssuance = femtoToKilt(totalIssuance)
     setDelegatorsPercentage(
       getPercentage(convertedDelegatorsStake, convertedTotalIssuance)
     )

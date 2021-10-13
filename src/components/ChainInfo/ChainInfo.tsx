@@ -49,7 +49,7 @@ export const ChainInfo: React.FC = () => {
         <Icon type="block_new" />
         <span className={styles.label}>Best Block</span>
         <span className={refreshPaused ? styles.valuePaused : styles.value}>
-          # {bestBlock ? bestBlock.toNumber().toLocaleString() : '000,000'}
+          # {bestBlock ? bestBlock.toLocaleString() : '000,000'}
         </span>
         <span className={styles.leftMargin}>
           <Icon type="block_new" />
@@ -57,9 +57,7 @@ export const ChainInfo: React.FC = () => {
         <span className={styles.label}>Finalized Block</span>
         <span className={refreshPaused ? styles.valuePaused : styles.value}>
           #{' '}
-          {bestFinalisedBlock
-            ? bestFinalisedBlock.toNumber().toLocaleString()
-            : '000,000'}
+          {bestFinalisedBlock ? bestFinalisedBlock.toLocaleString() : '000,000'}
         </span>
       </div>
     </div>

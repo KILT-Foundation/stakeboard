@@ -1,15 +1,15 @@
-import { Balance } from '@polkadot/types/interfaces'
 import React from 'react'
 import { Data, Account, ChainTypes } from '../types'
+import { OverallTotalStake } from './polling'
 
 export const BlockchainDataContext = React.createContext<{
   dataSet: Data[]
   accounts: Account[]
   sessionInfo?: ChainTypes.RoundInfo
-  bestBlock?: ChainTypes.BlockNumber
-  bestFinalisedBlock?: ChainTypes.BlockNumber
-  overallTotalStake?: ChainTypes.TotalStake
-  totalIssuance?: Balance
+  bestBlock?: number
+  bestFinalisedBlock?: number
+  overallTotalStake?: OverallTotalStake
+  totalIssuance?: bigint
 }>({
   dataSet: [],
   accounts: [],

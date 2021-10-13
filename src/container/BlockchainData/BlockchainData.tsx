@@ -1,9 +1,8 @@
-import { Balance } from '@polkadot/types/interfaces'
 import React, { useContext, useEffect, useState } from 'react'
 import { Account, Candidate, ChainTypes, Data } from '../../types'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 import { femtoToKilt } from '../../utils/conversion'
-import { AccountInfo, initialize } from '../../utils/polling'
+import { AccountInfo, initialize, OverallTotalStake } from '../../utils/polling'
 import { StoredStateContext } from '../../utils/StoredStateContext'
 
 export interface Props {
@@ -20,16 +19,13 @@ export const BlockchainData: React.FC<Props> = ({
   const [dataSet, setDataSet] = useState<Data[]>([])
   const [accounts, setAccounts] = useState<Account[]>([])
   const [sessionInfo, setSessionInfo] = useState<ChainTypes.RoundInfo>()
-  const [bestBlock, setBestBlock] = useState<ChainTypes.BlockNumber>()
-  const [
-    bestFinalisedBlock,
-    setBestFinalisedBlock,
-  ] = useState<ChainTypes.BlockNumber>()
+  const [bestBlock, setBestBlock] = useState<number>()
+  const [bestFinalisedBlock, setBestFinalisedBlock] = useState<number>()
   const [
     overallTotalStake,
     setOverallTotalStake,
-  ] = useState<ChainTypes.TotalStake>()
-  const [totalIssuance, setTotalIssuance] = useState<Balance>()
+  ] = useState<OverallTotalStake>()
+  const [totalIssuance, setTotalIssuance] = useState<bigint>()
   const [accountInfos, setAccountInfos] = useState<Record<string, AccountInfo>>(
     {}
   )

@@ -1,4 +1,3 @@
-import { Balance } from '@polkadot/types/interfaces'
 import { queryTotalIssurance, queryOverallTotalStake } from '.'
 import { Candidate, ChainTypes } from '../types'
 import {
@@ -43,12 +42,17 @@ const updateCollators = async () => {
   return { candidates, selectedCandidates, currentCandidates }
 }
 
+export interface OverallTotalStake {
+  collators: bigint
+  delegators: bigint
+}
+
 type ChainInfo = {
   sessionInfo: ChainTypes.RoundInfo
-  bestBlock: ChainTypes.BlockNumber
-  bestFinalisedBlock: ChainTypes.BlockNumber
-  overrallTotalStake: ChainTypes.TotalStake
-  totalIssuance: Balance
+  bestBlock: number
+  bestFinalisedBlock: number
+  overrallTotalStake: OverallTotalStake
+  totalIssuance: bigint
 }
 
 const updateChainInfo = async (): Promise<ChainInfo> => {
@@ -65,13 +69,18 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     queryOverallTotalStake(),
     queryTotalIssurance(),
   ])
-  return {
+  const chainInfo: ChainInfo = {
     sessionInfo,
-    bestBlock,
-    bestFinalisedBlock,
-    overrallTotalStake,
-    totalIssuance,
+    bestBlock: bestBlock.toNumber(),
+    bestFinalisedBlock: bestFinalisedBlock.toNumber(),
+    overrallTotalStake: {
+      collators: overrallTotalStake.collators.toBigInt(),
+      delegators: overrallTotalStake.delegators.toBigInt(),
+    },
+    totalIssuance: totalIssuance.toBigInt(),
   }
+
+  return chainInfo
 }
 
 export type Unstaking = {
