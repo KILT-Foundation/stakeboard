@@ -18,8 +18,10 @@
 }
 
 .number {
-  max-width: 110px;
+  width: 200px;
+  max-width: 100%;
   text-align: right;
+  box-sizing: border-box;
 }
 
 .number::-webkit-outer-spin-button,
