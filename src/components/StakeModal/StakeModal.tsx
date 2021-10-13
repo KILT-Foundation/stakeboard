@@ -49,9 +49,7 @@ export const StakeModal: React.FC<Props> = ({
           <br />
           Please note that you need to have
           <br />
-          funds to pay Angel’s Share
-          <br />
-          (transaction fee) for every transaction
+          additional funds to pay fees for every transaction
           <br />
           you want to make (e.g. stake,
           <br />
@@ -75,10 +73,8 @@ export const StakeModal: React.FC<Props> = ({
           STAKE: {newStake.toLocaleString()} <br />
           <br />
           Please note that you need to have
-          <br /> 
-          funds to pay Angel’s Share
           <br />
-          (transaction fee) for every transaction
+          additional funds to pay fees for every transaction
           <br />
           you want to make (e.g. stake,
           <br />
