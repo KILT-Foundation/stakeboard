@@ -25,7 +25,10 @@
 }
 
 .stakeRow td {
-  border-top: 1px solid var(--color-primary-light);
+  border-top: 1px solid #ffee00a8;
+  font-size: var(--font-size-small);
+}
+.stakedRow td {
   font-size: var(--font-size-small);
 }
 .stakeRow td:first-of-type,

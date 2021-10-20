@@ -43,9 +43,13 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, collator }) => {
 
   return (
     <tr
-      className={cx(rowStyles.row, rowStyles.stakeRow, {
-        [rowStyles.staked]: staked,
-      })}
+      className={cx(
+        rowStyles.row,
+        staked ? rowStyles.stakeRow : rowStyles.stakedRow,
+        {
+          [rowStyles.staked]: staked,
+        }
+      )}
     >
       <td></td>
       <td></td>
