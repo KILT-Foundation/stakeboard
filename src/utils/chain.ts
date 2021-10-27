@@ -140,11 +140,9 @@ export async function signAndSend(
         if (dispatchError.isModule) {
           // for module errors, we have the section indexed, lookup
           const decoded = api.registry.findMetaError(dispatchError.asModule)
-          const { documentation, name, section } = decoded
+          const { docs, name, section } = decoded
 
-          const error = new Error(
-            `${section}.${name}: ${documentation.join(' ')}`
-          )
+          const error = new Error(`${section}.${name}: ${docs.join(' ')}`)
           onError(error)
         } else {
           // Other, CannotLookup, BadOrigin, no extra info

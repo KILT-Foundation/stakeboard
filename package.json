@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@kiltprotocol/type-definitions": "^0.1.15",
-    "@polkadot/api": "^4.11.2",
+    "@polkadot/api": "^6.4.2",
     "@polkadot/extension-dapp": "^0.38.1",
     "@polkadot/ui-shared": "^0.80.1",
     "@testing-library/jest-dom": "^5.11.4",
