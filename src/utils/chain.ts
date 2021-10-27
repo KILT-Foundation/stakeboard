@@ -17,27 +17,6 @@ export async function getGenesis() {
   return api.genesisHash.toHex()
 }
 
-export async function subscribeToCandidatePool(
-  listener: (result: Vec<ChainTypes.Stake>) => void
-) {
-  const api = await getConnection()
-  // @ts-ignore
-  window.trigger = (pool) => {
-    listener(pool)
-  }
-  api.query.parachainStaking.candidatePool<Vec<ChainTypes.Stake>>(listener)
-}
-
-export async function subscribeToCollatorState(
-  account: string,
-  listener: (result: Option<ChainTypes.Collator>) => void
-) {
-  const api = await getConnection()
-  return await api.query.parachainStaking.collatorState<
-    Option<ChainTypes.Collator>
-  >(account, listener)
-}
-
 export async function getCandidatePool() {
   const api = await getConnection()
   return api.query.parachainStaking.candidatePool.entries<
