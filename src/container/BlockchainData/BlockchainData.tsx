@@ -26,6 +26,7 @@ export const BlockchainData: React.FC<Props> = ({
     setOverallTotalStake,
   ] = useState<OverallTotalStake>()
   const [totalIssuance, setTotalIssuance] = useState<bigint>()
+  const [maxCandidateCount, setMaxCandidateCount] = useState<number>()
   const [accountInfos, setAccountInfos] = useState<Record<string, AccountInfo>>(
     {}
   )
@@ -58,6 +59,7 @@ export const BlockchainData: React.FC<Props> = ({
           setOverallTotalStake(chainInfo.overrallTotalStake)
           setTotalIssuance(chainInfo.totalIssuance)
           setAccountInfos(newAccountInfos)
+          setMaxCandidateCount(chainInfo.maxCandidateCount)
         }
       )
     }
@@ -133,6 +135,7 @@ export const BlockchainData: React.FC<Props> = ({
         bestFinalisedBlock,
         overallTotalStake,
         totalIssuance,
+        maxCandidateCount,
       }}
     >
       {children}

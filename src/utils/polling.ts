@@ -1,4 +1,3 @@
-import { queryTotalIssurance, queryOverallTotalStake } from '.'
 import { Candidate, ChainTypes } from '../types'
 import {
   getCandidatePool,
@@ -11,6 +10,9 @@ import {
   querySessionInfo,
   getUnstakingAmounts,
   getDelegatorStake,
+  queryTotalIssurance,
+  queryOverallTotalStake,
+  queryMaxCandidateCount,
 } from './chain'
 
 const updateCollators = async () => {
@@ -53,6 +55,7 @@ type ChainInfo = {
   bestFinalisedBlock: number
   overrallTotalStake: OverallTotalStake
   totalIssuance: bigint
+  maxCandidateCount: number
 }
 
 const updateChainInfo = async (): Promise<ChainInfo> => {
@@ -62,12 +65,14 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     bestFinalisedBlock,
     overrallTotalStake,
     totalIssuance,
+    maxCandidateCount,
   ] = await Promise.all([
     querySessionInfo(),
     queryBestBlock(),
     queryBestFinalisedBlock(),
     queryOverallTotalStake(),
     queryTotalIssurance(),
+    queryMaxCandidateCount(),
   ])
   const chainInfo: ChainInfo = {
     sessionInfo,
@@ -78,6 +83,7 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
       delegators: overrallTotalStake.delegators.toBigInt(),
     },
     totalIssuance: totalIssuance.toBigInt(),
+    maxCandidateCount: maxCandidateCount.toNumber(),
   }
 
   return chainInfo

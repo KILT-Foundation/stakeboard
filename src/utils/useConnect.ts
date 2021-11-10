@@ -7,8 +7,8 @@ let cachedApi: Promise<ApiPromise> | null = null
 let wsProvider: WsProvider | null = null
 
 // const ENDPOINT = process.env.REACT_APP_ENDPOINT || 'wss://peregrine.kilt.io'
-const ENDPOINT =
-  process.env.REACT_APP_ENDPOINT || 'wss://kilt-peregrine-stg.kilt.io'
+const ENDPOINT = 'wss://spiritnet.kilt.io'
+// process.env.REACT_APP_ENDPOINT || 'wss://kilt-peregrine-stg.kilt.io'
 
 export const useConnect = () => {
   const { dispatch } = useContext(StateContext)
