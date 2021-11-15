@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import cx from 'classnames'
 import { Collator } from '../Collator/Collator'
 import { Button } from '../Button/Button'
@@ -77,11 +77,13 @@ export const CollatorRow: React.FC<Props> = ({
       </td>
       <td>
         <span
-          className={cx({
+          className={cx(rowStyles.rank, {
             [rowStyles.topRank]:
-              entry.rank && entry.rank <= (maxCandidateCount || 0),
+              entry.rank &&
+              maxCandidateCount &&
+              entry.rank <= maxCandidateCount,
             [rowStyles.candidatePool]:
-              entry.rank && entry.rank > (maxCandidateCount || 0),
+              entry.rank && maxCandidateCount && entry.rank > maxCandidateCount,
           })}
         >
           {leftFillZero(entry.rank, 3)}

@@ -38,6 +38,10 @@
   cursor: pointer;
 }
 
+.rank {
+  padding-right: 15px;
+}
+
 .topRank {
   color: var(--color-green-text);
   padding-right: 15px;
