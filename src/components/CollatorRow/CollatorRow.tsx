@@ -22,13 +22,6 @@ export const CollatorRow: React.FC<Props> = ({
 }) => {
   const { dispatch } = useContext(StoredStateContext)
   const { maxCandidateCount } = useContext(BlockchainDataContext)
-  const [candidatePool, setCandidatePool] = useState<number>(0)
-
-  useEffect((): void => {
-    if (!maxCandidateCount) return
-
-    setCandidatePool(maxCandidateCount)
-  }, [maxCandidateCount])
 
   const hasStakes = entry.stakes.length
 
@@ -85,8 +78,10 @@ export const CollatorRow: React.FC<Props> = ({
       <td>
         <span
           className={cx({
-            [rowStyles.topRank]: entry.rank && entry.rank <= candidatePool,
-            [rowStyles.candidatePool]: entry.rank && entry.rank > candidatePool,
+            [rowStyles.topRank]:
+              entry.rank && entry.rank <= (maxCandidateCount || 0),
+            [rowStyles.candidatePool]:
+              entry.rank && entry.rank > (maxCandidateCount || 0),
           })}
         >
           {leftFillZero(entry.rank, 3)}
