@@ -74,7 +74,7 @@ export async function queryOverallTotalStake() {
 
 export async function queryMaxCandidateCount() {
   const api = await getConnection()
-  return api.query.parachainStaking.candidateCount<u32>()
+  return api.query.parachainStaking.maxSelectedCandidates<u32>()
 }
 
 export async function queryTotalIssurance() {
