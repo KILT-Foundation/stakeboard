@@ -4,6 +4,7 @@
   text-align: left;
   margin-top: 10px;
   background-color: var(--color-bg);
+  table-layout: fixed;
 }
 
 .tableHead {
@@ -37,4 +38,16 @@ tr.search {
 
 .activeSort {
   color: var(--color-primary);
+}
+
+.indicatorCol {
+  width: 110px;
+}
+
+.actionCol {
+  width: 120px;
+}
+
+.tokensCol {
+  width: 50px;
 }

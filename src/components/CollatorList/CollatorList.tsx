@@ -82,7 +82,7 @@ export const CollatorList: React.FC = () => {
               <Icon type="search" />
             </span>
           </th>
-          <th></th>
+          <th className={styles.indicatorCol}></th>
           <th
             className={cx({
               [styles.activeSort]:
@@ -115,11 +115,11 @@ export const CollatorList: React.FC = () => {
             className={cx({
               [styles.activeSort]: sortBy === SORT_BY.Delegators,
             })}
-            colSpan={2}
           >
             Delegators
           </th>
-          <th>
+          <th className={styles.actionCol}></th>
+          <th className={styles.tokensCol}>
             <Icon type="tokens_white" />
           </th>
           <th className={rowStyles.spacer}></th>
