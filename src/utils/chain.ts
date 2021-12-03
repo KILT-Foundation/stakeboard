@@ -82,6 +82,11 @@ export async function queryTotalIssurance() {
   return api.query.balances.totalIssuance<Balance>()
 }
 
+export async function queryMinDelegatorStake() {
+  const api = await getConnection()
+  return api.consts.parachainStaking.minDelegatorStake
+}
+
 export async function getBalance(account: string) {
   const api = await getConnection()
   return api.query.system.account(account)

@@ -13,7 +13,9 @@ import {
   queryTotalIssurance,
   queryOverallTotalStake,
   queryMaxCandidateCount,
+  queryMinDelegatorStake,
 } from './chain'
+import { femtoToKilt } from './conversion'
 
 const updateCollators = async () => {
   const [
@@ -56,6 +58,7 @@ type ChainInfo = {
   overrallTotalStake: OverallTotalStake
   totalIssuance: bigint
   maxCandidateCount: number
+  minDelegatorStake: number
 }
 
 const updateChainInfo = async (): Promise<ChainInfo> => {
@@ -66,6 +69,7 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     overrallTotalStake,
     totalIssuance,
     maxCandidateCount,
+    minDelegatorStake,
   ] = await Promise.all([
     querySessionInfo(),
     queryBestBlock(),
@@ -73,7 +77,9 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     queryOverallTotalStake(),
     queryTotalIssurance(),
     queryMaxCandidateCount(),
+    queryMinDelegatorStake(),
   ])
+
   const chainInfo: ChainInfo = {
     sessionInfo,
     bestBlock: bestBlock.toNumber(),
@@ -84,6 +90,7 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     },
     totalIssuance: totalIssuance.toBigInt(),
     maxCandidateCount: maxCandidateCount.toNumber(),
+    minDelegatorStake: femtoToKilt(BigInt(minDelegatorStake.toString())),
   }
 
   return chainInfo
