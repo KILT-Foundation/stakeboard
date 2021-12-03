@@ -1,6 +1,10 @@
+import { useContext } from 'react'
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 import styles from './Onboarding.module.css'
 
 export const NoAccount: React.FC = () => {
+  const { minDelegatorStake } = useContext(BlockchainDataContext)
+
   return (
     <>
       <span className={styles.highlighted}>Hey Staker,</span>
@@ -13,7 +17,8 @@ export const NoAccount: React.FC = () => {
       </p>
       <p className={styles.text}>
         In order to enter the halfpipe, please make sure that you have created a
-        KILT Identity and loaded it with at least 1001 KILT Coins. You can set
+        KILT Identity and loaded it with at least
+        {minDelegatorStake && minDelegatorStake + 1} KILT Coins. You can set
         this up using Polkadot.js or the Sporran extension for Google Chrome or
         Mozilla Firefox, which you can download below.
       </p>

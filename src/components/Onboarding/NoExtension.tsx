@@ -1,6 +1,9 @@
+import { useContext } from 'react'
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 import styles from './Onboarding.module.css'
 
 export const NoExtension: React.FC = () => {
+  const { minDelegatorStake } = useContext(BlockchainDataContext)
   return (
     <>
       <span className={styles.highlighted}>Hey Staker,</span>
@@ -13,8 +16,10 @@ export const NoExtension: React.FC = () => {
       </p>
       <p className={styles.text}>
         In order to enter the halfpipe, download the Sporran extension, create a
-        KILT Identity and load it with at least 1001 KILT Coins. If you have the
-        extension already, make sure to give Stakeboard access to it.
+        KILT Identity and load it with at least
+        {minDelegatorStake && minDelegatorStake + 1}
+        KILT Coins. If you have the extension already, make sure to give
+        Stakeboard access to it.
       </p>
       <p className={styles.text}>
         Please reload the page after setting up the extension.

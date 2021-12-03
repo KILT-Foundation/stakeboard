@@ -18,7 +18,7 @@ export interface Props {
 }
 
 export const NewStakeRow: React.FC<Props> = ({ staked = false, collator }) => {
-  const { accounts } = useContext(BlockchainDataContext)
+  const { accounts, minDelegatorStake } = useContext(BlockchainDataContext)
   const { isVisible, showModal, hideModal } = useModal()
   const [newStake, setNewStake] = useState<number | undefined>()
   const [address, setAddress] = useState('')
@@ -93,7 +93,14 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, collator }) => {
         <Button
           label={'Stake'}
           onClick={showModal}
-          disabled={!(address && newStake !== undefined && newStake >= 1000)}
+          disabled={
+            !(
+              minDelegatorStake &&
+              address &&
+              newStake !== undefined &&
+              newStake >= minDelegatorStake
+            )
+          }
         />
       </td>
       <td></td>

@@ -25,16 +25,21 @@ enum OnboardingStatus {
   Ok,
 }
 
-function isUsableAccount(account: Account) {
+function isUsableAccount(
+  account: Account,
+  minDelegatorStake: number | undefined
+) {
   if (account.staked > 0) return true
-  if (account.stakeable >= 1001) return true
+  if (minDelegatorStake && account.stakeable >= minDelegatorStake + 1)
+    return true
   if (account.unstaking.length > 0) return true
 }
 
 function needsOnboarding(
   extensions: Extension[],
   accounts: Account[],
-  termsAccepted: boolean
+  termsAccepted: boolean,
+  minDelegatorStake: number | undefined
 ) {
   if (!termsAccepted) {
     return OnboardingStatus.NotAcceptedTerms
@@ -42,7 +47,7 @@ function needsOnboarding(
     return OnboardingStatus.NoExtension
   } else if (accounts.length === 0) {
     return OnboardingStatus.NoAccount
-  } else if (!accounts.some(isUsableAccount)) {
+  } else if (!accounts.map((val) => isUsableAccount(val, minDelegatorStake))) {
     return OnboardingStatus.NoTokens
   } else {
     return OnboardingStatus.Ok
@@ -105,7 +110,7 @@ export interface Props {
   extensions: Extension[]
 }
 export const Onboarding: React.FC<Props> = ({ extensions, children }) => {
-  const { accounts } = useContext(BlockchainDataContext)
+  const { accounts, minDelegatorStake } = useContext(BlockchainDataContext)
 
   const [background, setBackground] = useState<string | null>(null)
 
@@ -118,7 +123,12 @@ export const Onboarding: React.FC<Props> = ({ extensions, children }) => {
     state: { termsAccepted },
   } = useContext(StateContext)
 
-  const status = needsOnboarding(extensions, accounts, termsAccepted)
+  const status = needsOnboarding(
+    extensions,
+    accounts,
+    termsAccepted,
+    minDelegatorStake
+  )
 
   if (status === OnboardingStatus.Ok) {
     return <>{children}</>

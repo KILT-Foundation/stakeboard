@@ -28,7 +28,7 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
   const [editStake, setEditStake] = useState(false)
   const [newStake, setNewStake] = useState<number | undefined>()
   const signAndSubmitTx = useTxSubmitter()
-  const { accounts } = useContext(BlockchainDataContext)
+  const { accounts, minDelegatorStake } = useContext(BlockchainDataContext)
 
   const handleEdit = () => {
     setEditStake(!editStake)
@@ -122,7 +122,9 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
               onClick={showModal}
               disabled={
                 newStake === stakeInfo.stake ||
-                Boolean(newStake && newStake < 1000)
+                Boolean(
+                  minDelegatorStake && newStake && newStake < minDelegatorStake
+                )
               }
             />
           )}
