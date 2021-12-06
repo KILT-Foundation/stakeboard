@@ -9,6 +9,7 @@ import { BlockchainData } from '../BlockchainData/BlockchainData'
 import { useExtension } from '../../utils/useExtension'
 import { ErrorNotification } from '../ErrorNotification/ErrorNotification'
 import { useConnect } from '../../utils/useConnect'
+import { LoadingDataNotification } from '../../components/LoadingDataNotification/LoadingDataNotification'
 import { ConnectionNotification } from '../../components/ConnectionNotification/ConnectionNotification'
 import { BlockchainNotication } from '../BlockchainNotification/BlockchainNotification'
 
@@ -29,6 +30,7 @@ export const Page: React.FC<Props> = () => {
       </BlockchainData>
       <ErrorNotification />
       <ConnectionNotification />
+      <LoadingDataNotification />
       <BlockchainNotication />
     </div>
   )
