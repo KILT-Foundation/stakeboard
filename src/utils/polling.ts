@@ -90,7 +90,7 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     },
     totalIssuance: totalIssuance.toBigInt(),
     maxCandidateCount: maxCandidateCount.toNumber(),
-    minDelegatorStake: femtoToKilt(BigInt(minDelegatorStake.toString())),
+    minDelegatorStake: femtoToKilt(minDelegatorStake.toBigInt()),
   }
 
   return chainInfo
