@@ -73,7 +73,7 @@ export const BlockchainData: React.FC<Props> = ({
     return () => {
       stop()
     }
-  }, [chainInfoActivate, state, dispatch, partialAccounts])
+  }, [partialAccounts])
 
   useEffect(() => {
     if (state.connection.status === 'connected' && !chainInfoActivate) {
