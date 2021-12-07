@@ -113,19 +113,18 @@ export const connectionReducer: Reducer<ConnectionState, Actions> = (
 }
 
 export type LoadingDataState = {
-  status: 'loading' | 'updating' | 'available'
-  err?: any
+  status: 'loading' | 'available' | undefined
 }
 
-export const loadingDataReducer: Reducer<LoadingDataState, Actions> = (
-  prevState,
-  action
-) => {
+export const loadingDataReducer: Reducer<
+  LoadingDataState | undefined,
+  Actions
+> = (prevState, action) => {
   switch (action.type) {
     case 'loading':
       return { status: 'loading' }
     case 'updating':
-      return { status: 'updating' }
+      return undefined
     case 'available':
       return { status: 'available' }
     default:

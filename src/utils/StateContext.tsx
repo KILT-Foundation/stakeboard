@@ -20,7 +20,7 @@ export interface State {
   account?: Account
   error: ErrorState
   connection: ConnectionState
-  loadingData: LoadingDataState
+  loadingData?: LoadingDataState
   transaction: TransactionState
   termsAccepted: boolean
 }
@@ -34,7 +34,7 @@ export const StateContext = React.createContext<{
     account: undefined,
     error: { error: undefined, hasError: false },
     connection: { status: 'disconnected' },
-    loadingData: { status: 'loading' },
+    loadingData: undefined,
     transaction: {
       isInProgress: false,
       needsSignature: false,
@@ -71,7 +71,7 @@ export const StateProvider: React.FC = ({ children }) => {
     account: undefined,
     error: { error: undefined, hasError: false },
     connection: { status: 'disconnected' },
-    loadingData: { status: 'loading' },
+    loadingData: undefined,
     transaction: {
       isInProgress: false,
       needsSignature: false,
