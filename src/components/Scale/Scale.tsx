@@ -6,7 +6,7 @@ import styles from './Scale.module.css'
 
 export const Scale: React.FC = () => {
   const {
-    state: { denomination },
+    storedState: { denomination },
     dispatch,
   } = useContext(StoredStateContext)
   return (

@@ -11,7 +11,7 @@ interface BarItemProps {
 }
 const BarItem: React.FC<BarItemProps> = ({ style, amount, percentage }) => {
   const {
-    state: { denomination },
+    storedState: { denomination },
   } = useContext(StoredStateContext)
   const barWidth = amount / denomination
   return (
@@ -35,7 +35,7 @@ export const TokenBar: React.FC<TokenBarProps> = ({
   percentage = false,
 }) => {
   const {
-    state: { denomination },
+    storedState: { denomination },
   } = useContext(StoredStateContext)
 
   const total = staked + stakeable
