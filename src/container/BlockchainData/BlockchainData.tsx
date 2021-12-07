@@ -3,6 +3,7 @@ import { Account, Candidate, ChainTypes, Data } from '../../types'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 import { femtoToKilt } from '../../utils/conversion'
 import { AccountInfo, initialize, OverallTotalStake } from '../../utils/polling'
+import { StateContext } from '../../utils/StateContext'
 import { StoredStateContext } from '../../utils/StoredStateContext'
 
 export interface Props {
@@ -31,15 +32,16 @@ export const BlockchainData: React.FC<Props> = ({
   const [accountInfos, setAccountInfos] = useState<Record<string, AccountInfo>>(
     {}
   )
+  const [chainInfoActivate, setChainInfoActivate] = useState<boolean>(false)
 
-  const { state } = useContext(StoredStateContext)
+  const { storedState } = useContext(StoredStateContext)
+  const { state, dispatch } = useContext(StateContext)
 
   // Query timer
   useEffect(() => {
     if (!partialAccounts.length) return
 
     let stop = () => {}
-
     const doEffect = async () => {
       stop = await initialize(
         5,
@@ -64,13 +66,22 @@ export const BlockchainData: React.FC<Props> = ({
           setMinDelegatorStake(chainInfo.minDelegatorStake)
         }
       )
+      setChainInfoActivate(true)
     }
     doEffect()
 
     return () => {
       stop()
     }
-  }, [partialAccounts])
+  }, [chainInfoActivate, state, dispatch, partialAccounts])
+
+  useEffect(() => {
+    if (state.connection.status === 'connected' && !chainInfoActivate) {
+      dispatch({ type: 'loading' })
+    } else if (state.connection.status === 'connected' && chainInfoActivate) {
+      dispatch({ type: 'available' })
+    }
+  }, [chainInfoActivate, dispatch, state.connection.status])
 
   // Full dataset from queried collators
   useEffect(() => {
@@ -100,13 +111,13 @@ export const BlockchainData: React.FC<Props> = ({
           account,
           stake: femtoToKilt(stake),
         })),
-        favorite: state.favorites.includes(candidate.id),
+        favorite: storedState.favorites.includes(candidate.id),
         isLeaving: !!candidate.isLeaving,
       }
     })
 
     setDataSet(newDataSet)
-  }, [candidates, state, selectedCandidates, currentCandidates])
+  }, [candidates, storedState, selectedCandidates, currentCandidates])
 
   // Accounts and their queried info
   useEffect(() => {
