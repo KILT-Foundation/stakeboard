@@ -4,6 +4,7 @@ import styles from './Onboarding.module.css'
 
 export const NoTokens: React.FC = () => {
   const { minDelegatorStake } = useContext(BlockchainDataContext)
+  if (!minDelegatorStake) throw new Error('Data from the chain not found')
 
   return (
     <>
@@ -18,7 +19,7 @@ export const NoTokens: React.FC = () => {
       <p className={styles.text}>
         In order to enter the halfpipe, please make sure that you have created a
         KILT Identity and loaded it with at least
-        {minDelegatorStake && minDelegatorStake + 1}
+        {` ${minDelegatorStake + 1}`}
         KILT Coins.
       </p>
       <p className={styles.text}>

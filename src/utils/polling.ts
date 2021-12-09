@@ -173,7 +173,7 @@ export const initialize = async (
     selectedCandidates: string[],
     currentCandidates: string[],
     chainInfo: ChainInfo,
-    accountInfos: Record<string, AccountInfo>
+    accountInfos: Record<string, AccountInfo> | undefined
   ) => void
 ) => {
   let timer = 0
@@ -182,31 +182,37 @@ export const initialize = async (
     const [
       { candidates, currentCandidates, selectedCandidates },
       chainInfo,
-      accountInfos,
-    ] = await Promise.all([
-      updateCollators(),
-      updateChainInfo(),
-      updateAccountInfos(accounts),
-    ])
+    ] = await Promise.all([updateCollators(), updateChainInfo()])
 
-    Object.entries(accountInfos).forEach(([address, accountInfo]) => {
-      accountInfo.stakes.forEach((delegation) => {
-        if (candidates[delegation.collator]) {
-          candidates[delegation.collator].userStakes.push({
-            stake: delegation.amount,
-            account: address,
-          })
-        }
+    if (!accounts) {
+      updateCallback(
+        candidates,
+        selectedCandidates,
+        currentCandidates,
+        chainInfo,
+        undefined
+      )
+    } else {
+      const accountInfos = await updateAccountInfos(accounts)
+
+      Object.entries(accountInfos).forEach(([address, accountInfo]) => {
+        accountInfo.stakes.forEach((delegation) => {
+          if (candidates[delegation.collator]) {
+            candidates[delegation.collator].userStakes.push({
+              stake: delegation.amount,
+              account: address,
+            })
+          }
+        })
       })
-    })
-
-    updateCallback(
-      candidates,
-      selectedCandidates,
-      currentCandidates,
-      chainInfo,
-      accountInfos
-    )
+      updateCallback(
+        candidates,
+        selectedCandidates,
+        currentCandidates,
+        chainInfo,
+        accountInfos
+      )
+    }
   }
 
   const keepUpdating = () => {

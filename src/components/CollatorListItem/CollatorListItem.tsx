@@ -16,7 +16,7 @@ const COLS = 7
 export const CollatorListItem: React.FC<Props> = ({ entry }) => {
   const [expanded, setExpanded] = useState(false)
   const {
-    state: { termsAccepted },
+    state: { termsAccepted, account },
   } = useContext(StateContext)
   return (
     <>
@@ -26,7 +26,7 @@ export const CollatorListItem: React.FC<Props> = ({ entry }) => {
         expanded={expanded}
         setExpanded={setExpanded}
       />
-      {termsAccepted && entry.stakes.length > 0 && (
+      {termsAccepted && account && entry.stakes.length > 0 && (
         <>
           {entry.stakes.map((stakeInfo) => (
             <StakeRow
@@ -38,7 +38,7 @@ export const CollatorListItem: React.FC<Props> = ({ entry }) => {
           {<NewStakeRow staked={true} collator={entry.collator} />}
         </>
       )}
-      {termsAccepted && expanded && entry.stakes.length === 0 && (
+      {termsAccepted && account && expanded && entry.stakes.length === 0 && (
         <NewStakeRow collator={entry.collator} />
       )}
       <tr className={styles.lastRow}>

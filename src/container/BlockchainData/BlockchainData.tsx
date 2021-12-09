@@ -29,9 +29,9 @@ export const BlockchainData: React.FC<Props> = ({
   ] = useState<OverallTotalStake>()
   const [totalIssuance, setTotalIssuance] = useState<bigint>()
   const [maxCandidateCount, setMaxCandidateCount] = useState<number>()
-  const [accountInfos, setAccountInfos] = useState<Record<string, AccountInfo>>(
-    {}
-  )
+  const [accountInfos, setAccountInfos] = useState<
+    Record<string, AccountInfo> | undefined
+  >({})
   const [chainInfoActivate, setChainInfoActivate] = useState<boolean>(false)
 
   const { storedState } = useContext(StoredStateContext)
@@ -39,8 +39,6 @@ export const BlockchainData: React.FC<Props> = ({
 
   // Query timer
   useEffect(() => {
-    if (!partialAccounts.length) return
-
     let stop = () => {}
     const doEffect = async () => {
       stop = await initialize(
@@ -66,10 +64,10 @@ export const BlockchainData: React.FC<Props> = ({
           setMinDelegatorStake(chainInfo.minDelegatorStake)
         }
       )
-      setChainInfoActivate(true)
     }
-    doEffect()
 
+    doEffect()
+    setChainInfoActivate(true)
     return () => {
       stop()
     }
@@ -121,6 +119,7 @@ export const BlockchainData: React.FC<Props> = ({
 
   // Accounts and their queried info
   useEffect(() => {
+    if (!accountInfos) return
     // We need data from the chain for all the accounts before mapping the final account object together
     if (!partialAccounts.every((account) => accountInfos[account.address]))
       return

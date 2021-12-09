@@ -11,6 +11,7 @@ import { NoExtension } from './NoExtension'
 import { NoAccount } from './NoAccount'
 import { NoTokens } from './NoTokens'
 import { NotAcceptedTerms } from './NotAcceptedTerms'
+import { NoData } from './NoData'
 import { Icon } from '../Icon/Icon'
 import { Button } from '../Button/Button'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
@@ -21,6 +22,7 @@ enum OnboardingStatus {
   NoExtension,
   NoAccount,
   NoTokens,
+  NoData,
   NotAcceptedTerms,
   Ok,
 }
@@ -39,15 +41,20 @@ function needsOnboarding(
   extensions: Extension[],
   accounts: Account[],
   termsAccepted: boolean,
-  minDelegatorStake: number | undefined
+  minDelegatorStake: number | undefined,
+  loadingDataStatus: string | undefined
 ) {
   if (!termsAccepted) {
     return OnboardingStatus.NotAcceptedTerms
+  } else if (loadingDataStatus && loadingDataStatus === 'loading') {
+    return OnboardingStatus.NoData
   } else if (extensions.length === 0) {
     return OnboardingStatus.NoExtension
   } else if (accounts.length === 0) {
     return OnboardingStatus.NoAccount
-  } else if (!accounts.map((val) => isUsableAccount(val, minDelegatorStake))) {
+  } else if (
+    !accounts.some((account) => isUsableAccount(account, minDelegatorStake))
+  ) {
     return OnboardingStatus.NoTokens
   } else {
     return OnboardingStatus.Ok
@@ -66,6 +73,8 @@ const OnboardingContent: React.FC<OnboardingContentProps> = ({ status }) => {
       return <NoExtension />
     case OnboardingStatus.NoAccount:
       return <NoAccount />
+    case OnboardingStatus.NoData:
+      return <NoData />
     case OnboardingStatus.NoTokens:
       return <NoTokens />
   }
@@ -120,14 +129,15 @@ export const Onboarding: React.FC<Props> = ({ extensions, children }) => {
   }, [])
 
   const {
-    state: { termsAccepted },
+    state: { termsAccepted, loadingData },
   } = useContext(StateContext)
 
   const status = needsOnboarding(
     extensions,
     accounts,
     termsAccepted,
-    minDelegatorStake
+    minDelegatorStake,
+    loadingData?.status
   )
 
   if (status === OnboardingStatus.Ok) {
