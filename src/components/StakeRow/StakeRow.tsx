@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
 import {
@@ -27,6 +27,7 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
   const { isVisible, showModal, hideModal } = useModal()
   const [editStake, setEditStake] = useState(false)
   const [newStake, setNewStake] = useState<number | undefined>()
+  const [stakeable, setStakeable] = useState<number>()
   const signAndSubmitTx = useTxSubmitter()
   const { accounts } = useContext(BlockchainDataContext)
 
@@ -61,6 +62,10 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
   const account = accounts.find(
     (account) => account.address === stakeInfo.account
   )
+  useEffect(() => {
+    if (!account || !newStake) return
+    setStakeable(account.stakeable + account.staked - newStake)
+  }, [account, newStake])
 
   if (!account) return null
 
@@ -89,13 +94,17 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
         </td>
         <td>
           <div className={rowStyles.wrapper}>
-            <span>MY STAKE</span>
+            <span>NEW STAKE</span>
             {editStake ? (
               <>
                 <Input
                   number
                   value={newStake?.toString() || ''}
-                  onInput={(e) => setNewStake(parseInt(e.target.value))}
+                  onInput={(e) =>
+                    Number(e.target.value) < account.stakeable + account.staked
+                      ? setNewStake(parseInt(e.target.value))
+                      : 0
+                  }
                 />
               </>
             ) : (
@@ -109,13 +118,13 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
           <div className={rowStyles.wrapper}>
             <span>STAKEABLE</span>
             <span className={rowStyles.stakeable}>
-              {format(account.stakeable)}
+              {format(stakeable ? stakeable : account.stakeable)}
             </span>
           </div>
         </td>
         <td>
           {!editStake ? (
-            <Button label="Edit" onClick={handleEdit} />
+            <Button label="CHANGE" onClick={handleEdit} />
           ) : (
             <Button
               label="APPLY"
