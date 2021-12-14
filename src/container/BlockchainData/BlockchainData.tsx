@@ -74,7 +74,9 @@ export const BlockchainData: React.FC<Props> = ({
   }, [partialAccounts])
 
   useEffect(() => {
-    if (state.connection.status === 'connected' && !chainInfoActivate) {
+    if (state.connection.status !== 'connected' && !chainInfoActivate) {
+      dispatch({ type: 'unavailable' })
+    } else if (state.connection.status === 'connected' && !chainInfoActivate) {
       dispatch({ type: 'loading' })
     } else if (state.connection.status === 'connected' && chainInfoActivate) {
       dispatch({ type: 'available' })

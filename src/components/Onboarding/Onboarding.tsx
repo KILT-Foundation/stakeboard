@@ -42,11 +42,11 @@ function needsOnboarding(
   accounts: Account[],
   termsAccepted: boolean,
   minDelegatorStake: number | undefined,
-  loadingDataStatus: string | undefined
+  loadingDataStatus: string
 ) {
   if (!termsAccepted) {
     return OnboardingStatus.NotAcceptedTerms
-  } else if (loadingDataStatus && loadingDataStatus === 'loading') {
+  } else if (loadingDataStatus === 'loading') {
     return OnboardingStatus.NoData
   } else if (extensions.length === 0) {
     return OnboardingStatus.NoExtension
@@ -137,7 +137,7 @@ export const Onboarding: React.FC<Props> = ({ extensions, children }) => {
     accounts,
     termsAccepted,
     minDelegatorStake,
-    loadingData?.status
+    loadingData
   )
 
   if (status === OnboardingStatus.Ok) {

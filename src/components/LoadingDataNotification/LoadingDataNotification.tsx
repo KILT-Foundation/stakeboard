@@ -5,7 +5,7 @@ import { Modal } from '../Modal/Modal'
 export const LoadingDataNotification: React.FC = () => {
   const { state } = useContext(StateContext)
 
-  switch (state.loadingData?.status) {
+  switch (state.loadingData) {
     case 'loading':
       return (
         <Modal title="Loading">
@@ -13,6 +13,7 @@ export const LoadingDataNotification: React.FC = () => {
         </Modal>
       )
     case 'available':
+    case 'unavailable':
     default:
       return null
   }
