@@ -62,12 +62,12 @@ export const BlockchainData: React.FC<Props> = ({
           setAccountInfos(newAccountInfos)
           setMaxCandidateCount(chainInfo.maxCandidateCount)
           setMinDelegatorStake(chainInfo.minDelegatorStake)
+          setChainInfoActivate(true)
         }
       )
     }
 
     doEffect()
-    setChainInfoActivate(true)
     return () => {
       stop()
     }
