@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { DataWithRank } from '../../types'
 import styles from './CollatorListItem.module.css'
 import rowStyles from '../../styles/row.module.css'
