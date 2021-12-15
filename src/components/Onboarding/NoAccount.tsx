@@ -23,7 +23,7 @@ export const NoAccount: React.FC = () => {
       <p className={styles.text}>
         In order to enter the halfpipe, please make sure that you have created a
         KILT Identity and loaded it with at least
-        {` ${minDelegatorStake + 1}`} KILT Coins. You can set this up using
+        {` ${minDelegatorStake + 1} `} KILT Coins. You can set this up using
         Polkadot.js or the Sporran extension for Google Chrome or Mozilla
         Firefox, which you can download below.
       </p>
