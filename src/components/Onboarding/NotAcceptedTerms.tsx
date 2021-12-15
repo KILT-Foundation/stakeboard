@@ -15,6 +15,7 @@ export const NotAcceptedTerms: React.FC = () => {
         As a delegator you can choose one collator to back per each KILT
         Identity and get rewarded when they successfully produce blocks.
         <br />
+        <br />
         Sleep less, stake more!
       </p>
       <p className={styles.text}>
