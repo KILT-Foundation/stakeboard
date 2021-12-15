@@ -11,6 +11,7 @@ import { NoExtension } from './NoExtension'
 import { NoAccount } from './NoAccount'
 import { NoTokens } from './NoTokens'
 import { NotAcceptedTerms } from './NotAcceptedTerms'
+import { NoData } from './NoData'
 import { Icon } from '../Icon/Icon'
 import { Button } from '../Button/Button'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
@@ -21,28 +22,39 @@ enum OnboardingStatus {
   NoExtension,
   NoAccount,
   NoTokens,
+  NoData,
   NotAcceptedTerms,
   Ok,
 }
 
-function isUsableAccount(account: Account) {
+function isUsableAccount(
+  account: Account,
+  minDelegatorStake: number | undefined
+) {
   if (account.staked > 0) return true
-  if (account.stakeable >= 1001) return true
+  if (minDelegatorStake && account.stakeable >= minDelegatorStake + 1)
+    return true
   if (account.unstaking.length > 0) return true
 }
 
 function needsOnboarding(
   extensions: Extension[],
   accounts: Account[],
-  termsAccepted: boolean
+  termsAccepted: boolean,
+  minDelegatorStake: number | undefined,
+  loadingDataStatus: string
 ) {
   if (!termsAccepted) {
     return OnboardingStatus.NotAcceptedTerms
+  } else if (loadingDataStatus === 'loading') {
+    return OnboardingStatus.NoData
   } else if (extensions.length === 0) {
     return OnboardingStatus.NoExtension
   } else if (accounts.length === 0) {
     return OnboardingStatus.NoAccount
-  } else if (!accounts.some(isUsableAccount)) {
+  } else if (
+    !accounts.some((account) => isUsableAccount(account, minDelegatorStake))
+  ) {
     return OnboardingStatus.NoTokens
   } else {
     return OnboardingStatus.Ok
@@ -61,6 +73,8 @@ const OnboardingContent: React.FC<OnboardingContentProps> = ({ status }) => {
       return <NoExtension />
     case OnboardingStatus.NoAccount:
       return <NoAccount />
+    case OnboardingStatus.NoData:
+      return <NoData />
     case OnboardingStatus.NoTokens:
       return <NoTokens />
   }
@@ -105,7 +119,7 @@ export interface Props {
   extensions: Extension[]
 }
 export const Onboarding: React.FC<Props> = ({ extensions, children }) => {
-  const { accounts } = useContext(BlockchainDataContext)
+  const { accounts, minDelegatorStake } = useContext(BlockchainDataContext)
 
   const [background, setBackground] = useState<string | null>(null)
 
@@ -115,10 +129,16 @@ export const Onboarding: React.FC<Props> = ({ extensions, children }) => {
   }, [])
 
   const {
-    state: { termsAccepted },
+    state: { termsAccepted, loadingData },
   } = useContext(StateContext)
 
-  const status = needsOnboarding(extensions, accounts, termsAccepted)
+  const status = needsOnboarding(
+    extensions,
+    accounts,
+    termsAccepted,
+    minDelegatorStake,
+    loadingData
+  )
 
   if (status === OnboardingStatus.Ok) {
     return <>{children}</>

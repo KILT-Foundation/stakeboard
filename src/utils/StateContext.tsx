@@ -10,6 +10,8 @@ import {
   TransactionState,
   transactionReducer,
   termsReducer,
+  LoadingDataState,
+  loadingDataReducer,
 } from '../state/reducers'
 import { Account } from '../types'
 
@@ -18,6 +20,7 @@ export interface State {
   account?: Account
   error: ErrorState
   connection: ConnectionState
+  loadingData: LoadingDataState
   transaction: TransactionState
   termsAccepted: boolean
 }
@@ -31,6 +34,7 @@ export const StateContext = React.createContext<{
     account: undefined,
     error: { error: undefined, hasError: false },
     connection: { status: 'disconnected' },
+    loadingData: 'unavailable',
     transaction: {
       isInProgress: false,
       needsSignature: false,
@@ -46,6 +50,7 @@ const mainReducer = (
     account,
     error,
     connection,
+    loadingData,
     transaction,
     termsAccepted,
   }: State,
@@ -55,6 +60,7 @@ const mainReducer = (
   account: accountReducer(account, action),
   error: errorReducer(error, action),
   connection: connectionReducer(connection, action),
+  loadingData: loadingDataReducer(loadingData, action),
   transaction: transactionReducer(transaction, action),
   termsAccepted: termsReducer(termsAccepted, action),
 })
@@ -65,6 +71,7 @@ export const StateProvider: React.FC = ({ children }) => {
     account: undefined,
     error: { error: undefined, hasError: false },
     connection: { status: 'disconnected' },
+    loadingData: 'unavailable',
     transaction: {
       isInProgress: false,
       needsSignature: false,

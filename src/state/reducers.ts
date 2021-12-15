@@ -8,6 +8,11 @@ export type ConnectionActions =
   | { type: 'disconnected' }
   | { type: 'error'; err: any }
 
+export type LoadingDataActions =
+  | { type: 'loading' }
+  | { type: 'unavailable' }
+  | { type: 'available' }
+
 export type AccountActions =
   | { type: 'selectAccount'; account: Account }
   | { type: 'unselectAccount' }
@@ -41,6 +46,7 @@ export type TermsActions = { type: 'acceptTerms' }
 export type Actions =
   | PausedAction
   | ConnectionActions
+  | LoadingDataActions
   | AccountActions
   | ErrorActions
   | TransactionActions
@@ -101,6 +107,24 @@ export const connectionReducer: Reducer<ConnectionState, Actions> = (
       return { status: 'disconnected' }
     case 'error':
       return { status: 'error', err: action.err }
+    default:
+      return prevState
+  }
+}
+
+export type LoadingDataState = 'loading' | 'available' | 'unavailable'
+
+export const loadingDataReducer: Reducer<LoadingDataState, Actions> = (
+  prevState,
+  action
+) => {
+  switch (action.type) {
+    case 'unavailable':
+      return 'unavailable'
+    case 'loading':
+      return 'loading'
+    case 'available':
+      return 'available'
     default:
       return prevState
   }

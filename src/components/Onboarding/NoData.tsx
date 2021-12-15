@@ -1,15 +1,6 @@
-import { useContext } from 'react'
-import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
-
 import styles from './Onboarding.module.css'
 
-export const NoAccount: React.FC = () => {
-  const { minDelegatorStake } = useContext(BlockchainDataContext)
-
-  if (!minDelegatorStake) {
-    throw new Error('Data from the chain not found')
-  }
-
+export const NoData: React.FC = () => {
   return (
     <>
       <span className={styles.highlighted}>Hey Staker,</span>
@@ -21,11 +12,7 @@ export const NoAccount: React.FC = () => {
         Sleep less, stake more!
       </p>
       <p className={styles.text}>
-        In order to enter the halfpipe, please make sure that you have created a
-        KILT Identity and loaded it with at least
-        {` ${minDelegatorStake + 1}`} KILT Coins. You can set this up using
-        Polkadot.js or the Sporran extension for Google Chrome or Mozilla
-        Firefox, which you can download below.
+        Data from the chain is being collected at the moment.
       </p>
       <p className={styles.text}>
         Please reload the page after setting up the extension.

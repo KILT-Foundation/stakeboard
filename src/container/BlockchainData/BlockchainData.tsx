@@ -3,6 +3,7 @@ import { Account, Candidate, ChainTypes, Data } from '../../types'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 import { femtoToKilt } from '../../utils/conversion'
 import { AccountInfo, initialize, OverallTotalStake } from '../../utils/polling'
+import { StateContext } from '../../utils/StateContext'
 import { StoredStateContext } from '../../utils/StoredStateContext'
 
 export interface Props {
@@ -21,24 +22,24 @@ export const BlockchainData: React.FC<Props> = ({
   const [sessionInfo, setSessionInfo] = useState<ChainTypes.RoundInfo>()
   const [bestBlock, setBestBlock] = useState<number>()
   const [bestFinalisedBlock, setBestFinalisedBlock] = useState<number>()
+  const [minDelegatorStake, setMinDelegatorStake] = useState<number>()
   const [
     overallTotalStake,
     setOverallTotalStake,
   ] = useState<OverallTotalStake>()
   const [totalIssuance, setTotalIssuance] = useState<bigint>()
   const [maxCandidateCount, setMaxCandidateCount] = useState<number>()
-  const [accountInfos, setAccountInfos] = useState<Record<string, AccountInfo>>(
-    {}
-  )
+  const [accountInfos, setAccountInfos] = useState<
+    Record<string, AccountInfo> | undefined
+  >({})
+  const [chainInfoActivate, setChainInfoActivate] = useState<boolean>(false)
 
-  const { state } = useContext(StoredStateContext)
+  const { storedState } = useContext(StoredStateContext)
+  const { state, dispatch } = useContext(StateContext)
 
   // Query timer
   useEffect(() => {
-    if (!partialAccounts.length) return
-
     let stop = () => {}
-
     const doEffect = async () => {
       stop = await initialize(
         5,
@@ -60,15 +61,27 @@ export const BlockchainData: React.FC<Props> = ({
           setTotalIssuance(chainInfo.totalIssuance)
           setAccountInfos(newAccountInfos)
           setMaxCandidateCount(chainInfo.maxCandidateCount)
+          setMinDelegatorStake(chainInfo.minDelegatorStake)
+          setChainInfoActivate(true)
         }
       )
     }
-    doEffect()
 
+    doEffect()
     return () => {
       stop()
     }
   }, [partialAccounts])
+
+  useEffect(() => {
+    if (state.connection.status !== 'connected' && !chainInfoActivate) {
+      dispatch({ type: 'unavailable' })
+    } else if (state.connection.status === 'connected' && !chainInfoActivate) {
+      dispatch({ type: 'loading' })
+    } else if (state.connection.status === 'connected' && chainInfoActivate) {
+      dispatch({ type: 'available' })
+    }
+  }, [chainInfoActivate, dispatch, state.connection.status])
 
   // Full dataset from queried collators
   useEffect(() => {
@@ -98,16 +111,17 @@ export const BlockchainData: React.FC<Props> = ({
           account,
           stake: femtoToKilt(stake),
         })),
-        favorite: state.favorites.includes(candidate.id),
+        favorite: storedState.favorites.includes(candidate.id),
         isLeaving: !!candidate.isLeaving,
       }
     })
 
     setDataSet(newDataSet)
-  }, [candidates, state, selectedCandidates, currentCandidates])
+  }, [candidates, storedState, selectedCandidates, currentCandidates])
 
   // Accounts and their queried info
   useEffect(() => {
+    if (!accountInfos) return
     // We need data from the chain for all the accounts before mapping the final account object together
     if (!partialAccounts.every((account) => accountInfos[account.address]))
       return
@@ -136,6 +150,7 @@ export const BlockchainData: React.FC<Props> = ({
         overallTotalStake,
         totalIssuance,
         maxCandidateCount,
+        minDelegatorStake,
       }}
     >
       {children}

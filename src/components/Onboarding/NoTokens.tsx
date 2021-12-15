@@ -1,6 +1,11 @@
+import { useContext } from 'react'
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 import styles from './Onboarding.module.css'
 
 export const NoTokens: React.FC = () => {
+  const { minDelegatorStake } = useContext(BlockchainDataContext)
+  if (!minDelegatorStake) throw new Error('Data from the chain not found')
+
   return (
     <>
       <span className={styles.highlighted}>Hey Staker,</span>
@@ -13,7 +18,9 @@ export const NoTokens: React.FC = () => {
       </p>
       <p className={styles.text}>
         In order to enter the halfpipe, please make sure that you have created a
-        KILT Identity and loaded it with at least 1001 KILT Coins.
+        KILT Identity and loaded it with at least
+        {` ${minDelegatorStake + 1}`}
+        KILT Coins.
       </p>
       <p className={styles.text}>
         Please reload the page after setting up the extension.

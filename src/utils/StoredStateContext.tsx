@@ -11,10 +11,10 @@ export interface State {
 }
 
 export const StoredStateContext = React.createContext<{
-  state: State
+  storedState: State
   dispatch: Dispatch<StoredStateActions>
 }>({
-  state: { favorites: [], denomination: 64 },
+  storedState: { favorites: [], denomination: 64 },
   dispatch: () => null,
 })
 
@@ -27,7 +27,7 @@ const mainReducer = (
 })
 
 export const StoredStateProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(
+  const [storedState, dispatch] = useReducer(
     mainReducer,
     {
       favorites: [],
@@ -48,14 +48,14 @@ export const StoredStateProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     try {
-      window.localStorage.setItem('staking-state', JSON.stringify(state))
+      window.localStorage.setItem('staking-state', JSON.stringify(storedState))
     } catch (err) {
       console.log(err)
     }
-  }, [state])
+  }, [storedState])
 
   return (
-    <StoredStateContext.Provider value={{ state, dispatch }}>
+    <StoredStateContext.Provider value={{ storedState, dispatch }}>
       {children}
     </StoredStateContext.Provider>
   )
