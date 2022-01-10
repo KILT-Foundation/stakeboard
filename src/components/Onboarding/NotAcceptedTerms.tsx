@@ -2,7 +2,7 @@ import styles from './Onboarding.module.css'
 import { Button } from '../Button/Button'
 import { useContext, useState } from 'react'
 import { StateContext } from '../../utils/StateContext'
-import PDF from '../../uploads/210930_Stakeboard_Terms&License.pdf'
+import PDF from '../../uploads/220106_Stakeboard_Terms&License.pdf'
 
 export const NotAcceptedTerms: React.FC = () => {
   const { dispatch } = useContext(StateContext)
