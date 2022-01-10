@@ -100,11 +100,12 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
                 <Input
                   number
                   value={newStake?.toString() || ''}
-                  onInput={(e) =>
-                    Number(e.target.value) < account.stakeable + account.staked
+                  onInput={(e) => {
+                    return Number(e.target.value) <
+                      account.stakeable + account.staked
                       ? setNewStake(parseInt(e.target.value))
                       : 0
-                  }
+                  }}
                 />
               </>
             ) : (
