@@ -76,7 +76,7 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false, collator }) => {
         <div className={rowStyles.wrapper}>
           NOTE
           <span className={rowStyles.informationBox}>
-            Staked amounts can be withdrawn after 7 days
+            Unstaked amounts can only be withdrawn after 7 days
           </span>
         </div>
       </td>
