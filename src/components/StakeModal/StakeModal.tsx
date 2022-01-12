@@ -27,6 +27,14 @@ export const StakeModal: React.FC<Props> = ({
       (see progress in your dashboard) <br />
       or use the unstaked balance immediately <br />
       to back a Collator
+      <br />
+      <br />
+      Remember! <br />
+      Once you have staked, you can be kicked by
+      <br />
+      someone else who stakes more. If this occurs,
+      <br /> your KILT is locked for 7 days, during which
+      <br /> time you can restake but not withdraw.
     </p>
   )
 
@@ -54,6 +62,14 @@ export const StakeModal: React.FC<Props> = ({
           you want to make (e.g. stake,
           <br />
           unstake, reduce stake etc.).
+          <br />
+          <br />
+          Remember! <br />
+          Once you have staked, you can be kicked by
+          <br />
+          someone else who stakes more. If this occurs,
+          <br /> your KILT is locked for 7 days, during which
+          <br /> time you can restake but not withdraw.
         </Modal>
       )
     case 'increaseStake':
