@@ -19,20 +19,22 @@ export const NotAcceptedTerms: React.FC = () => {
         Sleep less, stake more!
       </p>
       <p className={styles.text}>
-        <input
-          type={'checkbox'}
-          onClick={() => setAcceptedTerms(!acceptedTerms)}
-          className={styles.checkbox}
-        />
-        I have read and agree to the
-        <a
-          href={PDF}
-          rel="noopener noreferrer"
-          target="_blank"
-          className={styles.termsLink}
-        >
-          Terms of Use for the KILT Stakeboard Web Application
-        </a>
+        <label>
+          <input
+            type={'checkbox'}
+            onClick={() => setAcceptedTerms(!acceptedTerms)}
+            className={styles.checkbox}
+          />
+          I have read and agree to the
+          <a
+            href={PDF}
+            rel="noopener noreferrer"
+            target="_blank"
+            className={styles.termsLink}
+          >
+            Terms of Use for the KILT Stakeboard Web Application
+          </a>
+        </label>
       </p>
       <p className={styles.text}>
         (for security reasons you will have to agree every time you open this
