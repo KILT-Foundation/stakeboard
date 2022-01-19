@@ -133,11 +133,11 @@ const updateAccountInfos = async (accounts: string[]) => {
     const stake = account[3]
 
     const {
-      data: { free, reserved },
+      data: { free },
     } = balance
 
     const totalStake = stake.unwrapOrDefault().total.toBigInt()
-    const stakeable = free.toBigInt() - reserved.toBigInt() - totalStake
+    const stakeable = free.toBigInt() - totalStake
 
     const unstaking: Array<Unstaking> = []
     unstakingChain.forEach((value, key) => {
