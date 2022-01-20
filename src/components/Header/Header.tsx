@@ -9,7 +9,7 @@ export const Header: React.FC = () => {
         <span className={styles.name}>Stakeboard</span>
         <Icon type="skateboarder" width={60} />
       </div>
-      <Icon type="BUILT_ON_KILT" width={120} />
+      <Icon type="BUILT_ON_KILT" width={70} />
     </div>
   )
 }
