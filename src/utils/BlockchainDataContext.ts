@@ -12,6 +12,7 @@ export const BlockchainDataContext = React.createContext<{
   totalIssuance?: bigint
   maxCandidateCount?: number
   minDelegatorStake?: number
+  maxNumberDelegators?: number
 }>({
   dataSet: [],
   accounts: [],

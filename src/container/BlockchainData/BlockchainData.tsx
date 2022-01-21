@@ -29,6 +29,7 @@ export const BlockchainData: React.FC<Props> = ({
   ] = useState<OverallTotalStake>()
   const [totalIssuance, setTotalIssuance] = useState<bigint>()
   const [maxCandidateCount, setMaxCandidateCount] = useState<number>()
+  const [maxNumberDelegators, setMaxNumberDelegators] = useState<number>()
   const [accountInfos, setAccountInfos] = useState<
     Record<string, AccountInfo> | undefined
   >({})
@@ -62,6 +63,7 @@ export const BlockchainData: React.FC<Props> = ({
           setAccountInfos(newAccountInfos)
           setMaxCandidateCount(chainInfo.maxCandidateCount)
           setMinDelegatorStake(chainInfo.minDelegatorStake)
+          setMaxNumberDelegators(chainInfo.maxNumberDelegators)
           setChainInfoActivate(true)
         }
       )
@@ -151,6 +153,7 @@ export const BlockchainData: React.FC<Props> = ({
         totalIssuance,
         maxCandidateCount,
         minDelegatorStake,
+        maxNumberDelegators,
       }}
     >
       {children}

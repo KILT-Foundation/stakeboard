@@ -87,6 +87,10 @@ export async function queryMinDelegatorStake(): Promise<u128> {
   return api.consts.parachainStaking.minDelegatorStake as u128
 }
 
+export async function getMaxNumberDelegators(): Promise<u32> {
+  const api = await getConnection()
+  return api.consts.parachainStaking.maxDelegatorsPerCollator as u32
+}
 export async function getBalance(account: string) {
   const api = await getConnection()
   return api.query.system.account(account)
