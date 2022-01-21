@@ -94,8 +94,9 @@ export const CollatorRow: React.FC<Props> = ({
       </td>
       <td>{entry.lowestStake ? format(entry.lowestStake) : '--'}</td>
       <td colSpan={2}>
-        {leftFillZero(entry.delegators, 2)} /{' '}
-        {!!maxNumberDelegators && maxNumberDelegators}
+        {`${leftFillZero(entry.delegators, 2)} 
+          /
+          ${!!maxNumberDelegators && maxNumberDelegators}`}
       </td>
 
       <td>
