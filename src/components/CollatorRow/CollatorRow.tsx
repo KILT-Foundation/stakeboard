@@ -21,7 +21,9 @@ export const CollatorRow: React.FC<Props> = ({
   expanded,
 }) => {
   const { dispatch } = useContext(StoredStateContext)
-  const { maxCandidateCount } = useContext(BlockchainDataContext)
+  const { maxCandidateCount, maxNumberDelegators } = useContext(
+    BlockchainDataContext
+  )
 
   const hasStakes = entry.stakes.length
 
@@ -91,7 +93,12 @@ export const CollatorRow: React.FC<Props> = ({
         {format(entry.totalStake)}
       </td>
       <td>{entry.lowestStake ? format(entry.lowestStake) : '--'}</td>
-      <td colSpan={2}>{leftFillZero(entry.delegators, 2)} / 25</td>
+      <td colSpan={2}>
+        {leftFillZero(entry.delegators, 2)} 
+        {!!maxNumberDelegators &&
+          ` / 
+          ${maxNumberDelegators}`}
+      </td>
 
       <td>
         {hasStakes ? (
