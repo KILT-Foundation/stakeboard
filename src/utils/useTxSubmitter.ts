@@ -14,21 +14,15 @@ export const useTxSubmitter = () => {
     dispatch({ type: 'resetTransaction' })
   }
 
-  let hasError = false
-
   const signAndSubmitTx = async (address: string, tx: SubmittableExtrinsic) => {
     try {
       dispatch({ type: 'needsSignature' })
-      console.log('handled 2')
-      await signAndSend(address, tx, onSuccess, onError).catch((error) => {
-        hasError = true
-        onError(error)
-      })
-      if (!hasError) {
-        dispatch({ type: 'transactionInProgress' })
-      }
+      await signAndSend(address, tx, onSuccess, onError)
+
+      dispatch({ type: 'transactionInProgress' })
     } catch (e) {
       console.error(e)
+      onError(e)
       dispatch({ type: 'resetTransaction' })
     }
   }
