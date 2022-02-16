@@ -1,52 +1,44 @@
-# Getting Started with Create React App
+# Stakeboard
+![kilt](https://user-images.githubusercontent.com/1248214/110625865-49edbe00-81a0-11eb-9393-596c6a1f8eba.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## KILT Staking
 
-In the project directory, you can run:
+The Stakeboard is an open-source staking platform built for the KILT protocol. The Stakeboard features enable users to add, remove and change stakes for the available Collators. It is currently compatible with [Sporran wallet](https://github.com/BTE-Trusted-Entity/sporran-extension) and [Polkadot js Extension](https://github.com/polkadot-js/extension).
 
-### `yarn storybook`
+### Contribution
 
-Runs and opens storybook, to develop components isolated from each other.
+Contributing to the Stakeboard requires the contributor to follow the guidelines set in the [KILT dev docs](https://dev.kilt.io).
 
-The page will refresh automatically, when you do edits.
+## Getting Started
 
-### `yarn start`
+The Stakeboard requires a connection to the KILT chain. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Recommended: Do not use the live net for testing**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+For testing purposes, the Stakeboard is connected to the KILT test net Peregrine by default. If you wish to use a local chain for testing, you can be connect by changing the `ENDPOINT` in the `src/utils/useConnect.ts` file.
 
-### `yarn test`
+Run the following commands to install dependencies and start developing
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```js
+yarn install
+yarn start
+```
 
-### `yarn build`
+**NEED PEREGRINE TEST TOKENS?** Go to our [testnet faucet](https://faucet.peregrine.kilt.io/).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Learn more about KILT
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Do you want to learn more about KILT? Come checkout our [SDK](https://github.com/KILTprotocol/sdk-js), [KILT Chain](https://github.com/KILTprotocol/mashnet-node) or [Documentations](https://dev.kilt.io)
 
-### `yarn eject`
+## Built With
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+-   [React](https://reactjs.org)
+-   [TypeScript](https://www.typescriptlang.org/)
+-   [Storybook](https://storybook.js.org/)
+-   [Jest](https://jestjs.io)
+-   [Eslint](https://eslint.org/)
+-   [Prettier](https://prettier.io/)
+-   [Polkadot JS](https://github.com/polkadot-js)

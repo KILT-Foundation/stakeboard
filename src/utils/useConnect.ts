@@ -1,14 +1,13 @@
 import { useContext } from 'react'
 import { ApiPromise, WsProvider } from '@polkadot/api'
-import { types23 as types } from '@kiltprotocol/type-definitions'
+
 import { StateContext } from './StateContext'
 
 let cachedApi: Promise<ApiPromise> | null = null
 let wsProvider: WsProvider | null = null
 
-// const ENDPOINT = process.env.REACT_APP_ENDPOINT || 'wss://peregrine.kilt.io'
-const ENDPOINT =
-  process.env.REACT_APP_ENDPOINT || 'wss://kilt-peregrine-stg.kilt.io'
+const ENDPOINT = process.env.REACT_APP_ENDPOINT || 'wss://peregrine.kilt.io/parachain-public-ws'
+
 
 export const useConnect = () => {
   const { dispatch } = useContext(StateContext)
@@ -17,7 +16,6 @@ export const useConnect = () => {
     wsProvider = new WsProvider(ENDPOINT)
     cachedApi = ApiPromise.create({
       provider: wsProvider,
-      types,
     })
 
     wsProvider.on('disconnected', () => dispatch({ type: 'disconnected' }))
