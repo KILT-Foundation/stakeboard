@@ -36,7 +36,7 @@ Do you want to learn more about KILT? Come checkout our [SDK](https://github.com
 
 
 -   [React](https://reactjs.org)
--   [Create react app](https://create-react-app.dev/)
+-   [Create React App](https://create-react-app.dev/)
 -   [TypeScript](https://www.typescriptlang.org/)
 -   [Storybook](https://storybook.js.org/)
 -   [Jest](https://jestjs.io)
