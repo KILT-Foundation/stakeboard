@@ -6,8 +6,8 @@ import { StateContext } from './StateContext'
 let cachedApi: Promise<ApiPromise> | null = null
 let wsProvider: WsProvider | null = null
 
-const ENDPOINT = process.env.REACT_APP_ENDPOINT || 'wss://peregrine.kilt.io/parachain-public-ws'
-
+const ENDPOINT =
+  process.env.REACT_APP_FULL_NODE_ENDPOINT || 'wss://peregrine.kilt.io/parachain-public-ws'
 
 export const useConnect = () => {
   const { dispatch } = useContext(StateContext)
