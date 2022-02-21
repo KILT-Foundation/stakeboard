@@ -16,7 +16,7 @@ The Stakeboard requires a connection to the KILT chain.
 
 **Recommended: Do not use the live net for testing**
 
-For testing purposes, the Stakeboard is connected to the KILT test net Peregrine by default. If you wish to use a local chain for testing, you can be connect by changing the `REACT_APP_FULL_NODE_ENDPOINT` in the `.env.example` and renaming the file to `.env`.
+For testing purposes, the Stakeboard is connected to the KILT test net Peregrine by default. If you wish to use a local chain for testing, you can be connect by making a copy of the `.env.example` and renaming the file to `.env`. Here you can change the `REACT_APP_FULL_NODE_ENDPOINT` to the new endpoint.
 
 Run the following commands to install dependencies and start developing
 
