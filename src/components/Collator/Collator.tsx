@@ -37,7 +37,7 @@ export const Collator: React.FC<Props> = ({ address, activeSince }) => {
       }
     }
     getWeb3name()
-  })
+  }, [address])
 
   const shortAddress = shortenAddress(address)
 
