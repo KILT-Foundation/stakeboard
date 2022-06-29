@@ -7,7 +7,7 @@ import type {
 } from '@polkadot/types/interfaces'
 import { Candidate, ChainTypes } from '../types'
 import { web3FromAddress } from '@polkadot/extension-dapp'
-import { SubmittableExtrinsic } from '@polkadot/api/promise/types'
+import type { SubmittableExtrinsic } from '@polkadot/api/promise/types'
 import { getConnection } from './useConnect'
 
 export async function getGenesis() {

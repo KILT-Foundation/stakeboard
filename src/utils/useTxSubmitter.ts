@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { StateContext } from './StateContext'
-import { SubmittableExtrinsic } from '@polkadot/api/promise/types'
+import type { SubmittableExtrinsic } from '@polkadot/api/promise/types'
 import { signAndSend } from './chain'
 
 export const useTxSubmitter = () => {
