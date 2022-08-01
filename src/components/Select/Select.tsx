@@ -1,5 +1,4 @@
-import { useState } from '@storybook/addons'
-import React, { useEffect } from 'react'
+import React from 'react'
 import ReactSelect from 'react-select'
 import './ReactSelect.css'
 
@@ -10,7 +9,7 @@ export interface Option {
 export interface Props {
   options: readonly Option[]
   onChange?: (value: Option | null) => void
-  clearValue?: boolean
+  value?: any
   placeholder: string
 }
 
@@ -19,17 +18,9 @@ const IndicatorSeparator = null
 export const Select: React.FC<Props> = ({
   options,
   onChange,
-  clearValue,
+  value,
   placeholder,
 }) => {
-  const [value, setValue] = useState(null)
-
-  useEffect(() => {
-    if (clearValue) {
-      setValue(null)
-    }
-  }, [clearValue])
-
   return (
     <ReactSelect
       options={options}
