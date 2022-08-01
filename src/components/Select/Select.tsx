@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react'
+import { useState } from '@storybook/addons'
+import React, { useEffect } from 'react'
 import ReactSelect from 'react-select'
 import './ReactSelect.css'
 
@@ -21,18 +22,18 @@ export const Select: React.FC<Props> = ({
   clearValue,
   placeholder,
 }) => {
-  const refContainer = useRef<ReactSelect>(null)
+  const [value, setValue] = useState(null)
 
   useEffect(() => {
     if (clearValue) {
-      refContainer.current?.select.clearValue()
+      setValue(null)
     }
   }, [clearValue])
 
   return (
     <ReactSelect
-      ref={refContainer}
       options={options}
+      value={value}
       // menuIsOpen={true}
       components={{ IndicatorSeparator }}
       placeholder={placeholder}
