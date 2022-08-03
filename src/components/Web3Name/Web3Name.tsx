@@ -15,6 +15,7 @@ export const Web3Name: React.FC<Props> = ({ name }) => {
       href={W3N_URL + name}
       rel="noopener noreferrer"
       target="_blank"
+      onClick={(e) => e.stopPropagation()}
     >
       {W3N_PREFIX + name}
     </a>

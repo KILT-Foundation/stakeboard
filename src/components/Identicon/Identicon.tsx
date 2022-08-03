@@ -47,7 +47,8 @@ export interface Props {
 export const Identicon: React.FC<Props> = ({ address, size = 46 }) => {
   const [didCopy, setDidCopy] = useState(false)
 
-  function copyAddress() {
+  function copyAddress(e: React.MouseEvent<Element>) {
+    e.stopPropagation()
     if (navigator.clipboard) {
       navigator.clipboard.writeText(address).then(() => {
         setDidCopy(true)
