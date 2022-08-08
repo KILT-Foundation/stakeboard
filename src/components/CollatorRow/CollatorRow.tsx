@@ -65,11 +65,24 @@ export const CollatorRow: React.FC<Props> = ({
       </td>
       <td>
         {entry.isLeaving ? (
-          <Icon type="pickaxe_orange" pulsing={true} />
+          <Icon
+            type="pickaxe_orange"
+            pulsing={true}
+            alt="leaving"
+            tooltip="Leaving and won't build blocks soon."
+          />
         ) : entry.active ? (
-          <Icon type="pickaxe_yellow" />
+          <Icon
+            type="pickaxe_yellow"
+            alt="active"
+            tooltip="Ready to build blocks."
+          />
         ) : (
-          <Icon type="pickaxe_gray" />
+          <Icon
+            type="pickaxe_gray"
+            alt="waiting"
+            tooltip="Waiting to become a collator."
+          />
         )}
         {entry.activeNext ? (
           <Icon type="next_session_yellow" />

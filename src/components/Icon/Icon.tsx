@@ -80,15 +80,24 @@ export interface Props {
   type: keyof typeof Icons
   pulsing?: boolean
   width?: number
+  alt?: string
+  tooltip?: string
 }
 
-export const Icon: React.FC<Props> = ({ type, pulsing = false, width }) => {
+export const Icon: React.FC<Props> = ({
+  type,
+  pulsing = false,
+  width,
+  alt = 'Icon',
+  tooltip,
+}) => {
   return (
     <img
       className={cx(styles.img, { [styles.pulsing]: pulsing })}
       style={{ width }}
       src={Icons[type]}
-      alt="Icon"
+      alt={alt}
+      title={tooltip}
     />
   )
 }
