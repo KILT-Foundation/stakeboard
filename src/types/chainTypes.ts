@@ -4,6 +4,7 @@ import type {
   Balance,
   SessionIndex,
   BlockNumber,
+  Perquintill,
 } from '@polkadot/types/interfaces'
 export type { BlockNumber }
 
@@ -33,11 +34,18 @@ export interface RoundInfo extends Struct {
 }
 
 export interface Delegator extends Struct {
-  delegations: Vec<Stake>
-  total: Balance
+  owner: AccountId
+  amount: Balance
 }
 
 export interface TotalStake extends Struct {
   collators: Balance
   delegators: Balance
+}
+
+export interface StakingRates extends Struct {
+  collatorStakingRate: Perquintill
+  collatorRewardRate: Perquintill
+  delegatorStakingRate: Perquintill
+  delegatorRewardRate: Perquintill
 }
