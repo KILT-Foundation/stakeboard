@@ -9,6 +9,7 @@ import { Candidate, ChainTypes } from '../types'
 import { web3FromAddress } from '@polkadot/extension-dapp'
 import type { SubmittableExtrinsic } from '@polkadot/api/promise/types'
 import { getConnection } from './useConnect'
+import { StakingRates } from '../types/chainTypes'
 
 export async function getGenesis() {
   const api = await getConnection()
@@ -19,6 +20,8 @@ export async function getGenesis() {
 
 export async function getCandidatePool() {
   const api = await getConnection()
+  // TODO: Remove
+  console.log(`Connected`)
   return api.query.parachainStaking.candidatePool.entries<
     Option<ChainTypes.Collator>,
     [AccountId]
@@ -85,6 +88,21 @@ export async function queryTotalIssurance() {
 export async function queryMinDelegatorStake(): Promise<u128> {
   const api = await getConnection()
   return api.consts.parachainStaking.minDelegatorStake as u128
+}
+
+export async function queryStakingRates(): Promise<StakingRates> {
+  const api = await getConnection()
+  const rates = await api.call.parachainStakingApi.getStakingRates<StakingRates>()
+  return api.call.parachainStakingApi.getStakingRates<StakingRates>()
+}
+
+export async function getUnclaimedStakingRewards(
+  account: string
+): Promise<Balance> {
+  const api = await getConnection()
+  return api.call.parachainStakingApi.getUnclaimedStakingRewards<Balance>(
+    account
+  )
 }
 
 export async function getMaxNumberDelegators(): Promise<u32> {

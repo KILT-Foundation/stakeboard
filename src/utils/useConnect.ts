@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { ApiPromise, WsProvider } from '@polkadot/api'
+import { DefinitionsCall, RegistryTypes } from '@polkadot/types/types'
 
 import { StateContext } from './StateContext'
 
@@ -7,15 +8,56 @@ let cachedApi: Promise<ApiPromise> | null = null
 let wsProvider: WsProvider | null = null
 
 const ENDPOINT =
-  process.env.REACT_APP_FULL_NODE_ENDPOINT || 'wss://peregrine.kilt.io/parachain-public-ws'
+  process.env.REACT_APP_FULL_NODE_ENDPOINT ||
+  'wss://peregrine.kilt.io/parachain-public-ws'
+
+// TODO: Import from KILT type registry
+const types: RegistryTypes = {
+  StakingRates: {
+    collatorStakingRate: 'Perquintill',
+    collatorRewardRate: 'Perquintill',
+    delegatorStakingRate: 'Perquintill',
+    delegatorRewardRate: 'Perquintill',
+  },
+}
+const runtime: DefinitionsCall = {
+  ParachainStakingApi: [
+    {
+      methods: {
+        get_staking_rates: {
+          description:
+            'Calculates the current staking and reward rates for collators and delegators',
+          params: [],
+          type: 'StakingRates',
+        },
+        get_unclaimed_staking_rewards: {
+          description:
+            'Calculates the staking rewards for a given account address',
+          params: [
+            {
+              name: 'account',
+              type: 'AccountId32',
+            },
+          ],
+          type: 'Balance',
+        },
+      },
+      version: 1,
+    },
+  ],
+}
 
 export const useConnect = () => {
   const { dispatch } = useContext(StateContext)
 
   if (!cachedApi) {
+    // TODO: remove
+    console.log(`Connecting to WS ${ENDPOINT}`)
     wsProvider = new WsProvider(ENDPOINT)
     cachedApi = ApiPromise.create({
       provider: wsProvider,
+      types,
+      runtime,
     })
 
     wsProvider.on('disconnected', () => dispatch({ type: 'disconnected' }))

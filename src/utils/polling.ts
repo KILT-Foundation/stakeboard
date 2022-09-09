@@ -1,4 +1,5 @@
 import { Candidate, ChainTypes } from '../types'
+import { StakingRates } from '../types/chainTypes'
 import {
   getCandidatePool,
   getCurrentCollators,
@@ -14,9 +15,11 @@ import {
   queryOverallTotalStake,
   queryMaxCandidateCount,
   queryMinDelegatorStake,
+  queryStakingRates,
+  getUnclaimedStakingRewards,
   getMaxNumberDelegators,
 } from './chain'
-import { femtoToKilt } from './conversion'
+import { femtoToKilt, perquintillToPercentage } from './conversion'
 
 const updateCollators = async () => {
   const [
@@ -60,6 +63,12 @@ type ChainInfo = {
   totalIssuance: bigint
   maxCandidateCount: number
   minDelegatorStake: number
+  stakingRates: {
+    collatorRewardRate: Number
+    collatorStakingRate: Number
+    delegatorRewardRate: Number
+    delegatorStakingRate: Number
+  }
   maxNumberDelegators: number
 }
 
@@ -72,6 +81,7 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     totalIssuance,
     maxCandidateCount,
     minDelegatorStake,
+    stakingRates,
     maxNumberDelegators,
   ] = await Promise.all([
     querySessionInfo(),
@@ -81,8 +91,18 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     queryTotalIssurance(),
     queryMaxCandidateCount(),
     queryMinDelegatorStake(),
+    queryStakingRates(),
     getMaxNumberDelegators(),
   ])
+
+  // TODO: Remove
+  console.log(
+    'Staking rates decoded:',
+    perquintillToPercentage(stakingRates.collatorRewardRate),
+    perquintillToPercentage(stakingRates.collatorStakingRate),
+    perquintillToPercentage(stakingRates.delegatorRewardRate),
+    perquintillToPercentage(stakingRates.delegatorStakingRate)
+  )
 
   const chainInfo: ChainInfo = {
     sessionInfo,
@@ -95,6 +115,20 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     totalIssuance: totalIssuance.toBigInt(),
     maxCandidateCount: maxCandidateCount.toNumber(),
     minDelegatorStake: femtoToKilt(minDelegatorStake.toBigInt()),
+    stakingRates: {
+      collatorRewardRate: perquintillToPercentage(
+        stakingRates.collatorRewardRate
+      ),
+      collatorStakingRate: perquintillToPercentage(
+        stakingRates.collatorStakingRate
+      ),
+      delegatorRewardRate: perquintillToPercentage(
+        stakingRates.delegatorRewardRate
+      ),
+      delegatorStakingRate: perquintillToPercentage(
+        stakingRates.delegatorStakingRate
+      ),
+    },
     maxNumberDelegators: maxNumberDelegators.toNumber(),
   }
 
@@ -114,7 +148,8 @@ export type AccountInfo = {
   stakeable: bigint
   totalStake: bigint
   unstaking: Array<Unstaking>
-  stakes: Array<Delegation>
+  delegation: Delegation
+  rewards: bigint
 }
 
 const updateAccountInfos = async (accounts: string[]) => {
@@ -124,6 +159,7 @@ const updateAccountInfos = async (accounts: string[]) => {
       getBalance(account),
       getUnstakingAmounts(account),
       getDelegatorStake(account),
+      getUnclaimedStakingRewards(account),
     ])
   )
 
@@ -135,14 +171,12 @@ const updateAccountInfos = async (accounts: string[]) => {
     const address = account[0]
     const balance = account[1]
     const unstakingChain = account[2]
-    const stake = account[3]
+    const delegator = account[3]
+    const rewards = account[4].toBigInt()
 
     const {
       data: { free },
     } = balance
-
-    const totalStake = stake.unwrapOrDefault().total.toBigInt()
-    const stakeable = free.toBigInt() - totalStake
 
     const unstaking: Array<Unstaking> = []
     unstakingChain.forEach((value, key) => {
@@ -152,18 +186,24 @@ const updateAccountInfos = async (accounts: string[]) => {
       })
     })
 
-    const stakes: Array<Delegation> = stake
-      .unwrapOrDefault()
-      .delegations.map((chainStake) => ({
-        collator: chainStake.owner.toString(),
-        amount: chainStake.amount.toBigInt(),
-      }))
+    const totalStake = delegator.unwrapOrDefault().amount.toBigInt()
+    const stakeable = free.toBigInt() - totalStake
+
+    const delegation = {
+      collator: delegator.unwrapOrDefault().owner.toString(),
+      amount: delegator.unwrapOrDefault().amount.toBigInt(),
+    }
+
+    if (rewards > 0) {
+      console.log(`${address} has unclaimed rewards ${rewards}`)
+    }
 
     accountInfos[address] = {
       totalStake,
       stakeable,
       unstaking,
-      stakes,
+      delegation,
+      rewards,
     }
   })
 
@@ -201,15 +241,13 @@ export const initialize = async (
     } else {
       const accountInfos = await updateAccountInfos(accounts)
 
-      Object.entries(accountInfos).forEach(([address, accountInfo]) => {
-        accountInfo.stakes.forEach((delegation) => {
-          if (candidates[delegation.collator]) {
-            candidates[delegation.collator].userStakes.push({
-              stake: delegation.amount,
-              account: address,
-            })
-          }
-        })
+      Object.entries(accountInfos).forEach(([address, { delegation }]) => {
+        if (candidates[delegation.collator]) {
+          candidates[delegation.collator].userStakes.push({
+            stake: delegation.amount,
+            account: address,
+          })
+        }
       })
 
       updateCallback(
