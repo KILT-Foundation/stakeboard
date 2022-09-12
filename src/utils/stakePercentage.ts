@@ -1,26 +1,27 @@
+import { Perquintill } from '@polkadot/types/interfaces'
+import { StakingRatesChain } from '../types/chainTypes'
+
 export function getPercent(percentageValue: number, secondValue: number) {
   const total = percentageValue + secondValue
   const percent = (percentageValue / total) * 100
-  return percent.toFixed(1)
+  return percent.toFixed(10)
 }
 
-export function getPercentage(total: number, value: number) {
-  return ((total / value) * 100).toFixed(1)
+// Rounds 10^18 to 3 digits after comma and transforms into percent, e.g. 10^18 = 100
+function perquintillToPercentage(num: Perquintill) {
+  const precision = 10n ** 5n
+  const perquintill = 10n ** 18n
+  const percent = num.toBigInt() * precision * 100n
+  const rounded =
+    Math.round(Number(percent) / Number(perquintill)) / Number(precision)
+  return rounded
 }
 
-export function delegatorsRewardRate(currentStakeRate: number, blocks: number) {
-  const minuteInSeconds = 60
-  const hourInMinutes = minuteInSeconds * 60
-  const dayInHours = hourInMinutes * 24
-  const yearInDays = dayInHours * 365.25
-  const blocksInYear = yearInDays / 12
-  let rewardRate
-  if (blocks <= blocksInYear) {
-    rewardRate = Math.min(40 / currentStakeRate, 1) * 8
-  } else if (blocks <= blocksInYear * 2) {
-    rewardRate = Math.min(40 / currentStakeRate, 1) * 6
-  } else {
-    rewardRate = 0
+export function stakingRatesToHuman(rates: StakingRatesChain) {
+  return {
+    collatorRewardRate: perquintillToPercentage(rates.collatorRewardRate),
+    collatorStakingRate: perquintillToPercentage(rates.collatorStakingRate),
+    delegatorRewardRate: perquintillToPercentage(rates.delegatorRewardRate),
+    delegatorStakingRate: perquintillToPercentage(rates.delegatorStakingRate),
   }
-  return rewardRate.toFixed(1)
 }

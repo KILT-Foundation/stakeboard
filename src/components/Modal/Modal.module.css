@@ -37,13 +37,14 @@
   max-height: 300px;
   font-size: var(--font-size-medium);
   text-align: center;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .buttonWrapper {
   width: 215px;
   display: flex;
   justify-content: space-around;
+  margin-top: 15px;
 }
 
 .buttonClose {

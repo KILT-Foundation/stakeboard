@@ -41,10 +41,12 @@ interface PropsWithCustom extends Props {
   stakeable2: number
 }
 
+// TODO: fix rewards before merging
 const accounts: Account[] = [
   {
     address: '5HTySzbJiBYuJow2ZKSHJTnMHF14S8oNnkkEBzzhyqaAPTAH',
     name: 'KILT Identity 1',
+    rewards: 0,
     staked: 14_000,
     stakeable: 8_000,
     used: true,
@@ -53,6 +55,7 @@ const accounts: Account[] = [
   {
     address: '5DLYuqjWyEFWF6c4oVDh62L4cPZajvupNj6uUNS4tBSux3ay',
     name: 'KILT Identity 2',
+    rewards: 0,
     staked: 5_000,
     stakeable: 16_000,
     used: true,
@@ -61,6 +64,7 @@ const accounts: Account[] = [
   {
     address: '5G1CE7waPWQCoUWLmK3NMh5gV6D8gdc1WDe2G8yST4tc9y3o',
     name: 'KILT Identity 3',
+    rewards: 0,
     staked: 9_000,
     stakeable: 0,
     used: true,
@@ -69,6 +73,7 @@ const accounts: Account[] = [
   {
     address: '5GeWZ6BU2bWN66B6YY7L7X75DXZ9ow6S6TUmcTEfn2DnF9mq',
     name: 'KILT Identity 4',
+    rewards: 0,
     staked: 0,
     stakeable: 5000,
     used: false,
@@ -77,6 +82,7 @@ const accounts: Account[] = [
   {
     address: '5DNri3hjVUjPZ5QHyGfEGfHTju4gsuXMndHVDsHSTE7vLkg1',
     name: 'KILT Identity 5',
+    rewards: 0,
     staked: 0,
     stakeable: 8000,
     used: false,

@@ -29,6 +29,12 @@
   color: var(--color-orange-text);
 }
 
+.stakingRewardsValue {
+  font-family: var(--font-dashboard);
+  font-size: var(--font-size-medium);
+  color: var(--color-green-text);
+}
+
 .detailsButton {
   margin-top: 5px;
 }

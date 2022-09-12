@@ -9,6 +9,7 @@ export default {
   argTypes: {},
 } as Meta
 
+// TODO: Fix rewards before merging
 const Template: Story = (args) => (
   <BlockchainDataContext.Provider
     value={{
@@ -16,6 +17,7 @@ const Template: Story = (args) => (
         {
           address: '5F1P7WAgEkh7YWCHCBcnBx8Gvx2VbCMrjezUjiJRoZmmR464',
           name: 'KILT Identity 1',
+          rewards: 0,
           stakeable: 100_000,
           staked: 0,
           unstaking: [],
@@ -23,6 +25,7 @@ const Template: Story = (args) => (
         {
           address: '5GN6CNx5L44Ga372PvyD639ukHTvoUktkDCNL4rY7sEFy57P',
           name: 'KILT Identity 2',
+          rewards: 0,
           stakeable: 800_000,
           staked: 0,
           unstaking: [],
@@ -30,6 +33,7 @@ const Template: Story = (args) => (
         {
           address: '5D7WMHRftdGWGhfAP7NaJfKuRyvfES77ZnjcBzqgMFMjTsGu',
           name: 'KILT Identity 3',
+          rewards: 0,
           stakeable: 10_000,
           staked: 0,
           unstaking: [],

@@ -51,8 +51,6 @@ export const useConnect = () => {
   const { dispatch } = useContext(StateContext)
 
   if (!cachedApi) {
-    // TODO: remove
-    console.log(`Connecting to WS ${ENDPOINT}`)
     wsProvider = new WsProvider(ENDPOINT)
     cachedApi = ApiPromise.create({
       provider: wsProvider,

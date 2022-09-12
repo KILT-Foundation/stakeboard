@@ -1,5 +1,4 @@
-import { Candidate, ChainTypes } from '../types'
-import { StakingRates } from '../types/chainTypes'
+import { Candidate, ChainTypes, StakingRates } from '../types'
 import {
   getCandidatePool,
   getCurrentCollators,
@@ -19,7 +18,8 @@ import {
   getUnclaimedStakingRewards,
   getMaxNumberDelegators,
 } from './chain'
-import { femtoToKilt, perquintillToPercentage } from './conversion'
+import { femtoToKilt } from './conversion'
+import { stakingRatesToHuman } from './stakePercentage'
 
 const updateCollators = async () => {
   const [
@@ -63,13 +63,8 @@ type ChainInfo = {
   totalIssuance: bigint
   maxCandidateCount: number
   minDelegatorStake: number
-  stakingRates: {
-    collatorRewardRate: Number
-    collatorStakingRate: Number
-    delegatorRewardRate: Number
-    delegatorStakingRate: Number
-  }
   maxNumberDelegators: number
+  stakingRates: StakingRates
 }
 
 const updateChainInfo = async (): Promise<ChainInfo> => {
@@ -95,15 +90,6 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     getMaxNumberDelegators(),
   ])
 
-  // TODO: Remove
-  console.log(
-    'Staking rates decoded:',
-    perquintillToPercentage(stakingRates.collatorRewardRate),
-    perquintillToPercentage(stakingRates.collatorStakingRate),
-    perquintillToPercentage(stakingRates.delegatorRewardRate),
-    perquintillToPercentage(stakingRates.delegatorStakingRate)
-  )
-
   const chainInfo: ChainInfo = {
     sessionInfo,
     bestBlock: bestBlock.toNumber(),
@@ -115,21 +101,8 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     totalIssuance: totalIssuance.toBigInt(),
     maxCandidateCount: maxCandidateCount.toNumber(),
     minDelegatorStake: femtoToKilt(minDelegatorStake.toBigInt()),
-    stakingRates: {
-      collatorRewardRate: perquintillToPercentage(
-        stakingRates.collatorRewardRate
-      ),
-      collatorStakingRate: perquintillToPercentage(
-        stakingRates.collatorStakingRate
-      ),
-      delegatorRewardRate: perquintillToPercentage(
-        stakingRates.delegatorRewardRate
-      ),
-      delegatorStakingRate: perquintillToPercentage(
-        stakingRates.delegatorStakingRate
-      ),
-    },
     maxNumberDelegators: maxNumberDelegators.toNumber(),
+    stakingRates: stakingRatesToHuman(stakingRates),
   }
 
   return chainInfo
@@ -192,10 +165,6 @@ const updateAccountInfos = async (accounts: string[]) => {
     const delegation = {
       collator: delegator.unwrapOrDefault().owner.toString(),
       amount: delegator.unwrapOrDefault().amount.toBigInt(),
-    }
-
-    if (rewards > 0) {
-      console.log(`${address} has unclaimed rewards ${rewards}`)
     }
 
     accountInfos[address] = {

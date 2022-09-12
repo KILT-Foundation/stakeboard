@@ -83,6 +83,7 @@
 
   --color-dashboard: #0f0f1b;
   --color-staked: var(--color-primary);
+  --color-claimable-rewards: #437e00;
   --color-unused: #ff9100;
   --color-withdraw: #fb8f72;
   --color-blocked: #c25639;

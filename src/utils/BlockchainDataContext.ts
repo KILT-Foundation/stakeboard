@@ -1,5 +1,5 @@
 import React from 'react'
-import { Data, Account, ChainTypes } from '../types'
+import { Data, Account, ChainTypes, StakingRates } from '../types'
 import { OverallTotalStake } from './polling'
 
 export const BlockchainDataContext = React.createContext<{
@@ -13,6 +13,7 @@ export const BlockchainDataContext = React.createContext<{
   maxCandidateCount?: number
   minDelegatorStake?: number
   maxNumberDelegators?: number
+  stakingRates?: StakingRates
 }>({
   dataSet: [],
   accounts: [],

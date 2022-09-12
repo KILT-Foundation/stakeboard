@@ -13,6 +13,7 @@ export interface ButtonProps {
   onClick?: (e: MouseEvent) => void
   disabled?: boolean
   orangeButton?: boolean
+  greenButton?: boolean
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -20,6 +21,7 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   disabled,
   orangeButton,
+  greenButton,
   ...props
 }) => {
   if (children && !label) {
@@ -34,6 +36,7 @@ export const Button: React.FC<ButtonProps> = ({
       type="button"
       className={cx(styles.button, {
         [styles.orange]: orangeButton,
+        [styles.green]: greenButton,
       })}
       disabled={disabled}
       {...props}

@@ -31,6 +31,7 @@ export interface DataWithRank extends Data {
 export interface Account {
   address: string
   name?: string
+  rewards: number
   staked: number
   stakeable: number
   unstaking: Array<Unstaking>
@@ -58,4 +59,11 @@ export interface Candidate {
 export interface Extension {
   name: string
   version: string
+}
+
+export interface StakingRates {
+  collatorRewardRate: Number
+  collatorStakingRate: Number
+  delegatorRewardRate: Number
+  delegatorStakingRate: Number
 }

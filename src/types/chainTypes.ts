@@ -43,7 +43,7 @@ export interface TotalStake extends Struct {
   delegators: Balance
 }
 
-export interface StakingRates extends Struct {
+export interface StakingRatesChain extends Struct {
   collatorStakingRate: Perquintill
   collatorRewardRate: Perquintill
   delegatorStakingRate: Perquintill

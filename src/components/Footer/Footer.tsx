@@ -1,46 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import styles from './Footer.module.css'
 import packageInfo from '../../../package.json'
 import PDF from '../../uploads/220106_Stakeboard_Terms&License.pdf'
 import { ImprintModal } from '../ImprintModal/ImprintModal'
 import { useModal } from '../../utils/useModal'
-import {
-  getPercentage,
-  delegatorsRewardRate,
-} from '../../utils/stakePercentage'
-import { femtoToKilt } from '../../utils/conversion'
+import {} from '../../utils/stakePercentage'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 import cx from 'classnames'
 
 export const Footer: React.FC = () => {
   const { isVisible, showModal, hideModal } = useModal()
-  const [delegatorsPercentage, setDelegatorsPercentage] = useState<string>('0')
-  const [delegatorsReward, setDelegatorsReward] = useState<string>('0')
 
-  const { overallTotalStake, totalIssuance, bestBlock } = useContext(
-    BlockchainDataContext
-  )
-
-  useEffect(() => {
-    if (!overallTotalStake || !totalIssuance) return
-    // Takes it to a whole KILT
-    const convertedDelegatorsStake = femtoToKilt(overallTotalStake.delegators)
-    // Takes it to a whole KILT
-    const convertedTotalIssuance = femtoToKilt(totalIssuance)
-    setDelegatorsPercentage(
-      getPercentage(convertedDelegatorsStake, convertedTotalIssuance)
-    )
-  }, [overallTotalStake, totalIssuance])
-
-  useEffect(() => {
-    if (!bestBlock) return
-
-    const rewardRate = delegatorsRewardRate(
-      Number(delegatorsPercentage),
-      bestBlock
-    )
-    setDelegatorsReward(rewardRate)
-  }, [bestBlock, delegatorsPercentage])
+  const { stakingRates } = useContext(BlockchainDataContext)
 
   return (
     <div className={styles.footerContainer}>
@@ -49,9 +20,11 @@ export const Footer: React.FC = () => {
           <span className={cx(styles.gray, styles.paddingRight)}>STAKED</span>
           <span
             className={
-              delegatorsPercentage <= '40' ? styles.yellow : styles.red
+              stakingRates?.delegatorStakingRate || 0 <= 40
+                ? styles.yellow
+                : styles.red
             }
-          >{`${delegatorsPercentage}%`}</span>
+          >{`${stakingRates?.delegatorStakingRate.toFixed(1)}%`}</span>
           <span className={styles.spacer} />
           <span className={cx(styles.gray, styles.paddingRight)}>
             {' '}
@@ -59,10 +32,12 @@ export const Footer: React.FC = () => {
           </span>
           <span
             className={
-              delegatorsPercentage <= '40' ? styles.yellow : styles.red
+              stakingRates?.delegatorStakingRate || 0 <= 40
+                ? styles.yellow
+                : styles.red
             }
           >
-            {delegatorsReward}%
+            {stakingRates?.delegatorRewardRate.toFixed(1)}%
           </span>
         </div>
         <div className={styles.legal}>

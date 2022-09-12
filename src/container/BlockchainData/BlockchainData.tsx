@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Account, Candidate, ChainTypes, Data } from '../../types'
+import { Account, Candidate, ChainTypes, Data, StakingRates } from '../../types'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 import { femtoToKilt } from '../../utils/conversion'
 import { AccountInfo, initialize, OverallTotalStake } from '../../utils/polling'
@@ -34,6 +34,7 @@ export const BlockchainData: React.FC<Props> = ({
     Record<string, AccountInfo> | undefined
   >({})
   const [chainInfoActivate, setChainInfoActivate] = useState<boolean>(false)
+  const [stakingRates, setStakingRates] = useState<StakingRates>()
 
   const { storedState } = useContext(StoredStateContext)
   const { state, dispatch } = useContext(StateContext)
@@ -65,6 +66,7 @@ export const BlockchainData: React.FC<Props> = ({
           setMinDelegatorStake(chainInfo.minDelegatorStake)
           setMaxNumberDelegators(chainInfo.maxNumberDelegators)
           setChainInfoActivate(true)
+          setStakingRates(chainInfo.stakingRates)
         }
       )
     }
@@ -129,8 +131,9 @@ export const BlockchainData: React.FC<Props> = ({
       return
     // TODO: get data on actual stake / stakeable / other amounts
     const completeAccounts: Account[] = partialAccounts.map((account) => ({
-      name: account.name,
       address: account.address,
+      name: account.name,
+      rewards: femtoToKilt(accountInfos[account.address].rewards),
       staked: femtoToKilt(accountInfos[account.address].totalStake),
       stakeable: femtoToKilt(accountInfos[account.address].stakeable),
       unstaking: accountInfos[account.address].unstaking,
@@ -154,6 +157,7 @@ export const BlockchainData: React.FC<Props> = ({
         maxCandidateCount,
         minDelegatorStake,
         maxNumberDelegators,
+        stakingRates,
       }}
     >
       {children}
