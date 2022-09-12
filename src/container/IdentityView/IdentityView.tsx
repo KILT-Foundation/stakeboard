@@ -114,6 +114,12 @@ export const IdentityView: React.FC = () => {
             <span className={cx(styles.label, styles.labelGreen)}>
               {format(accountData.rewards)}
             </span>
+            {accountData.rewards < 1 && (
+              <span className={cx(styles.labelGreen)}>
+                {' '}
+                (might be too small to be displayed)
+              </span>
+            )}
           </span>
           <div className={styles.buttonContainer}>
             {accountData.rewards >= 1 && isVisible && (
