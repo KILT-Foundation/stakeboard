@@ -4,7 +4,7 @@ import { StakingRatesChain } from '../types/chainTypes'
 export function getPercent(percentageValue: number, secondValue: number) {
   const total = percentageValue + secondValue
   const percent = (percentageValue / total) * 100
-  return percent.toFixed(10)
+  return percent.toFixed(1)
 }
 
 // Rounds 10^18 to 3 digits after comma and transforms into percent, e.g. 10^18 = 100
