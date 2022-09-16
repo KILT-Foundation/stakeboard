@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { ApiPromise, WsProvider } from '@polkadot/api'
-import { DefinitionsCall, RegistryTypes } from '@polkadot/types/types'
+import { typeBundleForPolkadot } from '@kiltprotocol/type-definitions'
 
 import { StateContext } from './StateContext'
 
@@ -11,42 +11,6 @@ const ENDPOINT =
   process.env.REACT_APP_FULL_NODE_ENDPOINT ||
   'wss://peregrine.kilt.io/parachain-public-ws'
 
-// TODO: Import from KILT type registry
-const types: RegistryTypes = {
-  StakingRates: {
-    collatorStakingRate: 'Perquintill',
-    collatorRewardRate: 'Perquintill',
-    delegatorStakingRate: 'Perquintill',
-    delegatorRewardRate: 'Perquintill',
-  },
-}
-const runtime: DefinitionsCall = {
-  ParachainStakingApi: [
-    {
-      methods: {
-        get_staking_rates: {
-          description:
-            'Calculates the current staking and reward rates for collators and delegators',
-          params: [],
-          type: 'StakingRates',
-        },
-        get_unclaimed_staking_rewards: {
-          description:
-            'Calculates the staking rewards for a given account address',
-          params: [
-            {
-              name: 'account',
-              type: 'AccountId32',
-            },
-          ],
-          type: 'Balance',
-        },
-      },
-      version: 1,
-    },
-  ],
-}
-
 export const useConnect = () => {
   const { dispatch } = useContext(StateContext)
 
@@ -54,8 +18,12 @@ export const useConnect = () => {
     wsProvider = new WsProvider(ENDPOINT)
     cachedApi = ApiPromise.create({
       provider: wsProvider,
-      types,
-      runtime,
+      typesBundle: {
+        spec: {
+          'mashnet-node': typeBundleForPolkadot,
+          'kilt-spiritnet': typeBundleForPolkadot,
+        },
+      },
     })
 
     wsProvider.on('disconnected', () => dispatch({ type: 'disconnected' }))
