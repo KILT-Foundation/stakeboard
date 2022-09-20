@@ -114,15 +114,15 @@ export const IdentityView: React.FC = () => {
             <span className={cx(styles.label, styles.labelGreen)}>
               {format(accountData.rewards)}
             </span>
-            {accountData.rewards < 1 && (
+            {accountData.rewards < 0.001 && (
               <span className={cx(styles.labelGreen)}>
                 {' '}
-                (might be too small to be displayed)
+                (less than 1 micro-KILT)
               </span>
             )}
           </span>
           <div className={styles.buttonContainer}>
-            {accountData.rewards >= 1 && isVisible && (
+            {accountData.rewards >= 0.5 && isVisible && (
               <RewardModal
                 accountAddress={accountData.address}
                 rewards={accountData.rewards}

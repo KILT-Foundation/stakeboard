@@ -28,7 +28,7 @@ export const RewardModal: React.FC<Props> = ({
       }
     >
       Do you want to claim rewards for <br />
-      Collator {shortAddress}? <br />
+      Delegator {shortAddress}? <br />
       <br />
       <b>
         REWARDS: {rewards.toLocaleString()}
