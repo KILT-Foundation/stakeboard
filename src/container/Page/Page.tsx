@@ -12,12 +12,14 @@ import { useConnect } from '../../utils/useConnect'
 import { LoadingDataNotification } from '../../components/LoadingDataNotification/LoadingDataNotification'
 import { ConnectionNotification } from '../../components/ConnectionNotification/ConnectionNotification'
 import { BlockchainNotication } from '../BlockchainNotification/BlockchainNotification'
+import { Maintenance } from '../Maintenance/Maintenance'
 
 export interface Props {}
 
 export const Page: React.FC<Props> = () => {
   useConnect()
   const { allAccounts, extensions } = useExtension()
+  if (process.env.REACT_APP_MAINTENANCE === 'true') return <Maintenance />
   return (
     <div className={styles.page}>
       <Header />

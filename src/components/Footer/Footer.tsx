@@ -1,21 +1,49 @@
 import React, { useContext } from 'react'
 import styles from './Footer.module.css'
 import packageInfo from '../../../package.json'
-import PDF from '../../uploads/220106_Stakeboard_Terms&License.pdf'
-import { ImprintModal } from '../ImprintModal/ImprintModal'
-import { useModal } from '../../utils/useModal'
-import {} from '../../utils/stakePercentage'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 import cx from 'classnames'
 
 export const Footer: React.FC = () => {
-  const { isVisible, showModal, hideModal } = useModal()
-
   const { stakingRates } = useContext(BlockchainDataContext)
 
   return (
-    <div className={styles.footerContainer}>
+    <footer className={styles.footerContainer}>
       <div className={cx(styles.footer, styles.name)}>
+        <nav className={styles.legal}>
+          <a
+            className={styles.legalAnchor}
+            href={process.env.PUBLIC_URL + 'imprint.html'}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Imprint
+          </a>
+          <a
+            className={styles.legalAnchor}
+            href={process.env.PUBLIC_URL + 'terms.html'}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Terms
+          </a>
+          <a
+            className={styles.legalAnchor}
+            href="https://github.com/BTE-Trusted-Entity/stakeboard"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+          <a
+            className={styles.legalAnchor}
+            href="https://support.kilt.io/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Support
+          </a>
+        </nav>
         <div className={styles.reward}>
           <span className={cx(styles.gray, styles.paddingRight)}>STAKED</span>
           <span
@@ -40,23 +68,11 @@ export const Footer: React.FC = () => {
             {stakingRates?.delegatorRewardRate.toFixed(1)}%
           </span>
         </div>
-        <div className={styles.legal}>
-          <span onClick={() => showModal()} className={styles.yellow}>
-            IMPRINT
-          </span>
-          {isVisible && <ImprintModal closeModal={hideModal} />}
-          <span className={styles.spacer} />
-          <a
-            href={PDF}
-            rel="noopener noreferrer"
-            target="_blank"
-            className={styles.yellow}
-          >
-            TERMS & CONDITIONS
-          </a>
+
+        <div className={styles.versionInfo}>
+          v {packageInfo.version} © 2022 B.T.E. BOTLabs Trusted Entity GmbH
         </div>
-        <div className={styles.versionInfo}>v {packageInfo.version}</div>
       </div>
-    </div>
+    </footer>
   )
 }

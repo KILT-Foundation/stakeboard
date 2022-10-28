@@ -1,0 +1,110 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--color-gray-text);
+  background-color: var(--color-background);
+}
+
+@font-face {
+  font-family: 'Overpass Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/Overpass-Regular.woff2') format('woff2');
+}
+
+:root {
+  --color-background: #575756;
+  --color-background-footer: #181818;
+  --color-gray-text: #fdf7ef;
+  --color-primary: #ffed00;
+  --font-footer: 'Overpass Regular', sans-serif;
+  --font-size-big: 28px;
+  --font-size-primary: 18px;
+  --font-size-medium: 14px;
+  --font-size-small: 12px;
+  --font-size-smallest: 10px;
+}
+
+.container {
+  padding-top: 100px;
+  padding-bottom: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  max-width: 766px;
+  letter-spacing: 0.1px;
+  line-height: 22px;
+  font-size: 14px;
+}
+
+.heading {
+  font-size: var(--font-size-big);
+  line-height: 45px;
+  margin: 0 0 60px;
+}
+
+section {
+  margin: 16px 0 0;
+}
+
+.imprintLine {
+  margin: 0;
+}
+
+.anchor {
+  text-decoration: none;
+  color: var(--color-primary);
+}
+.anchor:hover {
+  text-decoration: underline;
+}
+
+.footerContainer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding-bottom: 5px;
+  background-color: var(--color-background-footer);
+  text-align: center;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 20px 0;
+  border-top: solid 1px;
+  border-top-color: rgba(102, 102, 102, 0.75);
+  box-sizing: border-box;
+}
+
+.legal {
+  display: flex;
+  gap: 10px;
+  font-family: var(--font-footer);
+  font-size: var(--font-size-medium);
+}
+
+.legalAnchorInactive {
+  color: var(--color-primary);
+  text-decoration: none;
+  opacity: 0.5;
+}
+
+.versionInfo {
+  font-family: var(--font-countdown);
+  font-size: var(--font-size-smallest);
+  color: var(--color-gray-alt-text);
+  padding: 7px 90px 2px 0;
+
+  background: no-repeat center right/25% url('./Built_on_KILT.svg');
+}

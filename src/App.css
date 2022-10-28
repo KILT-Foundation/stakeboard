@@ -40,12 +40,19 @@
   src: url('./fonts/asap-condensed-v15-latin-700.woff2') format('woff2');
 }
 
+@font-face {
+  font-family: 'Overpass Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/Overpass-Regular.woff2') format('woff2');
+}
 
 :root {
   /* Fonts */
   --font-primary: 'Ubuntu', sans-serif;
   --font-countdown: 'M PLUS Rounded 1c', sans-serif;
   --font-dashboard: 'Asap Condensed', sans-serif;
+  --font-footer: 'Overpass Regular', sans-serif;
   --font-size-big: 28px;
   --font-size-primary: 18px;
   --font-size-medium: 14px;
@@ -80,6 +87,7 @@
   --color-low-rank: #e94e1b;
   --color-input-border: rgba(255, 255, 255, 0.3);
   --color-input-hover-border: #b3b3b3;
+  --color-footer-border: rgba(102,102,102,0.75)
 
   --color-dashboard: #0f0f1b;
   --color-staked: var(--color-primary);
