@@ -90,14 +90,14 @@ export async function queryMinDelegatorStake(): Promise<u128> {
 
 export async function queryStakingRates(): Promise<StakingRatesChain> {
   const api = await getConnection()
-  return api.call.parachainStakingApi.getStakingRates<StakingRatesChain>()
+  return api.call.staking.getStakingRates<StakingRatesChain>()
 }
 
 export async function getUnclaimedStakingRewards(
   account: string
 ): Promise<Balance> {
   const api = await getConnection()
-  return api.call.parachainStakingApi.getUnclaimedStakingRewards<Balance>(
+  return api.call.staking.getUnclaimedStakingRewards<Balance>(
     account
   )
 }
@@ -189,7 +189,7 @@ export async function claimRewards(account: string) {
   const api = await getConnection()
   const txs = [
     api.tx.parachainStaking.incrementDelegatorRewards(),
-    api.tx.parachainStaking.claimRewardsFor(account),
+    api.tx.parachainStaking.claimRewards(),
   ]
   return api.tx.utility.batch(txs)
 }
