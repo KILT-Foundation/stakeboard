@@ -3580,7 +3580,7 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
-"@polkadot/api-augment@9.6.2", "@polkadot/api-augment@^9.3.3":
+"@polkadot/api-augment@9.6.2", "@polkadot/api-augment@^9.6.2":
   version "9.6.2"
   resolved "https://registry.yarnpkg.com/@polkadot/api-augment/-/api-augment-9.6.2.tgz#a6e7c29d8a06c0951d37796f56bf54530bbc04f0"
   integrity sha512-XsRSXCeZV+pdoY35fhoiHO/sVCmTdfb1lhnpkqEDmucOvP4lBRdg/y2l+50jmftJxnvYD5p/ddVc6ezOJVmL0w==
@@ -3620,7 +3620,7 @@
     "@polkadot/util-crypto" "^10.1.11"
     rxjs "^7.5.7"
 
-"@polkadot/api@9.6.2", "@polkadot/api@^9.3.3":
+"@polkadot/api@9.6.2", "@polkadot/api@^9.6.2":
   version "9.6.2"
   resolved "https://registry.yarnpkg.com/@polkadot/api/-/api-9.6.2.tgz#42050aed59489a0a484bc50e9186bd58b18d9835"
   integrity sha512-Cz/E4ZBDIxeOIyWKt9fnwW12ts5SopF2t03t4jnzM1beTUkGIZ6mQjho6JoXVIJEcAa8r1PsVpdyuSQhzeoXwQ==
@@ -3860,7 +3860,7 @@
     "@polkadot/util-crypto" "^10.1.7"
     rxjs "^7.5.6"
 
-"@polkadot/types@9.6.2", "@polkadot/types@^9.3.3":
+"@polkadot/types@9.6.2", "@polkadot/types@^9.6.2":
   version "9.6.2"
   resolved "https://registry.yarnpkg.com/@polkadot/types/-/types-9.6.2.tgz#1be65ed096cdfd16f2acce79e77383a37b1e06d6"
   integrity sha512-pP38vk+JfcQwgLwHsKttuj0yaM7uPQnst3Cd7u7ZX4qf5PmICtZ2Baz11NW0aF8mqhqgkNNF+a8PSUqJQd21Xg==

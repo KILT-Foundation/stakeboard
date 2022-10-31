@@ -5,10 +5,10 @@
   "license": "BSD-4-Clause",
   "dependencies": {
     "@kiltprotocol/type-definitions": "^0.29.0",
-    "@polkadot/api": "^9.3.3",
-    "@polkadot/api-augment": "^9.3.3",
+    "@polkadot/api": "^9.6.2",
+    "@polkadot/api-augment": "^9.6.2",
     "@polkadot/extension-dapp": "^0.44.6",
-    "@polkadot/types": "^9.3.3",
+    "@polkadot/types": "^9.6.2",
     "@polkadot/ui-shared": "^2.9.8",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
