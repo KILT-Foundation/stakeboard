@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { ApiPromise, WsProvider } from '@polkadot/api'
-import { typeBundleForPolkadot } from '@kiltprotocol/type-definitions'
+import { typesBundle } from '@kiltprotocol/type-definitions'
 
 import { StateContext } from './StateContext'
 
@@ -18,12 +18,7 @@ export const useConnect = () => {
     wsProvider = new WsProvider(ENDPOINT)
     cachedApi = ApiPromise.create({
       provider: wsProvider,
-      typesBundle: {
-        spec: {
-          'mashnet-node': typeBundleForPolkadot,
-          'kilt-spiritnet': typeBundleForPolkadot,
-        },
-      },
+      typesBundle,
     })
 
     wsProvider.on('disconnected', () => dispatch({ type: 'disconnected' }))
