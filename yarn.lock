@@ -3437,10 +3437,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kiltprotocol/type-definitions@^0.29.0":
-  version "0.29.0"
-  resolved "https://registry.yarnpkg.com/@kiltprotocol/type-definitions/-/type-definitions-0.29.0.tgz#c7e00e34767cbaba8d0238c61173092fe59193fc"
-  integrity sha512-j6e2JhEvWYMRo2fw2TN173tDf5s1qbx8z8lPnDuJt+WmalsPrZ1Jw/2XUy3MfknzSaRAfLfjqeSWwdvrV7fvaw==
+"@kiltprotocol/type-definitions@^0.30.0-43":
+  version "0.30.0-43"
+  resolved "https://registry.yarnpkg.com/@kiltprotocol/type-definitions/-/type-definitions-0.30.0-43.tgz#c1bdb57da419a9a4f637aaac69af57501940702f"
+  integrity sha512-6U9VcKybcnj4wsYxHontasqFUbY9E1i1hNe5dhEHbcbeQN0OfcEgYS1zSt2cyhl61R4PqQrjaPGynvxbKJ1AGw==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
