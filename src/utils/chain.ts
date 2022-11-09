@@ -1,9 +1,10 @@
-import type { Vec, Option, BTreeMap, Tuple, u32, u128 } from '@polkadot/types'
+import { Vec, Option, BTreeMap, Tuple, u32, u128, UInt } from '@polkadot/types'
 import type {
   AccountId,
   Balance,
   BalanceOf,
   BlockNumber,
+  Perquintill,
 } from '@polkadot/types/interfaces'
 import { Candidate, ChainTypes } from '../types'
 import { web3FromAddress } from '@polkadot/extension-dapp'
@@ -90,7 +91,21 @@ export async function queryMinDelegatorStake(): Promise<u128> {
 
 export async function queryStakingRates(): Promise<StakingRatesChain> {
   const api = await getConnection()
-  return api.call.staking.getStakingRates<StakingRatesChain>()
+  try {
+    const rates = await api.call.staking.getStakingRates<StakingRatesChain>()
+    return rates
+  } catch (e) {
+    console.warn(e)
+  }
+  // FIXME: Throws `DoNotConstruct: Cannot construct unknown type StakingRates`
+  const zero: Perquintill = new UInt(api.registry, 0)
+  const x: StakingRatesChain = api.createType('StakingRates', {
+    collatorStakingRate: zero,
+    collatorRewardRate: zero,
+    delegatorStakingRate: zero,
+    delegatorRewardRate: zero,
+  })
+  return x
 }
 
 export async function getUnclaimedStakingRewards(
