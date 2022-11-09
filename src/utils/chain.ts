@@ -91,8 +91,7 @@ export async function queryMinDelegatorStake(): Promise<u128> {
 export async function queryStakingRates(): Promise<StakingRatesChain> {
   const api = await getConnection()
   try {
-    const rates = await api.call.staking.getStakingRates<StakingRatesChain>()
-    return rates
+    return api.call.staking.getStakingRates<StakingRatesChain>()
   } catch (e) {
     console.warn(e)
     const fallback: StakingRatesChain = api.createType('StakingRates', {
