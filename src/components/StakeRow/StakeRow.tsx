@@ -37,7 +37,6 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
   }
   const changeStake = async (
     account: Account,
-    collator: string,
     current: number,
     newStake: number | undefined
   ) => {
@@ -47,11 +46,11 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
     } else if (newStake > current) {
       const more = newStake - current
       const differenceInFemto = kiltToFemto(more)
-      tx = await delegatorStakeMore(collator, differenceInFemto)
+      tx = await delegatorStakeMore(differenceInFemto)
     } else if (newStake < current) {
       const less = current - newStake
       const differenceInFemto = kiltToFemto(less)
-      tx = await delegatorStakeLess(collator, differenceInFemto)
+      tx = await delegatorStakeLess(differenceInFemto)
     }
 
     if (tx) {
@@ -70,7 +69,7 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
   if (!account) return null
 
   const handleStake = async () => {
-    await changeStake(account, collator, stakeInfo.stake, newStake)
+    await changeStake(account, stakeInfo.stake, newStake)
     hideModal()
     setEditStake(false)
   }

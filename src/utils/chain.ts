@@ -97,9 +97,7 @@ export async function getUnclaimedStakingRewards(
   account: string
 ): Promise<Balance> {
   const api = await getConnection()
-  return api.call.staking.getUnclaimedStakingRewards<Balance>(
-    account
-  )
+  return api.call.staking.getUnclaimedStakingRewards<Balance>(account)
 }
 
 export async function getMaxNumberDelegators(): Promise<u32> {
@@ -168,13 +166,13 @@ export async function joinDelegators(collator: string, stake: bigint) {
   const api = await getConnection()
   return api.tx.parachainStaking.joinDelegators(collator, stake)
 }
-export async function delegatorStakeMore(collator: string, more: bigint) {
+export async function delegatorStakeMore(more: bigint) {
   const api = await getConnection()
-  return api.tx.parachainStaking.delegatorStakeMore(collator, more)
+  return api.tx.parachainStaking.delegatorStakeMore(more)
 }
-export async function delegatorStakeLess(collator: string, less: bigint) {
+export async function delegatorStakeLess(less: bigint) {
   const api = await getConnection()
-  return api.tx.parachainStaking.delegatorStakeLess(collator, less)
+  return api.tx.parachainStaking.delegatorStakeLess(less)
 }
 export async function leaveDelegators() {
   const api = await getConnection()
