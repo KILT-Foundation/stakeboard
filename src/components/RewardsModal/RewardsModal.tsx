@@ -1,6 +1,7 @@
 import { Button } from '../Button/Button'
 import { shortenAddress } from '../../utils/shortenAddress'
 import { Modal } from '../Modal/Modal'
+import { format } from '../../utils'
 
 export interface Props {
   accountAddress: string
@@ -31,14 +32,12 @@ export const RewardModal: React.FC<Props> = ({
       Delegator {shortAddress}? <br />
       <br />
       <b>
-        REWARDS: {rewards.toLocaleString()}
+        REWARDS: {format(rewards)}
         <br />
       </b>
       <br />
-      KILT staking rewards can be<br>
-      </br>
-      claimed manually at the convenience<br>
-      </br>
+      KILT staking rewards can be<br></br>
+      claimed manually at the convenience<br></br>
       of the account owner.
       <br />
       <br />

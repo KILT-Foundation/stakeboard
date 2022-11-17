@@ -122,16 +122,13 @@ export const IdentityView: React.FC = () => {
             )}
           </span>
           <div className={styles.buttonContainer}>
-            {accountData.rewards >= 0.5 && isVisible && (
+            {accountData.rewards >= 0.1 && isVisible && (
               <RewardModal
                 accountAddress={accountData.address}
                 rewards={accountData.rewards}
                 closeModal={hideModal}
                 onConfirm={handleRewardsClaim}
               />
-            )}
-            {accountData.rewards >= 1 && (
-              <Button onClick={showModal} label={'Claim'} greenButton={true} />
             )}
           </div>
         </div>
@@ -141,6 +138,14 @@ export const IdentityView: React.FC = () => {
           >
             Ready to claim (rewards)
           </span>
+          {accountData.rewards >= 0.1 && (
+            <div className={styles.buttonCont}>
+              <Button onClick={showModal} label={'Claim'} greenButton={true} />
+              <span className={cx(styles.label, styles.labelGray)}>
+                {accountData.rewards >= 0.1 && format(accountData.rewards)}
+              </span>
+            </div>
+          )}
           <span
             className={cx(
               styles.labelSmall,
