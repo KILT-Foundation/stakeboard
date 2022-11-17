@@ -1,14 +1,18 @@
 import styles from './Maintenance.module.css'
 
+const maintenanceText = process.env.REACT_APP_MAINTENANCE_TEXT || 'xx'
+
 export function Maintenance() {
   return (
     <div className={styles.container}>
       <div className={styles.contents}>
         <h1 className={styles.heading}>Currently under maintenance</h1>
         <p className={styles.text}>
-          Stakeboard is under maintenance for a short time, as KILT migrates
-          from Kusama to Polkadot.
+          Stakeboard is under maintenance for a short time.
         </p>
+        {maintenanceText.length > 0 && (
+          <p className={styles.text}>{maintenanceText}</p>
+        )}
         <a
           className={styles.anchor}
           href="https://status.kilt.io/"
