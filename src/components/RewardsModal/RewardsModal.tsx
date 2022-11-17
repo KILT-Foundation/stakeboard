@@ -35,17 +35,11 @@ export const RewardModal: React.FC<Props> = ({
         <br />
       </b>
       <br />
-      Unlike in Polkadot, rewards need to be
-      <br />
-      actively claimed for every single address!
-      <br />
-      E.g., when your collator claims their rewards
-      <br />
-      you still need to claim for yourself.
-      <br />
-      However, KILT rewards never expire,
-      <br />
-      so you don't need to rush.
+      KILT staking rewards can be<br>
+      </br>
+      claimed manually at the convenience<br>
+      </br>
+      of the account owner.
       <br />
       <br />
       Please note that you need to pay the
