@@ -19,7 +19,6 @@ import {
   getMaxNumberDelegators,
 } from './chain'
 import { femtoToKilt } from './conversion'
-import { stakingRatesToHuman } from './stakePercentage'
 
 const updateCollators = async () => {
   const [
@@ -102,7 +101,7 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     maxCandidateCount: maxCandidateCount.toNumber(),
     minDelegatorStake: femtoToKilt(minDelegatorStake.toBigInt()),
     maxNumberDelegators: maxNumberDelegators.toNumber(),
-    stakingRates: stakingRatesToHuman(stakingRates),
+    stakingRates,
   }
 
   return chainInfo
@@ -159,12 +158,12 @@ const updateAccountInfos = async (accounts: string[]) => {
       })
     })
 
-    const totalStake = delegator.unwrapOrDefault().amount.toBigInt()
+    const totalStake = delegator.unwrap().amount.toBigInt()
     const stakeable = free.toBigInt() - totalStake
 
     const delegation = {
-      collator: delegator.unwrapOrDefault().owner.toString(),
-      amount: delegator.unwrapOrDefault().amount.toBigInt(),
+      collator: delegator.unwrap().owner.toString(),
+      amount: delegator.unwrap().amount.toBigInt(),
     }
 
     accountInfos[address] = {

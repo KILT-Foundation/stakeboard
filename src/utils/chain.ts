@@ -5,11 +5,12 @@ import type {
   BalanceOf,
   BlockNumber,
 } from '@polkadot/types/interfaces'
-import { Candidate, ChainTypes } from '../types'
+import { Candidate, ChainTypes, StakingRates } from '../types'
 import { web3FromAddress } from '@polkadot/extension-dapp'
 import type { SubmittableExtrinsic } from '@polkadot/api/promise/types'
 import { getConnection } from './useConnect'
-import { StakingRatesChain } from '../types/chainTypes'
+import { StakingRates as StakingRatesChain } from '@kiltprotocol/augment-api'
+import { stakingRatesToHuman } from './stakePercentage'
 
 export async function getGenesis() {
   const api = await getConnection()
@@ -88,19 +89,19 @@ export async function queryMinDelegatorStake(): Promise<u128> {
   return api.consts.parachainStaking.minDelegatorStake as u128
 }
 
-export async function queryStakingRates(): Promise<StakingRatesChain> {
+export async function queryStakingRates(): Promise<StakingRates> {
   const api = await getConnection()
   try {
-    return api.call.staking.getStakingRates<StakingRatesChain>()
+    const rates = await api.call.staking.getStakingRates<StakingRatesChain>()
+    return stakingRatesToHuman(rates)
   } catch (e) {
     console.warn(e)
-    const fallback: StakingRatesChain = api.createType('StakingRates', {
-      collatorStakingRate: 0,
+    return {
       collatorRewardRate: 0,
-      delegatorStakingRate: 0,
+      collatorStakingRate: 0,
       delegatorRewardRate: 0,
-    })
-    return fallback
+      delegatorStakingRate: 0,
+    }
   }
 }
 
