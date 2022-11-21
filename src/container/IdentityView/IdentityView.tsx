@@ -5,7 +5,7 @@ import { TokenBar } from '../../components/Dashboard/TokenBar'
 import { Identicon } from '../../components/Identicon/Identicon'
 import styles from './IdentityView.module.css'
 import cx from 'classnames'
-import { claimRewards, withdrawStake } from '../../utils/chain'
+import { claimDelegatorRewards, withdrawStake } from '../../utils/chain'
 import { femtoToKilt } from '../../utils/conversion'
 import { padTime, blockToTime } from '../../utils/timeConvert'
 import { format } from '../../utils/index'
@@ -31,7 +31,7 @@ export const IdentityView: React.FC = () => {
   const handleRewardsClaim = async () => {
     if (!account) throw new Error('No account selected')
 
-    const tx = await claimRewards(account.address)
+    const tx = await claimDelegatorRewards()
     await signAndSubmitTx(account.address, tx)
     hideModal()
   }

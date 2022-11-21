@@ -195,7 +195,7 @@ export async function withdrawStake(account: string) {
   const api = await getConnection()
   return api.tx.parachainStaking.unlockUnstaked(account)
 }
-export async function claimRewards(account: string) {
+export async function claimDelegatorRewards() {
   const api = await getConnection()
   const txs = [
     api.tx.parachainStaking.incrementDelegatorRewards(),

@@ -1,9 +1,8 @@
 import { Button, ButtonColor } from '../Button/Button'
 import { shortenAddress } from '../../utils/shortenAddress'
 import { Modal } from '../Modal/Modal'
-import { format } from '../../utils'
+import { claimDelegatorRewards, format } from '../../utils'
 import { useEffect, useState } from 'react'
-import { getConnection } from '../../utils/useConnect'
 import { femtoKiltToDigits } from '../../utils/conversion'
 
 export interface Props {
@@ -24,15 +23,8 @@ export const RewardModal: React.FC<Props> = ({
 
   useEffect(() => {
     const getFee = async () => {
-      const api = await getConnection()
-
       const feeInFemto = (
-        await api.tx.utility
-          .batch([
-            api.tx.parachainStaking.incrementDelegatorRewards(),
-            api.tx.parachainStaking.claimRewards(),
-          ])
-          .paymentInfo(accountAddress)
+        await (await claimDelegatorRewards()).paymentInfo(accountAddress)
       ).partialFee
 
       if (!feeInFemto.isZero()) {
