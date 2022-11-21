@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Button } from '../Button/Button'
+import { Button, ButtonColor } from '../Button/Button'
 import rowStyles from '../../styles/row.module.css'
 
 export interface UnstakeRowProps {
@@ -25,7 +25,7 @@ export const UnstakeRow: React.FC<UnstakeRowProps> = ({ handleUnstake }) => {
         </div>
       </td>
       <td>
-        <Button label="unstake" onClick={handleUnstake} orangeButton />
+        <Button label="unstake" onClick={handleUnstake} color={ButtonColor.orange} />
       </td>
       <td></td>
       <td></td>

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Account, Candidate, ChainTypes, Data, StakingRates } from '../../types'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
-import { femtoToKilt, microToKilt } from '../../utils/conversion'
+import { femtoKiltToDigits, femtoToKilt } from '../../utils/conversion'
 import { AccountInfo, initialize, OverallTotalStake } from '../../utils/polling'
 import { StateContext } from '../../utils/StateContext'
 import { StoredStateContext } from '../../utils/StoredStateContext'
@@ -133,7 +133,7 @@ export const BlockchainData: React.FC<Props> = ({
     const completeAccounts: Account[] = partialAccounts.map((account) => ({
       address: account.address,
       name: account.name,
-      rewards: microToKilt(accountInfos[account.address].rewards),
+      rewards: femtoKiltToDigits(accountInfos[account.address].rewards, 6),
       staked: femtoToKilt(accountInfos[account.address].totalStake),
       stakeable: femtoToKilt(accountInfos[account.address].stakeable),
       unstaking: accountInfos[account.address].unstaking,

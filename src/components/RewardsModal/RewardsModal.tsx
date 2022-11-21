@@ -1,7 +1,10 @@
-import { Button } from '../Button/Button'
+import { Button, ButtonColor } from '../Button/Button'
 import { shortenAddress } from '../../utils/shortenAddress'
 import { Modal } from '../Modal/Modal'
 import { format } from '../../utils'
+import { useEffect, useState } from 'react'
+import { getConnection } from '../../utils/useConnect'
+import { femtoKiltToDigits } from '../../utils/conversion'
 
 export interface Props {
   accountAddress: string
@@ -17,6 +20,22 @@ export const RewardModal: React.FC<Props> = ({
   closeModal,
 }) => {
   const shortAddress = shortenAddress(accountAddress)
+  const [fee, setFee] = useState<number>(0.0003)
+
+  useEffect(() => {
+    const getFee = async () => {
+      const api = await getConnection()
+      const increment = await api.tx.parachainStaking.incrementDelegatorRewards().paymentInfo(accountAddress)
+      const claim = await api.tx.parachainStaking.claimRewards().paymentInfo(accountAddress)
+
+      if (increment.partialFee || claim.partialFee) {
+        const feeInFemto = (increment.partialFee.toBigInt() || 0n) + (claim.partialFee.toBigInt() || 0n)
+        const feeInKiltWithSixDigits = femtoKiltToDigits(feeInFemto, 6)
+        setFee(feeInKiltWithSixDigits)
+      }
+    }
+    getFee()
+  }, [accountAddress])
 
   return (
     <Modal
@@ -24,7 +43,7 @@ export const RewardModal: React.FC<Props> = ({
       buttons={
         <>
           <Button onClick={closeModal} label="CANCEL" />
-          <Button onClick={onConfirm} label="CLAIM" greenButton />
+          <Button onClick={onConfirm} label="CLAIM" color={ButtonColor.green} />
         </>
       }
     >
@@ -46,7 +65,7 @@ export const RewardModal: React.FC<Props> = ({
       transaction fee.
       <br />
       <br />
-      ESTIMATED TX FEE: 0.03
+      <i>ESTIMATED TX FEE: {fee} KILT</i>
       <br />
     </Modal>
   )

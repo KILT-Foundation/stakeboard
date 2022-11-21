@@ -1,4 +1,4 @@
-import { Button } from '../Button/Button'
+import { Button, ButtonColor } from '../Button/Button'
 import { shortenAddress } from '../../utils/shortenAddress'
 import { Modal } from '../Modal/Modal'
 
@@ -46,7 +46,11 @@ export const StakeModal: React.FC<Props> = ({
           buttons={
             <>
               <Button onClick={closeModal} label="CANCEL" />
-              <Button onClick={onConfirm} label="STAKE" orangeButton />
+              <Button
+                onClick={onConfirm}
+                label="STAKE"
+                color={ButtonColor.orange}
+              />
             </>
           }
         >
@@ -79,7 +83,11 @@ export const StakeModal: React.FC<Props> = ({
           buttons={
             <>
               <Button onClick={closeModal} label="CANCEL" />
-              <Button onClick={onConfirm} label="STAKE" orangeButton />
+              <Button
+                onClick={onConfirm}
+                label="STAKE"
+                color={ButtonColor.orange}
+              />
             </>
           }
         >
@@ -104,7 +112,11 @@ export const StakeModal: React.FC<Props> = ({
           buttons={
             <>
               <Button onClick={closeModal} label="CANCEL" />
-              <Button onClick={onConfirm} label="STAKE" orangeButton />
+              <Button
+                onClick={onConfirm}
+                label="STAKE"
+                color={ButtonColor.orange}
+              />
             </>
           }
         >
@@ -124,7 +136,11 @@ export const StakeModal: React.FC<Props> = ({
           buttons={
             <>
               <Button onClick={closeModal} label="CANCEL" />
-              <Button onClick={onConfirm} label="UNSTAKE" orangeButton />
+              <Button
+                onClick={onConfirm}
+                label="UNSTAKE"
+                color={ButtonColor.orange}
+              />
             </>
           }
         >

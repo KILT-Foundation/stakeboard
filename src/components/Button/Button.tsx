@@ -2,6 +2,11 @@ import React, { MouseEvent } from 'react'
 import cx from 'classnames'
 import styles from './Button.module.css'
 
+export enum ButtonColor {
+  green = 'green',
+  orange = 'orange',
+}
+
 export interface ButtonProps {
   /**
    * Label of the button.
@@ -12,16 +17,14 @@ export interface ButtonProps {
    */
   onClick?: (e: MouseEvent) => void
   disabled?: boolean
-  orangeButton?: boolean
-  greenButton?: boolean
+  color?: ButtonColor
 }
 
 export const Button: React.FC<ButtonProps> = ({
   label,
   children,
   disabled,
-  orangeButton,
-  greenButton,
+  color,
   ...props
 }) => {
   if (children && !label) {
@@ -35,8 +38,7 @@ export const Button: React.FC<ButtonProps> = ({
     <button
       type="button"
       className={cx(styles.button, {
-        [styles.orange]: orangeButton,
-        [styles.green]: greenButton,
+        [styles[color!]]: true,
       })}
       disabled={disabled}
       {...props}

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Button } from '../../components/Button/Button'
+import { Button, ButtonColor } from '../../components/Button/Button'
 import { StateContext } from '../../utils/StateContext'
 import { TokenBar } from '../../components/Dashboard/TokenBar'
 import { Identicon } from '../../components/Identicon/Identicon'
@@ -117,12 +117,12 @@ export const IdentityView: React.FC = () => {
             {accountData.rewards < 0.001 && (
               <span className={cx(styles.labelGreen)}>
                 {' '}
-                (less than 1 micro-KILT)
+                (less than 1 milli-KILT (0.001 KILT))
               </span>
             )}
           </span>
           <div className={styles.buttonContainer}>
-            {accountData.rewards >= 0.1 && isVisible && (
+            {isVisible && (
               <RewardModal
                 accountAddress={accountData.address}
                 rewards={accountData.rewards}
@@ -138,11 +138,11 @@ export const IdentityView: React.FC = () => {
           >
             Ready to claim (rewards)
           </span>
-          {accountData.rewards >= 0.1 && (
+          {accountData.rewards >= 0.05 && (
             <div className={styles.buttonCont}>
-              <Button onClick={showModal} label={'Claim'} greenButton={true} />
+              <Button onClick={showModal} label={'Claim'} color={ButtonColor.green} />
               <span className={cx(styles.label, styles.labelGray)}>
-                {accountData.rewards >= 0.1 && format(accountData.rewards)}
+                {format(accountData.rewards)}
               </span>
             </div>
           )}
