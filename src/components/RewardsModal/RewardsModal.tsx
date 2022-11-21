@@ -25,12 +25,21 @@ export const RewardModal: React.FC<Props> = ({
   useEffect(() => {
     const getFee = async () => {
       const api = await getConnection()
-      const increment = await api.tx.parachainStaking.incrementDelegatorRewards().paymentInfo(accountAddress)
-      const claim = await api.tx.parachainStaking.claimRewards().paymentInfo(accountAddress)
 
-      if (!increment.partialFee.isZero() && !claim.partialFee.isZero()) {
-        const feeInFemto = (increment.partialFee.toBigInt() || 0n) + (claim.partialFee.toBigInt() || 0n)
-        const feeInKiltWithSixDigits = femtoKiltToDigits(feeInFemto, 6)
+      const feeInFemto = (
+        await api.tx.utility
+          .batch([
+            api.tx.parachainStaking.incrementDelegatorRewards(),
+            api.tx.parachainStaking.claimRewards(),
+          ])
+          .paymentInfo(accountAddress)
+      ).partialFee
+
+      if (!feeInFemto.isZero()) {
+        const feeInKiltWithSixDigits = femtoKiltToDigits(
+          feeInFemto.toBigInt(),
+          6
+        )
         setFee(feeInKiltWithSixDigits)
       }
     }
