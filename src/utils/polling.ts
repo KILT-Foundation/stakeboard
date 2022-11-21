@@ -143,8 +143,24 @@ const updateAccountInfos = async (accounts: string[]) => {
     const address = account[0]
     const balance = account[1]
     const unstakingChain = account[2]
-    const delegator = account[3]
+    const maybeDelegation = account[3]
     const rewards = account[4].toBigInt()
+
+    let totalStake = 0n
+    let delegation = {
+      collator: '',
+      amount: 0n,
+    }
+
+    // Only addresses which have an active delegation can be unwrapped
+    if (maybeDelegation.isSome) {
+      const stake = maybeDelegation.unwrap()
+      totalStake = stake.amount.toBigInt()
+      delegation = {
+        collator: stake.owner.toString(),
+        amount: stake.amount.toBigInt(),
+      }
+    }
 
     const {
       data: { free },
@@ -158,13 +174,7 @@ const updateAccountInfos = async (accounts: string[]) => {
       })
     })
 
-    const totalStake = delegator.unwrap().amount.toBigInt()
     const stakeable = free.toBigInt() - totalStake
-
-    const delegation = {
-      collator: delegator.unwrap().owner.toString(),
-      amount: delegator.unwrap().amount.toBigInt(),
-    }
 
     accountInfos[address] = {
       totalStake,
