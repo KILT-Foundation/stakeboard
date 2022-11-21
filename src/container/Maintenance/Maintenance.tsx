@@ -1,6 +1,6 @@
 import styles from './Maintenance.module.css'
 
-const maintenanceText = process.env.REACT_APP_MAINTENANCE_TEXT || 'xx'
+const maintenanceText = process.env.REACT_APP_MAINTENANCE_TEXT || ''
 
 export function Maintenance() {
   return (
