@@ -24,7 +24,9 @@ export const RewardModal: React.FC<Props> = ({
   useEffect(() => {
     const getFee = async () => {
       const feeInFemto = (
-        await (await claimDelegatorRewards()).paymentInfo(accountAddress)
+        await claimDelegatorRewards().then((tx) =>
+          tx.paymentInfo(accountAddress)
+        )
       ).partialFee
 
       if (!feeInFemto.isZero()) {
