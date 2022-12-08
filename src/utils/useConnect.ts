@@ -8,7 +8,8 @@ let cachedApi: Promise<ApiPromise> | null = null
 let wsProvider: WsProvider | null = null
 
 const ENDPOINT =
-  process.env.REACT_APP_FULL_NODE_ENDPOINT ||
+  // allows comma separated list of endpoints
+  process.env.REACT_APP_FULL_NODE_ENDPOINT?.split(',').map((i) => i.trim()) ||
   'wss://peregrine.kilt.io/parachain-public-ws'
 
 export const useConnect = () => {
