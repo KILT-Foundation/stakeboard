@@ -12,6 +12,14 @@ const ENDPOINT =
   process.env.REACT_APP_FULL_NODE_ENDPOINT?.split(',').map((i) => i.trim()) ||
   'wss://peregrine.kilt.io/parachain-public-ws'
 
+if (ENDPOINT instanceof Array && process.env.REACT_APP_SHUFFLE_ENDPOINTS) {
+  // shuffle endpoint priority
+  for (let i = ENDPOINT.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[ENDPOINT[i], ENDPOINT[j]] = [ENDPOINT[j], ENDPOINT[i]]
+  }
+}
+
 export const useConnect = () => {
   const { dispatch } = useContext(StateContext)
 
