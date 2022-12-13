@@ -35,14 +35,16 @@ export const useExtension = () => {
 
   // Enable extensions
   useEffect(() => {
-    async function doEffect() {
-      const allInjected = await web3Enable('Stakeboard')
-      setExtensions(allInjected)
-      setWeb3Enabled(true)
-    }
     // calling web3Enable too quickly after page load could result in extensions not being found.
-    setTimeout(doEffect, 500)
-  }, [])
+    if (document.readyState === 'complete') {
+      // sporran still needs a little more time after 'load'
+      setTimeout(async () => {
+        const allInjected = await web3Enable('Stakeboard')
+        setExtensions(allInjected)
+        setWeb3Enabled(true)
+      }, 200)
+    }
+  }, [document.readyState])
 
   // Get accounts from extensions
   useEffect(() => {
