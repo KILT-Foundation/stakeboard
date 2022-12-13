@@ -40,7 +40,8 @@ export const useExtension = () => {
       setExtensions(allInjected)
       setWeb3Enabled(true)
     }
-    doEffect()
+    // calling web3Enable too quickly after page load could result in extensions not being found.
+    setTimeout(doEffect, 500)
   }, [])
 
   // Get accounts from extensions
