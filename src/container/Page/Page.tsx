@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Dashboard } from '../../components/Dashboard/Dashboard'
 import { CollatorList } from '../../components/CollatorList/CollatorList'
 import { Header } from '../../components/Header/Header'
@@ -13,12 +13,14 @@ import { LoadingDataNotification } from '../../components/LoadingDataNotificatio
 import { ConnectionNotification } from '../../components/ConnectionNotification/ConnectionNotification'
 import { BlockchainNotication } from '../BlockchainNotification/BlockchainNotification'
 import { Maintenance } from '../Maintenance/Maintenance'
+import { StateContext } from '../../utils/StateContext'
 
 export interface Props {}
 
 export const Page: React.FC<Props> = () => {
+  const { state } = useContext(StateContext)
   useConnect()
-  const { allAccounts, extensions } = useExtension()
+  const { allAccounts, extensions } = useExtension(state.termsAccepted)
   if (process.env.REACT_APP_MAINTENANCE === 'true') return <Maintenance />
   return (
     <div className={styles.page}>

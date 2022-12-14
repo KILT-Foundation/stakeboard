@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import {
+  isWeb3Injected,
   web3Accounts,
   web3Enable,
-  web3FromAddress,
   web3FromSource,
   web3ListRpcProviders,
-  web3UseRpcProvider,
 } from '@polkadot/extension-dapp'
 
 import { getGenesis } from './chain'
@@ -26,7 +25,7 @@ async function getAllAccounts() {
 
 // getAllAccounts()
 
-export const useExtension = () => {
+export const useExtension = (ready: boolean) => {
   const [web3Enabled, setWeb3Enabled] = useState(false)
   const [extensions, setExtensions] = useState<Extension[]>([])
   const [allAccounts, setAllAccounts] = useState<
@@ -35,16 +34,17 @@ export const useExtension = () => {
 
   // Enable extensions
   useEffect(() => {
-    // calling web3Enable too quickly after page load could result in extensions not being found.
-    if (document.readyState === 'complete') {
-      // sporran still needs a little more time after 'load'
-      setTimeout(async () => {
-        const allInjected = await web3Enable('Stakeboard')
+    async function enable() {
+      const allInjected = await web3Enable('Stakeboard')
+      if (allInjected.length) {
         setExtensions(allInjected)
-        setWeb3Enabled(true)
-      }, 200)
+        setWeb3Enabled(isWeb3Injected)
+      }
     }
-  }, [document.readyState])
+    if (ready) {
+      enable()
+    }
+  }, [ready])
 
   // Get accounts from extensions
   useEffect(() => {
