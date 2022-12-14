@@ -3,13 +3,12 @@ import {
   isWeb3Injected,
   web3Accounts,
   web3Enable,
-  web3FromSource,
-  web3ListRpcProviders,
 } from '@polkadot/extension-dapp'
 
 import { getGenesis } from './chain'
 import { Account, Extension } from '../types'
 
+/* 
 async function getAllAccounts() {
   const allInjected = await web3Enable('Stakeboard')
   console.log('allInjected', allInjected)
@@ -21,9 +20,10 @@ async function getAllAccounts() {
   console.log('injector', injector)
   const rpcProviders = await web3ListRpcProviders(source)
   console.log('rpcProviders', rpcProviders)
-}
+} 
 
-// getAllAccounts()
+getAllAccounts()
+*/
 
 export const useExtension = (ready: boolean) => {
   const [web3Enabled, setWeb3Enabled] = useState(false)
