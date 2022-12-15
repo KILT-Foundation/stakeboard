@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react'
-import {
-  isWeb3Injected,
-  web3Accounts,
-  web3Enable,
-} from '@polkadot/extension-dapp'
+import { web3Accounts, web3Enable } from '@polkadot/extension-dapp'
 
 import { getGenesis } from './chain'
 import { Account, Extension } from '../types'
@@ -20,13 +16,12 @@ async function getAllAccounts() {
   console.log('injector', injector)
   const rpcProviders = await web3ListRpcProviders(source)
   console.log('rpcProviders', rpcProviders)
-} 
+}
 
 getAllAccounts()
 */
 
 export const useExtension = (ready: boolean) => {
-  const [web3Enabled, setWeb3Enabled] = useState(false)
   const [extensions, setExtensions] = useState<Extension[]>([])
   const [allAccounts, setAllAccounts] = useState<
     Pick<Account, 'address' | 'name'>[]
@@ -38,7 +33,6 @@ export const useExtension = (ready: boolean) => {
       const allInjected = await web3Enable('Stakeboard')
       if (allInjected.length) {
         setExtensions(allInjected)
-        setWeb3Enabled(isWeb3Injected)
       }
     }
     if (ready) {
@@ -49,7 +43,7 @@ export const useExtension = (ready: boolean) => {
   // Get accounts from extensions
   useEffect(() => {
     async function doEffect() {
-      if (web3Enabled) {
+      if (extensions.length) {
         const allAccounts = await web3Accounts()
         // TODO: We want to filter the account for the ones usable with the connected chain
         const genesisHash = await getGenesis()
@@ -68,7 +62,7 @@ export const useExtension = (ready: boolean) => {
       }
     }
     doEffect()
-  }, [web3Enabled])
+  }, [extensions])
 
   return { allAccounts, extensions }
 }
