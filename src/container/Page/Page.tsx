@@ -18,9 +18,8 @@ import { StateContext } from '../../utils/StateContext'
 export interface Props {}
 
 export const Page: React.FC<Props> = () => {
-  const { state } = useContext(StateContext)
   useConnect()
-  const { allAccounts, extensions } = useExtension(state.termsAccepted)
+  const { allAccounts, extensions } = useExtension()
   if (process.env.REACT_APP_MAINTENANCE === 'true') return <Maintenance />
   return (
     <div className={styles.page}>

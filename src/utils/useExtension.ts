@@ -1,10 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp'
 
 import { getGenesis } from './chain'
 import { Account, Extension } from '../types'
+import { StateContext } from './StateContext'
 
-export const useExtension = (ready: boolean) => {
+export const useExtension = () => {
+  const {
+    state: { termsAccepted },
+  } = useContext(StateContext)
+
   const [extensions, setExtensions] = useState<Extension[]>([])
   const [allAccounts, setAllAccounts] = useState<
     Pick<Account, 'address' | 'name'>[]
@@ -18,10 +23,10 @@ export const useExtension = (ready: boolean) => {
         setExtensions(allInjected)
       }
     }
-    if (ready) {
+    if (termsAccepted) {
       enable()
     }
-  }, [ready])
+  }, [termsAccepted])
 
   // Get accounts from extensions
   useEffect(() => {
