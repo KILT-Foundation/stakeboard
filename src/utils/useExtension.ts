@@ -7,7 +7,7 @@ import { StateContext } from './StateContext'
 
 export const useExtension = () => {
   const {
-    state: { termsAccepted },
+    state: { loadingData },
   } = useContext(StateContext)
 
   const [extensions, setExtensions] = useState<Extension[]>([])
@@ -23,10 +23,10 @@ export const useExtension = () => {
         setExtensions(allInjected)
       }
     }
-    if (termsAccepted) {
+    if (loadingData === 'available') {
       enable()
     }
-  }, [termsAccepted])
+  }, [loadingData])
 
   // Get accounts from extensions
   useEffect(() => {
