@@ -23,6 +23,8 @@ export const useExtension = () => {
         setExtensions(allInjected)
       }
     }
+    // wait for blockchain data to be loaded - this gives extensions time to inject.
+    // Loading extensions immediately on page load results in sporran sometimes not being found by stakeboard.
     if (loadingData === 'available') {
       enable()
     }
