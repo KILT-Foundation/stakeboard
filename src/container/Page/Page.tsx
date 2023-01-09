@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Dashboard } from '../../components/Dashboard/Dashboard'
 import { CollatorList } from '../../components/CollatorList/CollatorList'
 import { Header } from '../../components/Header/Header'
@@ -13,7 +13,6 @@ import { LoadingDataNotification } from '../../components/LoadingDataNotificatio
 import { ConnectionNotification } from '../../components/ConnectionNotification/ConnectionNotification'
 import { BlockchainNotication } from '../BlockchainNotification/BlockchainNotification'
 import { Maintenance } from '../Maintenance/Maintenance'
-import { StateContext } from '../../utils/StateContext'
 
 export interface Props {}
 
