@@ -1,6 +1,6 @@
-import { u32, u128 } from '@polkadot/types'
+import type { u32, u128 } from '@polkadot/types'
 import type { Balance } from '@polkadot/types/interfaces'
-import { Candidate, ChainTypes, StakingRates } from '../types'
+import type { Candidate, ChainTypes, StakingRates } from '../types'
 import { web3FromAddress } from '@polkadot/extension-dapp'
 import type { SubmittableExtrinsic } from '@polkadot/api/promise/types'
 import { getConnection } from './useConnect'

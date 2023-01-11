@@ -5,9 +5,7 @@ import type {
   ParachainStakingStake,
   ParachainStakingTotalStake,
 } from '@kiltprotocol/augment-api'
-import type {
-  BlockNumber,
-} from '@polkadot/types/interfaces'
+import type { BlockNumber } from '@polkadot/types/interfaces'
 export type { BlockNumber }
 
 export type Stake = ParachainStakingStake
