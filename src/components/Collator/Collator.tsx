@@ -16,14 +16,12 @@ export const Collator: React.FC<Props> = ({ address }) => {
   useEffect(() => {
     const getWeb3name = async () => {
       const api = await getConnection()
-      const connectedDid = await api.query.didLookup.connectedDids(address)
+      const connectedDid = await api.call.did.queryByAccount(address)
       if (connectedDid.isSome) {
-        const unwrapped = connectedDid.unwrap()
-        const didAccount = unwrapped.did.toString()
-        const web3name = await api.query.web3Names.names(didAccount)
+        const web3name = connectedDid.unwrap().w3n
         if (web3name.isSome) {
           const unwrapped = web3name.unwrap()
-          setWeb3name(unwrapped.toUtf8())
+          setWeb3name(unwrapped.toString())
         }
       }
     }
