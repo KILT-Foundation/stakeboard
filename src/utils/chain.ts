@@ -1,15 +1,9 @@
-import { Vec, Option, BTreeMap, Tuple, u32, u128 } from '@polkadot/types'
-import type {
-  AccountId,
-  Balance,
-  BalanceOf,
-  BlockNumber,
-} from '@polkadot/types/interfaces'
+import { u32, u128 } from '@polkadot/types'
+import type { Balance } from '@polkadot/types/interfaces'
 import { Candidate, ChainTypes, StakingRates } from '../types'
 import { web3FromAddress } from '@polkadot/extension-dapp'
 import type { SubmittableExtrinsic } from '@polkadot/api/promise/types'
 import { getConnection } from './useConnect'
-import { StakingRates as StakingRatesChain } from '@kiltprotocol/augment-api'
 import { stakingRatesToHuman } from './stakePercentage'
 
 export async function getGenesis() {
@@ -21,10 +15,7 @@ export async function getGenesis() {
 
 export async function getCandidatePool() {
   const api = await getConnection()
-  return api.query.parachainStaking.candidatePool.entries<
-    Option<ChainTypes.Collator>,
-    [AccountId]
-  >()
+  return api.query.parachainStaking.candidatePool.entries()
 }
 
 export const mapCollatorStateToCandidate = (
@@ -45,17 +36,17 @@ export const mapCollatorStateToCandidate = (
 
 export async function getNextCollators() {
   const api = await getConnection()
-  return api.query.session.queuedKeys<Vec<Tuple>>()
+  return api.query.session.queuedKeys()
 }
 
 export async function getCurrentCollators() {
   const api = await getConnection()
-  return api.query.session.validators<Vec<AccountId>>()
+  return api.query.session.validators()
 }
 
 export async function querySessionInfo() {
   const api = await getConnection()
-  const roundInfo = api.query.parachainStaking.round<ChainTypes.RoundInfo>()
+  const roundInfo = api.query.parachainStaking.round()
   return roundInfo
 }
 
@@ -71,28 +62,28 @@ export async function queryBestFinalisedBlock() {
 
 export async function queryOverallTotalStake() {
   const api = await getConnection()
-  return api.query.parachainStaking.totalCollatorStake<ChainTypes.TotalStake>()
+  return api.query.parachainStaking.totalCollatorStake()
 }
 
 export async function queryMaxCandidateCount() {
   const api = await getConnection()
-  return api.query.parachainStaking.maxSelectedCandidates<u32>()
+  return api.query.parachainStaking.maxSelectedCandidates()
 }
 
 export async function queryTotalIssurance() {
   const api = await getConnection()
-  return api.query.balances.totalIssuance<Balance>()
+  return api.query.balances.totalIssuance()
 }
 
 export async function queryMinDelegatorStake(): Promise<u128> {
   const api = await getConnection()
-  return api.consts.parachainStaking.minDelegatorStake as u128
+  return api.consts.parachainStaking.minDelegatorStake
 }
 
 export async function queryStakingRates(): Promise<StakingRates> {
   const api = await getConnection()
   try {
-    const rates = await api.call.staking.getStakingRates<StakingRatesChain>()
+    const rates = await api.call.staking.getStakingRates()
     return stakingRatesToHuman(rates)
   } catch (e) {
     console.warn(e)
@@ -109,12 +100,12 @@ export async function getUnclaimedStakingRewards(
   account: string
 ): Promise<Balance> {
   const api = await getConnection()
-  return api.call.staking.getUnclaimedStakingRewards<Balance>(account)
+  return api.call.staking.getUnclaimedStakingRewards(account)
 }
 
 export async function getMaxNumberDelegators(): Promise<u32> {
   const api = await getConnection()
-  return api.consts.parachainStaking.maxDelegatorsPerCollator as u32
+  return api.consts.parachainStaking.maxDelegatorsPerCollator
 }
 export async function getBalance(account: string) {
   const api = await getConnection()
@@ -123,16 +114,12 @@ export async function getBalance(account: string) {
 
 export async function getUnstakingAmounts(account: string) {
   const api = await getConnection()
-  return api.query.parachainStaking.unstaking<BTreeMap<BlockNumber, BalanceOf>>(
-    account
-  )
+  return api.query.parachainStaking.unstaking(account)
 }
 
 export async function getDelegatorStake(account: string) {
   const api = await getConnection()
-  return api.query.parachainStaking.delegatorState<
-    Option<ChainTypes.Delegator>
-  >(account)
+  return api.query.parachainStaking.delegatorState(account)
 }
 
 export async function signAndSend(

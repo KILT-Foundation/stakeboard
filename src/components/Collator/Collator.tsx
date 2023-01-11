@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Option, Bytes, Struct } from '@polkadot/types'
-import { AccountId } from '@polkadot/types/interfaces'
 import { Identicon } from '../Identicon/Identicon'
 import styles from './Collator.module.css'
 import { shortenAddress } from '../../utils/shortenAddress'
@@ -12,25 +10,17 @@ export interface Props {
   activeSince?: number
 }
 
-interface PalletDidLookupConnectionRecord extends Struct {
-  did: AccountId
-}
-
-export const Collator: React.FC<Props> = ({ address, activeSince }) => {
+export const Collator: React.FC<Props> = ({ address }) => {
   const [web3name, setWeb3name] = useState<string | null>(null)
 
   useEffect(() => {
     const getWeb3name = async () => {
       const api = await getConnection()
-      const connectedDid = await api.query.didLookup.connectedDids<
-        Option<PalletDidLookupConnectionRecord>
-      >(address)
+      const connectedDid = await api.query.didLookup.connectedDids(address)
       if (connectedDid.isSome) {
         const unwrapped = connectedDid.unwrap()
         const didAccount = unwrapped.did.toString()
-        const web3name = await api.query.web3Names.names<Option<Bytes>>(
-          didAccount
-        )
+        const web3name = await api.query.web3Names.names(didAccount)
         if (web3name.isSome) {
           const unwrapped = web3name.unwrap()
           setWeb3name(unwrapped.toUtf8())
