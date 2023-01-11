@@ -1,33 +1,15 @@
-import { useEffect, useState } from 'react'
-import {
-  web3Accounts,
-  web3Enable,
-  web3FromAddress,
-  web3FromSource,
-  web3ListRpcProviders,
-  web3UseRpcProvider,
-} from '@polkadot/extension-dapp'
+import { useContext, useEffect, useState } from 'react'
+import { web3Accounts, web3Enable } from '@polkadot/extension-dapp'
 
 import { getGenesis } from './chain'
 import { Account, Extension } from '../types'
-
-async function getAllAccounts() {
-  const allInjected = await web3Enable('Stakeboard')
-  console.log('allInjected', allInjected)
-  const allAccounts = await web3Accounts()
-  console.log('allAccounts', allAccounts)
-  const source = allAccounts[0].meta.source
-  console.log('source', source)
-  const injector = await web3FromSource(source)
-  console.log('injector', injector)
-  const rpcProviders = await web3ListRpcProviders(source)
-  console.log('rpcProviders', rpcProviders)
-}
-
-// getAllAccounts()
+import { StateContext } from './StateContext'
 
 export const useExtension = () => {
-  const [web3Enabled, setWeb3Enabled] = useState(false)
+  const {
+    state: { loadingData },
+  } = useContext(StateContext)
+
   const [extensions, setExtensions] = useState<Extension[]>([])
   const [allAccounts, setAllAccounts] = useState<
     Pick<Account, 'address' | 'name'>[]
@@ -35,18 +17,23 @@ export const useExtension = () => {
 
   // Enable extensions
   useEffect(() => {
-    async function doEffect() {
+    async function enable() {
       const allInjected = await web3Enable('Stakeboard')
-      setExtensions(allInjected)
-      setWeb3Enabled(true)
+      if (allInjected.length) {
+        setExtensions(allInjected)
+      }
     }
-    doEffect()
-  }, [])
+    // wait for blockchain data to be loaded - this gives extensions time to inject.
+    // Loading extensions immediately on page load results in sporran sometimes not being found by stakeboard.
+    if (loadingData === 'available') {
+      enable()
+    }
+  }, [loadingData])
 
   // Get accounts from extensions
   useEffect(() => {
     async function doEffect() {
-      if (web3Enabled) {
+      if (extensions.length) {
         const allAccounts = await web3Accounts()
         // TODO: We want to filter the account for the ones usable with the connected chain
         const genesisHash = await getGenesis()
@@ -65,7 +52,7 @@ export const useExtension = () => {
       }
     }
     doEffect()
-  }, [web3Enabled])
+  }, [extensions])
 
   return { allAccounts, extensions }
 }
