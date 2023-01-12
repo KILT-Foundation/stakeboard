@@ -2,7 +2,6 @@ import styles from './Onboarding.module.css'
 import { Button } from '../Button/Button'
 import { useContext, useState } from 'react'
 import { StateContext } from '../../utils/StateContext'
-import PDF from '../../uploads/220106_Stakeboard_Terms&License.pdf'
 
 export const NotAcceptedTerms: React.FC = () => {
   const { dispatch } = useContext(StateContext)
@@ -27,8 +26,8 @@ export const NotAcceptedTerms: React.FC = () => {
           />
           I have read and agree to the
           <a
-            href={PDF}
-            rel="noopener noreferrer"
+            href={process.env.PUBLIC_URL + 'terms.html'}
+            rel="noreferrer"
             target="_blank"
             className={styles.termsLink}
           >
