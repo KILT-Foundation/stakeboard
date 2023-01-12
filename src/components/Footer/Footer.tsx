@@ -70,7 +70,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className={styles.versionInfo}>
-          v {packageInfo.version} © {new Date().getFullYear()} B.T.E. BOTLabs Trusted Entity GmbH
+          v {packageInfo.version} © {new Date().getFullYear()} BOTLabs GmbH
         </div>
       </div>
     </footer>
