@@ -66,7 +66,7 @@ export const Identicon: React.FC<Props> = ({ address, size = 46 }) => {
       onClick={copyAddress}
     >
       {didCopy ? (
-        <CheckmarkIcon size={size} fill='#FFFFFF' />
+        <CheckmarkIcon size={size} fill="#FFFFFF" />
       ) : (
         <AddressIcon size={size} address={address} />
       )}

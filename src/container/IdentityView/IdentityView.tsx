@@ -140,7 +140,11 @@ export const IdentityView: React.FC = () => {
           </span>
           {accountData.rewards > 0.001 && (
             <div className={styles.buttonCont}>
-              <Button onClick={showModal} label={'Claim'} color={ButtonColor.green} />
+              <Button
+                onClick={showModal}
+                label={'Claim'}
+                color={ButtonColor.green}
+              />
               <span className={cx(styles.label, styles.labelGray)}>
                 {format(accountData.rewards)}
               </span>

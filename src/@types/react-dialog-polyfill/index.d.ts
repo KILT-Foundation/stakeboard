@@ -1,1 +1,1 @@
-declare module 'react-dialog-polyfill';
+declare module 'react-dialog-polyfill'
