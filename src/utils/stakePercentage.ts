@@ -1,5 +1,5 @@
 import { Perquintill } from '@polkadot/types/interfaces'
-import { StakingRates as StakingRatesChain } from '@kiltprotocol/augment-api'
+import type { StakingRates as StakingRatesChain } from '@kiltprotocol/augment-api'
 
 export function getPercent(percentageValue: number, secondValue: number) {
   const total = percentageValue + secondValue
