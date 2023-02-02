@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from './Web3Name.module.css'
 
-const W3N_URL = process.env.W3N_URL || 'https://w3n.id/'
-const W3N_PREFIX = process.env.W3N_PREFIX || 'w3n:'
+const W3N_URL = process.env.REACT_APP_W3N_URL || 'https://w3n.id/'
+const W3N_PREFIX = process.env.REACT_APP_W3N_PREFIX || 'w3n:'
 
 export interface Props {
   name: string
