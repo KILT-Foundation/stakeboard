@@ -7,7 +7,7 @@
     "@kiltprotocol/augment-api": "^0.30.0",
     "@kiltprotocol/type-definitions": "^0.30.0",
     "@polkadot/api": "^9.10.2",
-    "@polkadot/extension-dapp": "^0.44.6",
+    "@polkadot/extension-dapp": "^0.44.8",
     "@polkadot/types": "^9.10.2",
     "@polkadot/ui-shared": "^2.9.8",
     "@testing-library/jest-dom": "^5.11.4",
