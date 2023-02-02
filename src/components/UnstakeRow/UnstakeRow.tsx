@@ -25,7 +25,11 @@ export const UnstakeRow: React.FC<UnstakeRowProps> = ({ handleUnstake }) => {
         </div>
       </td>
       <td>
-        <Button label="unstake" onClick={handleUnstake} color={ButtonColor.orange} />
+        <Button
+          label="unstake"
+          onClick={handleUnstake}
+          color={ButtonColor.orange}
+        />
       </td>
       <td></td>
       <td></td>

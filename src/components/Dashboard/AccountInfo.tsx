@@ -27,7 +27,9 @@ export const AccountInfo: React.FC<AccountInfoProps> = ({ account }) => {
       </div>
       <div>
         <span className={styles.stakeLabel}>CLAIMABLE REWARDS: </span>
-        <span className={styles.stakingRewardsValue}>{format(account.rewards)}</span>
+        <span className={styles.stakingRewardsValue}>
+          {format(account.rewards)}
+        </span>
       </div>
       <div className={styles.detailsButton}>
         <Button
