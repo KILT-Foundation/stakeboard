@@ -31,6 +31,7 @@ export const useConnect = () => {
     cachedApi = ApiPromise.create({
       provider: wsProvider,
       typesBundle,
+      noInitWarn: process.env.NODE_ENV === 'production',
     })
 
     wsProvider.on('disconnected', () => dispatch({ type: 'disconnected' }))
