@@ -34,20 +34,14 @@ export const useExtension = () => {
   useEffect(() => {
     async function doEffect() {
       if (extensions.length) {
-        const allAccounts = await web3Accounts()
-        // TODO: We want to filter the account for the ones usable with the connected chain
         const genesisHash = await getGenesis()
+        // TODO: we can also subscribe using web3AccountsSubscribe, which would update the accounts list upon creation of a new account
+        const allAccounts = await web3Accounts({ genesisHash, ss58Format: 38 })
         setAllAccounts(
-          allAccounts
-            .filter(
-              (account) =>
-                !account.meta.genesisHash?.length ||
-                account.meta.genesisHash === genesisHash
-            )
-            .map((account) => ({
-              name: account.meta.name,
-              address: account.address,
-            }))
+          allAccounts.map(({ address, meta: { name } }) => ({
+            name,
+            address,
+          }))
         )
       }
     }
