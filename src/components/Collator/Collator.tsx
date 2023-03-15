@@ -19,7 +19,7 @@ export const Collator: React.FC<Props> = ({ address }) => {
       // figure out which did runtime api version we are dealing with
       const { sectionHash } = api.call.did.queryByAccount.meta
       const apiVersion = api.runtimeVersion.apis
-        .find(([hash]) => hash.toHex() === sectionHash)![1]
+        .find(([hash]) => hash.eq(sectionHash))![1]
         .toNumber()
       // api v2 expects a different parameter format than api v1
       const connectedDid = await api.call.did.queryByAccount(
