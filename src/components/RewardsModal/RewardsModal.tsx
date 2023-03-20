@@ -24,7 +24,7 @@ export const RewardModal: React.FC<Props> = ({
   useEffect(() => {
     const getFee = async () => {
       const feeInFemto = (
-        await claimDelegatorRewards().then((tx) =>
+        await claimDelegatorRewards(accountAddress).then((tx) =>
           tx.paymentInfo(accountAddress)
         )
       ).partialFee

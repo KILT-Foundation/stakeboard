@@ -182,11 +182,19 @@ export async function withdrawStake(account: string) {
   const api = await getConnection()
   return api.tx.parachainStaking.unlockUnstaked(account)
 }
-export async function claimDelegatorRewards() {
+export async function claimDelegatorRewards(account: string) {
   const api = await getConnection()
-  const txs = [
-    api.tx.parachainStaking.incrementDelegatorRewards(),
-    api.tx.parachainStaking.claimRewards(),
-  ]
-  return api.tx.utility.batch(txs)
+  const activeDelegation = await api.query.parachainStaking.delegatorState(
+    account
+  )
+  // if the identity is currently a delegator we need to call incrementDelegatorRewards as well
+  if (activeDelegation.isSome) {
+    const txs = [
+      api.tx.parachainStaking.incrementDelegatorRewards(),
+      api.tx.parachainStaking.claimRewards(),
+    ]
+    return api.tx.utility.batch(txs)
+  }
+  // if the identity is not currently a delegator incrementDelegatorRewards would fail
+  return api.tx.parachainStaking.claimRewards()
 }
