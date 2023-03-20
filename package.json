@@ -4,8 +4,8 @@
   "private": true,
   "license": "BSD-4-Clause",
   "dependencies": {
-    "@kiltprotocol/augment-api": "^0.32.0-rc.2",
-    "@kiltprotocol/type-definitions": "^0.32.0-rc.2",
+    "@kiltprotocol/augment-api": "^0.32.0-rc.3",
+    "@kiltprotocol/type-definitions": "^0.32.0-rc.3",
     "@polkadot/api": "^9.10.2",
     "@polkadot/extension-dapp": "^0.44.8",
     "@polkadot/types": "^9.10.2",
