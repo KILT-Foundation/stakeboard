@@ -31,7 +31,7 @@ export const IdentityView: React.FC = () => {
   const handleRewardsClaim = async () => {
     if (!account) throw new Error('No account selected')
 
-    const tx = await claimDelegatorRewards()
+    const tx = await claimDelegatorRewards(account.address)
     await signAndSubmitTx(account.address, tx)
     hideModal()
   }
