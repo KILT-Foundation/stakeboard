@@ -1763,17 +1763,17 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kiltprotocol/augment-api@^0.32.0-rc.3":
-  version "0.32.0-rc.3"
-  resolved "https://registry.yarnpkg.com/@kiltprotocol/augment-api/-/augment-api-0.32.0-rc.3.tgz#ac6b242b2be733f62aa6cb51ef0aed4532c8492f"
-  integrity sha512-fvgqSu5mullbnfiTaBLEDAdMJixGFSPI0JyCkSwc9yJHYnLofw8g+Jq6FZdLfq1klVFf0CRE2h20AYGQapILrA==
+"@kiltprotocol/augment-api@^0.32.0":
+  version "0.32.0"
+  resolved "https://registry.yarnpkg.com/@kiltprotocol/augment-api/-/augment-api-0.32.0.tgz#26c6475a1602c5c369292d37d110940c9cf2f896"
+  integrity sha512-XDLx2RaTRCKRbX8zbVElAO/vOhCr2GmhFJ3Oj6OgTEdTqnM48eZ0lD+xHMZG5TdC9HBjPxnjAQo1rZaEb4KaUg==
   dependencies:
-    "@kiltprotocol/type-definitions" "0.32.0-rc.3"
+    "@kiltprotocol/type-definitions" "0.32.0"
 
-"@kiltprotocol/type-definitions@0.32.0-rc.3", "@kiltprotocol/type-definitions@^0.32.0-rc.3":
-  version "0.32.0-rc.3"
-  resolved "https://registry.yarnpkg.com/@kiltprotocol/type-definitions/-/type-definitions-0.32.0-rc.3.tgz#6107be51c5655681d694414631fb6cce5253af22"
-  integrity sha512-cDgZMQl5pUGrra48+2dZtbo70KWoSUqfffjBGAnThn9SZf0HadO5JwrSrq2kLo/X+UfRr1nPDeP9YUtJCvlNDw==
+"@kiltprotocol/type-definitions@0.32.0", "@kiltprotocol/type-definitions@^0.32.0":
+  version "0.32.0"
+  resolved "https://registry.yarnpkg.com/@kiltprotocol/type-definitions/-/type-definitions-0.32.0.tgz#5c1fef8bfec66fa2fadf4b10ceb4353fe1af997c"
+  integrity sha512-a5VyzjdlI0tYsZIB3uM4e9l3pJErDxMhH9Ia8WEFu0MLsgmKRSmRDYakmcf7+BwotkEHRhCm1m08q2JJ3a6Oug==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
