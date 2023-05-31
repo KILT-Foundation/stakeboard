@@ -6,9 +6,9 @@
   "dependencies": {
     "@kiltprotocol/augment-api": "^0.33.0-rc.2",
     "@kiltprotocol/type-definitions": "^0.33.0-rc.2",
-    "@polkadot/api": "~10.3.0",
-    "@polkadot/extension-dapp": "^0.45.0",
-    "@polkadot/types": "~10.3.0",
+    "@polkadot/api": "^10.4.0",
+    "@polkadot/extension-dapp": "^0.46.0",
+    "@polkadot/types": "^10.4.0",
     "@polkadot/ui-shared": "^2.9.8",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -75,10 +75,6 @@
     "@storybook/react": "^6.5.16",
     "@types/react-select": "^4.0.16",
     "webpack": "5"
-  },
-  "resolutions": {
-    "@polkadot/rpc-provider":"10.3",
-    "@polkadot/types":"10.3"
   },
   "engines": {
     "node": ">=14 <17"
