@@ -1,24 +1,7 @@
 import React, { useState } from 'react'
-import { polkadotIcon } from '@polkadot/ui-shared'
+import PolkaIdenticon from '@polkadot/react-identicon'
 
 import styles from './Identicon.module.css'
-
-interface AddressIconProps {
-  address: string
-  size: number
-}
-
-const AddressIcon: React.FC<AddressIconProps> = ({ address, size }) => {
-  const circles = polkadotIcon(address, { isAlternative: false })
-
-  return (
-    <svg width={size} height={size} viewBox="0 0 64 64">
-      {circles.map((circle) => (
-        <circle cx={circle.cx} cy={circle.cy} fill={circle.fill} r={circle.r} />
-      ))}
-    </svg>
-  )
-}
 
 interface CheckmarkIconProps {
   fill: string
@@ -47,28 +30,28 @@ export interface Props {
 export const Identicon: React.FC<Props> = ({ address, size = 46 }) => {
   const [didCopy, setDidCopy] = useState(false)
 
-  function copyAddress(e: React.MouseEvent<Element>) {
-    e.stopPropagation()
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(address).then(() => {
-        setDidCopy(true)
-        setTimeout(() => {
-          setDidCopy(false)
-        }, 1500)
-      })
-    }
+  function showCheckmark() {
+    setDidCopy(true)
+    setTimeout(() => {
+      setDidCopy(false)
+    }, 1500)
   }
 
   return (
     <div
       className={styles.Identicon}
       style={{ width: size, height: size }}
-      onClick={copyAddress}
     >
       {didCopy ? (
         <CheckmarkIcon size={size} fill="#FFFFFF" />
       ) : (
-        <AddressIcon size={size} address={address} />
+        <PolkaIdenticon
+          value={address}
+          size={size}
+          prefix={38}
+          onCopy={showCheckmark}
+          theme="polkadot"
+        ></PolkaIdenticon>
       )}
     </div>
   )
