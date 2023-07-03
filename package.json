@@ -10,6 +10,7 @@
     "@polkadot/extension-dapp": "^0.46.0",
     "@polkadot/types": "^10.4.0",
     "@polkadot/ui-shared": "^2.9.8",
+    "@substrate/connect": "^0.7.29",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
