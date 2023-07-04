@@ -10,26 +10,43 @@ import * as Sc from '@substrate/connect'
 let cachedApi: Promise<ApiPromise> | null = null
 let provider: ScProvider | null = null
 
+function loadSpecs(): {
+  relaychain: Sc.WellKnownChain
+  parachain: Record<string, any>
+} {
+  const chainId = process.env.REACT_APP_CHAIN_ID ?? 'kilt'
+  switch (chainId) {
+    case 'kilt':
+    case 'spiritnet':
+      return {
+        relaychain: Sc.WellKnownChain.polkadot,
+        parachain: require('../specs/spiritnet.json'),
+      }
+    default:
+      throw new Error(`unknown chain id '${chainId}'`)
+  }
+}
+
+function getSpecs(): { relaychain: string; parachain: string } {
+  const { relaychain, parachain } = loadSpecs()
+  // Kilt networks use a u64 for the block number, which must communicated to smoldot using a custom addition to the chain spec
+  if (!parachain.blockNumberBytes) {
+    parachain.blockNumberBytes = 8
+  }
+  return { relaychain, parachain: JSON.stringify(parachain) }
+}
+
 async function createLightClientApi(
   onProvider: (p: ScProvider) => void
 ): Promise<ApiPromise> {
-  // read parachain chain spec
-  const jsonParachainSpec = (
-    await import(
-      '../specs/' + (process.env.REACT_APP_CHAIN_SPEC ?? 'spiritnet.json')
-    )
-  ).default
-  // Kilt networks use a u64 for the block number, which must communicated to smoldot using a custom addition to the chain spec
-  if (!(jsonParachainSpec as any).blockNumberBytes) {
-    ;(jsonParachainSpec as any).blockNumberBytes = 8
-  }
-  const parachainSpec = JSON.stringify(jsonParachainSpec)
+  // read chain specs
+  const { relaychain, parachain } = getSpecs()
   // Create the provider for the relay chain
-  const polkadotProvider = new ScProvider(Sc, Sc.WellKnownChain.polkadot)
+  const relayProvider = new ScProvider(Sc, relaychain)
   // Create the provider for the parachain. Notice that
   // we must pass the provider of the relay chain as the
   // second argument
-  provider = new ScProvider(Sc, parachainSpec, polkadotProvider)
+  provider = new ScProvider(Sc, parachain, relayProvider)
   // call onProvider
   onProvider(provider)
   // establish the connection (and catch possible errors)
