@@ -7,18 +7,28 @@ import { StateContext } from './StateContext'
 import { ScProvider } from '@polkadot/rpc-provider'
 import * as Sc from '@substrate/connect'
 
-import jsonParachainSpec from './spiritnet.json'
-
 let cachedApi: Promise<ApiPromise> | null = null
 let provider: ScProvider | null = null
 
-async function createLightClientApi(onProvider: (p: ScProvider) => void) {
+async function createLightClientApi(
+  onProvider: (p: ScProvider) => void
+): Promise<ApiPromise> {
+  // read parachain chain spec
+  const jsonParachainSpec = (
+    await import(
+      '../specs/' + (process.env.REACT_APP_CHAIN_SPEC ?? 'spiritnet.json')
+    )
+  ).default
+  // Kilt networks use a u64 for the block number, which must communicated to smoldot using a custom addition to the chain spec
+  if (!(jsonParachainSpec as any).blockNumberBytes) {
+    ;(jsonParachainSpec as any).blockNumberBytes = 8
+  }
+  const parachainSpec = JSON.stringify(jsonParachainSpec)
   // Create the provider for the relay chain
   const polkadotProvider = new ScProvider(Sc, Sc.WellKnownChain.polkadot)
   // Create the provider for the parachain. Notice that
   // we must pass the provider of the relay chain as the
   // second argument
-  const parachainSpec = JSON.stringify(jsonParachainSpec)
   provider = new ScProvider(Sc, parachainSpec, polkadotProvider)
   // call onProvider
   onProvider(provider)
