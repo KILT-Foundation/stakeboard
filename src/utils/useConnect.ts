@@ -11,7 +11,7 @@ let cachedApi: Promise<ApiPromise> | null = null
 let provider: ScProvider | null = null
 
 function loadSpecs(): {
-  relaychain: Sc.WellKnownChain
+  relaychain: Sc.WellKnownChain | Record<string, any>
   parachain: Record<string, any>
 } {
   const chainId = process.env.REACT_APP_CHAIN_ID ?? 'kilt'
@@ -21,6 +21,12 @@ function loadSpecs(): {
       return {
         relaychain: Sc.WellKnownChain.polkadot,
         parachain: require('../specs/spiritnet.json'),
+      }
+    case 'peregrine-stg':
+    case 'peregrine_stg_kilt':
+      return {
+        relaychain: require('../specs/peregrine-stg-relay.json'),
+        parachain: require('../specs/peregrine-stg-kilt.json'),
       }
     default:
       throw new Error(`unknown chain id '${chainId}'`)
@@ -33,7 +39,11 @@ function getSpecs(): { relaychain: string; parachain: string } {
   if (!parachain.blockNumberBytes) {
     parachain.blockNumberBytes = 8
   }
-  return { relaychain, parachain: JSON.stringify(parachain) }
+  return {
+    relaychain:
+      typeof relaychain === 'string' ? relaychain : JSON.stringify(relaychain),
+    parachain: JSON.stringify(parachain),
+  }
 }
 
 async function createLightClientApi(
