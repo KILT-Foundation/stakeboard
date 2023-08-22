@@ -16,20 +16,15 @@ export const Collator: React.FC<Props> = ({ address }) => {
   useEffect(() => {
     const getWeb3name = async () => {
       const api = await getConnection()
-      // figure out which did runtime api version we are dealing with
-      const { sectionHash } = api.call.did.queryByAccount.meta
-      const apiVersion = api.runtimeVersion.apis
-        .find(([hash]) => hash.eq(sectionHash))![1]
-        .toNumber()
-      // api v2 expects a different parameter format than api v1
-      const connectedDid = await api.call.did.queryByAccount(
-        apiVersion >= 2 ? { AccountId32: address } : address
-      )
+      const connectedDid = await api.query.didLookup.connectedDids({
+        AccountId32: address,
+      })
       if (connectedDid.isSome) {
-        const web3name = connectedDid.unwrap().w3n
+        const did = connectedDid.unwrap().did
+        const web3name = await api.query.web3Names.names(did)
         if (web3name.isSome) {
           const unwrapped = web3name.unwrap()
-          setWeb3name(unwrapped.toString())
+          setWeb3name(unwrapped.toUtf8())
         }
       }
     }

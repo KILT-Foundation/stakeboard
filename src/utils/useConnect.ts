@@ -1,42 +1,83 @@
 import { useContext } from 'react'
-import { ApiPromise, WsProvider } from '@polkadot/api'
+import { ApiPromise } from '@polkadot/api'
 import { typesBundle } from '@kiltprotocol/type-definitions'
 
 import { StateContext } from './StateContext'
 
+import { ScProvider } from '@polkadot/rpc-provider'
+import * as Sc from '@substrate/connect'
+
 let cachedApi: Promise<ApiPromise> | null = null
-let wsProvider: WsProvider | null = null
+let provider: ScProvider | null = null
 
-const ENDPOINT =
-  // allows comma separated list of endpoints
-  process.env.REACT_APP_FULL_NODE_ENDPOINT?.split(',').map((i) => i.trim()) ||
-  'wss://peregrine.kilt.io/parachain-public-ws'
-
-if (
-  ENDPOINT instanceof Array &&
-  process.env.REACT_APP_SHUFFLE_ENDPOINTS === 'true'
-) {
-  // shuffle endpoint priority
-  for (let i = ENDPOINT.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[ENDPOINT[i], ENDPOINT[j]] = [ENDPOINT[j], ENDPOINT[i]]
+function loadSpecs(): {
+  relaychain: Sc.WellKnownChain | Record<string, any>
+  parachain: Record<string, any>
+} {
+  const chainId = process.env.REACT_APP_CHAIN_ID ?? 'kilt'
+  switch (chainId) {
+    case 'kilt':
+    case 'spiritnet':
+      return {
+        relaychain: Sc.WellKnownChain.polkadot,
+        parachain: require('../specs/spiritnet.json'),
+      }
+    case 'peregrine-stg':
+    case 'peregrine_stg_kilt':
+      return {
+        relaychain: require('../specs/peregrine-stg-relay.json'),
+        parachain: require('../specs/peregrine-stg-kilt.json'),
+      }
+    default:
+      throw new Error(`unknown chain id '${chainId}'`)
   }
+}
+
+function getSpecs(): { relaychain: string; parachain: string } {
+  const { relaychain, parachain } = loadSpecs()
+  // Kilt networks use a u64 for the block number, which must communicated to smoldot using a custom addition to the chain spec
+  if (!parachain.blockNumberBytes) {
+    parachain.blockNumberBytes = 8
+  }
+  return {
+    relaychain:
+      typeof relaychain === 'string' ? relaychain : JSON.stringify(relaychain),
+    parachain: JSON.stringify(parachain),
+  }
+}
+
+async function createLightClientApi(
+  onProvider: (p: ScProvider) => void
+): Promise<ApiPromise> {
+  // read chain specs
+  const { relaychain, parachain } = getSpecs()
+  // Create the provider for the relay chain
+  const relayProvider = new ScProvider(Sc, relaychain)
+  // Create the provider for the parachain. Notice that
+  // we must pass the provider of the relay chain as the
+  // second argument
+  provider = new ScProvider(Sc, parachain, relayProvider)
+  // call onProvider
+  onProvider(provider)
+  // establish the connection (and catch possible errors)
+  await provider.connect()
+  // Create the PolkadotJS api instance
+  return ApiPromise.create({
+    provider,
+    typesBundle,
+    noInitWarn: process.env.NODE_ENV === 'production',
+  })
 }
 
 export const useConnect = () => {
   const { dispatch } = useContext(StateContext)
 
   if (!cachedApi) {
-    wsProvider = new WsProvider(ENDPOINT)
-    cachedApi = ApiPromise.create({
-      provider: wsProvider,
-      typesBundle,
-      noInitWarn: process.env.NODE_ENV === 'production',
+    cachedApi = createLightClientApi((provider) => {
+      provider.on('disconnected', () => dispatch({ type: 'disconnected' }))
+      provider.on('connected', () => dispatch({ type: 'connected' }))
+      provider.on('error', (error) => dispatch({ type: 'error', err: error }))
     })
-
-    wsProvider.on('disconnected', () => dispatch({ type: 'disconnected' }))
-    wsProvider.on('connected', () => dispatch({ type: 'connected' }))
-    wsProvider.on('error', (error) => dispatch({ type: 'error', err: error }))
   }
 
   return cachedApi
