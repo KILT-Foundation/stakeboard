@@ -3171,12 +3171,12 @@
     smoldot "1.0.4"
 
 "@substrate/connect@^0.7.31":
-  version "0.7.31"
-  resolved "https://registry.yarnpkg.com/@substrate/connect/-/connect-0.7.31.tgz#a815acdf727e1e49815c7faee5acf049743aa339"
-  integrity sha512-a6D1Yjk5b2D5QJn1HZEN/6J9Kk5YROO0AxfY7apFamkYJCePfKkCsBrergOFAk1ZC3x1FhGdSxUvfYyqPq8knw==
+  version "0.7.35"
+  resolved "https://registry.yarnpkg.com/@substrate/connect/-/connect-0.7.35.tgz#853d8ff50717a8c9ee8f219d11a86e61a54b88b8"
+  integrity sha512-Io8vkalbwaye+7yXfG1Nj52tOOoJln2bMlc7Q9Yy3vEWqZEVkgKmcPVzbwV0CWL3QD+KMPDA2Dnw/X7EdwgoLw==
   dependencies:
     "@substrate/connect-extension-protocol" "^1.0.1"
-    smoldot "1.0.13"
+    smoldot "2.0.7"
 
 "@substrate/ss58-registry@^1.40.0":
   version "1.40.0"
@@ -13050,19 +13050,19 @@ slash@^4.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-4.0.0.tgz#2422372176c4c6c5addb5e2ada885af984b396a7"
   integrity sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==
 
-smoldot@1.0.13:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/smoldot/-/smoldot-1.0.13.tgz#582276d94159a3ddace3c4979cc3000141852d2c"
-  integrity sha512-IxOBMzsPles/8JlFM7Sm1ckunul3e6mYWBopf+Kg7zHmxtRwpox4nnEfaGxmhhHC8JgQVwsVPHa14AeQxtk6vA==
-  dependencies:
-    ws "^8.8.1"
-
 smoldot@1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/smoldot/-/smoldot-1.0.4.tgz#e4c38cedad68d699a11b5b9ce72bb75c891bfd98"
   integrity sha512-N3TazI1C4GGrseFH/piWyZCCCRJTRx2QhDfrUKRT4SzILlW5m8ayZ3QTKICcz1C/536T9cbHHJyP7afxI6Mi1A==
   dependencies:
     pako "^2.0.4"
+    ws "^8.8.1"
+
+smoldot@2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/smoldot/-/smoldot-2.0.7.tgz#407efd6bbb82a074612db4d056d631d8d615f442"
+  integrity sha512-VAOBqEen6vises36/zgrmAT1GWk2qE3X8AGnO7lmQFdskbKx8EovnwS22rtPAG+Y1Rk23/S22kDJUdPANyPkBA==
+  dependencies:
     ws "^8.8.1"
 
 snapdragon-node@^2.0.1:
@@ -14997,9 +14997,9 @@ ws@^7.4.6:
   integrity sha512-ri1Id1WinAX5Jqn9HejiGb8crfRio0Qgu8+MtL36rlTA6RLsMdWt1Az/19A2Qij6uSHUMphEFaTKa4WG+UNHNw==
 
 ws@^8.13.0, ws@^8.2.3, ws@^8.4.2, ws@^8.8.1:
-  version "8.13.0"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-8.13.0.tgz#9a9fb92f93cf41512a0735c8f4dd09b8a1211cd0"
-  integrity sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==
+  version "8.14.2"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.14.2.tgz#6c249a806eb2db7a20d26d51e7709eab7b2e6c7f"
+  integrity sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==
 
 x-default-browser@^0.4.0:
   version "0.4.0"
