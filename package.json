@@ -5,7 +5,7 @@
   "license": "BSD-4-Clause",
   "dependencies": {
     "@kiltprotocol/augment-api": "^1.11200.0",
-    "@kiltprotocol/type-definitions": "^1.11200.0",
+    "@kiltprotocol/type-definitions": "^1.11200.1",
     "@polkadot/api": "~10.10.0",
     "@polkadot/extension-dapp": "^0.46.0",
     "@polkadot/types": "~10.10.0",
