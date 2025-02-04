@@ -1715,10 +1715,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@kiltprotocol/augment-api@1.11501.0-peregrine-rc.1":
-  version "1.11501.0-peregrine-rc.1"
-  resolved "https://registry.yarnpkg.com/@kiltprotocol/augment-api/-/augment-api-1.11501.0-peregrine-rc.1.tgz#531ba9482efe79c9b0d880b63715fdbb85631f56"
-  integrity sha512-K1pbfzUXQw1DjYlcaFb+IZIidb8wFLnczmvaD7bAj4Q+XZM7Sz6ftkujTx61VkVI9SJddGtY1witMC7Jea8xjA==
+"@kiltprotocol/augment-api@1.11501.0-peregrine":
+  version "1.11501.0-peregrine"
+  resolved "https://registry.yarnpkg.com/@kiltprotocol/augment-api/-/augment-api-1.11501.0-peregrine.tgz#002b71f6f6961c2dbc78fddee61712f4c515598a"
+  integrity sha512-/uuNcttyadQWvH5+g29e3DDFaGbjdwWBSnELAkZf8M9PcrgYnAV4JfwhzgyrpX9j429nxWrHvZyih9YzZ3j/YA==
   optionalDependencies:
     "@typescript-eslint/eslint-plugin" "^7.0.2"
     "@typescript-eslint/parser" "^7.0.2"
@@ -1726,10 +1726,10 @@
     eslint "^8.57.0"
     eslint-plugin-unused-imports "^3.1.0"
 
-"@kiltprotocol/type-definitions@1.11500.0-rc.2":
-  version "1.11500.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@kiltprotocol/type-definitions/-/type-definitions-1.11500.0-rc.2.tgz#8b9a01784d6ab6ba07167ca0fd7aaacdaefad496"
-  integrity sha512-/vanuHMBJR4fdVooc0yIhl+dVJyIwd+L22PzlAIdDEz7IWTfPK0SY/ptYp3DwZkWDdd9PDnVCwB0hFdAnmzizA==
+"@kiltprotocol/type-definitions@1.11501.0-peregrine":
+  version "1.11501.0-peregrine"
+  resolved "https://registry.yarnpkg.com/@kiltprotocol/type-definitions/-/type-definitions-1.11501.0-peregrine.tgz#d2a6d0c9d6b10f795421154259f420d722a66403"
+  integrity sha512-ZjO2lnlppdECH5Ix5FDrQvxMlqvr9wPtYfiNQ9sb7pn6dslSY6xlBwKMl0BlokdyIE4HGVLI0AiDz6av/MloAA==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
