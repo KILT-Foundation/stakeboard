@@ -71,7 +71,7 @@ const Icons = {
   firefox_store,
   chrome_store,
   sporran_logo,
-  BUILT_ON_KILT
+  BUILT_ON_KILT,
 }
 
 export interface Props {
