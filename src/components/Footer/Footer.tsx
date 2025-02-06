@@ -27,22 +27,6 @@ export const Footer: React.FC = () => {
           >
             Terms
           </a>
-          <a
-            className={styles.legalAnchor}
-            href="https://github.com/BTE-Trusted-Entity/stakeboard"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
-          <a
-            className={styles.legalAnchor}
-            href="https://support.kilt.io/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Support
-          </a>
         </nav>
         <div className={styles.reward}>
           <span className={cx(styles.gray, styles.paddingRight)}>STAKED</span>
@@ -70,7 +54,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className={styles.versionInfo}>
-          v {packageInfo.version} © {new Date().getFullYear()} BOTLabs GmbH
+          v {packageInfo.version} © {new Date().getFullYear()} KILT Foundation
         </div>
       </div>
     </footer>

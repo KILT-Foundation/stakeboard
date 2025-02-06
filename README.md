@@ -23,7 +23,7 @@ For testing purposes, the Stakeboard is connected to the KILT test net Peregrine
 Run the following commands to install dependencies and start developing
 
 ```js
-yarn install
+yarn install --ignore-engines
 yarn start
 ```
 

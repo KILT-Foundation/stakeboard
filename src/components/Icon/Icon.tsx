@@ -14,8 +14,6 @@ import exclamation_new from '../../icons/exclamation_new.svg'
 import exclamation from '../../icons/exclamation.svg'
 import fav_gray from '../../icons/fav_gray.svg'
 import fav_yellow from '../../icons/fav_yellow.svg'
-import KILT_logo from '../../icons/KILT_logo.svg'
-import BUILT_ON_KILT from '../../icons/Built_on_KILT.svg'
 import next_session_gray from '../../icons/next_session_gray.svg'
 import next_session_yellow from '../../icons/next_session_yellow.svg'
 import order_white from '../../icons/order_white.svg'
@@ -46,14 +44,12 @@ const Icons = {
   block,
   bulb_gray,
   bulb_yellow,
-  BUILT_ON_KILT,
   check,
   close,
   exclamation_new,
   exclamation,
   fav_gray,
   fav_yellow,
-  KILT_logo,
   next_session_gray,
   next_session_yellow,
   order_white,
