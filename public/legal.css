@@ -105,4 +105,6 @@ section {
   font-size: var(--font-size-smallest);
   color: var(--color-gray-alt-text);
   padding: 7px 90px 2px 0;
+
+  background: no-repeat center right/25% url('./Built_on_KILT.svg');
 }
