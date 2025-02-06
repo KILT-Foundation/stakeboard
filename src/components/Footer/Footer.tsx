@@ -27,6 +27,14 @@ export const Footer: React.FC = () => {
           >
             Terms
           </a>
+                    <a
+            className={styles.legalAnchor}
+            href="https://github.com/BTE-Trusted-Entity/stakeboard"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
         </nav>
         <div className={styles.reward}>
           <span className={cx(styles.gray, styles.paddingRight)}>STAKED</span>
