@@ -2,7 +2,7 @@
 
 ## KILT Staking
 
-The Stakeboard is an open-source staking platform built for the KILT protocol. The Stakeboard features enable users to add, remove and change stakes for the available Collators. It is currently compatible with [Sporran wallet](https://github.com/BTE-Trusted-Entity/sporran-extension) and [Polkadot js Extension](https://github.com/polkadot-js/extension).
+The Stakeboard is an open-source staking platform built for the KILT protocol. The Stakeboard features enable users to add, remove and change stakes for the available Collators. It is currently compatible with [Sporran wallet](https://github.com/KILT-Foundation/sporran-extension) and [Polkadot js Extension](https://github.com/polkadot-js/extension).
 
 ### Contribution
 
