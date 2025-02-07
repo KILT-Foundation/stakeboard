@@ -21,15 +21,12 @@ import {
 import { femtoToKilt } from './conversion'
 
 const updateCollators = async () => {
-  const [
-    collatorStates,
-    selectedCandidatesChain,
-    currentCandidatesChain,
-  ] = await Promise.all([
-    getCandidatePool(),
-    getNextCollators(),
-    getCurrentCollators(),
-  ])
+  const [collatorStates, selectedCandidatesChain, currentCandidatesChain] =
+    await Promise.all([
+      getCandidatePool(),
+      getNextCollators(),
+      getCurrentCollators(),
+    ])
   const candidates: Record<string, Candidate> = {}
   collatorStates.forEach(async ([accountId, state]) => {
     if (state.isNone) return
@@ -203,10 +200,8 @@ export const initialize = async (
   let shouldKeepUpdating = true
 
   const update = async () => {
-    const [
-      { candidates, currentCandidates, selectedCandidates },
-      chainInfo,
-    ] = await Promise.all([updateCollators(), updateChainInfo()])
+    const [{ candidates, currentCandidates, selectedCandidates }, chainInfo] =
+      await Promise.all([updateCollators(), updateChainInfo()])
 
     if (!accounts.length) {
       updateCallback(
