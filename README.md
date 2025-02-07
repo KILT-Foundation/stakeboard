@@ -1,4 +1,6 @@
 # Stakeboard
+![kilt](https://user-images.githubusercontent.com/1248214/110625865-49edbe00-81a0-11eb-9393-596c6a1f8eba.png)
+
 
 ## KILT Staking
 
@@ -21,7 +23,7 @@ For testing purposes, the Stakeboard is connected to the KILT test net Peregrine
 Run the following commands to install dependencies and start developing
 
 ```js
-yarn install --ignore-engines
+yarn install
 yarn start
 ```
 

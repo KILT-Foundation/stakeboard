@@ -1,4 +1,5 @@
 .overlays {
+  background-image: url(../../icons/dna.svg), url(../../icons/decentral.svg);
   background-repeat: no-repeat, no-repeat;
   background-position-x: left, right;
   background-position-y: center, bottom;
