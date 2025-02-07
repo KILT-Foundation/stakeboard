@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
           </a>
           <a
             className={styles.legalAnchor}
-            href="https://github.com/BTE-Trusted-Entity/stakeboard"
+            href="https://github.com/KILT-Foundation/stakeboard"
             target="_blank"
             rel="noreferrer"
           >

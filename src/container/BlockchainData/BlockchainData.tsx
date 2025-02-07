@@ -23,10 +23,8 @@ export const BlockchainData: React.FC<Props> = ({
   const [bestBlock, setBestBlock] = useState<number>()
   const [bestFinalisedBlock, setBestFinalisedBlock] = useState<number>()
   const [minDelegatorStake, setMinDelegatorStake] = useState<number>()
-  const [
-    overallTotalStake,
-    setOverallTotalStake,
-  ] = useState<OverallTotalStake>()
+  const [overallTotalStake, setOverallTotalStake] =
+    useState<OverallTotalStake>()
   const [totalIssuance, setTotalIssuance] = useState<bigint>()
   const [maxCandidateCount, setMaxCandidateCount] = useState<number>()
   const [maxNumberDelegators, setMaxNumberDelegators] = useState<number>()
