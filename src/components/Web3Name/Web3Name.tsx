@@ -12,7 +12,7 @@ export const Web3Name: React.FC<Props> = ({ name }) => {
   return (
     <a
       className={styles.yellow}
-      href={W3N_URL + name}
+      href={W3N_URL}
       rel="noopener noreferrer"
       target="_blank"
       onClick={(e) => e.stopPropagation()}

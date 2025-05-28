@@ -6,9 +6,9 @@
   "dependencies": {
     "@kiltprotocol/augment-api": "1.11502.0-peregrine-rc.1",
     "@kiltprotocol/type-definitions": "^1.11502.0",
-    "@polkadot/api": "^11.1.1",
-    "@polkadot/extension-dapp": "^0.47.0",
-    "@polkadot/types": "^11.1.1",
+    "@polkadot/api": "^16.0.1",
+    "@polkadot/extension-dapp": "^0.58.10",
+    "@polkadot/types": "^16.0.1",
     "@polkadot/ui-shared": "^2.9.8",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -77,7 +77,7 @@
     "webpack": "5"
   },
   "engines": {
-    "node": ">=14 <17"
+    "node": ">=20"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@4.9.1"
 }

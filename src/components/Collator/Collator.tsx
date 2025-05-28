@@ -28,8 +28,11 @@ export const Collator: React.FC<Props> = ({ address }) => {
       if (connectedDid.isSome) {
         const web3name = connectedDid.unwrap().w3n
         if (web3name.isSome) {
-          const unwrapped = web3name.unwrap()
-          setWeb3name(unwrapped.toString())
+          const unwrapped = web3name.toHuman()
+          if (typeof unwrapped !== 'string') {
+            return setWeb3name(null)
+          }
+          setWeb3name(unwrapped)
         }
       }
     }
