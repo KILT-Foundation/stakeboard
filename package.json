@@ -4,7 +4,7 @@
   "private": true,
   "license": "BSD-4-Clause",
   "dependencies": {
-    "@kiltprotocol/augment-api": "1.11405.1-rc.3",
+    "@kiltprotocol/augment-api": "1.11502.0-peregrine",
     "@kiltprotocol/type-definitions": "^1.11504.0",
     "@polkadot/api": "^11.1.1",
     "@polkadot/extension-dapp": "^0.47.0",
