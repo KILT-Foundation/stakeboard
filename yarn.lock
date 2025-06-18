@@ -1726,10 +1726,10 @@
     eslint "^8.57.0"
     eslint-plugin-unused-imports "^3.1.0"
 
-"@kiltprotocol/type-definitions@^1.11504.0":
-  version "1.11504.0"
-  resolved "https://registry.yarnpkg.com/@kiltprotocol/type-definitions/-/type-definitions-1.11504.0.tgz#495eb8bc6f1b3125f4537866b3099f64ea38b49e"
-  integrity sha512-41pkeVIo2kJxDFhUF2048Zv5nOSSaDbrN4VkY8Ab8BoS5MvFDHDsyuJ5W/Z3C0WjfpizStkX9jYXcsQKs6714Q==
+"@kiltprotocol/type-definitions@^1.11502.0":
+  version "1.11502.0"
+  resolved "https://registry.yarnpkg.com/@kiltprotocol/type-definitions/-/type-definitions-1.11502.0.tgz#17167dc6ec2da64b325c36553904c76b3ccc8e7f"
+  integrity sha512-T6+xVs8uV3jsl+6q7hEwwaNf8wEVoUJnepRBuEanKaUJX1sWyvRULAFjWVceU8eS4+8gT9ORC6KGKlyZnQp4kg==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
