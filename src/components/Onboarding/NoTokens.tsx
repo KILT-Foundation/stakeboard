@@ -11,11 +11,7 @@ export const NoTokens: React.FC = () => {
       <span className={styles.highlighted}>Hey Staker,</span>
       <p className={styles.text}>Welcome to Stakeboard!</p>
       <p className={styles.text}>
-        As a delegator you can choose one collator to back per each KILT
-        Identity and get rewarded when they successfully produce blocks.
-        <br />
-        <br />
-        Sleep less, stake more!
+        KILT has ended an Era of Staking and is now time to unlock your stake!
       </p>
       <p className={styles.text}>
         In order to enter the halfpipe, please make sure that you have created a
