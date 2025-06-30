@@ -7,6 +7,12 @@ export const NoData: React.FC = () => {
       <p className={styles.text}>Welcome to Stakeboard!</p>
       <p className={styles.text}>
         KILT has ended an Era of Staking and is now time to unlock your stake!
+        The KILT token is migrating to a new contract on Base, please refer to
+        the
+        <a href="https://medium.com/kilt-protocol/kilt-token-migration-guide-4ae8a5b686d6">
+          migration guide
+        </a>
+        .
       </p>
       <p className={styles.text}>
         Data from the chain is being collected at the moment.
