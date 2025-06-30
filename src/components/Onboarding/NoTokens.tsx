@@ -14,7 +14,12 @@ export const NoTokens: React.FC = () => {
         KILT has ended an Era of Staking and is now time to unlock your stake!
         The KILT token is migrating to a new contract on Base, please refer to
         the
-        <a href="https://medium.com/kilt-protocol/kilt-token-migration-guide-4ae8a5b686d6">
+        <a
+          href="https://medium.com/kilt-protocol/kilt-token-migration-guide-4ae8a5b686d6"
+          className={styles.termsLink}
+          rel="noreferrer"
+          target="_blank"
+        >
           migration guide
         </a>
         .
