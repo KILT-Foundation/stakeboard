@@ -11,11 +11,18 @@ export const NotAcceptedTerms: React.FC = () => {
       <span className={styles.highlighted}>Hey Staker,</span>
       <p className={styles.text}>Welcome to Stakeboard!</p>
       <p className={styles.text}>
-        As a delegator you can choose one collator to back per each KILT
-        Identity and get rewarded when they successfully produce blocks.
-        <br />
-        <br />
-        Sleep less, stake more!
+        KILT has ended an era of Staking and is now time to unlock your stake!
+        The KILT token is migrating to a new contract on Base, please refer to
+        the
+        <a
+          href="https://medium.com/kilt-protocol/kilt-token-migration-guide-4ae8a5b686d6"
+          className={styles.termsLink}
+          rel="noreferrer"
+          target="_blank"
+        >
+          migration guide
+        </a>
+        .
       </p>
       <p className={styles.text}>
         <label>
