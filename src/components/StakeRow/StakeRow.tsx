@@ -122,30 +122,16 @@ export const StakeRow: React.FC<Props> = ({ stakeInfo, collator }) => {
             </span>
           </div>
         </td>
-        <td>
-          {!editStake ? (
-            <Button label="CHANGE" onClick={handleEdit} />
-          ) : (
-            <Button
-              label="APPLY"
-              onClick={showModal}
-              disabled={
-                newStake === stakeInfo.stake ||
-                Boolean(
-                  minDelegatorStake && newStake && newStake < minDelegatorStake
-                )
-              }
-            />
-          )}
-        </td>
+        <td></td>
+
         <td></td>
         <td></td>
       </tr>
-      {editStake && <UnstakeRow handleUnstake={handleUnstake} />}
-      {editStake && isVisible && newStake !== undefined && (
+      <UnstakeRow handleUnstake={handleUnstake} />
+      {isVisible && (
         <StakeModal
           collatorAddress={collator}
-          newStake={newStake}
+          newStake={0}
           status={getStatus(newStake, stakeInfo.stake)}
           closeModal={hideModal}
           onConfirm={handleStake}

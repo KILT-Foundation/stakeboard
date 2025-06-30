@@ -1715,10 +1715,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@kiltprotocol/augment-api@1.11502.0-peregrine-rc.1":
-  version "1.11502.0-peregrine-rc.1"
-  resolved "https://registry.yarnpkg.com/@kiltprotocol/augment-api/-/augment-api-1.11502.0-peregrine-rc.1.tgz#b2999c32b1f1eacbccd7fd51e79e11a258fc7a66"
-  integrity sha512-VsvkRaGUWAn0Ep/KQ+ULo+u+VlMYqfLD0hr+LfEKiCysM/E51lfA6bezpVaoEqM3tfvbM2YFrikjUiVEHFjQJQ==
+"@kiltprotocol/augment-api@1.11504.0-rc.1":
+  version "1.11504.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@kiltprotocol/augment-api/-/augment-api-1.11504.0-rc.1.tgz#418c5b5ddae81489b33c7925e97b9b44aba68b3d"
+  integrity sha512-e3/Yw9dsL2zmgqOYVqYmYzqFXrG4lu8EU3+CWucK2fF7H7A9fsNS5QRfos9/YeThsYqEyI/YjZnTrUZHYglMeg==
   optionalDependencies:
     "@typescript-eslint/eslint-plugin" "^7.0.2"
     "@typescript-eslint/parser" "^7.0.2"
@@ -1726,10 +1726,10 @@
     eslint "^8.57.0"
     eslint-plugin-unused-imports "^3.1.0"
 
-"@kiltprotocol/type-definitions@^1.11502.0":
-  version "1.11502.0"
-  resolved "https://registry.yarnpkg.com/@kiltprotocol/type-definitions/-/type-definitions-1.11502.0.tgz#17167dc6ec2da64b325c36553904c76b3ccc8e7f"
-  integrity sha512-T6+xVs8uV3jsl+6q7hEwwaNf8wEVoUJnepRBuEanKaUJX1sWyvRULAFjWVceU8eS4+8gT9ORC6KGKlyZnQp4kg==
+"@kiltprotocol/type-definitions@1.11502.1-rc.1":
+  version "1.11502.1-rc.1"
+  resolved "https://registry.yarnpkg.com/@kiltprotocol/type-definitions/-/type-definitions-1.11502.1-rc.1.tgz#2dd604b0f09c3df117bf01625a83dbaa089c318a"
+  integrity sha512-hrbxuLBOOKut5hTvQ3fH40q+wA6KqIJdgnuk6pWzwZblIfUUm0NZpgDFjowaYy7+jLTneH1CwZL1ejkcVXwg+Q==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
@@ -5470,9 +5470,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001335, caniuse-lite@^1.0.30001359:
-  version "1.0.30001443"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001443.tgz#8fc85f912d5471c9821acacf9e715c421ca0dd1f"
-  integrity sha512-jUo8svymO8+Mkj3qbUbVjR8zv8LUGpGkUM/jKvc9SO2BvjCI980dp9fQbf/dyLs6RascPzgR4nhAKFA4OHeSaA==
+  version "1.0.30001722"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001722.tgz"
+  integrity sha512-DCQHBBZtiK6JVkAGw7drvAMK0Q0POD/xZvEmDp6baiMMP6QXXk9HpD6mNYBZWhOPG6LvIDb82ITqtWjhDckHCA==
 
 capture-exit@^2.0.0:
   version "2.0.0"
