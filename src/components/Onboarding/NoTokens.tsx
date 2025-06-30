@@ -11,7 +11,7 @@ export const NoTokens: React.FC = () => {
       <span className={styles.highlighted}>Hey Staker,</span>
       <p className={styles.text}>Welcome to Stakeboard!</p>
       <p className={styles.text}>
-        KILT has ended an Era of Staking and is now time to unlock your stake!
+        KILT has ended an era of Staking and is now time to unlock your stake!
         The KILT token is migrating to a new contract on Base, please refer to
         the
         <a
